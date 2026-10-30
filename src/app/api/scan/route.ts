@@ -77,7 +77,6 @@ export async function POST(req: NextRequest) {
         { status: 400 }
       );
     }
-    
 
     const targetUrl = validation.data.url;
     const urlObj = new URL(
@@ -94,12 +93,16 @@ export async function POST(req: NextRequest) {
       );
     }
 
-    // Ejecución de auditoría pasiva
+    // 1. Ejecución de auditoría pasiva perimetral
     const auditResult = await scanFull(urlObj.toString());
 
-    // Remediación de seguridad con IA
+    // 2. Remediación asistida por IA
     const missingHeaders = auditResult.headers.filter((h) => !h.present);
-    const remediations = await generateRemediation(missingHeaders, auditResult.ssl);
+    const remediations = await generateRemediation(
+      targetUrl,
+      missingHeaders,
+      auditResult.isHyperscale ?? false
+    );
 
     const endTime = performance.now();
     const durationMs = Math.round(endTime - startTime);
@@ -112,7 +115,7 @@ export async function POST(req: NextRequest) {
       telemetry: {
         durationMs,
         aiModel: process.env.GEMINI_API_KEY ? 'gemini-2.5-flash' : 'static-heuristics-engine',
-        targetResolvedIp: validationResult.ip,
+        targetResolvedIp: validationResult.ip || '0.0.0.0',
         engineVersion: 'v1.2.0-cloud',
       },
     };

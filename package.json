@@ -3,7 +3,7 @@
   "version": "0.1.0",
   "private": false,
 "license": "MIT",
-  "author": "Karol Martin Castillo Rojas <castillo.karol96@gmail.com>",
+  "author": "Martin C.<castillo.karol96@gmail.com>",
   "scripts": {
     "dev": "next dev",
     "build": "next build",

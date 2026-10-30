@@ -1,8 +1,20 @@
 'use client';
 
-import { useState } from 'react';
-import { RemediationItem } from '@/lib/ai/remediation';
-import { Wrench, Check, Copy, AlertTriangle, ShieldCheck } from 'lucide-react';
+import React, { useState } from 'react';
+
+export interface RemediationItem {
+  header?: string;
+  headerName?: string;
+  severity: 'Crítica' | 'Alta' | 'Media' | 'Baja';
+  impact?: string;
+  description: string;
+  fix?: string | Record<string, string>;
+  snippets?: {
+    nginx?: string;
+    apache?: string;
+    express?: string;
+  };
+}
 
 interface Props {
   items: RemediationItem[];
@@ -10,34 +22,32 @@ interface Props {
 
 export default function RemediationList({ items }: Props) {
   const [activeTabs, setActiveTabs] = useState<Record<number, 'nginx' | 'apache' | 'express'>>({});
-  const [copiedIndex, setCopiedIndex] = useState<number | null>(null);
+  const [copiedIdx, setCopiedIdx] = useState<number | null>(null);
 
-  const getSeverityBadge = (severity: RemediationItem['severity']) => {
+  if (!items || items.length === 0) return null;
+
+  const handleCopy = (code: string, idx: number) => {
+    navigator.clipboard.writeText(code);
+    setCopiedIdx(idx);
+    setTimeout(() => setCopiedIdx(null), 2000);
+  };
+
+  const getSeverityBadge = (severity: string) => {
     switch (severity) {
       case 'Crítica':
-        return 'bg-rose-950 text-rose-300 border-rose-800';
       case 'Alta':
-        return 'bg-orange-950 text-orange-300 border-orange-800';
+        return 'text-rose-400 bg-rose-950/40 border-rose-800/50';
       case 'Media':
-        return 'bg-amber-950 text-amber-300 border-amber-800';
+        return 'text-amber-400 bg-amber-950/40 border-amber-800/50';
       default:
-        return 'bg-slate-800 text-slate-300 border-slate-700';
+        return 'text-emerald-400 bg-emerald-950/40 border-emerald-800/50';
     }
   };
 
-  const handleCopy = (code: string, index: number) => {
-    navigator.clipboard.writeText(code);
-    setCopiedIndex(index);
-    setTimeout(() => setCopiedIndex(null), 2000);
-  };
-
   return (
-    <div className="bg-slate-900 border border-slate-800 rounded-2xl p-6 shadow-xl space-y-6">
-      <div className="flex items-center justify-between border-b border-slate-800 pb-4">
-        <div className="flex items-center gap-2">
-          <Wrench className="w-5 h-5 text-indigo-400" />
-          <h3 className="text-lg font-bold text-slate-100">Parches y Remediación con IA</h3>
-        </div>
+    <div className="space-y-4">
+      <div className="flex items-center justify-between">
+        <h3 className="text-lg font-bold text-slate-100">Parches y Remediación con IA</h3>
         <span className="text-xs font-mono text-slate-400">
           {items.length} {items.length === 1 ? 'vulnerabilidad detectada' : 'vulnerabilidades detectadas'}
         </span>
@@ -45,68 +55,55 @@ export default function RemediationList({ items }: Props) {
 
       <div className="space-y-4">
         {items.map((item, idx) => {
-          const currentTab = activeTabs[idx] || 'nginx';
-          const currentCode = item.fix[currentTab] || '# No disponible';
+          type ServerType = 'nginx' | 'apache' | 'express';
+          const currentTab = (activeTabs[idx] || 'nginx') as ServerType;
+
+          const snippetObj = item.snippets || (typeof item.fix === 'object' ? item.fix : null);
+          const currentCode =
+            snippetObj?.[currentTab] ||
+            (typeof item.fix === 'string' ? item.fix : '# Configuración defensiva recomendada');
+
+          const title = item.headerName || item.header || 'Directiva OWASP';
 
           return (
             <div key={idx} className="bg-slate-950 border border-slate-800/80 rounded-xl p-4 space-y-3">
               <div className="flex flex-wrap items-center justify-between gap-2">
                 <div className="flex items-center gap-2">
-                  <span className="font-mono font-semibold text-sm text-slate-200">
-                    {item.headerName}
-                  </span>
+                  <span className="font-mono font-semibold text-sm text-slate-200">{title}</span>
                   <span className={`text-[10px] uppercase font-bold px-2 py-0.5 rounded border ${getSeverityBadge(item.severity)}`}>
                     {item.severity}
                   </span>
                 </div>
-              </div>
 
-              <p className="text-xs text-slate-400 leading-relaxed">
-                {item.impact}
-              </p>
-
-              {/* Selector de servidor */}
-              <div className="flex items-center justify-between pt-2">
-                <div className="flex gap-1 bg-slate-900 p-1 rounded-lg border border-slate-800">
-                  {(['nginx', 'apache', 'express'] as const).map((tab) => (
+                <div className="flex items-center gap-1 bg-slate-900 border border-slate-800 rounded p-0.5 text-xs font-mono">
+                  {(['nginx', 'apache', 'express'] as ServerType[]).map((tab) => (
                     <button
                       key={tab}
-                      type="button"
                       onClick={() => setActiveTabs((prev) => ({ ...prev, [idx]: tab }))}
-                      className={`px-2.5 py-1 text-xs font-mono rounded capitalize transition cursor-pointer ${
-                        currentTab === tab
-                          ? 'bg-indigo-600 text-white font-semibold'
-                          : 'text-slate-400 hover:text-slate-200'
+                      className={`px-2 py-0.5 rounded transition ${
+                        currentTab === tab ? 'bg-indigo-600 text-white font-semibold' : 'text-slate-400 hover:text-slate-200'
                       }`}
                     >
                       {tab}
                     </button>
                   ))}
                 </div>
-
-                <button
-                  type="button"
-                  onClick={() => handleCopy(currentCode, idx)}
-                  className="flex items-center gap-1.5 text-xs text-slate-400 hover:text-slate-200 bg-slate-900 hover:bg-slate-800 border border-slate-800 px-2.5 py-1.5 rounded-lg transition cursor-pointer"
-                >
-                  {copiedIndex === idx ? (
-                    <>
-                      <Check className="w-3.5 h-3.5 text-emerald-400" />
-                      <span className="text-emerald-400">Copiado</span>
-                    </>
-                  ) : (
-                    <>
-                      <Copy className="w-3.5 h-3.5" />
-                      <span>Copiar</span>
-                    </>
-                  )}
-                </button>
               </div>
 
-              {/* Snippet de código */}
-              <pre className="bg-slate-900/90 text-indigo-300 text-xs p-3 rounded-lg overflow-x-auto font-mono border border-slate-800/60">
-                <code>{currentCode}</code>
-              </pre>
+              <p className="text-xs text-slate-400 leading-relaxed">{item.description}</p>
+              {item.impact && <p className="text-xs text-slate-500 italic">Impacto: {item.impact}</p>}
+
+              <div className="relative group">
+                <pre className="bg-slate-900 border border-slate-800 rounded p-3 text-xs font-mono text-emerald-400 overflow-x-auto">
+                  <code>{currentCode}</code>
+                </pre>
+                <button
+                  onClick={() => handleCopy(currentCode, idx)}
+                  className="absolute top-2 right-2 px-2 py-1 bg-slate-800 hover:bg-slate-700 text-slate-300 text-[11px] font-mono rounded transition opacity-80 group-hover:opacity-100"
+                >
+                  {copiedIdx === idx ? 'Copiado!' : 'Copiar'}
+                </button>
+              </div>
             </div>
           );
         })}

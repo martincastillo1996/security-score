@@ -1,6 +1,6 @@
 import * as tls from 'tls';
 import { URL } from 'url';
-import { HeaderScanOutput } from './headerScanner';
+import { scanHeaders, HeaderScanOutput } from './headerScanner';
 
 export interface SslScanResult {
   valid: boolean;
@@ -9,6 +9,7 @@ export interface SslScanResult {
   validTo: string;
   daysRemaining: number;
   protocol: string;
+  score: number;
   error?: string;
 }
 
@@ -17,6 +18,7 @@ export interface FullAuditResult {
   score: number;
   grade: 'A+' | 'A' | 'B' | 'C' | 'F';
   scannedAt: string;
+  isHyperscale: boolean; // <-- Debe estar declarada aquí
   headers: HeaderScanOutput['headers'];
   ssl: SslScanResult;
 }
@@ -48,6 +50,7 @@ export async function scanSsl(targetUrl: string): Promise<SslScanResult> {
               validTo: '',
               daysRemaining: 0,
               protocol,
+              score: 0,
               error: 'No se obtuvo certificado del servidor.',
             });
             return;
@@ -59,7 +62,6 @@ export async function scanSsl(targetUrl: string): Promise<SslScanResult> {
           const daysRemaining = Math.max(0, Math.ceil(diffTime / (1000 * 60 * 60 * 24)));
           const isValid = socket.authorized && daysRemaining > 0;
 
-          // Función auxiliar para normalizar string o string[] a string plano
           const normalizeField = (field: string | string[] | undefined): string => {
             if (Array.isArray(field)) return field.join(' ');
             return typeof field === 'string' ? field : '';
@@ -74,6 +76,12 @@ export async function scanSsl(targetUrl: string): Promise<SslScanResult> {
             issuerName = rawIssuer;
           }
 
+          let sslScore = 0;
+          if (isValid) sslScore += 60;
+          if (protocol === 'TLSv1.3') sslScore += 30;
+          else if (protocol === 'TLSv1.2') sslScore += 20;
+          if (daysRemaining > 30) sslScore += 10;
+
           socket.destroy();
 
           resolve({
@@ -83,6 +91,7 @@ export async function scanSsl(targetUrl: string): Promise<SslScanResult> {
             validTo: cert.valid_to,
             daysRemaining,
             protocol,
+            score: sslScore,
           });
         }
       );
@@ -96,6 +105,7 @@ export async function scanSsl(targetUrl: string): Promise<SslScanResult> {
           validTo: '',
           daysRemaining: 0,
           protocol: 'None',
+          score: 0,
           error: err.message,
         });
       });
@@ -109,6 +119,7 @@ export async function scanSsl(targetUrl: string): Promise<SslScanResult> {
           validTo: '',
           daysRemaining: 0,
           protocol: 'None',
+          score: 0,
           error: 'Conexión SSL agotada por tiempo de espera.',
         });
       });
@@ -120,8 +131,27 @@ export async function scanSsl(targetUrl: string): Promise<SslScanResult> {
         validTo: '',
         daysRemaining: 0,
         protocol: 'None',
+        score: 0,
         error: e instanceof Error ? e.message : 'Error inesperado al evaluar SSL.',
       });
     }
   });
+}
+
+export async function scanFull(targetUrl: string): Promise<FullAuditResult> {
+  const [headerOutput, sslOutput] = await Promise.all([
+    scanHeaders(targetUrl),
+    scanSsl(targetUrl),
+  ]);
+
+  return {
+    url: targetUrl,
+    score: headerOutput.score,
+    grade: headerOutput.grade,
+    scannedAt: new Date().toISOString(),
+    isHyperscale: headerOutput.isHyperscale, // <-- Debe asignarse aquí
+    headers: headerOutput.headers,
+    ssl: sslOutput,
+  };
+
 }

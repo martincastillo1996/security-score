@@ -19,3 +19,12 @@ AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
 LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
 OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 SOFTWARE.
+
+---
+
+### 4. Checklist final de despliegue a AWS Amplify
+
+1. Abre la consola de **AWS Amplify** en tu navegador.
+2. Vincula el repositorio `martincastillo1996/security-score` en la rama `main`.
+3. Declara en las variables de entorno de Amplify la clave `GEMINI_API_KEY` con tu token de Google AI Studio.
+4. Inicia el despliegue automático; Amplify ejecutará `npm run build` y publicará la aplicación bajo un subdominio global seguro con HTTPS.

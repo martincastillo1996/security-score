@@ -1,149 +1,104 @@
-import { GoogleGenAI, Type } from '@google/genai';
+import { GoogleGenAI } from '@google/genai';
 import { HeaderResult } from '../scanner/headerScanner';
-import { SslScanResult } from '../scanner/sslScanner';
 
-export interface RemediationItem {
-  headerName: string;
-  severity: 'Crítica' | 'Alta' | 'Media' | 'Baja';
-  impact: string;
-  fix: {
-    nginx: string;
-    apache: string;
-    express: string;
-  };
+export interface RemediationSnippets {
+  nginx: string;
+  apache: string;
+  express: string;
 }
 
-// Fallback estático inmediato si no hay API Key o si ocurre un error de cuota/red
-const STATIC_FALLBACKS: Record<string, RemediationItem> = {
-  'content-security-policy': {
-    headerName: 'Content-Security-Policy',
-    severity: 'Alta',
-    impact: 'Protege contra Cross-Site Scripting (XSS) e inyección no autorizada de scripts.',
-    fix: {
-      nginx: "add_header Content-Security-Policy \"default-src 'self'; script-src 'self'; style-src 'self' 'unsafe-inline';\" always;",
-      apache: "Header set Content-Security-Policy \"default-src 'self'; script-src 'self'; style-src 'self' 'unsafe-inline';\"",
-      express: "app.use(helmet.contentSecurityPolicy()); // o res.setHeader('Content-Security-Policy', \"default-src 'self'\");",
-    },
-  },
-  'strict-transport-security': {
-    headerName: 'Strict-Transport-Security',
-    severity: 'Alta',
-    impact: 'Fuerza conexiones HTTPS y evita ataques de degradación de cifrado (SSL Stripping).',
-    fix: {
-      nginx: "add_header Strict-Transport-Security \"max-age=31536000; includeSubDomains; preload\" always;",
-      apache: "Header always set Strict-Transport-Security \"max-age=31536000; includeSubDomains; preload\"",
-      express: "res.setHeader('Strict-Transport-Security', 'max-age=31536000; includeSubDomains; preload');",
-    },
-  },
-  'x-frame-options': {
-    headerName: 'X-Frame-Options',
-    severity: 'Media',
-    impact: 'Evita ataques de Clickjacking impidiendo que la web sea embebida en iframes externos.',
-    fix: {
-      nginx: "add_header X-Frame-Options \"SAMEORIGIN\" always;",
-      apache: "Header always set X-Frame-Options \"SAMEORIGIN\"",
-      express: "res.setHeader('X-Frame-Options', 'SAMEORIGIN');",
-    },
-  },
-  'x-content-type-options': {
-    headerName: 'X-Content-Type-Options',
-    severity: 'Media',
-    impact: 'Impide que los navegadores interpreten archivos como un tipo MIME diferente (MIME sniffing).',
-    fix: {
-      nginx: "add_header X-Content-Type-Options \"nosniff\" always;",
-      apache: "Header always set X-Content-Type-Options \"nosniff\"",
-      express: "res.setHeader('X-Content-Type-Options', 'nosniff');",
-    },
-  },
-  'referrer-policy': {
-    headerName: 'Referrer-Policy',
-    severity: 'Baja',
-    impact: 'Evita la fuga de parámetros de URLs sensibles al navegar a sitios externos.',
-    fix: {
-      nginx: "add_header Referrer-Policy \"strict-origin-when-cross-origin\" always;",
-      apache: "Header always set Referrer-Policy \"strict-origin-when-cross-origin\"",
-      express: "res.setHeader('Referrer-Policy', 'strict-origin-when-cross-origin');",
-    },
-  },
-  'permissions-policy': {
-    headerName: 'Permissions-Policy',
-    severity: 'Baja',
-    impact: 'Bloquea el uso de hardware local sensible como geolocalización, cámara y micrófono.',
-    fix: {
-      nginx: "add_header Permissions-Policy \"geolocation=(), camera=(), microphone=()\" always;",
-      apache: "Header always set Permissions-Policy \"geolocation=(), camera=(), microphone=()\"",
-      express: "res.setHeader('Permissions-Policy', 'geolocation=(), camera=(), microphone=()');",
-    },
-  },
-};
+export interface RemediationItem {
+  header: string;
+  headerName: string; // Retrocompatibilidad para RemediationList.tsx
+  severity: 'Crítica' | 'Alta' | 'Media' | 'Baja';
+  impact?: string;    // Retrocompatibilidad para RemediationList.tsx
+  description: string;
+  fix: string;        // Snippet principal o directiva general
+  snippets: RemediationSnippets;
+}
+
+const ai = new GoogleGenAI({ apiKey: process.env.GEMINI_API_KEY || '' });
 
 export async function generateRemediation(
-  missingHeaders: HeaderResult[],
-  ssl: SslScanResult
+  targetUrl: string,
+  missingHeaders: HeaderResult[] | string,
+  isHyperscale: boolean = false
 ): Promise<RemediationItem[]> {
-  const apiKey = process.env.GEMINI_API_KEY;
-
-  if (missingHeaders.length === 0 && ssl.valid) {
-    return [];
+  // Manejo flexible si se recibe string o array de HeaderResult
+  let headersToAudit: string[] = [];
+  if (Array.isArray(missingHeaders)) {
+    headersToAudit = missingHeaders.map(h => h.name);
+  } else if (typeof missingHeaders === 'string') {
+    headersToAudit = missingHeaders.split(',').map(s => s.trim());
   }
 
-  // Si no hay API key configurada en .env.local, devuelve la solución predeterminada
-  if (!apiKey) {
-    return missingHeaders
-      .map((h) => STATIC_FALLBACKS[h.name.toLowerCase()])
-      .filter((item): item is RemediationItem => Boolean(item));
+  if (headersToAudit.length === 0) return [];
+
+  const contextInstruction = isHyperscale
+    ? `NOTA DE CONTEXTO: El dominio ${targetUrl} pertenece a una infraestructura de hiperescala global. Aclara en tus notas técnicas que la ausencia de cabeceras en páginas de inicio suele responder a decisiones de optimización de latencia y no a negligencia crítica.`
+    : '';
+
+  const prompt = `
+Eres un ingeniero senior de ciberseguridad defensiva y hardening perimetral.
+${contextInstruction}
+
+Analiza las siguientes cabeceras ausentes para el sitio: ${targetUrl}
+Cabeceras ausentes: ${headersToAudit.join(', ')}
+
+Genera una respuesta JSON pura (array de objetos) con exactamente esta estructura:
+[
+  {
+    "header": "Nombre de cabecera",
+    "severity": "Crítica" | "Alta" | "Media" | "Baja",
+    "description": "Explicación concisa del riesgo y contexto",
+    "impact": "Impacto operativo o perimetral",
+    "snippets": {
+      "nginx": "directiva exacta de nginx",
+      "apache": "directiva exacta de apache",
+      "express": "directiva exacta de express/helmet"
+    }
   }
+]
+No agregues bloques markdown de código (\`\`\`json), únicamente la cadena JSON pura.
+`;
 
   try {
-    const ai = new GoogleGenAI({ apiKey });
-
-    const prompt = `Analiza las siguientes cabeceras de seguridad ausentes en una auditoría web pasiva:
-Cabeceras ausentes: ${JSON.stringify(missingHeaders.map((h) => h.name))}
-Estado SSL: ${ssl.valid ? 'Válido' : 'Inválido/Inseguro'}
-
-Genera soluciones técnicas de remediación directas en formato JSON estrictamente para entornos de producción.`;
-
     const response = await ai.models.generateContent({
       model: 'gemini-2.5-flash',
       contents: prompt,
-      config: {
-        responseMimeType: 'application/json',
-        responseSchema: {
-          type: Type.ARRAY,
-          items: {
-            type: Type.OBJECT,
-            properties: {
-              headerName: { type: Type.STRING },
-              severity: {
-                type: Type.STRING,
-                enum: ['Crítica', 'Alta', 'Media', 'Baja'],
-              },
-              impact: { type: Type.STRING },
-              fix: {
-                type: Type.OBJECT,
-                properties: {
-                  nginx: { type: Type.STRING },
-                  apache: { type: Type.STRING },
-                  express: { type: Type.STRING },
-                },
-                required: ['nginx', 'apache', 'express'],
-              },
-            },
-            required: ['headerName', 'severity', 'impact', 'fix'],
-          },
-        },
-      },
     });
 
-    if (!response.text) {
-      throw new Error('Sin respuesta del modelo.');
-    }
+    const text = response.text?.trim() || '[]';
+    const cleanedText = text.replace(/^```json/, '').replace(/```$/, '').trim();
+    const parsed = JSON.parse(cleanedText);
 
-    return JSON.parse(response.text) as RemediationItem[];
-  } catch {
-    // Si la cuota se agota o falla la red, el usuario no se queda sin respuesta
-    return missingHeaders
-      .map((h) => STATIC_FALLBACKS[h.name.toLowerCase()])
-      .filter((item): item is RemediationItem => Boolean(item));
+    return parsed.map((item: any) => ({
+      header: item.header,
+      headerName: item.header,
+      severity: item.severity || 'Media',
+      impact: item.impact || 'Exposición a ataques perimetrales en clientes web.',
+      description: item.description,
+      fix: item.snippets?.nginx || `add_header ${item.header} "default" always;`,
+      snippets: {
+        nginx: item.snippets?.nginx || `add_header ${item.header} "default" always;`,
+        apache: item.snippets?.apache || `Header always set ${item.header} "default"`,
+        express: item.snippets?.express || `res.setHeader('${item.header}', 'default');`,
+      },
+    }));
+  } catch (error) {
+    console.error('Error generando remediación con IA:', error);
+    return headersToAudit.map((name) => ({
+      header: name,
+      headerName: name,
+      severity: name.includes('content-security-policy') ? 'Crítica' : 'Alta',
+      impact: 'Exposición potencial ante vectores XSS o inyección de código.',
+      description: `Implementar cabecera defensiva ${name} según lineamientos OWASP.`,
+      fix: `add_header ${name} "default" always;`,
+      snippets: {
+        nginx: `add_header ${name} "default" always;`,
+        apache: `Header always set ${name} "default"`,
+        express: `res.setHeader('${name}', 'default');`,
+      },
+    }));
   }
 }
