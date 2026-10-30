@@ -1,7 +1,9 @@
 {
   "name": "security-score",
   "version": "0.1.0",
-  "private": true,
+  "private": false,
+"license": "MIT",
+  "author": "Karol Martin Castillo Rojas <castillo.karol96@gmail.com>",
   "scripts": {
     "dev": "next dev",
     "build": "next build",
