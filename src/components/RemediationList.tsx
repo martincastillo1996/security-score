@@ -2,6 +2,12 @@
 
 import React, { useState } from 'react';
 
+export interface RemediationSnippets {
+  nginx: string;
+  apache: string;
+  express: string;
+}
+
 export interface RemediationItem {
   header?: string;
   headerName?: string;
@@ -9,11 +15,7 @@ export interface RemediationItem {
   impact?: string;
   description: string;
   fix?: string | Record<string, string>;
-  snippets?: {
-    nginx?: string;
-    apache?: string;
-    express?: string;
-  };
+  snippets?: RemediationSnippets;
 }
 
 interface Props {
