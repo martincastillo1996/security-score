@@ -2,7 +2,7 @@
   "name": "security-score",
   "version": "0.1.0",
   "private": false,
-"license": "MIT",
+  "license": "MIT",
   "author": "Martin C.<castillo.karol96@gmail.com>",
   "scripts": {
     "dev": "next dev",
@@ -12,7 +12,7 @@
   },
   "dependencies": {
     "@google/genai": "^2.32.0",
-    "lucide-react": "^1.64.0",
+    "lucide-react": "^1.65.0",
     "next": "16.4.3",
     "react": "19.3.0",
     "react-dom": "19.3.0",
