@@ -1,12 +1,15 @@
 export interface HeaderCheckItem {
   header: string;
-  name?: string;
+  name: string;
   status: 'pass' | 'fail' | 'missing';
   present: boolean;
   value: string | null;
   severity: 'ALTA' | 'MEDIA' | 'BAJA';
   description: string;
 }
+
+// Tipo individual de cabecera esperado por HeaderResults.tsx y remediation.ts
+export type HeaderResult = HeaderCheckItem;
 
 export interface HeaderScanResult {
   headers: HeaderCheckItem[];
@@ -52,7 +55,6 @@ export async function scanHeaders(targetUrl: string): Promise<HeaderScanResult> 
   let responseHeaders: Headers | null = null;
 
   try {
-    // 1. Defensas: Timeout de 4s contra Slowloris y redirect 'manual' contra SSRF por rebote
     const response = await fetch(targetUrl, {
       method: 'GET',
       redirect: 'manual',
