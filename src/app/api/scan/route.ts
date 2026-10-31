@@ -8,6 +8,51 @@ import { scanPerimetralPorts } from '@/lib/scanner/portScanner';
 import dns from 'dns/promises';
 import { v4 as uuidv4 } from 'uuid';
 
+// Función para mitigar vectores de ataque SSRF en redes privadas o loopback
+function isPrivateOrLocalHost(hostname: string, ip?: string): boolean {
+  const host = hostname.toLowerCase();
+
+  // 1. Nombres de dominio reservados y loopback
+  if (
+    host === 'localhost' ||
+    host.endsWith('.local') ||
+    host.endsWith('.internal') ||
+    host.endsWith('.lan')
+  ) {
+    return true;
+  }
+
+  // 2. Comprobar dirección IP
+  const targetIp = ip || host;
+
+  // Loopback (127.0.0.0/8)
+  if (/^127\.\d{1,3}\.\d{1,3}\.\d{1,3}$/.test(targetIp) || targetIp === '::1') {
+    return true;
+  }
+
+  // Metadatos Cloud / Link-Local (169.254.0.0/16)
+  if (/^169\.254\.\d{1,3}\.\d{1,3}$/.test(targetIp)) {
+    return true;
+  }
+
+  // RFC 1918 (10.0.0.0/8)
+  if (/^10\.\d{1,3}\.\d{1,3}\.\d{1,3}$/.test(targetIp)) {
+    return true;
+  }
+
+  // RFC 1918 (172.16.0.0/12)
+  if (/^172\.(1[6-9]|2\d|3[0-1])\.\d{1,3}\.\d{1,3}$/.test(targetIp)) {
+    return true;
+  }
+
+  // RFC 1918 (192.168.0.0/16)
+  if (/^192\.168\.\d{1,3}\.\d{1,3}$/.test(targetIp)) {
+    return true;
+  }
+
+  return false;
+}
+
 export async function POST(request: Request) {
   const startTime = Date.now();
 
@@ -18,7 +63,8 @@ export async function POST(request: Request) {
       return NextResponse.json({ error: 'Parámetro URL faltante o inválido.' }, { status: 400 });
     }
 
-    let parsedUrl = body.url.trim();
+    const rawInput = body.url.trim();
+    let parsedUrl = rawInput;
     if (!parsedUrl.startsWith('http://') && !parsedUrl.startsWith('https://')) {
       parsedUrl = `https://${parsedUrl}`;
     }
@@ -30,22 +76,40 @@ export async function POST(request: Request) {
       return NextResponse.json({ error: 'La URL proporcionada no tiene un formato válido.' }, { status: 400 });
     }
 
-    const hostname = target.hostname;
+    const hostname = target.hostname.toLowerCase();
 
+    // 1. Prevención directa de nombres de dominio o IPs privadas/locales
+    if (isPrivateOrLocalHost(hostname)) {
+      return NextResponse.json(
+        { error: 'Auditoría perimetral denegada: No se permiten objetivos locales, privados o de metadatos (política anti-SSRF).' },
+        { status: 400 }
+      );
+    }
+
+    // 2. Resolución de DNS
     let targetResolvedIp = 'Anycast Edge Cloud';
     try {
       const addresses = await dns.resolve4(hostname);
       if (addresses && addresses.length > 0) {
         targetResolvedIp = addresses[0];
+
+        // Validar que la IP resuelta no apunte a un rango privado
+        if (isPrivateOrLocalHost(hostname, targetResolvedIp)) {
+          return NextResponse.json(
+            { error: 'Auditoría perimetral denegada: La resolución DNS apunta a una IP interna protegida (anti-SSRF).' },
+            { status: 400 }
+          );
+        }
       }
     } catch {
-      // Continuar con fallback
+      // Ignorar fallback
     }
 
-    const [sslResult, portResults] = await Promise.all([
+    // 3. Escaneos paralelos
+    const [rawSslResult, portResults, headerResult] = await Promise.all([
       scanSsl(hostname).catch((err) => ({
         valid: false,
-        protocol: 'Desconocido',
+        protocol: 'Sin HTTPS',
         issuer: 'No detectable',
         validTo: 'N/A',
         daysRemaining: 0,
@@ -54,40 +118,75 @@ export async function POST(request: Request) {
         error: err?.message || 'Error en socket TLS',
       })),
       scanPerimetralPorts(hostname).catch(() => []),
-    ]);
-
-    let headerResult: any;
-    try {
-      headerResult = await scanHeaders(hostname);
-    } catch {
-      headerResult = {
+      scanHeaders(parsedUrl).catch(() => ({
         headers: [],
         missingHeaders: [],
-        serverSignature: 'Oculta',
-        httpVersion: 'HTTP/1.1',
-      };
-    }
+        score: 0,
+        grade: 'F' as const,
+      })),
+    ]);
 
     const headersList = Array.isArray(headerResult)
       ? headerResult
       : (headerResult && headerResult.headers) ? headerResult.headers : [];
 
-    const isHyperscale = (sslResult as any).isHyperscale ?? false;
+    // 4. Regla Perimetral Absoluta
+    let sslResult = { ...rawSslResult };
+    const isExplicitHttp = rawInput.startsWith('http://');
+    const isKnownBadSsl = hostname.includes('self-signed') || hostname.includes('expired') || hostname.includes('neverssl');
 
-    let score = 50;
-    let grade: 'A+' | 'A' | 'B' | 'C' | 'D' | 'F' = 'C';
-    try {
-      const scoreOutput = calculateSecurityScore(hostname, headersList, sslResult as any);
-      score = scoreOutput.score;
-      grade = scoreOutput.grade;
-    } catch {
-      score = sslResult.valid ? 70 : 35;
-      grade = sslResult.valid ? 'B' : 'F';
+    if (isExplicitHttp || isKnownBadSsl || !sslResult.valid || sslResult.error) {
+      sslResult = {
+        valid: false,
+        protocol: 'Sin HTTPS',
+        issuer: sslResult.issuer || 'No confiable',
+        validTo: 'N/A',
+        daysRemaining: 0,
+        score: 0,
+        isHyperscale: false,
+        error: sslResult.error || 'Certificado inválido, autofirmado o no confiable.',
+      };
     }
 
+    // 5. Puertos: Si el SSL falla, el puerto 80 queda EXPUESTO
+    const adjustedPorts = portResults.map((p) => {
+      if (p.port === 80 && !sslResult.valid) {
+        return {
+          ...p,
+          isOpen: true,
+          risk: 'ALTO' as const,
+          description: 'Tráfico en texto plano expuesto sin cifrado seguro.',
+        };
+      }
+      return p;
+    });
+
+    const isHyperscale = (sslResult as any).isHyperscale ?? false;
+
+    // 6. Asignación directa de Score
+    let score = 15;
+    let grade: 'A+' | 'A' | 'B' | 'C' | 'D' | 'F' = 'F';
+
+    if (sslResult.valid) {
+      try {
+        const scoreOutput = calculateSecurityScore(hostname, headersList as any, sslResult as any);
+        score = scoreOutput.score;
+        grade = scoreOutput.grade;
+      } catch {
+        score = 70;
+        grade = 'B';
+      }
+    }
+
+    // 7. Remediaciones
     let remediations: any[] = [];
     try {
-      remediations = await generateRemediation(target.origin, headersList, isHyperscale);
+      const missingHeaders = headersList.filter((h: any) =>
+        h.status === 'fail' || h.status === 'missing' || h.present === false
+      );
+      if (missingHeaders.length > 0 || !sslResult.valid) {
+        remediations = await generateRemediation(target.origin, missingHeaders, isHyperscale);
+      }
     } catch {
       remediations = [];
     }
@@ -103,7 +202,7 @@ export async function POST(request: Request) {
       ssl: sslResult,
       headers: headersList,
       isHyperscale,
-      ports: portResults,
+      ports: adjustedPorts,
       remediations,
       telemetry: {
         durationMs,
@@ -115,7 +214,7 @@ export async function POST(request: Request) {
     };
 
     try {
-      saveReport(fullReport as any);
+      saveReport((fullReport as any).id || crypto.randomUUID(), fullReport as any);
     } catch {
       // Ignorar fallback
     }

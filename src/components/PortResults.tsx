@@ -1,7 +1,7 @@
 'use client';
 
 import { PortCheckResult } from '@/lib/scanner/portScanner';
-import { Server, ShieldAlert, ShieldCheck, ArrowRightLeft } from 'lucide-react';
+import { Server, ShieldAlert, ShieldCheck, ArrowRightLeft, GitBranch } from 'lucide-react';
 
 interface PortResultsProps {
   ports?: PortCheckResult[];
@@ -25,27 +25,39 @@ export default function PortResults({ ports }: PortResultsProps) {
       <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-3">
         {ports.map((p) => {
           const isPort80 = p.port === 80;
+          const isGitSsh = p.port === 22 && p.risk === 'BAJO';
+
+          let cardClasses = 'bg-white/5 border-white/5 text-slate-300';
+          if (p.isOpen) {
+            if (isPort80) {
+              cardClasses = 'bg-amber-950/20 border-amber-500/40 text-amber-200';
+            } else if (isGitSsh) {
+              cardClasses = 'bg-blue-950/20 border-blue-500/40 text-blue-200';
+            } else {
+              cardClasses = 'bg-rose-950/30 border-rose-800/60 text-rose-200';
+            }
+          }
 
           return (
             <div
               key={p.port}
-              className={`p-3 rounded-xl border flex flex-col justify-between transition-all ${
-                p.isOpen
-                  ? isPort80
-                    ? 'bg-amber-950/20 border-amber-500/40 text-amber-200'
-                    : 'bg-rose-950/30 border-rose-800/60 text-rose-200'
-                  : 'bg-white/5 border-white/5 text-slate-300'
-              }`}
+              className={`p-3 rounded-xl border flex flex-col justify-between transition-all ${cardClasses}`}
             >
               <div className="flex items-center justify-between">
                 <span className="font-mono text-xs font-bold">
                   Puerto {p.port} &bull; {p.service}
                 </span>
+
                 {p.isOpen ? (
                   isPort80 ? (
                     <span className="inline-flex items-center gap-1 text-[10px] font-bold text-amber-400">
                       <ArrowRightLeft className="w-3 h-3" />
                       REDIRECCIÓN (HTTP)
+                    </span>
+                  ) : isGitSsh ? (
+                    <span className="inline-flex items-center gap-1 text-[10px] font-bold text-blue-400">
+                      <GitBranch className="w-3 h-3" />
+                      OPERATIVO (GIT SSH)
                     </span>
                   ) : (
                     <span className="inline-flex items-center gap-1 text-[10px] font-bold text-rose-400">
@@ -60,6 +72,7 @@ export default function PortResults({ ports }: PortResultsProps) {
                   </span>
                 )}
               </div>
+
               <p className="text-[10px] text-slate-400 mt-2 leading-tight">
                 {isPort80 && p.isOpen
                   ? 'Abierto para capturar tráfico no seguro y redirigir hacia HTTPS.'

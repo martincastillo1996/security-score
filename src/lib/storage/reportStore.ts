@@ -1,24 +1,33 @@
-import { FullAuditResult } from '../scanner/sslScanner';
-import { RemediationItem } from '../ai/remediation';
+import { PortCheckResult } from '@/lib/scanner/portScanner';
 
-export interface AuditReportRecord extends FullAuditResult {
-  id: string;
-  remediations: RemediationItem[];
-  telemetry: {
-    durationMs: number;
-    aiModel: string;
-    targetResolvedIp?: string;
-    engineVersion: string;
-  };
+export interface AuditReportRecord {
+  id?: string;
+  url: string;
+  score: number;
+  grade: string;
+  ssl?: any;
+  headers?: any[];
+  ports?: PortCheckResult[] | any[];
+  remediations?: any[];
+  telemetry?: any;
+  scannedAt?: string;
+  [key: string]: any;
 }
 
-// Almacén en memoria global para el ciclo de vida del servidor
-const globalReportStore = new Map<string, AuditReportRecord>();
+const globalForReports = globalThis as unknown as {
+  __reportsMap?: Map<string, AuditReportRecord>;
+};
 
-export function saveReport(report: AuditReportRecord): void {
-  globalReportStore.set(report.id, report);
+if (!globalForReports.__reportsMap) {
+  globalForReports.__reportsMap = new Map<string, AuditReportRecord>();
 }
 
-export function getReportById(id: string): AuditReportRecord | null {
-  return globalReportStore.get(id) || null;
+export const reportStore = globalForReports.__reportsMap;
+
+export function saveReport(id: string, report: AuditReportRecord): void {
+  reportStore.set(id, report);
+}
+
+export function getReportById(id: string): AuditReportRecord | undefined {
+  return reportStore.get(id);
 }

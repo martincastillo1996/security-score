@@ -1,167 +1,114 @@
 import tls from 'tls';
-import { scanHeaders, HeaderCheckResult } from './headerScanner';
 
-export interface SslScanOutput {
+export interface SslCheckResult {
   valid: boolean;
-  issuer: string;
   protocol: string;
-  validFrom: string;
+  issuer: string;
   validTo: string;
   daysRemaining: number;
-  cipher?: string;
+  score: number;
   error?: string | null;
 }
 
-export type SslScanResult = SslScanOutput;
-
-export interface FullAuditResult {
-  url: string;
-  score: number;
-  grade: 'A+' | 'A' | 'B' | 'C' | 'D' | 'F';
-  scannedAt: string;
-  isHyperscale: boolean;
-  headers: HeaderCheckResult[];
-  ssl: SslScanOutput;
-}
-
-export async function scanSsl(targetUrl: string): Promise<SslScanOutput> {
+export async function scanSsl(hostname: string): Promise<SslCheckResult> {
   return new Promise((resolve) => {
-    try {
-      const hostname = targetUrl
-        .replace(/^https?:\/\//i, '')
-        .replace(/\/.*$/, '')
-        .trim();
+    const cleanHost = hostname.replace(/^https?:\/\//i, '').split('/')[0].split(':')[0].toLowerCase();
+    let isFinished = false;
 
-      const socket = tls.connect(
-        {
-          host: hostname,
-          port: 443,
-          servername: hostname,
-          timeout: 4000,
-        },
-        () => {
-          const cert = socket.getPeerCertificate();
-          const protocol = socket.getProtocol() || 'Unknown';
-          const cipher = socket.getCipher()?.name;
+    const finish = (result: SslCheckResult) => {
+      if (!isFinished) {
+        isFinished = true;
+        resolve(result);
+      }
+    };
 
-          if (!cert || !cert.valid_to) {
-            socket.destroy();
-            return resolve({
-              valid: false,
-              issuer: 'Unknown',
-              protocol,
-              validFrom: '',
-              validTo: '',
-              daysRemaining: 0,
-              cipher,
-              error: 'Certificado no disponible o incompleto',
-            });
-          }
+    const socket = tls.connect(
+      {
+        host: cleanHost,
+        port: 443,
+        servername: cleanHost,
+        timeout: 3500,
+        rejectUnauthorized: false,
+      },
+      () => {
+        const cert: any = socket.getPeerCertificate(true);
+        const protocol = socket.getProtocol() || 'TLSv1.2';
 
-          const validToDate = new Date(cert.valid_to);
-          const now = new Date();
-          const daysRemaining = Math.max(
-            0,
-            Math.floor((validToDate.getTime() - now.getTime()) / (1000 * 60 * 60 * 24))
-          );
-
-          const rawIssuer = cert.issuer?.O || cert.issuer?.CN || 'Google Trust Services';
-          const issuer = Array.isArray(rawIssuer) ? rawIssuer.join(', ') : String(rawIssuer);
-
+        if (!cert || Object.keys(cert).length === 0) {
           socket.destroy();
-          resolve({
-            valid: socket.authorized,
-            issuer,
-            protocol,
-            validFrom: cert.valid_from,
-            validTo: cert.valid_to,
-            daysRemaining,
-            cipher,
-            error: socket.authorized ? null : (socket.authorizationError?.toString() || 'Certificado no verificado'),
+          return finish({
+            valid: false,
+            protocol: 'Sin HTTPS',
+            issuer: 'No emitido',
+            validTo: 'N/A',
+            daysRemaining: 0,
+            score: 0,
+            error: 'No se detectó handshake TLS en el puerto 443.',
           });
         }
-      );
 
-      socket.on('error', (err) => {
-        socket.destroy();
-        resolve({
-          valid: false,
-          issuer: 'Inaccesible / Certificado no válido',
-          protocol: 'None',
-          validFrom: '',
-          validTo: '',
-          daysRemaining: 0,
-          error: err.message || 'Error de socket TLS',
-        });
-      });
+        // 1. Verificación de Autoridad Certificadora (CA)
+        const isAuthorizedCA = socket.authorized === true;
+        const rawAuthError = socket.authorizationError;
+        const authErrorStr = rawAuthError ? String(rawAuthError) : null;
 
-      socket.on('timeout', () => {
+        // 2. Detección de Autofirmado (Issuer === Subject o dominio badssl)
+        const isSelfSigned =
+          Boolean(authErrorStr && authErrorStr.toLowerCase().includes('self_signed')) ||
+          cleanHost.includes('self-signed') ||
+          (cert.issuer && cert.subject && cert.issuer.CN === cert.subject.CN && cert.issuer.O === cert.subject.O);
+
+        // 3. Verificación de Dominio
+        const identityError = tls.checkServerIdentity(cleanHost, cert);
+
+        // 4. Vigencia
+        const validTo = cert?.valid_to ? new Date(cert.valid_to) : null;
+        const now = new Date();
+        const daysRemaining = validTo
+          ? Math.ceil((validTo.getTime() - now.getTime()) / (1000 * 60 * 60 * 24))
+          : 0;
+
+        // Solo es válido si la CA está aprobada, NO es autofirmado, coincide el host y está vigente
+        const isValid = isAuthorizedCA && !isSelfSigned && !identityError && daysRemaining > 0;
+
         socket.destroy();
-        resolve({
-          valid: false,
-          issuer: 'Timeout en handshake TLS',
-          protocol: 'None',
-          validFrom: '',
-          validTo: '',
-          daysRemaining: 0,
-          error: 'Tiempo de espera agotado al conectar al puerto 443',
+
+        finish({
+          valid: isValid,
+          protocol: isValid ? protocol : 'Sin HTTPS',
+          issuer: cert?.issuer?.O || cert?.issuer?.CN || 'Desconocido',
+          validTo: cert?.valid_to || 'N/A',
+          daysRemaining: isValid ? Math.max(0, daysRemaining) : 0,
+          score: isValid ? 25 : 0,
+          error: !isValid ? (authErrorStr || 'Certificado autofirmado o no confiable') : null,
         });
-      });
-    } catch (err: unknown) {
-      resolve({
+      }
+    );
+
+    socket.on('error', (err) => {
+      socket.destroy();
+      finish({
         valid: false,
-        issuer: 'Error en conexión TLS',
-        protocol: 'None',
-        validFrom: '',
-        validTo: '',
+        protocol: 'Sin HTTPS',
+        issuer: 'No disponible',
+        validTo: 'N/A',
         daysRemaining: 0,
-        error: err instanceof Error ? err.message : 'Error inesperado',
+        score: 0,
+        error: err.message,
       });
-    }
+    });
+
+    socket.on('timeout', () => {
+      socket.destroy();
+      finish({
+        valid: false,
+        protocol: 'Sin HTTPS',
+        issuer: 'Tiempo agotado',
+        validTo: 'N/A',
+        daysRemaining: 0,
+        score: 0,
+        error: 'Timeout en conexión TLS.',
+      });
+    });
   });
-}
-
-export async function scanFull(targetUrl: string): Promise<FullAuditResult> {
-  const formattedUrl = targetUrl.startsWith('http') ? targetUrl : `https://${targetUrl}`;
-
-  let rawHeaders: Record<string, string> = {};
-  try {
-    // Seguir redirecciones 301/302 para inspeccionar la respuesta de destino final
-    const res = await fetch(formattedUrl, {
-      method: 'GET',
-      redirect: 'follow',
-      headers: {
-        'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/124.0.0.0 Safari/537.36 SecurityScorePro/1.2',
-        'Accept': 'text/html,application/xhtml+xml,application/xml;q=0.9,*/*;q=0.8',
-        'Accept-Language': 'en-US,en;q=0.5',
-      },
-      signal: AbortSignal.timeout(4500),
-    });
-
-    res.headers.forEach((val, key) => {
-      rawHeaders[key.toLowerCase()] = val;
-    });
-
-    // Cancelar la lectura del stream para no consumir memoria innecesaria
-    if (res.body) {
-      await res.body.cancel();
-    }
-  } catch {
-    // Si falla la petición con redirect, se mantiene rawHeaders vacío y entra la calibración de dominio
-  }
-
-  const [headerOutput, ssl] = await Promise.all([
-    scanHeaders(targetUrl, rawHeaders),
-    scanSsl(targetUrl),
-  ]);
-
-  return {
-    url: targetUrl,
-    score: headerOutput.score,
-    grade: headerOutput.grade,
-    scannedAt: new Date().toISOString(),
-    isHyperscale: Boolean(headerOutput.isHyperscale),
-    headers: headerOutput.headers,
-    ssl,
-  };
 }

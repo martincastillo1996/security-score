@@ -39,3 +39,16 @@ yarn-error.log*
 # typescript
 *.tsbuildinfo
 next-env.d.ts
+
+# Ignorar dependencias y compilación
+node_modules
+.next
+out
+build
+dist
+
+# Variables de entorno y secretos
+.env*.local
+.env
+.DS_Store
+*.log

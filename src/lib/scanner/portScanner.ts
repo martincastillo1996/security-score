@@ -19,12 +19,10 @@ const CRITICAL_PORTS = [
 function checkPort(host: string, port: number, timeout = 600): Promise<boolean> {
   return new Promise((resolve) => {
     const socket = new net.Socket();
-    let isConnected = false;
 
     socket.setTimeout(timeout);
 
     socket.on('connect', () => {
-      isConnected = true;
       socket.destroy();
       resolve(true);
     });
@@ -44,8 +42,29 @@ function checkPort(host: string, port: number, timeout = 600): Promise<boolean> 
 }
 
 export async function scanPerimetralPorts(host: string): Promise<PortCheckResult[]> {
+  const isGitPlatform = host.includes('github.com') || host.includes('gitlab.com');
+
   const checks = CRITICAL_PORTS.map(async (item) => {
     const isOpen = await checkPort(host, item.port);
+
+    if (item.port === 22 && isOpen && isGitPlatform) {
+      return {
+        ...item,
+        isOpen,
+        risk: 'BAJO' as const,
+        description: 'Gestión de repositorios Git remotos mediante llave SSH pública autorizada.',
+      };
+    }
+
+    if (item.port === 80 && isOpen) {
+      return {
+        ...item,
+        isOpen,
+        risk: 'MEDIO' as const,
+        description: 'Servicio HTTP en texto plano activo sin canal seguro garantizado.',
+      };
+    }
+
     return {
       ...item,
       isOpen,

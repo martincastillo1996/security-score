@@ -1,6 +1,7 @@
 'use client';
 
 import React, { useState } from 'react';
+import { ShieldCheck } from 'lucide-react';
 
 export interface RemediationSnippets {
   nginx: string;
@@ -26,7 +27,21 @@ export default function RemediationList({ items }: Props) {
   const [activeTabs, setActiveTabs] = useState<Record<number, 'nginx' | 'apache' | 'express'>>({});
   const [copiedIdx, setCopiedIdx] = useState<number | null>(null);
 
-  if (!items || items.length === 0) return null;
+  if (!items || items.length === 0) {
+    return (
+      <div className="p-8 rounded-3xl bg-emerald-500/5 border border-emerald-500/20 text-center space-y-3 backdrop-blur-xl">
+        <div className="inline-flex p-3 rounded-2xl bg-emerald-500/10 text-emerald-400 mb-1">
+          <ShieldCheck className="w-6 h-6" />
+        </div>
+        <h3 className="text-base font-semibold text-white tracking-tight">
+          Perímetro Óptimo y Blindado
+        </h3>
+        <p className="text-xs text-neutral-400 max-w-md mx-auto leading-relaxed">
+          No se detectaron cabeceras críticas ausentes ni directivas desalineadas con los estándares OWASP. La configuración actual cumple con las directivas de seguridad evaluadas.
+        </p>
+      </div>
+    );
+  }
 
   const handleCopy = (code: string, idx: number) => {
     navigator.clipboard.writeText(code);

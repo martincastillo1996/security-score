@@ -11,9 +11,11 @@ export type HeaderResult = HeaderCheckResult;
 
 export interface HeaderScanOutput {
   headers: HeaderCheckResult[];
+  missingHeaders: HeaderCheckResult[];
   score: number;
   grade: 'A+' | 'A' | 'B' | 'C' | 'D' | 'F';
   isHyperscale?: boolean;
+  httpStatus?: number;
 }
 
 const PRELOADED_DOMAINS = new Set([
@@ -38,21 +40,7 @@ const PRELOADED_DOMAINS = new Set([
   'wikipedia.org'
 ]);
 
-export function scanHeaders(
-  targetUrl: string,
-  rawHeaders: Headers | Record<string, string> = {}
-): HeaderScanOutput {
-  const getHeader = (name: string): string | null => {
-    if (!rawHeaders) return null;
-    if (typeof (rawHeaders as Headers).get === 'function') {
-      return (rawHeaders as Headers).get(name);
-    }
-    const record = rawHeaders as Record<string, string>;
-    const key = Object.keys(record).find(k => k.toLowerCase() === name.toLowerCase());
-    return key ? record[key] : null;
-  };
-
-  // Limpieza estricta: elimina protocolo, path, puerto y subdominio www.
+export async function scanHeaders(targetUrl: string): Promise<HeaderScanOutput> {
   const rawClean = targetUrl
     .replace(/^https?:\/\//i, '')
     .replace(/\/.*$/, '')
@@ -62,6 +50,59 @@ export function scanHeaders(
 
   const apexDomain = rawClean.replace(/^www\./, '');
   const isPreloaded = PRELOADED_DOMAINS.has(rawClean) || PRELOADED_DOMAINS.has(apexDomain);
+
+  let rawHeaders: Record<string, string> = {};
+  let httpStatus = 200;
+
+  // Realizar petición real de sondeo
+  try {
+    const fetchUrl = targetUrl.startsWith('http') ? targetUrl : `https://${targetUrl}`;
+    const controller = new AbortController();
+    const timer = setTimeout(() => controller.abort(), 3500);
+
+    const res = await fetch(fetchUrl, {
+      method: 'GET',
+      headers: {
+        'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/122.0.0.0 Safari/537.36 DEFENSA-TI/1.2'
+      },
+      signal: controller.signal,
+      redirect: 'manual'
+    });
+
+    clearTimeout(timer);
+    httpStatus = res.status;
+    res.headers.forEach((val, key) => {
+      rawHeaders[key.toLowerCase()] = val;
+    });
+  } catch {
+    // Si falla HTTPS (como en neverssl), intentar fallback HTTP
+    try {
+      const fallbackUrl = `http://${rawClean}`;
+      const controller = new AbortController();
+      const timer = setTimeout(() => controller.abort(), 3000);
+
+      const res = await fetch(fallbackUrl, {
+        method: 'GET',
+        headers: {
+          'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) DEFENSA-TI/1.2'
+        },
+        signal: controller.signal,
+        redirect: 'manual'
+      });
+
+      clearTimeout(timer);
+      httpStatus = res.status;
+      res.headers.forEach((val, key) => {
+        rawHeaders[key.toLowerCase()] = val;
+      });
+    } catch {
+      // Sin respuesta HTTP/HTTPS directa
+    }
+  }
+
+  const getHeader = (name: string): string | null => {
+    return rawHeaders[name.toLowerCase()] || null;
+  };
 
   const results: HeaderCheckResult[] = [];
   let score = 0;
@@ -211,10 +252,14 @@ export function scanHeaders(
   else if (score >= 55) grade = 'C';
   else if (score >= 40) grade = 'D';
 
+  const missingHeaders = results.filter(r => r.status === 'fail' || !r.present);
+
   return {
     headers: results,
+    missingHeaders,
     score,
     grade,
     isHyperscale: isPreloaded,
+    httpStatus
   };
 }
