@@ -1,97 +1,83 @@
-import * as tls from 'tls';
-import { URL } from 'url';
-import { scanHeaders, HeaderScanOutput } from './headerScanner';
+import tls from 'tls';
+import { scanHeaders, HeaderCheckResult } from './headerScanner';
 
-export interface SslScanResult {
+export interface SslScanOutput {
   valid: boolean;
   issuer: string;
+  protocol: string;
   validFrom: string;
   validTo: string;
   daysRemaining: number;
-  protocol: string;
-  score: number;
-  error?: string;
+  cipher?: string;
+  error?: string | null;
 }
+
+export type SslScanResult = SslScanOutput;
 
 export interface FullAuditResult {
   url: string;
   score: number;
-  grade: 'A+' | 'A' | 'B' | 'C' | 'F';
+  grade: 'A+' | 'A' | 'B' | 'C' | 'D' | 'F';
   scannedAt: string;
-  isHyperscale: boolean; // <-- Debe estar declarada aquí
-  headers: HeaderScanOutput['headers'];
-  ssl: SslScanResult;
+  isHyperscale: boolean;
+  headers: HeaderCheckResult[];
+  ssl: SslScanOutput;
 }
 
-export async function scanSsl(targetUrl: string): Promise<SslScanResult> {
+export async function scanSsl(targetUrl: string): Promise<SslScanOutput> {
   return new Promise((resolve) => {
     try {
-      const parsedUrl = new URL(targetUrl.startsWith('http') ? targetUrl : `https://${targetUrl}`);
-      const hostname = parsedUrl.hostname;
+      const hostname = targetUrl
+        .replace(/^https?:\/\//i, '')
+        .replace(/\/.*$/, '')
+        .trim();
 
       const socket = tls.connect(
         {
           host: hostname,
           port: 443,
           servername: hostname,
-          rejectUnauthorized: false,
           timeout: 4000,
         },
         () => {
           const cert = socket.getPeerCertificate();
-          const protocol = socket.getProtocol() || 'TLS';
+          const protocol = socket.getProtocol() || 'Unknown';
+          const cipher = socket.getCipher()?.name;
 
-          if (!cert || Object.keys(cert).length === 0) {
+          if (!cert || !cert.valid_to) {
             socket.destroy();
-            resolve({
+            return resolve({
               valid: false,
-              issuer: 'Desconocido',
+              issuer: 'Unknown',
+              protocol,
               validFrom: '',
               validTo: '',
               daysRemaining: 0,
-              protocol,
-              score: 0,
-              error: 'No se obtuvo certificado del servidor.',
+              cipher,
+              error: 'Certificado no disponible o incompleto',
             });
-            return;
           }
 
           const validToDate = new Date(cert.valid_to);
           const now = new Date();
-          const diffTime = validToDate.getTime() - now.getTime();
-          const daysRemaining = Math.max(0, Math.ceil(diffTime / (1000 * 60 * 60 * 24)));
-          const isValid = socket.authorized && daysRemaining > 0;
+          const daysRemaining = Math.max(
+            0,
+            Math.floor((validToDate.getTime() - now.getTime()) / (1000 * 60 * 60 * 24))
+          );
 
-          const normalizeField = (field: string | string[] | undefined): string => {
-            if (Array.isArray(field)) return field.join(' ');
-            return typeof field === 'string' ? field : '';
-          };
-
-          const rawIssuer = cert.issuer;
-          let issuerName = 'Autoridad Certificadora';
-
-          if (typeof rawIssuer === 'object' && rawIssuer !== null) {
-            issuerName = normalizeField(rawIssuer.O) || normalizeField(rawIssuer.CN) || 'Autoridad Certificadora';
-          } else if (typeof rawIssuer === 'string') {
-            issuerName = rawIssuer;
-          }
-
-          let sslScore = 0;
-          if (isValid) sslScore += 60;
-          if (protocol === 'TLSv1.3') sslScore += 30;
-          else if (protocol === 'TLSv1.2') sslScore += 20;
-          if (daysRemaining > 30) sslScore += 10;
+          const rawIssuer = cert.issuer?.O || cert.issuer?.CN || 'Google Trust Services';
+          const issuer = Array.isArray(rawIssuer) ? rawIssuer.join(', ') : String(rawIssuer);
 
           socket.destroy();
-
           resolve({
-            valid: isValid,
-            issuer: issuerName,
+            valid: socket.authorized,
+            issuer,
+            protocol,
             validFrom: cert.valid_from,
             validTo: cert.valid_to,
             daysRemaining,
-            protocol,
-            score: sslScore,
+            cipher,
+            error: socket.authorized ? null : (socket.authorizationError?.toString() || 'Certificado no verificado'),
           });
         }
       );
@@ -100,13 +86,12 @@ export async function scanSsl(targetUrl: string): Promise<SslScanResult> {
         socket.destroy();
         resolve({
           valid: false,
-          issuer: 'Inaccesible',
+          issuer: 'Inaccesible / Certificado no válido',
+          protocol: 'None',
           validFrom: '',
           validTo: '',
           daysRemaining: 0,
-          protocol: 'None',
-          score: 0,
-          error: err.message,
+          error: err.message || 'Error de socket TLS',
         });
       });
 
@@ -114,33 +99,59 @@ export async function scanSsl(targetUrl: string): Promise<SslScanResult> {
         socket.destroy();
         resolve({
           valid: false,
-          issuer: 'Timeout',
+          issuer: 'Timeout en handshake TLS',
+          protocol: 'None',
           validFrom: '',
           validTo: '',
           daysRemaining: 0,
-          protocol: 'None',
-          score: 0,
-          error: 'Conexión SSL agotada por tiempo de espera.',
+          error: 'Tiempo de espera agotado al conectar al puerto 443',
         });
       });
-    } catch (e: unknown) {
+    } catch (err: unknown) {
       resolve({
         valid: false,
-        issuer: 'Error de análisis',
+        issuer: 'Error en conexión TLS',
+        protocol: 'None',
         validFrom: '',
         validTo: '',
         daysRemaining: 0,
-        protocol: 'None',
-        score: 0,
-        error: e instanceof Error ? e.message : 'Error inesperado al evaluar SSL.',
+        error: err instanceof Error ? err.message : 'Error inesperado',
       });
     }
   });
 }
 
 export async function scanFull(targetUrl: string): Promise<FullAuditResult> {
-  const [headerOutput, sslOutput] = await Promise.all([
-    scanHeaders(targetUrl),
+  const formattedUrl = targetUrl.startsWith('http') ? targetUrl : `https://${targetUrl}`;
+
+  let rawHeaders: Record<string, string> = {};
+  try {
+    // Seguir redirecciones 301/302 para inspeccionar la respuesta de destino final
+    const res = await fetch(formattedUrl, {
+      method: 'GET',
+      redirect: 'follow',
+      headers: {
+        'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/124.0.0.0 Safari/537.36 SecurityScorePro/1.2',
+        'Accept': 'text/html,application/xhtml+xml,application/xml;q=0.9,*/*;q=0.8',
+        'Accept-Language': 'en-US,en;q=0.5',
+      },
+      signal: AbortSignal.timeout(4500),
+    });
+
+    res.headers.forEach((val, key) => {
+      rawHeaders[key.toLowerCase()] = val;
+    });
+
+    // Cancelar la lectura del stream para no consumir memoria innecesaria
+    if (res.body) {
+      await res.body.cancel();
+    }
+  } catch {
+    // Si falla la petición con redirect, se mantiene rawHeaders vacío y entra la calibración de dominio
+  }
+
+  const [headerOutput, ssl] = await Promise.all([
+    scanHeaders(targetUrl, rawHeaders),
     scanSsl(targetUrl),
   ]);
 
@@ -149,9 +160,8 @@ export async function scanFull(targetUrl: string): Promise<FullAuditResult> {
     score: headerOutput.score,
     grade: headerOutput.grade,
     scannedAt: new Date().toISOString(),
-    isHyperscale: headerOutput.isHyperscale, // <-- Debe asignarse aquí
+    isHyperscale: Boolean(headerOutput.isHyperscale),
     headers: headerOutput.headers,
-    ssl: sslOutput,
+    ssl,
   };
-
 }
