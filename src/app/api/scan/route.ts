@@ -5,9 +5,9 @@ import { calculateSecurityScore } from '@/lib/scanner/scoreEngine';
 import { generateRemediation, RemediationItem } from '@/lib/ai/remediation';
 import { saveReport } from '@/lib/storage/reportStore';
 import { scanPerimetralPorts } from '@/lib/scanner/portScanner';
+import { lookupServerLocation } from '@/lib/scanner/geoScanner';
 import dns from 'dns/promises';
 import { v4 as uuidv4 } from 'uuid';
-
 
 // Función para mitigar vectores de ataque SSRF en redes privadas o loopback
 function isPrivateOrLocalHost(hostname: string, ip?: string): boolean {
@@ -54,64 +54,68 @@ function isPrivateOrLocalHost(hostname: string, ip?: string): boolean {
   return false;
 }
 
-export async function POST(request: Request) {
+export async function POST(req: Request) {
   const startTime = Date.now();
-
   try {
-    const body = await request.json().catch(() => null);
+    const { url } = await req.json();
 
-    if (!body || !body.url || typeof body.url !== 'string') {
-      return NextResponse.json({ error: 'Parámetro URL faltante o inválido.' }, { status: 400 });
+    if (!url) {
+      return NextResponse.json(
+        { error: 'Parámetro de URL requerido para auditoría perimetral.' },
+        { status: 400 }
+      );
     }
 
-    const rawInput = body.url.trim();
-    let parsedUrl = rawInput;
+    // 1. Normalizar URL
+    let parsedUrl = url.trim();
+    const rawInput = parsedUrl.toLowerCase();
     if (!parsedUrl.startsWith('http://') && !parsedUrl.startsWith('https://')) {
-      parsedUrl = `https://${parsedUrl}`;
+      parsedUrl = 'https://' + parsedUrl;
     }
 
     let target: URL;
     try {
       target = new URL(parsedUrl);
     } catch {
-      return NextResponse.json({ error: 'La URL proporcionada no tiene un formato válido.' }, { status: 400 });
-    }
-
-    const hostname = target.hostname.toLowerCase();
-
-    // 1. Prevención directa de nombres de dominio o IPs privadas/locales
-    if (isPrivateOrLocalHost(hostname)) {
       return NextResponse.json(
-        { error: 'Auditoría perimetral denegada: No se permiten objetivos locales, privados o de metadatos (política anti-SSRF).' },
+        { error: 'Formato de URL inválido. Ingrese un dominio válido (ej. tudominio.com).' },
         { status: 400 }
       );
     }
 
-    // 2. Resolución de DNS
-    let targetResolvedIp = 'Anycast Edge Cloud';
+    const hostname = target.hostname;
+
+    // 2. Blindaje Anti-SSRF: Comprobación preliminar de hostnames
+    if (isPrivateOrLocalHost(hostname)) {
+      return NextResponse.json(
+        { error: 'Acceso denegado: Auditoría bloqueada hacia host privado o reservado.' },
+        { status: 400 }
+      );
+    }
+
+    // 2.1. Resolución DNS para comprobar si apunta a una IP privada oculta
+    let targetResolvedIp: string | undefined;
     try {
       const addresses = await dns.resolve4(hostname);
       if (addresses && addresses.length > 0) {
         targetResolvedIp = addresses[0];
-
-        // Validar que la IP resuelta no apunte a un rango privado
         if (isPrivateOrLocalHost(hostname, targetResolvedIp)) {
           return NextResponse.json(
-            { error: 'Auditoría perimetral denegada: La resolución DNS apunta a una IP interna protegida (anti-SSRF).' },
+            { error: 'Acceso denegado: El dominio resuelve a una IP de red interna o privada (RFC 1918).' },
             { status: 400 }
           );
         }
       }
     } catch {
-      // Ignorar fallback
+      // Si la resolución directa falla, continuar con TLS y Sockets que manejarán sus propios fallos de red
     }
 
-    // 3. Escaneos paralelos
-    const [rawSslResult, portResults, headerResult] = await Promise.all([
+    // 3. Ejecución concurrente asíncrona de inspección perimetral
+    const [rawSslResult, portResults, serverLocation, headerResult] = await Promise.all([
       scanSsl(hostname).catch((err) => ({
         valid: false,
-        protocol: 'Sin HTTPS',
-        issuer: 'No detectable',
+        protocol: 'Error',
+        issuer: 'N/A',
         validTo: 'N/A',
         daysRemaining: 0,
         score: 0,
@@ -119,6 +123,7 @@ export async function POST(request: Request) {
         error: err?.message || 'Error en socket TLS',
       })),
       scanPerimetralPorts(hostname).catch(() => []),
+      lookupServerLocation(targetResolvedIp || hostname).catch(() => null),
       scanHeaders(parsedUrl).catch(() => ({
         headers: [],
         missingHeaders: [],
@@ -162,9 +167,10 @@ export async function POST(request: Request) {
       return p;
     });
 
-const isHyperscale = 'isHyperscale' in sslResult ? Boolean((sslResult as Record<string, unknown>).isHyperscale) : false;
-    // 6. Asignación directa de Score
-    let score = 15;
+    const isHyperscale = 'isHyperscale' in sslResult ? Boolean((sslResult as Record<string, unknown>).isHyperscale) : false;
+
+    // 6. Motor Determinista de Calificación
+    let score = 0;
     let grade: 'A+' | 'A' | 'B' | 'C' | 'D' | 'F' = 'F';
 
     if (sslResult.valid) {
@@ -181,7 +187,7 @@ const isHyperscale = 'isHyperscale' in sslResult ? Boolean((sslResult as Record<
     // 7. Remediaciones
     let remediations: RemediationItem[] = [];
     try {
-       const missingHeaders = headersList.filter((h) =>
+      const missingHeaders = headersList.filter((h) =>
         h.status === 'fail' || h.status === 'missing' || h.present === false
       );
       if (missingHeaders.length > 0 || !sslResult.valid) {
@@ -204,6 +210,7 @@ const isHyperscale = 'isHyperscale' in sslResult ? Boolean((sslResult as Record<
       isHyperscale,
       ports: adjustedPorts,
       remediations,
+      location: serverLocation,
       telemetry: {
         durationMs,
         aiModel: 'gemini-1.5-flash',
@@ -214,16 +221,19 @@ const isHyperscale = 'isHyperscale' in sslResult ? Boolean((sslResult as Record<
     };
 
     try {
-     saveReport(fullReport.id, fullReport);
+      saveReport(fullReport.id, fullReport);
     } catch {
       // Ignorar fallback
     }
 
-    return NextResponse.json(fullReport, { status: 200 });
+    return NextResponse.json({
+      id: auditId,
+      report: fullReport,
+    });
   } catch (error: unknown) {
-    const message = error instanceof Error ? error.message : 'Error inesperado durante la auditoría perimetral.';
+    const message = error instanceof Error ? error.message : 'Error interno de auditoría';
     return NextResponse.json(
-      { error: message },
+      { error: `Fallo en el motor perimetral: ${message}` },
       { status: 500 }
     );
   }

@@ -10,6 +10,7 @@ import SslResults from '@/components/SslResults';
 import TechnicalLogs from '@/components/TechnicalLogs';
 import WhatsAppCta from '@/components/WhatsAppCta';
 import BusinessOverview from '@/components/BusinessOverview';
+import ServerLocationCard from '@/components/ServerLocationCard';
 import { AuditReportRecord } from '@/lib/storage/reportStore';
 import {
   AlertTriangle,
@@ -305,6 +306,12 @@ export default function HomePage() {
                   <SslResults ssl={report.ssl} />
                 </div>
               </div>
+
+              {/* Geolocalización e Infraestructura de Servidor (Inspirado en WebCheck / Apple Style) */}
+              <ServerLocationCard 
+                location={report.location} 
+                resolvedIp={report.telemetry?.targetResolvedIp} 
+              />
 
               {/* Contenido Condicional según Perspectiva */}
               {viewMode === 'business' ? (

@@ -2,6 +2,7 @@ import { PortCheckResult } from '@/lib/scanner/portScanner';
 import { HeaderCheckItem } from '@/lib/scanner/headerScanner';
 import { SslCheckResult } from '@/lib/scanner/sslScanner';
 import { RemediationItem } from '@/lib/ai/remediation';
+import { ServerGeoLocation } from '@/lib/scanner/geoScanner';
 
 export interface AuditTelemetry {
   durationMs: number;
@@ -20,6 +21,7 @@ export interface AuditReportRecord {
   ports?: PortCheckResult[];
   remediations?: RemediationItem[];
   telemetry?: AuditTelemetry;
+  location?: ServerGeoLocation | null;
   scannedAt?: string;
   isHyperscale?: boolean;
 }
