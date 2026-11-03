@@ -35,6 +35,41 @@ export default function ReportPage({ params }: { params: Promise<{ id: string }>
   useEffect(() => {
     if (!auditId) return;
 
+    // 1. Intentar decodificar desde el parámetro ?d= en la URL
+    try {
+      const urlParams = new URLSearchParams(window.location.search);
+      const encoded = urlParams.get('d');
+      if (encoded) {
+        const decoded = JSON.parse(decodeURIComponent(atob(encoded)));
+        if (decoded && typeof decoded.score === 'number') {
+          queueMicrotask(() => {
+            setReport(decoded);
+            setLoading(false);
+          });
+          return;
+        }
+      }
+    } catch {
+      // Fallback
+    }
+
+    // 2. Intentar leer desde localStorage local
+    try {
+      const cached = localStorage.getItem(`report_${auditId}`);
+      if (cached) {
+        const decoded = JSON.parse(cached);
+        if (decoded && typeof decoded.score === 'number') {
+          queueMicrotask(() => {
+            setReport(decoded);
+            setLoading(false);
+          });
+          return;
+        }
+      }
+    } catch {
+      // Fallback
+    }
+
     fetch(`/api/report/${auditId}`)
       .then(async (res) => {
         if (!res.ok) {

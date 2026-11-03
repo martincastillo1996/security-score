@@ -68,7 +68,16 @@ export default function HomePage() {
 
   const copyShareLink = () => {
     if (!auditId) return;
-    const shareableUrl = `${window.location.origin}/report/${auditId}`;
+    let shareableUrl = `${window.location.origin}/report/${auditId}`;
+    try {
+      if (report) {
+        localStorage.setItem(`report_${auditId}`, JSON.stringify(report));
+        const encoded = btoa(encodeURIComponent(JSON.stringify(report)));
+        shareableUrl = `${window.location.origin}/report/${auditId}?d=${encoded}`;
+      }
+    } catch {
+      // Fallback
+    }
     navigator.clipboard.writeText(shareableUrl);
     setCopied(true);
     setTimeout(() => setCopied(false), 2000);
