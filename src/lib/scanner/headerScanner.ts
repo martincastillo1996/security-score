@@ -1,4 +1,5 @@
 import { validateRedirectTarget } from '@/lib/security/ssrfValidator';
+import { auditCookies, CookieScanResult } from '@/lib/scanner/cookieScanner';
 
 export interface HeaderCheckItem {
   header: string;
@@ -10,7 +11,6 @@ export interface HeaderCheckItem {
   description: string;
 }
 
-// Tipo individual de cabecera esperado por HeaderResults.tsx y remediation.ts
 export type HeaderResult = HeaderCheckItem;
 
 export interface HeaderScanResult {
@@ -18,6 +18,7 @@ export interface HeaderScanResult {
   missingHeaders: HeaderCheckItem[];
   score: number;
   grade: 'A+' | 'A' | 'B' | 'C' | 'D' | 'F';
+  cookies?: CookieScanResult;
   redirectAudit?: {
     followed: boolean;
     initialUrl: string;
@@ -49,21 +50,28 @@ const REQUIRED_HEADERS = [
   {
     name: 'X-Content-Type-Options',
     severity: 'MEDIA' as const,
-    passDesc: 'Previene el sniffing de tipos MIME en navegadores cliente.',
+    passDesc: 'Impide que los navegadores interpreten archivos con tipos MIME permisivos (MIME Sniffing).',
     failDesc: 'Ausente. Permite interpretación MIME permisiva.',
   },
   {
     name: 'Referrer-Policy',
     severity: 'MEDIA' as const,
-    passDesc: 'Controla y restringe la información de referencia transmitida en las peticiones.',
+    passDesc: 'Protege la privacidad del usuario limitando la información enviada en peticiones de terceros.',
     failDesc: 'Ausente o predeterminada.',
+  },
+  {
+    name: 'Permissions-Policy',
+    severity: 'BAJA' as const,
+    passDesc: 'Restringe el acceso no autorizado a APIs sensibles del navegador como cámara, micrófono o geolocalización.',
+    failDesc: 'Ausente. No restringe el acceso a APIs de sensores en el cliente.',
   },
 ];
 
 export async function scanHeaders(targetUrl: string): Promise<HeaderScanResult> {
-  let responseHeaders: Headers | null = null;
   let currentUrl = targetUrl;
-  let maxRedirectHops = 2; // Máximo 2 saltos seguros para evitar DoS por bucles
+  let maxRedirectHops = 2;
+  let responseHeaders: Headers | null = null;
+  let rawSetCookie: string | null = null;
   let blockedSsrf = false;
   let blockReason: string | undefined;
 
@@ -76,36 +84,34 @@ export async function scanHeaders(targetUrl: string): Promise<HeaderScanResult> 
     try {
       const response = await fetch(currentUrl, {
         method: 'GET',
-        redirect: 'manual', // Control manual para auditar la cabecera Location en cada salto
+        redirect: 'manual',
         signal: AbortSignal.timeout(4000),
         headers: defaultHeaders,
       });
 
       responseHeaders = response.headers;
+      rawSetCookie = response.headers.get('set-cookie');
 
-      // Comprobar si el servidor intenta redirigir
       const isRedirect = [301, 302, 303, 307, 308].includes(response.status);
       const location = response.headers.get('location');
 
       if (isRedirect && location) {
-        // Validación estricta anti-SSRF de la redirección
         const validation = await validateRedirectTarget(currentUrl, location);
 
         if (!validation.allowed) {
           blockedSsrf = true;
           blockReason = validation.reason;
-          console.warn(`[SSRF DEFENSE] Redirección bloqueada desde ${currentUrl}: ${validation.reason}`);
-          break; // Detener de inmediato: no saltar al destino malicioso
+          break;
         }
 
         if (validation.sanitizedUrl && validation.sanitizedUrl !== currentUrl) {
           currentUrl = validation.sanitizedUrl;
           maxRedirectHops--;
-          continue; // Saltar de forma segura a la URL sanitizada y aprobada
+          continue;
         }
       }
 
-      break; // Respuesta final obtenida
+      break;
     } catch {
       responseHeaders = null;
       break;
@@ -135,11 +141,15 @@ export async function scanHeaders(targetUrl: string): Promise<HeaderScanResult> 
     }
   }
 
+  // Auditar cookies Set-Cookie
+  const cookieAudit = auditCookies(rawSetCookie);
+
   return {
     headers: results,
     missingHeaders: missing,
     score: 0,
     grade: 'F',
+    cookies: cookieAudit,
     redirectAudit: {
       followed: currentUrl !== targetUrl,
       initialUrl: targetUrl,

@@ -3,6 +3,7 @@ import { HeaderCheckItem } from '@/lib/scanner/headerScanner';
 import { SslCheckResult } from '@/lib/scanner/sslScanner';
 import { RemediationItem } from '@/lib/ai/remediation';
 import { ServerGeoLocation } from '@/lib/scanner/geoScanner';
+import { CookieScanResult } from '@/lib/scanner/cookieScanner';
 
 export interface AuditTelemetry {
   durationMs: number;
@@ -22,6 +23,7 @@ export interface AuditReportRecord {
   remediations?: RemediationItem[];
   telemetry?: AuditTelemetry;
   location?: ServerGeoLocation | null;
+  cookies?: CookieScanResult;
   scannedAt?: string;
   isHyperscale?: boolean;
 }

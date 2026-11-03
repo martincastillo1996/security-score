@@ -9,10 +9,11 @@
     "build": "next build",
     "start": "next start",
     "lint": "eslint",
-    "test:ssrf": "node scripts/test-ssrf.mjs"
+    "test:ssrf": "npx tsx scripts/test-ssrf.mjs"
   },
   "dependencies": {
     "@google/genai": "^2.32.0",
+    "cobe": "^2.0.1",
     "lucide-react": "^1.65.0",
     "next": "16.4.3",
     "react": "19.3.0",

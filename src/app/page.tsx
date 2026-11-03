@@ -11,6 +11,9 @@ import TechnicalLogs from '@/components/TechnicalLogs';
 import WhatsAppCta from '@/components/WhatsAppCta';
 import BusinessOverview from '@/components/BusinessOverview';
 import ServerLocationCard from '@/components/ServerLocationCard';
+import CookieResults from '@/components/CookieResults';
+import FloatingWhatsAppButton from '@/components/FloatingWhatsAppButton';
+import CookieConsentBanner from '@/components/CookieConsentBanner';
 import { AuditReportRecord } from '@/lib/storage/reportStore';
 import {
   AlertTriangle,
@@ -28,7 +31,7 @@ import {
   Briefcase,
   Terminal
 } from 'lucide-react';
-import { useState } from 'react';
+import { useState, useRef } from 'react';
 
 export default function HomePage() {
   const [url, setUrl] = useState('');
@@ -38,6 +41,7 @@ export default function HomePage() {
   const [error, setError] = useState<string | null>(null);
   const [copied, setCopied] = useState(false);
   const [viewMode, setViewMode] = useState<'business' | 'tech'>('business');
+  const resultsRef = useRef<HTMLDivElement>(null);
 
   const handleScan = async (targetUrl?: string) => {
     const finalUrl = targetUrl || url;
@@ -63,6 +67,11 @@ export default function HomePage() {
 
       setReport(data.report || data);
       setAuditId(data.id || (data.report && data.report.id) || 'audit-local');
+
+      // Enfoque automático suave hacia el resultado para confirmar la finalización
+      setTimeout(() => {
+        resultsRef.current?.scrollIntoView({ behavior: 'smooth', block: 'start' });
+      }, 100);
     } catch (err: unknown) {
       const msg = err instanceof Error ? err.message : 'Error de conexión con el motor perimetral';
       setError(msg);
@@ -244,39 +253,39 @@ export default function HomePage() {
 
           {/* Resultados de Auditoría */}
           {report && (
-            <div className="space-y-6 pt-6">
-              <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 p-5 rounded-2xl bg-white/2 border border-white/5 backdrop-blur-xl">
+            <div ref={resultsRef} className="space-y-8 pt-8 scroll-mt-20">
+              <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 p-6 rounded-3xl bg-[#161618] border border-white/10 shadow-2xl backdrop-blur-2xl">
                 <div>
-                  <span className="text-xs uppercase tracking-wider text-neutral-400">Objetivo Analizado</span>
-                  <h2 className="text-lg font-semibold text-white">{report.url}</h2>
+                  <span className="text-xs uppercase tracking-wider text-neutral-400 font-medium">Objetivo Analizado</span>
+                  <h2 className="text-xl font-bold text-white">{report.url}</h2>
                 </div>
                 <div className="flex items-center gap-3">
                   <button
                     onClick={handlePrint}
-                    className="flex-1 sm:flex-initial px-4 py-2 rounded-xl bg-white/5 hover:bg-white/10 active:scale-[0.98] border border-white/10 text-white text-xs font-medium flex items-center justify-center gap-2 transition-all"
+                    className="flex-1 sm:flex-initial px-5 py-2.5 rounded-2xl bg-white/10 hover:bg-white/15 active:scale-[0.98] border border-white/15 text-white text-xs font-semibold flex items-center justify-center gap-2 transition-all shadow-md"
                   >
-                    <Printer className="w-3.5 h-3.5" />
+                    <Printer className="w-4 h-4" />
                     Exportar PDF
                   </button>
                   <button
                     onClick={copyShareLink}
-                    className="flex-1 sm:flex-initial px-4 py-2 rounded-xl bg-[#0071e3]/15 hover:bg-[#0071e3]/25 active:scale-[0.98] border border-[#0071e3]/30 text-[#2997ff] text-xs font-medium flex items-center justify-center gap-2 transition-all"
+                    className="flex-1 sm:flex-initial px-5 py-2.5 rounded-2xl bg-[#0071e3] hover:bg-[#0077ed] active:scale-[0.98] text-white text-xs font-semibold flex items-center justify-center gap-2 transition-all shadow-lg shadow-[#0071e3]/30"
                   >
-                    {copied ? <Check className="w-3.5 h-3.5 text-emerald-400" /> : <Share2 className="w-3.5 h-3.5" />}
+                    {copied ? <Check className="w-4 h-4 text-emerald-300" /> : <Share2 className="w-4 h-4" />}
                     {copied ? '¡Copiado!' : 'Compartir Enlace'}
                   </button>
                 </div>
               </div>
 
-              {/* Selector de Perspectiva: Negocio vs Técnico */}
-              <div className="flex justify-center">
-                <div className="inline-flex p-1 rounded-2xl bg-white/5 border border-white/10 backdrop-blur-xl">
+              {/* Selector de Perspectiva: Negocio vs Técnico (Estilo Apple Pro Switcher - Más grande y llamativo) */}
+              <div className="flex justify-center py-2">
+                <div className="inline-flex p-1.5 rounded-2xl bg-[#161618] border border-white/15 shadow-2xl">
                   <button
                     type="button"
                     onClick={() => setViewMode('business')}
-                    className={`flex items-center gap-2 px-4 py-2 rounded-xl text-xs font-semibold transition-all ${
+                    className={`flex items-center gap-2.5 px-6 py-3 rounded-xl text-sm font-bold transition-all duration-300 ${
                       viewMode === 'business'
-                        ? 'bg-[#0071e3] text-white shadow-lg shadow-[#0071e3]/30'
+                        ? 'bg-[#0071e3] text-white shadow-xl shadow-[#0071e3]/40 scale-[1.02]'
                         : 'text-neutral-400 hover:text-white'
                     }`}
                   >
@@ -286,9 +295,9 @@ export default function HomePage() {
                   <button
                     type="button"
                     onClick={() => setViewMode('tech')}
-                    className={`flex items-center gap-2 px-4 py-2 rounded-xl text-xs font-semibold transition-all ${
+                    className={`flex items-center gap-2.5 px-6 py-3 rounded-xl text-sm font-bold transition-all duration-300 ${
                       viewMode === 'tech'
-                        ? 'bg-[#0071e3] text-white shadow-lg shadow-[#0071e3]/30'
+                        ? 'bg-[#0071e3] text-white shadow-xl shadow-[#0071e3]/40 scale-[1.02]'
                         : 'text-neutral-400 hover:text-white'
                     }`}
                   >
@@ -311,6 +320,7 @@ export default function HomePage() {
               <ServerLocationCard 
                 location={report.location} 
                 resolvedIp={report.telemetry?.targetResolvedIp} 
+                targetDomain={report.url}
               />
 
               {/* Contenido Condicional según Perspectiva */}
@@ -327,6 +337,9 @@ export default function HomePage() {
                   <div className="rounded-3xl bg-white/2 border border-white/5 p-6 backdrop-blur-xl">
                     <HeaderResults headers={report.headers || []} />
                   </div>
+
+                  {/* Auditoría Forense de Cookies de Sesión */}
+                  <CookieResults cookies={report.cookies} />
 
                   <div className="rounded-3xl bg-white/2 border border-white/5 p-6 backdrop-blur-xl">
                     <RemediationList items={report.remediations || []} />
@@ -456,6 +469,12 @@ export default function HomePage() {
 
           </div>
         </main>
+
+        {/* Banner Flotante de Consentimiento de Cookies (Ley Peruana 29733 / RGPD) */}
+        <CookieConsentBanner />
+
+        {/* Botón Flotante Permanente de WhatsApp (Contacto Directo en Vivo) */}
+        <FloatingWhatsAppButton url={report?.url} score={report?.score} />
 
         <footer className="border-t border-white/10 py-14 text-xs text-neutral-400 bg-[#000000]/90 backdrop-blur-xl mt-24">
           <div className="max-w-5xl mx-auto px-6 space-y-8 text-center">

@@ -211,6 +211,7 @@ export async function POST(req: Request) {
       ports: adjustedPorts,
       remediations,
       location: serverLocation,
+      cookies: !Array.isArray(headerResult) && headerResult && 'cookies' in headerResult ? headerResult.cookies : undefined,
       telemetry: {
         durationMs,
         aiModel: 'gemini-1.5-flash',
