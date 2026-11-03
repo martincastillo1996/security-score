@@ -19,13 +19,13 @@
 
 <!-- Community & Social Connections (Scrapling Style) -->
 [![WhatsApp Contact](https://img.shields.io/badge/WhatsApp-Consultor%C3%ADa%20Inmediata-25D366?style=for-the-badge&logo=whatsapp&logoColor=white)](https://wa.me/17856433991?text=Hola%20Martin,%20vi%20DEFENSA%20TI%20y%20quiero%20cotizar%20un%20blindaje%20perimetral)
-[![LinkedIn Profile](https://img.shields.io/badge/LinkedIn-Martin%20Castillo-0A66C2?style=for-the-badge&logo=linkedin&logoColor=white)](https://www.linkedin.com/in/martincastillorojas/)
+[![LinkedIn Profile](https://img.shields.io/badge/LinkedIn-Martin%20Castillo-0A66C2?style=for-the-badge&logo=linkedin&logoColor=white)](https://www.linkedin.com/in/karol-martin-castillo-rojas-17a496168/)
 [![TikTok QA & Security](https://img.shields.io/badge/TikTok-Auditor%C3%ADas%20en%20Vivo-000000?style=for-the-badge&logo=tiktok&logoColor=white)](https://tiktok.com/@martincastillo)
 [![GitHub Stars](https://img.shields.io/github/stars/martincastillo1996/security-score?style=for-the-badge&color=eab308&logo=github)](https://github.com/martincastillo1996/security-score/stargazers)
 
 <br/>
 
-[🌐 Probar en Producción](https://defensati.vercel.app) &bull; [📖 Documentación](#-características-principales) &bull; [⚡ API Quickstart](#-api-quickstart-curl) &bull; [💬 WhatsApp Directo (+1 785 643-3991)](https://wa.me/17856433991)
+[🌐 Probar en Producción](https://security-score-seven.vercel.app) &bull; [📖 Documentación](#-características-principales) &bull; [⚡ API Quickstart](#-api-quickstart-curl) &bull; [💬 WhatsApp Directo (+1 785 643-3991)](https://wa.me/17856433991)
 
 ---
 
@@ -128,8 +128,8 @@ Para evitar que el servidor sea utilizado como vector de ataque contra redes int
 
 ```bash
 # 1. Clonar el repositorio
-git clone https://github.com/martincastillo1996/defensati.git
-cd defensati
+git clone https://github.com/martincastillo1996/security-score.git
+cd security-score
 
 # 2. Instalar dependencias
 npm install
@@ -151,7 +151,7 @@ Abre en tu navegador [http://localhost:3000](http://localhost:3000).
 Puedes consumir el motor de auditoría perimetral de forma programática:
 
 ```bash
-curl -X POST https://defensati.vercel.app/api/scan \
+curl -X POST https://security-score-seven.vercel.app/api/scan \
   -H "Content-Type: application/json" \
   -d '{"url": "https://autonoma.pe"}'
 ```
@@ -209,7 +209,7 @@ Inspirado en el estándar de engagement de proyectos open-source de alto crecimi
 | Canal | Propósito | Enlace |
 | :--- | :--- | :--- |
 | 💬 **WhatsApp Oficial** | Consultoría perimetral directa, blindaje urgente de servidores y presupuestos | [Iniciar Conversación](https://wa.me/17856433991?text=Hola%20Martin,%20vi%20DEFENSA%20TI%20y%20quiero%20cotizar) |
-| 💼 **LinkedIn Corporativo** | Artículos de seguridad ofensiva/defensiva y networking profesional | [Conectar con Martin Castillo](https://www.linkedin.com/in/martincastillorojas/) |
+| 💼 **LinkedIn Corporativo** | Artículos de seguridad ofensiva/defensiva y networking profesional | [Conectar con Martin Castillo](https://www.linkedin.com/in/karol-martin-castillo-rojas-17a496168/) |
 | 🎬 **TikTok Auditorías QA** | Casos prácticos de estudio en vivo, análisis perimetrales y divulgación de brechas | [Ver Contenido Viral](https://tiktok.com/@martincastillo) |
 | 🐙 **GitHub Discussions** | Sugerencias de nuevas pruebas OWASP, reportes y colaboración técnica | [Abrir Discusión](https://github.com/martincastillo1996/security-score/issues) |
 

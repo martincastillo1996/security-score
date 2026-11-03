@@ -466,7 +466,7 @@ export default function HomePage() {
               </a>
 
               <a
-                href="https://www.linkedin.com/in/martincastillorojas/"
+                href="https://www.linkedin.com/in/karol-martin-castillo-rojas-17a496168/"
                 target="_blank"
                 rel="noopener noreferrer"
                 className="inline-flex items-center gap-2 px-4 py-2 rounded-xl bg-white/5 hover:bg-white/10 border border-white/10 text-white font-medium transition-all"
