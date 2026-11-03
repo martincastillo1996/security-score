@@ -8,6 +8,7 @@ import RemediationList from '@/components/RemediationList';
 import ScoreCircle from '@/components/ScoreCircle';
 import SslResults from '@/components/SslResults';
 import TechnicalLogs from '@/components/TechnicalLogs';
+import WhatsAppCta from '@/components/WhatsAppCta';
 import { AuditReportRecord } from '@/lib/storage/reportStore';
 import {
   AlertTriangle,
@@ -60,7 +61,6 @@ export default function HomePage() {
     } catch (err: unknown) {
       const msg = err instanceof Error ? err.message : 'Error de conexión con el motor perimetral';
       setError(msg);
-
     } finally {
       setLoading(false);
     }
@@ -90,9 +90,10 @@ export default function HomePage() {
   return (
     <div className="relative min-h-screen bg-[#000000] text-[#f5f5f7] selection:bg-[#0071e3] selection:text-white font-sans antialiased overflow-x-hidden">
       
-      {/* Fondo Interactivo */}
-      <div className="fixed inset-0 pointer-events-none z-0 opacity-40 print:hidden overflow-hidden">
+      {/* Fondo Interactivo Suavizado (opacidad y difuminado para no distraer) */}
+      <div className="fixed inset-0 pointer-events-none z-0 opacity-45">
         <NeuralBackground />
+        <div className="absolute inset-0 bg-radial from-transparent via-[#000000]/40 to-[#000000]/80" />
       </div>
 
       {/* Iluminación Ambiental */}
@@ -160,7 +161,7 @@ export default function HomePage() {
               </span>
             </h1>
             
-            <p className="text-base sm:text-lg text-neutral-200] font-normal leading-relaxed max-w-xl mx-auto">
+            <p className="text-base sm:text-lg text-slate-100 font-normal leading-relaxed max-w-xl mx-auto">
               Análisis determinista no intrusivo de cabeceras de transporte HTTP, certificados SSL/TLS, exposición de sockets TCP y parches generados por IA.
             </p>
 
@@ -172,7 +173,7 @@ export default function HomePage() {
               }}
               className="pt-4 max-w-xl mx-auto"
             >
-              <div className="p-1.5 rounded-2xl bg-white/5 border border-white/10 backdrop-blur-xl shadow-2xl flex items-center gap-2 ring-1 ring-white/5 focus-within:ring-[#0071e3]/60 focus-within:border-[#0071e3]/60 transition-all">
+              <div className="relative p-1.5 rounded-2xl bg-white/[0.04] border border-white/10 backdrop-blur-2xl shadow-[0_0_30px_rgba(0,113,227,0.15)] flex items-center gap-2 ring-1 ring-white/10 focus-within:ring-[#0071e3]/80 focus-within:border-[#0071e3]/80 focus-within:shadow-[0_0_45px_rgba(0,113,227,0.35)] transition-all">
                 <div className="pl-3.5 text-neutral-500">
                   <Search className="w-4 h-4" />
                 </div>
@@ -203,8 +204,7 @@ export default function HomePage() {
               </div>
             </form>
 
-            {/* Quick Links */}
-            <div className="pt-2 text-[12px] text-neutral-500 flex items-center justify-center gap-2">
+            <div className="flex items-center justify-center gap-2 text-xs text-neutral-500 pt-2">
               <span>¿Quieres probar?</span>
               <button
                 type="button"
@@ -228,33 +228,30 @@ export default function HomePage() {
                 github.com
               </button>
             </div>
+
+            {error && (
+              <div className="p-4 rounded-2xl bg-rose-500/10 border border-rose-500/20 text-rose-400 text-xs flex items-center justify-center gap-2">
+                <AlertTriangle className="w-4 h-4 shrink-0" />
+                <span>{error}</span>
+              </div>
+            )}
           </section>
 
-          {/* Banner de Error */}
-          {error && (
-            <div className="max-w-xl mx-auto p-4 rounded-2xl bg-rose-500/10 border border-rose-500/20 text-rose-300 text-xs flex items-center gap-3 backdrop-blur-xl">
-              <AlertTriangle className="w-4 h-4 shrink-0 text-rose-400" />
-              <span>{error}</span>
-            </div>
-          )}
-
-          {/* Resultados */}
+          {/* Resultados de Auditoría */}
           {report && (
-            <div className="space-y-8 animate-in fade-in-50 duration-500 pt-4">
-              <div className="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4 p-6 rounded-3xl bg-white/5 border border-white/10 backdrop-blur-2xl shadow-2xl">
+            <div className="space-y-6 pt-6">
+              <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 p-5 rounded-2xl bg-white/2 border border-white/5 backdrop-blur-xl">
                 <div>
-                  <span className="text-[11px] uppercase tracking-wider text-neutral-400 block font-medium">
-                    Objetivo Analizado
-                  </span>
-                  <span className="text-xl font-semibold text-white tracking-tight">{report.url}</span>
+                  <span className="text-xs uppercase tracking-wider text-neutral-400">Objetivo Analizado</span>
+                  <h2 className="text-lg font-semibold text-white">{report.url}</h2>
                 </div>
-                <div className="flex items-center gap-2.5 w-full sm:w-auto">
+                <div className="flex items-center gap-3">
                   <button
                     onClick={handlePrint}
-                    className="flex-1 sm:flex-initial px-4 py-2 rounded-xl bg-white/5 hover:bg-white/10 active:scale-[0.98] border border-white/10 text-xs font-medium flex items-center justify-center gap-2 transition-all text-neutral-200"
+                    className="flex-1 sm:flex-initial px-4 py-2 rounded-xl bg-white/5 hover:bg-white/10 active:scale-[0.98] border border-white/10 text-white text-xs font-medium flex items-center justify-center gap-2 transition-all"
                   >
                     <Printer className="w-3.5 h-3.5" />
-                    Descargar PDF
+                    Exportar PDF
                   </button>
                   <button
                     onClick={copyShareLink}
@@ -286,14 +283,17 @@ export default function HomePage() {
               </div>
 
               <div className="rounded-3xl bg-white/2 border border-white/5 p-6 backdrop-blur-xl">
-              <RemediationList items={report.remediations || []} />
+                <RemediationList items={report.remediations || []} />
               </div>
 
+              {/* Llamado a la Acción Comercial de Blindaje Inmediato */}
+              <WhatsAppCta url={report.url} score={report.score} grade={report.grade || 'F'} />
+
               <div className="rounded-3xl bg-white/2 border border-white/5 p-6 backdrop-blur-xl">
-              <TechnicalLogs 
-                id={auditId || ''} 
-                telemetry={report.telemetry} 
-                scannedAt={report.scannedAt || ''} 
+                <TechnicalLogs 
+                  id={auditId || ''} 
+                  telemetry={report.telemetry} 
+                  scannedAt={report.scannedAt || ''} 
                 />
               </div>
             </div>
@@ -305,21 +305,21 @@ export default function HomePage() {
             <section id="vision" className="space-y-8 scroll-mt-20">
               <div className="text-center space-y-2">
                 <h2 className="text-2xl sm:text-3xl font-semibold text-white tracking-tight">
-                  Visión General del Blindaje
+                  Defensa Profunda Perimetral
                 </h2>
                 <p className="text-xs sm:text-sm text-neutral-400 max-w-lg mx-auto">
-                  Metodología defensiva activa para mitigar vectores de explotación perimetral antes de que lleguen a la capa de aplicación.
+                  Tres pilares de inspección criptográfica y arquitectónica para blindar infraestructuras web.
                 </p>
               </div>
 
               <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
                 <div className="p-6 rounded-3xl bg-white/2 border border-white/5 backdrop-blur-xl space-y-3">
-                  <div className="w-10 h-10 rounded-2xl bg-blue-500/10 border border-blue-500/20 flex items-center justify-center text-blue-400">
+                  <div className="w-10 h-10 rounded-2xl bg-[#0071e3]/10 border border-[#0071e3]/20 flex items-center justify-center text-[#2997ff]">
                     <Globe2 className="w-5 h-5" />
                   </div>
-                  <h3 className="text-base font-semibold text-white">Inspección de Tráfico</h3>
+                  <h3 className="text-base font-semibold text-white">Criptografía TLS/SSL</h3>
                   <p className="text-xs text-neutral-400 leading-relaxed">
-                    Evaluación de transporte TLS 1.3 y verificación de certificados de Autoridades Emisoras reconocidas (CA).
+                    Evaluación exhaustiva de cadenas de confianza, algoritmos de firma, fechas de expiración y soporte de TLSv1.3.
                   </p>
                 </div>
 
@@ -327,9 +327,9 @@ export default function HomePage() {
                   <div className="w-10 h-10 rounded-2xl bg-emerald-500/10 border border-emerald-500/20 flex items-center justify-center text-emerald-400">
                     <Server className="w-5 h-5" />
                   </div>
-                  <h3 className="text-base font-semibold text-white">Superficie de Ataque TCP</h3>
+                  <h3 className="text-base font-semibold text-white">Inspección de Sockets TCP</h3>
                   <p className="text-xs text-neutral-400 leading-relaxed">
-                    Sondeo determinista de puertos críticos (HTTP, HTTPS, SSH, FTP, MySQL) con detección de redirección segura.
+                    Sondeo perimetral sin impacto que detecta puertos de bases de datos, protocolos obsoletos o proxies expuestos.
                   </p>
                 </div>
 

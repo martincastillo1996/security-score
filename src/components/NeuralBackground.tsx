@@ -262,7 +262,7 @@ export default function NeuralBackground({ onSelectDomain }: NeuralProps) {
         ctx.fill();
 
         ctx.font = `600 ${n1.fontSize}px ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace`;
-        ctx.fillStyle = n1.isImportant ? 'rgba(186, 230, 253, 0.25)' : 'rgba(148, 163, 184, 0.15)';
+        ctx.fillStyle = n1.isImportant ? '#bae6fd' : '#cbd5e1';
         ctx.fillText(n1.domain, renderX + 9, renderY + 4);
 
         for (let j = i + 1; j < total; j++) {

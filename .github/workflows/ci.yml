@@ -1,0 +1,34 @@
+name: DEFENSA TI - Quality & Security CI
+
+on:
+  push:
+    branches: [ "main" ]
+  pull_request:
+    branches: [ "main" ]
+
+jobs:
+  audit-and-build:
+    name: Lint, Types & Anti-SSRF Suite
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout Repository
+        uses: actions/checkout@v4
+
+      - name: Setup Node.js 20.x
+        uses: actions/setup-node@v4
+        with:
+          node-version: 20
+          cache: 'npm'
+
+      - name: Install Dependencies
+        run: npm ci
+
+      - name: Run ESLint (Strict Code Quality)
+        run: npm run lint
+
+      - name: Verify TypeScript Types
+        run: npx tsc --noEmit
+
+      - name: Run Anti-SSRF & Redirect Security Tests
+        run: npm run test:ssrf

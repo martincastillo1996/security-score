@@ -1,3 +1,5 @@
+import { validateRedirectTarget } from '@/lib/security/ssrfValidator';
+
 export interface HeaderCheckItem {
   header: string;
   name: string;
@@ -16,6 +18,13 @@ export interface HeaderScanResult {
   missingHeaders: HeaderCheckItem[];
   score: number;
   grade: 'A+' | 'A' | 'B' | 'C' | 'D' | 'F';
+  redirectAudit?: {
+    followed: boolean;
+    initialUrl: string;
+    finalUrl: string;
+    blockedSsrfAttempt?: boolean;
+    reason?: string;
+  };
 }
 
 const REQUIRED_HEADERS = [
@@ -53,21 +62,54 @@ const REQUIRED_HEADERS = [
 
 export async function scanHeaders(targetUrl: string): Promise<HeaderScanResult> {
   let responseHeaders: Headers | null = null;
+  let currentUrl = targetUrl;
+  let maxRedirectHops = 2; // Máximo 2 saltos seguros para evitar DoS por bucles
+  let blockedSsrf = false;
+  let blockReason: string | undefined;
 
-  try {
-    const response = await fetch(targetUrl, {
-      method: 'GET',
-      redirect: 'manual',
-      signal: AbortSignal.timeout(4000),
-      headers: {
-        'User-Agent': 'DefensaTI-SecurityScanner/1.2 (+https://defensati.com)',
-        Accept: '*/*',
-      },
-    });
+  const defaultHeaders = {
+    'User-Agent': 'DefensaTI-SecurityScanner/1.2 (+https://defensati.com)',
+    Accept: '*/*',
+  };
 
-    responseHeaders = response.headers;
-  } catch {
-    responseHeaders = null;
+  while (maxRedirectHops >= 0) {
+    try {
+      const response = await fetch(currentUrl, {
+        method: 'GET',
+        redirect: 'manual', // Control manual para auditar la cabecera Location en cada salto
+        signal: AbortSignal.timeout(4000),
+        headers: defaultHeaders,
+      });
+
+      responseHeaders = response.headers;
+
+      // Comprobar si el servidor intenta redirigir
+      const isRedirect = [301, 302, 303, 307, 308].includes(response.status);
+      const location = response.headers.get('location');
+
+      if (isRedirect && location) {
+        // Validación estricta anti-SSRF de la redirección
+        const validation = await validateRedirectTarget(currentUrl, location);
+
+        if (!validation.allowed) {
+          blockedSsrf = true;
+          blockReason = validation.reason;
+          console.warn(`[SSRF DEFENSE] Redirección bloqueada desde ${currentUrl}: ${validation.reason}`);
+          break; // Detener de inmediato: no saltar al destino malicioso
+        }
+
+        if (validation.sanitizedUrl && validation.sanitizedUrl !== currentUrl) {
+          currentUrl = validation.sanitizedUrl;
+          maxRedirectHops--;
+          continue; // Saltar de forma segura a la URL sanitizada y aprobada
+        }
+      }
+
+      break; // Respuesta final obtenida
+    } catch {
+      responseHeaders = null;
+      break;
+    }
   }
 
   const results: HeaderCheckItem[] = [];
@@ -98,5 +140,12 @@ export async function scanHeaders(targetUrl: string): Promise<HeaderScanResult> 
     missingHeaders: missing,
     score: 0,
     grade: 'F',
+    redirectAudit: {
+      followed: currentUrl !== targetUrl,
+      initialUrl: targetUrl,
+      finalUrl: currentUrl,
+      blockedSsrfAttempt: blockedSsrf,
+      reason: blockReason,
+    },
   };
 }

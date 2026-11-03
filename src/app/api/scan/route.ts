@@ -8,6 +8,7 @@ import { scanPerimetralPorts } from '@/lib/scanner/portScanner';
 import dns from 'dns/promises';
 import { v4 as uuidv4 } from 'uuid';
 
+
 // Función para mitigar vectores de ataque SSRF en redes privadas o loopback
 function isPrivateOrLocalHost(hostname: string, ip?: string): boolean {
   const host = hostname.toLowerCase();

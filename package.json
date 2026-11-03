@@ -1,5 +1,5 @@
 {
-  "name": "security-score",
+  "name": "defensati",
   "version": "0.1.0",
   "private": false,
   "license": "MIT",
@@ -8,7 +8,8 @@
     "dev": "next dev",
     "build": "next build",
     "start": "next start",
-    "lint": "eslint"
+    "lint": "eslint",
+    "test:ssrf": "node scripts/test-ssrf.mjs"
   },
   "dependencies": {
     "@google/genai": "^2.32.0",

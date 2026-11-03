@@ -19,6 +19,7 @@ import RemediationList from '@/components/RemediationList';
 import PrintableReport from '@/components/PrintableReport';
 import TechnicalLogs from '@/components/TechnicalLogs';
 import NeuralBackground from '@/components/NeuralBackground';
+import WhatsAppCta from '@/components/WhatsAppCta';
 import { AuditReportRecord } from '@/lib/storage/reportStore';
 
 export default function ReportPage({ params }: { params: Promise<{ id: string }> }) {
@@ -103,7 +104,10 @@ export default function ReportPage({ params }: { params: Promise<{ id: string }>
   if (loading) {
     return (
       <div className="min-h-screen bg-black text-white flex flex-col items-center justify-center gap-4">
+        <div className="fixed inset-0 pointer-events-none z-0 opacity-45">
         <NeuralBackground />
+        <div className="absolute inset-0 bg-radial from-transparent via-[#000000]/40 to-[#000000]/80" />
+      </div>
         <Loader2 className="w-8 h-8 animate-spin text-[#0071e3]" />
         <p className="text-neutral-400 text-sm">Recuperando auditoría perimetral...</p>
       </div>
@@ -114,7 +118,10 @@ export default function ReportPage({ params }: { params: Promise<{ id: string }>
   if (error || !report) {
     return (
       <div className="min-h-screen bg-black text-white flex flex-col items-center justify-center gap-4 px-6 text-center">
+        <div className="fixed inset-0 pointer-events-none z-0 opacity-45">
         <NeuralBackground />
+        <div className="absolute inset-0 bg-radial from-transparent via-[#000000]/40 to-[#000000]/80" />
+      </div>
         <AlertTriangle className="w-12 h-12 text-rose-500 mb-2" />
         <h1 className="text-xl font-bold">Reporte no disponible</h1>
         <p className="text-neutral-400 text-sm max-w-md">
@@ -133,7 +140,10 @@ export default function ReportPage({ params }: { params: Promise<{ id: string }>
   // 3. Renderizar el reporte cargado
   return (
     <div className="relative min-h-screen bg-[#000000] text-[#f5f5f7] selection:bg-[#0071e3] selection:text-white font-sans antialiased overflow-x-hidden">
-      <NeuralBackground />
+      <div className="fixed inset-0 pointer-events-none z-0 opacity-45">
+        <NeuralBackground />
+        <div className="absolute inset-0 bg-radial from-transparent via-[#000000]/40 to-[#000000]/80" />
+      </div>
       <PrintableReport report={report} auditId={auditId} />
 
       <div className="relative z-10 print:hidden flex flex-col min-h-screen">
@@ -201,6 +211,9 @@ export default function ReportPage({ params }: { params: Promise<{ id: string }>
           <div className="rounded-3xl bg-white/2 border border-white/5 p-6 backdrop-blur-xl">
             <RemediationList items={report.remediations || []} />
           </div>
+
+          {/* Llamado a la Acción Comercial de Blindaje Inmediato */}
+          <WhatsAppCta url={report.url} score={report.score} grade={(report.grade as 'A+' | 'A' | 'B' | 'C' | 'D' | 'F') || 'F'} />
 
           <div className="rounded-3xl bg-white/2 border border-white/5 p-6 backdrop-blur-xl">
             <TechnicalLogs 
