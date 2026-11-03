@@ -57,8 +57,10 @@ export default function HomePage() {
 
       setReport(data.report || data);
       setAuditId(data.id || (data.report && data.report.id) || 'audit-local');
-    } catch (err: any) {
-      setError(err.message || 'Error de conexión con el motor perimetral');
+    } catch (err: unknown) {
+      const msg = err instanceof Error ? err.message : 'Error de conexión con el motor perimetral';
+      setError(msg);
+
     } finally {
       setLoading(false);
     }
@@ -97,7 +99,7 @@ export default function HomePage() {
       </div>
 
       {/* Reporte Impreso */}
-      {report && auditId && <PrintableReport report={report as any} auditId={auditId} />}
+      {report && auditId && <PrintableReport report={report} auditId={auditId} />}
 
       <div className="relative z-10 print:hidden flex flex-col min-h-screen">
         
@@ -257,29 +259,33 @@ export default function HomePage() {
 
               <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
                 <div className="md:col-span-1 rounded-3xl bg-white/2 border border-white/5 p-6 backdrop-blur-xl">
-                  <ScoreCircle score={report.score} grade={((report.grade as any) || 'F')} />
+                  <ScoreCircle score={report.score} grade={report.grade || 'F'} />
                 </div>
                 <div className="md:col-span-2 rounded-3xl bg-white/2 border border-white/5 p-6 backdrop-blur-xl">
                   <SslResults ssl={report.ssl} />
                 </div>
               </div>
 
-              {Boolean((report as any).ports?.length) && (
+              {Boolean(report.ports?.length) && (
                 <div className="rounded-3xl bg-white/2 border border-white/5 p-6 backdrop-blur-xl">
-                  <PortResults ports={(report as any).ports} />
+                  <PortResults ports={report.ports || []} />
                 </div>
               )}
 
               <div className="rounded-3xl bg-white/2 border border-white/5 p-6 backdrop-blur-xl">
-                <HeaderResults headers={((report.headers || []) as any)} />
+                <HeaderResults headers={report.headers || []} />
               </div>
 
               <div className="rounded-3xl bg-white/2 border border-white/5 p-6 backdrop-blur-xl">
-                <RemediationList {...({ remediations: report.remediations || [], items: report.remediations || [] } as any)} />
+              <RemediationList items={report.remediations || []} />
               </div>
 
               <div className="rounded-3xl bg-white/2 border border-white/5 p-6 backdrop-blur-xl">
-                <TechnicalLogs {...({ telemetry: report.telemetry, data: report.telemetry } as any)} />
+              <TechnicalLogs 
+                id={auditId || ''} 
+                telemetry={report.telemetry} 
+                scannedAt={report.scannedAt || ''} 
+                />
               </div>
             </div>
           )}

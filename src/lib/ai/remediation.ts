@@ -136,12 +136,12 @@ function parseResponse(raw: string): RemediationItem[] {
   const parsed = JSON.parse(clean);
   const items = Array.isArray(parsed) ? parsed : (parsed.remediations || parsed.items || []);
 
-  return items.map((item: any) => ({
-    header: item.header,
-    headerName: item.header,
+  return (items as Array<Partial<RemediationItem> & { snippets?: Record<string, string> }>).map((item) => ({
+    header: item.header || '',
+    headerName: item.headerName || item.header || '',
     severity: item.severity || 'Media',
     impact: item.impact || 'Exposición defensiva ante vectores web.',
-    description: item.description,
+    description: item.description || '',
     fix: item.snippets?.nginx || `add_header ${item.header} "nosniff" always;`,
     snippets: {
       nginx: item.snippets?.nginx || `add_header ${item.header} "nosniff" always;`,
@@ -155,7 +155,7 @@ function parseResponse(raw: string): RemediationItem[] {
 async function callGemini(prompt: string, apiKey: string): Promise<RemediationItem[]> {
   const ai = new GoogleGenAI({ apiKey });
   const res = await ai.models.generateContent({
-    model: 'gemini-2.5-flash',
+    model: 'gemini-1.5-flash',
     contents: prompt,
     config: { responseMimeType: 'application/json' },
   });
@@ -253,7 +253,7 @@ export async function generateRemediation(
       const result = await callGemini(prompt, geminiKey);
       knowledgeBase.set(cacheKey, result);
       return result;
-    } catch (err) {
+    } catch {
       console.warn('[CASCADE] Gemini no disponible. Conmutando a Groq (Llama 3.3)...');
     }
   }
@@ -265,7 +265,7 @@ export async function generateRemediation(
       const result = await callGroq(prompt, groqKey);
       knowledgeBase.set(cacheKey, result);
       return result;
-    } catch (err) {
+    } catch {
       console.warn('[CASCADE] Groq no disponible. Conmutando a Cloudflare Workers AI...');
     }
   }
@@ -278,7 +278,7 @@ export async function generateRemediation(
       const result = await callCloudflare(prompt, cfAccount, cfKey);
       knowledgeBase.set(cacheKey, result);
       return result;
-    } catch (err) {
+    } catch {
       console.warn('[CASCADE] Cloudflare AI no disponible. Conmutando a Motor Propio Local OWASP...');
     }
   }

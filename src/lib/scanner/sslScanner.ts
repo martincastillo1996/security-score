@@ -31,7 +31,7 @@ export async function scanSsl(hostname: string): Promise<SslCheckResult> {
         rejectUnauthorized: false,
       },
       () => {
-        const cert: any = socket.getPeerCertificate(true);
+        const cert = socket.getPeerCertificate(true);
         const protocol = socket.getProtocol() || 'TLSv1.2';
 
         if (!cert || Object.keys(cert).length === 0) {
@@ -76,7 +76,7 @@ export async function scanSsl(hostname: string): Promise<SslCheckResult> {
         finish({
           valid: isValid,
           protocol: isValid ? protocol : 'Sin HTTPS',
-          issuer: cert?.issuer?.O || cert?.issuer?.CN || 'Desconocido',
+          issuer: String((Array.isArray(cert?.issuer?.O) ? cert.issuer.O.join(', ') : cert?.issuer?.O) || (Array.isArray(cert?.issuer?.CN) ? cert.issuer.CN.join(', ') : cert?.issuer?.CN) || 'Desconocido'),
           validTo: cert?.valid_to || 'N/A',
           daysRemaining: isValid ? Math.max(0, daysRemaining) : 0,
           score: isValid ? 25 : 0,

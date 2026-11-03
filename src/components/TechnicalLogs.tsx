@@ -4,7 +4,7 @@ import { Terminal, Cpu, Clock, ShieldAlert } from 'lucide-react';
 
 interface TelemetryProps {
   id: string;
-  telemetry: {
+  telemetry?: {
     durationMs: number;
     aiModel: string;
     targetResolvedIp?: string;
@@ -36,7 +36,7 @@ export default function TechnicalLogs({ id, telemetry, scannedAt }: TelemetryPro
           <span className="text-slate-500 flex items-center gap-1 mb-1">
             <Cpu className="w-3.5 h-3.5 text-purple-400" /> Motor de Inferencia
           </span>
-          <p className="font-semibold text-slate-200 truncate">{telemetry?.aiModel || 'gemini-2.5-flash'}</p>
+          <p className="font-semibold text-slate-200 truncate">{telemetry?.aiModel || 'gemini-2.0-flash'}</p>
         </div>
 
         <div className="bg-slate-950 p-3 rounded-lg border border-slate-800/80">

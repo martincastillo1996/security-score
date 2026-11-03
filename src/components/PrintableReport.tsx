@@ -12,7 +12,7 @@ interface Props {
 export default function PrintableReport({ report, auditId }: Props) {
   if (!report) return null;
 
-  const scannedDate = new Date(report.scannedAt || Date.now());
+  const scannedDate = new Date(report.scannedAt || '1970-01-01T00:00:00.000Z');
   const formattedDate = scannedDate.toLocaleDateString('es-PE', {
     day: '2-digit',
     month: '2-digit',
@@ -118,7 +118,7 @@ export default function PrintableReport({ report, auditId }: Props) {
           2. Superficie de Exposición de Red (Zero-Downtime TCP Sockets)
         </h2>
         <div className="grid grid-cols-5 gap-2">
-          {((report as any).ports || []).map((p: any) => {
+          {(report.ports || []).map((p) => {
             const isPort80 = p.port === 80;
             const isGitSsh = p.port === 22 && isGitPlatform;
 
@@ -171,12 +171,12 @@ export default function PrintableReport({ report, auditId }: Props) {
             </tr>
           </thead>
           <tbody className="divide-y divide-neutral-200 font-mono">
-            {(report.headers || []).map((h: any, i: number) => (
+            {(report.headers || []).map((h, i: number) => (
               <tr key={i} className="py-1">
                 <td className="py-1.5 font-bold text-neutral-900">{h.name || h.header}</td>
                 <td className="py-1.5">
                   <span className="font-semibold text-neutral-900">
-                    {h.status === 'ok' || h.score > 0 || h.present ? '✓ OK' : '✗ FALTA'}
+                    {h.status === 'pass' || h.present ? '✓ OK' : '✗ FALTA'}
                   </span>
                 </td>
                 <td className="py-1.5 text-neutral-600 uppercase">{h.severity || 'MEDIA'}</td>

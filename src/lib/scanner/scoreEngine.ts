@@ -2,7 +2,7 @@ export interface HeaderCheckResult {
   header: string;
   present: boolean;
   value: string | null;
-  status: 'pass' | 'warning' | 'fail';
+  status: 'pass' | 'warning' | 'fail' | 'missing';
   description: string;
 }
 

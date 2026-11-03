@@ -1,8 +1,8 @@
 import { NextResponse } from 'next/server';
 import { scanSsl } from '@/lib/scanner/sslScanner';
-import { scanHeaders } from '@/lib/scanner/headerScanner';
+import { scanHeaders, HeaderCheckItem } from '@/lib/scanner/headerScanner';
 import { calculateSecurityScore } from '@/lib/scanner/scoreEngine';
-import { generateRemediation } from '@/lib/ai/remediation';
+import { generateRemediation, RemediationItem } from '@/lib/ai/remediation';
 import { saveReport } from '@/lib/storage/reportStore';
 import { scanPerimetralPorts } from '@/lib/scanner/portScanner';
 import dns from 'dns/promises';
@@ -126,7 +126,7 @@ export async function POST(request: Request) {
       })),
     ]);
 
-    const headersList = Array.isArray(headerResult)
+    const headersList: HeaderCheckItem[] = Array.isArray(headerResult)
       ? headerResult
       : (headerResult && headerResult.headers) ? headerResult.headers : [];
 
@@ -161,15 +161,14 @@ export async function POST(request: Request) {
       return p;
     });
 
-    const isHyperscale = (sslResult as any).isHyperscale ?? false;
-
+const isHyperscale = 'isHyperscale' in sslResult ? Boolean((sslResult as Record<string, unknown>).isHyperscale) : false;
     // 6. Asignación directa de Score
     let score = 15;
     let grade: 'A+' | 'A' | 'B' | 'C' | 'D' | 'F' = 'F';
 
     if (sslResult.valid) {
       try {
-        const scoreOutput = calculateSecurityScore(hostname, headersList as any, sslResult as any);
+        const scoreOutput = calculateSecurityScore(hostname, headersList, sslResult);
         score = scoreOutput.score;
         grade = scoreOutput.grade;
       } catch {
@@ -179,9 +178,9 @@ export async function POST(request: Request) {
     }
 
     // 7. Remediaciones
-    let remediations: any[] = [];
+    let remediations: RemediationItem[] = [];
     try {
-      const missingHeaders = headersList.filter((h: any) =>
+       const missingHeaders = headersList.filter((h) =>
         h.status === 'fail' || h.status === 'missing' || h.present === false
       );
       if (missingHeaders.length > 0 || !sslResult.valid) {
@@ -214,15 +213,16 @@ export async function POST(request: Request) {
     };
 
     try {
-      saveReport((fullReport as any).id || crypto.randomUUID(), fullReport as any);
+     saveReport(fullReport.id, fullReport);
     } catch {
       // Ignorar fallback
     }
 
     return NextResponse.json(fullReport, { status: 200 });
-  } catch (error: any) {
+  } catch (error: unknown) {
+    const message = error instanceof Error ? error.message : 'Error inesperado durante la auditoría perimetral.';
     return NextResponse.json(
-      { error: error?.message || 'Error inesperado durante la auditoría perimetral.' },
+      { error: message },
       { status: 500 }
     );
   }

@@ -1,17 +1,27 @@
 import { PortCheckResult } from '@/lib/scanner/portScanner';
+import { HeaderCheckItem } from '@/lib/scanner/headerScanner';
+import { SslCheckResult } from '@/lib/scanner/sslScanner';
+import { RemediationItem } from '@/lib/ai/remediation';
+
+export interface AuditTelemetry {
+  durationMs: number;
+  aiModel: string;
+  targetResolvedIp?: string;
+  engineVersion: string;
+}
 
 export interface AuditReportRecord {
   id?: string;
   url: string;
   score: number;
-  grade: string;
-  ssl?: any;
-  headers?: any[];
-  ports?: PortCheckResult[] | any[];
-  remediations?: any[];
-  telemetry?: any;
+  grade: 'A+' | 'A' | 'B' | 'C' | 'D' | 'F';
+  ssl?: SslCheckResult;
+  headers?: HeaderCheckItem[];
+  ports?: PortCheckResult[];
+  remediations?: RemediationItem[];
+  telemetry?: AuditTelemetry;
   scannedAt?: string;
-  [key: string]: any;
+  isHyperscale?: boolean;
 }
 
 const globalForReports = globalThis as unknown as {

@@ -83,7 +83,7 @@ export default function HeaderResults({ headers }: Props) {
 
       <div className="grid grid-cols-1 md:grid-cols-2 gap-4 mt-6">
         {headers.map((h, i) => {
-          const item = h as any;
+          const item = h as HeaderResult & { purpose?: string; weight?: number; score?: number; contextNote?: string };
           const key = h.name.toLowerCase();
           const translation = DUAL_TRANSLATIONS[key] || {
             plain: 'Directiva de seguridad encargada de proteger la integridad del sitio web.',
