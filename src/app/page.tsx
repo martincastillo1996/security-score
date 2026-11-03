@@ -450,10 +450,46 @@ export default function HomePage() {
           </div>
         </main>
 
-        <footer className="border-t border-white/5 py-12 text-center text-xs text-neutral-500 bg-[#000000] mt-24">
-          <div className="max-w-5xl mx-auto px-6 space-y-2">
-            <p className="font-normal text-neutral-400">&copy; 2026 DEFENSA TI Inc. Todos los derechos reservados.</p>
-            <p className="text-[11px] text-neutral-600">Designed & Engineered by Martin C.</p>
+        <footer className="border-t border-white/10 py-14 text-xs text-neutral-400 bg-[#000000]/90 backdrop-blur-xl mt-24">
+          <div className="max-w-5xl mx-auto px-6 space-y-8 text-center">
+            
+            {/* Redes y Conexiones Scrapling Style */}
+            <div className="flex flex-wrap items-center justify-center gap-3">
+              <a
+                href="https://wa.me/17856433991?text=Hola%20Martin,%20vi%20DEFENSA%20TI%20y%20quiero%20cotizar%20un%20blindaje%20perimetral"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="inline-flex items-center gap-2 px-4 py-2 rounded-xl bg-emerald-500/10 hover:bg-emerald-500/20 border border-emerald-500/30 text-emerald-400 font-medium transition-all"
+              >
+                <span className="w-2 h-2 rounded-full bg-emerald-400 animate-pulse" />
+                WhatsApp: +1 (785) 643-3991
+              </a>
+
+              <a
+                href="https://www.linkedin.com/in/martincastillorojas/"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="inline-flex items-center gap-2 px-4 py-2 rounded-xl bg-white/5 hover:bg-white/10 border border-white/10 text-white font-medium transition-all"
+              >
+                LinkedIn Profesional
+              </a>
+
+              <a
+                href="https://github.com/martincastillo1996/security-score"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="inline-flex items-center gap-2 px-4 py-2 rounded-xl bg-white/5 hover:bg-white/10 border border-white/10 text-white font-medium transition-all"
+              >
+                GitHub Oficial &bull; ★ Star
+              </a>
+            </div>
+
+            <div className="space-y-1 text-center">
+              <p className="font-medium text-white">&copy; 2026 DEFENSA TI Inc. Todos los derechos reservados.</p>
+              <p className="text-[11px] text-neutral-500">
+                Auditoría perimetral determinista no intrusiva &bull; Diseñado & Desarrollado por Martin Castillo
+              </p>
+            </div>
           </div>
         </footer>
       </div>

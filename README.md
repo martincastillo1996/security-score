@@ -8,13 +8,24 @@
   Un motor de auditoría perimetral no intrusivo y de alta velocidad diseñado para evaluar la postura criptográfica, exposición de sockets TCP y directivas defensivas OWASP en cualquier infraestructura web moderna.
 </p>
 
-[![CI Pipeline](https://img.shields.io/badge/CI-Passing-10b981?style=for-the-badge&logo=github-actions&logoColor=white)](https://github.com/martincastillo1996/defensati/actions)
+<!-- Status & Quality Badges -->
+[![CI Pipeline](https://img.shields.io/github/actions/workflow/status/martincastillo1996/security-score/ci.yml?branch=main&style=for-the-badge&logo=github-actions&logoColor=white&label=CI%20Status)](https://github.com/martincastillo1996/security-score/actions)
 [![Next.js 16](https://img.shields.io/badge/Next.js-16.x-000000?style=for-the-badge&logo=next.js&logoColor=white)](https://nextjs.org/)
 [![TypeScript 5](https://img.shields.io/badge/TypeScript-5.x-3178c6?style=for-the-badge&logo=typescript&logoColor=white)](https://www.typescriptlang.org/)
 [![Anti-SSRF Hardened](https://img.shields.io/badge/Anti--SSRF-RFC_1918_Protected-0284c7?style=for-the-badge&logo=shield&logoColor=white)](#-arquitectura-de-seguridad-anti-ssrf)
 [![License: MIT](https://img.shields.io/badge/License-MIT-amber?style=for-the-badge)](LICENSE)
 
-[🌐 Probar en Producción](https://defensati.vercel.app) &bull; [📖 Documentación](#-características-principales) &bull; [⚡ API Quickstart](#-api-quickstart-curl) &bull; [💬 Contacto Comercial](https://wa.me/17856433991)
+<br/>
+
+<!-- Community & Social Connections (Scrapling Style) -->
+[![WhatsApp Contact](https://img.shields.io/badge/WhatsApp-Consultor%C3%ADa%20Inmediata-25D366?style=for-the-badge&logo=whatsapp&logoColor=white)](https://wa.me/17856433991?text=Hola%20Martin,%20vi%20DEFENSA%20TI%20y%20quiero%20cotizar%20un%20blindaje%20perimetral)
+[![LinkedIn Profile](https://img.shields.io/badge/LinkedIn-Martin%20Castillo-0A66C2?style=for-the-badge&logo=linkedin&logoColor=white)](https://www.linkedin.com/in/martincastillorojas/)
+[![TikTok QA & Security](https://img.shields.io/badge/TikTok-Auditor%C3%ADas%20en%20Vivo-000000?style=for-the-badge&logo=tiktok&logoColor=white)](https://tiktok.com/@martincastillo)
+[![GitHub Stars](https://img.shields.io/github/stars/martincastillo1996/security-score?style=for-the-badge&color=eab308&logo=github)](https://github.com/martincastillo1996/security-score/stargazers)
+
+<br/>
+
+[🌐 Probar en Producción](https://defensati.vercel.app) &bull; [📖 Documentación](#-características-principales) &bull; [⚡ API Quickstart](#-api-quickstart-curl) &bull; [💬 WhatsApp Directo (+1 785 643-3991)](https://wa.me/17856433991)
 
 ---
 
@@ -191,15 +202,31 @@ npx tsc --noEmit
 
 ---
 
-## 💼 Conversión Comercial & Contacto
+## 🌐 Comunidad, Viralidad & Redes de Contacto
 
-DEFENSA TI está optimizado para generar leads comerciales calificados directamente desde redes sociales (TikTok, LinkedIn, YouTube):
-* Los reportes integran botones de enlace directo a **WhatsApp** con mensajes dinámicos prellenados con el puntaje y dominio evaluado.
-* Diseñado para ofrecer servicios de consultoría, remediación perimetral y blindaje de servidores en producción.
+Inspirado en el estándar de engagement de proyectos open-source de alto crecimiento (como [Scrapling](https://github.com/D4Vinci/Scrapling)), ponemos a disposición canales directos para soporte, cotizaciones corporativas y demostraciones en vivo:
 
-Para cotizaciones de hardening perimetral o auditorías corporativas:
-* **WhatsApp Directo:** [+1 (785) 643-3991](https://wa.me/17856433991)
-* **Ingeniero a cargo:** Martin Castillo
+| Canal | Propósito | Enlace |
+| :--- | :--- | :--- |
+| 💬 **WhatsApp Oficial** | Consultoría perimetral directa, blindaje urgente de servidores y presupuestos | [Iniciar Conversación](https://wa.me/17856433991?text=Hola%20Martin,%20vi%20DEFENSA%20TI%20y%20quiero%20cotizar) |
+| 💼 **LinkedIn Corporativo** | Artículos de seguridad ofensiva/defensiva y networking profesional | [Conectar con Martin Castillo](https://www.linkedin.com/in/martincastillorojas/) |
+| 🎬 **TikTok Auditorías QA** | Casos prácticos de estudio en vivo, análisis perimetrales y divulgación de brechas | [Ver Contenido Viral](https://tiktok.com/@martincastillo) |
+| 🐙 **GitHub Discussions** | Sugerencias de nuevas pruebas OWASP, reportes y colaboración técnica | [Abrir Discusión](https://github.com/martincastillo1996/security-score/issues) |
+
+---
+
+## 💼 Conversión Comercial & Servicios de Blindaje
+
+DEFENSA TI está diseñado tanto para auditorías públicas como para la prospección de servicios de ciberseguridad defensiva:
+* **Generación de Leads:** Cada reporte emitido incluye opciones para exportar dictamen forense y contactar a un ingeniero especializado vía WhatsApp con un clic.
+* **Soluciones Ofrecidas:**
+  1. Configuración de **TLSv1.3 & HSTS Preload**.
+  2. Implementación de **Content Security Policy (CSP)** a prueba de inyecciones XSS.
+  3. Cierre perimetral de puertos y configuración de firewalls (iptables/ufw/AWS Security Groups).
+  4. Auditorías de cumplimiento para e-commerce (PCI-DSS).
+
+* **Línea Directa de Consultoría:** [+1 (785) 643-3991](https://wa.me/17856433991)
+* **Ingeniero Líder:** Martin Castillo &bull; [castillo.karol96@gmail.com](mailto:castillo.karol96@gmail.com)
 
 ---
 
