@@ -9,6 +9,7 @@ import ScoreCircle from '@/components/ScoreCircle';
 import SslResults from '@/components/SslResults';
 import TechnicalLogs from '@/components/TechnicalLogs';
 import WhatsAppCta from '@/components/WhatsAppCta';
+import BusinessOverview from '@/components/BusinessOverview';
 import { AuditReportRecord } from '@/lib/storage/reportStore';
 import {
   AlertTriangle,
@@ -22,7 +23,9 @@ import {
   Share2,
   ShieldAlert,
   ShieldCheck,
-  Sparkles
+  Sparkles,
+  Briefcase,
+  Terminal
 } from 'lucide-react';
 import { useState } from 'react';
 
@@ -33,6 +36,7 @@ export default function HomePage() {
   const [auditId, setAuditId] = useState<string | null>(null);
   const [error, setError] = useState<string | null>(null);
   const [copied, setCopied] = useState(false);
+  const [viewMode, setViewMode] = useState<'business' | 'tech'>('business');
 
   const handleScan = async (targetUrl?: string) => {
     const finalUrl = targetUrl || url;
@@ -263,6 +267,36 @@ export default function HomePage() {
                 </div>
               </div>
 
+              {/* Selector de Perspectiva: Negocio vs Técnico */}
+              <div className="flex justify-center">
+                <div className="inline-flex p-1 rounded-2xl bg-white/5 border border-white/10 backdrop-blur-xl">
+                  <button
+                    type="button"
+                    onClick={() => setViewMode('business')}
+                    className={`flex items-center gap-2 px-4 py-2 rounded-xl text-xs font-semibold transition-all ${
+                      viewMode === 'business'
+                        ? 'bg-[#0071e3] text-white shadow-lg shadow-[#0071e3]/30'
+                        : 'text-neutral-400 hover:text-white'
+                    }`}
+                  >
+                    <Briefcase className="w-4 h-4" />
+                    Vista de Negocio (Gerencial)
+                  </button>
+                  <button
+                    type="button"
+                    onClick={() => setViewMode('tech')}
+                    className={`flex items-center gap-2 px-4 py-2 rounded-xl text-xs font-semibold transition-all ${
+                      viewMode === 'tech'
+                        ? 'bg-[#0071e3] text-white shadow-lg shadow-[#0071e3]/30'
+                        : 'text-neutral-400 hover:text-white'
+                    }`}
+                  >
+                    <Terminal className="w-4 h-4" />
+                    Vista Técnica (SysAdmin / Dev)
+                  </button>
+                </div>
+              </div>
+
               <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
                 <div className="md:col-span-1 rounded-3xl bg-white/2 border border-white/5 p-6 backdrop-blur-xl">
                   <ScoreCircle score={report.score} grade={report.grade || 'F'} />
@@ -272,30 +306,39 @@ export default function HomePage() {
                 </div>
               </div>
 
-              {Boolean(report.ports?.length) && (
-                <div className="rounded-3xl bg-white/2 border border-white/5 p-6 backdrop-blur-xl">
-                  <PortResults ports={report.ports || []} />
+              {/* Contenido Condicional según Perspectiva */}
+              {viewMode === 'business' ? (
+                <BusinessOverview report={report} />
+              ) : (
+                <div className="space-y-6">
+                  {Boolean(report.ports?.length) && (
+                    <div className="rounded-3xl bg-white/2 border border-white/5 p-6 backdrop-blur-xl">
+                      <PortResults ports={report.ports || []} />
+                    </div>
+                  )}
+
+                  <div className="rounded-3xl bg-white/2 border border-white/5 p-6 backdrop-blur-xl">
+                    <HeaderResults headers={report.headers || []} />
+                  </div>
+
+                  <div className="rounded-3xl bg-white/2 border border-white/5 p-6 backdrop-blur-xl">
+                    <RemediationList items={report.remediations || []} />
+                  </div>
                 </div>
               )}
-
-              <div className="rounded-3xl bg-white/2 border border-white/5 p-6 backdrop-blur-xl">
-                <HeaderResults headers={report.headers || []} />
-              </div>
-
-              <div className="rounded-3xl bg-white/2 border border-white/5 p-6 backdrop-blur-xl">
-                <RemediationList items={report.remediations || []} />
-              </div>
 
               {/* Llamado a la Acción Comercial de Blindaje Inmediato */}
               <WhatsAppCta url={report.url} score={report.score} grade={report.grade || 'F'} />
 
-              <div className="rounded-3xl bg-white/2 border border-white/5 p-6 backdrop-blur-xl">
-                <TechnicalLogs 
-                  id={auditId || ''} 
-                  telemetry={report.telemetry} 
-                  scannedAt={report.scannedAt || ''} 
-                />
-              </div>
+              {viewMode === 'tech' && (
+                <div className="rounded-3xl bg-white/2 border border-white/5 p-6 backdrop-blur-xl">
+                  <TechnicalLogs 
+                    id={auditId || ''} 
+                    telemetry={report.telemetry} 
+                    scannedAt={report.scannedAt || ''} 
+                  />
+                </div>
+              )}
             </div>
           )}
 
