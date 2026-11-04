@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import { Geist, Geist_Mono } from "next/font/google";
 import "./globals.css";
 import { I18nProvider } from "@/lib/i18n/I18nContext";
+import CookieConsentBanner from "@/components/CookieConsentBanner";
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -28,6 +29,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
       <body className="min-h-full flex flex-col bg-black text-[#f5f5f7]">
         <I18nProvider>
           {children}
+          <CookieConsentBanner />
         </I18nProvider>
       </body>
     </html>
