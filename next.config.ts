@@ -23,7 +23,7 @@ const nextConfig: NextConfig = {
         headers: [
           {
             key: "Content-Security-Policy",
-            value: "default-src 'self'; script-src 'self' 'unsafe-eval' 'unsafe-inline'; style-src 'self' 'unsafe-inline'; img-src 'self' data: https:; font-src 'self' data:; connect-src 'self' https:; frame-ancestors 'none';",
+            value: "default-src 'self' https://checkout.culqi.com; script-src 'self' 'unsafe-eval' 'unsafe-inline' https://checkout.culqi.com https://js.culqi.com; style-src 'self' 'unsafe-inline' https://checkout.culqi.com; img-src 'self' data: https: https://checkout.culqi.com; font-src 'self' data: https://checkout.culqi.com; connect-src 'self' https: https://api.culqi.com https://checkout.culqi.com; frame-src 'self' https://checkout.culqi.com; frame-ancestors 'none';",
           },
           {
             key: "X-Frame-Options",
