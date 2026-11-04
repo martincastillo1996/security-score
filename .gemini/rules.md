@@ -33,4 +33,5 @@
 ## 7. Previsualización y Aprobación Obligatoria Antes de Cambios Visuales o Producción (ESTRICTO)
 - **Previsualización Obligatoria Primero:** Ante cualquier cambio de diseño, layout, estilos o cualquier ajuste que haga que la página se vea diferente, el asistente DEBE presentar primero una previsualización detallada (estructura visual, contenido y aspecto exacto) antes de darlo por definitivo.
 - **Pregunta de Aprobación Explícita:** Siempre se debe consultar directamente a Martín: *"¿Está bien así o qué le cambiamos antes de que salga a producción?"*.
+- **Formato de Aprobación Tipo Pop-up:** La consulta de aprobación final o confirmación de despliegue DEBE emitirse siempre a través de la tarjeta interactiva de selección (herramienta `ask_question`), para que Martín pueda revisar las opciones y dar el **"Go"** con un solo clic como un pop-up.
 - **Cero Modificaciones Visuales Sorpresa:** Ningún cambio visual se consolida ni se prepara para producción sin la confirmación y visto bueno explícito de Martín sobre el resultado visible.
