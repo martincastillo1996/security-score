@@ -2,6 +2,7 @@
 
 import React, { useState } from 'react';
 import Link from 'next/link';
+import Image from 'next/image';
 import NeuralBackground from '@/components/NeuralBackground';
 import Apple3DGlobe from '@/components/Apple3DGlobe';
 import LanguageSelector from '@/components/LanguageSelector';
@@ -1080,59 +1081,102 @@ export default function NeuronalGravityHomePage() {
           </section>
 
           {/* LIDERAZGO & CONSULTOR PRINCIPAL */}
-          <section id="liderazgo" className="relative rounded-3xl p-8 sm:p-12 bg-linear-to-b from-[#0a0f1d] via-[#05070f] to-[#000000] border border-white/10 space-y-8 text-left">
-            <div className="space-y-3">
-              <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-sky-500/10 border border-sky-400/20 text-[#38bdf8] text-xs font-semibold">
-                <Sparkles className="w-3.5 h-3.5" />
-                <span>{content.founder.badge}</span>
+          <section id="liderazgo" className="relative rounded-3xl p-8 sm:p-12 bg-linear-to-b from-[#0a0f1d] via-[#05070f] to-[#000000] border border-white/10 text-left overflow-hidden">
+            {/* Resplandor ambiental de fondo */}
+            <div className="absolute top-0 right-1/4 w-96 h-96 bg-[#0071e3]/15 rounded-full blur-[130px] pointer-events-none" />
+
+            <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 sm:gap-12 items-center relative z-10">
+              
+              {/* Retrato Profesional Integrado */}
+              <div className="lg:col-span-5 flex justify-center lg:justify-start">
+                <div className="relative group w-full max-w-[340px]">
+                  {/* Halo neón perimetral */}
+                  <div className="absolute -inset-1 rounded-[32px] bg-linear-to-b from-[#38bdf8]/40 via-[#0071e3]/30 to-[#7928ca]/40 blur-xl opacity-75 group-hover:opacity-100 transition-opacity duration-500" />
+
+                  {/* Marco Apple Glass */}
+                  <div className="relative rounded-[28px] bg-linear-to-b from-[#141b2d] via-[#0b0f19] to-[#04060c] border border-white/15 p-3 pb-0 overflow-hidden shadow-2xl">
+                    <div className="relative aspect-[4/5] w-full overflow-hidden rounded-[20px] bg-linear-to-b from-transparent via-[#0071e3]/5 to-[#000000]">
+                      <Image
+                        src="/martin-castillo.png"
+                        alt="Martin Castillo - Fundador de Neuronal Gravity"
+                        width={438}
+                        height={569}
+                        className="w-full h-full object-cover object-top filter contrast-[1.04] brightness-[1.02] drop-shadow-[0_15px_30px_rgba(0,113,227,0.3)] transition-transform duration-500 group-hover:scale-[1.02]"
+                        priority
+                      />
+                      {/* Difuminado suave inferior para fundir con el marco oscuro */}
+                      <div className="absolute inset-x-0 bottom-0 h-24 bg-linear-to-t from-[#04060c] via-[#04060c]/60 to-transparent pointer-events-none" />
+                    </div>
+
+                    {/* Insignia de Estado */}
+                    <div className="py-3 px-2 flex items-center justify-between text-xs border-t border-white/10 mt-1">
+                      <div className="flex items-center gap-2">
+                        <span className="w-2 h-2 rounded-full bg-emerald-400 animate-pulse shadow-[0_0_8px_#34d399]" />
+                        <span className="font-semibold text-white text-[11px]">Martin Castillo</span>
+                      </div>
+                      <span className="text-[10px] text-neutral-400 font-mono">Lead Architect</span>
+                    </div>
+                  </div>
+                </div>
               </div>
 
-              <h2 className="text-2xl sm:text-4xl font-extrabold text-white tracking-tight">
-                {content.founder.title}
-              </h2>
-              <div className="text-sm font-semibold text-[#38bdf8]">
-                {content.founder.role}
+              {/* Contenido e Información de Liderazgo */}
+              <div className="lg:col-span-7 space-y-6">
+                <div className="space-y-3">
+                  <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-sky-500/10 border border-sky-400/20 text-[#38bdf8] text-xs font-semibold">
+                    <Sparkles className="w-3.5 h-3.5" />
+                    <span>{content.founder.badge}</span>
+                  </div>
+
+                  <h2 className="text-3xl sm:text-5xl font-extrabold text-white tracking-tight">
+                    {content.founder.title}
+                  </h2>
+                  <div className="text-sm sm:text-base font-semibold text-[#38bdf8]">
+                    {content.founder.role}
+                  </div>
+
+                  <p className="text-sm sm:text-base text-neutral-300 leading-relaxed">
+                    {content.founder.desc}
+                  </p>
+                </div>
+
+                <blockquote className="p-5 sm:p-6 rounded-2xl bg-white/[0.02] border-l-4 border-emerald-400 border-y border-r border-white/5 text-sm sm:text-base italic text-neutral-300">
+                  {content.founder.quote}
+                </blockquote>
+
+                <div className="flex flex-wrap items-center gap-3 pt-2">
+                  <a
+                    href="https://wa.me/17856433991?text=Hola%20Martin,%20deseo%20agendar%20una%20reuni%C3%B3n%20para%20evaluar%20soluciones%20de%20IA%20para%20mi%20empresa"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="inline-flex items-center gap-2 px-5 py-3 rounded-xl bg-emerald-500/15 hover:bg-emerald-500/25 border border-emerald-500/40 text-emerald-400 font-semibold text-xs sm:text-sm transition-all"
+                  >
+                    <PhoneCall className="w-4 h-4" />
+                    <span>{content.founder.whatsappCta}</span>
+                  </a>
+
+                  <a
+                    href="https://www.linkedin.com/in/karol-martin-castillo-rojas-17a496168/"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="inline-flex items-center gap-2 px-5 py-3 rounded-xl bg-[#0077b5]/15 hover:bg-[#0077b5]/25 border border-[#0077b5]/40 text-[#38bdf8] font-semibold text-xs sm:text-sm transition-all"
+                  >
+                    <ExternalLink className="w-4 h-4" />
+                    <span>{content.founder.linkedinCta}</span>
+                  </a>
+
+                  <a
+                    href="https://github.com/martincastillo1996/security-score"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="inline-flex items-center gap-2 px-5 py-3 rounded-xl bg-white/5 hover:bg-white/10 border border-white/15 text-white font-semibold text-xs sm:text-sm transition-all"
+                  >
+                    <Code2 className="w-4 h-4" />
+                    <span>{content.founder.githubCta}</span>
+                  </a>
+                </div>
               </div>
 
-              <p className="text-sm sm:text-base text-neutral-300 max-w-3xl leading-relaxed">
-                {content.founder.desc}
-              </p>
-            </div>
-
-            <blockquote className="p-5 sm:p-6 rounded-2xl bg-white/[0.02] border-l-4 border-emerald-400 border-y border-r border-white/5 text-sm sm:text-base italic text-neutral-300">
-              {content.founder.quote}
-            </blockquote>
-
-            <div className="flex flex-wrap items-center gap-3 pt-2">
-              <a
-                href="https://wa.me/17856433991?text=Hola%20Martin,%20deseo%20agendar%20una%20reuni%C3%B3n%20para%20evaluar%20soluciones%20de%20IA%20para%20mi%20empresa"
-                target="_blank"
-                rel="noopener noreferrer"
-                className="inline-flex items-center gap-2 px-5 py-3 rounded-xl bg-emerald-500/15 hover:bg-emerald-500/25 border border-emerald-500/40 text-emerald-400 font-semibold text-xs sm:text-sm transition-all"
-              >
-                <PhoneCall className="w-4 h-4" />
-                <span>{content.founder.whatsappCta}</span>
-              </a>
-
-              <a
-                href="https://www.linkedin.com/in/karol-martin-castillo-rojas-17a496168/"
-                target="_blank"
-                rel="noopener noreferrer"
-                className="inline-flex items-center gap-2 px-5 py-3 rounded-xl bg-[#0077b5]/15 hover:bg-[#0077b5]/25 border border-[#0077b5]/40 text-[#38bdf8] font-semibold text-xs sm:text-sm transition-all"
-              >
-                <ExternalLink className="w-4 h-4" />
-                <span>{content.founder.linkedinCta}</span>
-              </a>
-
-              <a
-                href="https://github.com/martincastillo1996/security-score"
-                target="_blank"
-                rel="noopener noreferrer"
-                className="inline-flex items-center gap-2 px-5 py-3 rounded-xl bg-white/5 hover:bg-white/10 border border-white/15 text-white font-semibold text-xs sm:text-sm transition-all"
-              >
-                <Code2 className="w-4 h-4" />
-                <span>{content.founder.githubCta}</span>
-              </a>
             </div>
           </section>
 
