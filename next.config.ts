@@ -1,17 +1,9 @@
 import type { NextConfig } from "next";
 
 const nextConfig: NextConfig = {
-  /* Opciones de rendimiento y Turbopack existentes */
+  /* Opciones de rendimiento existentes */
   cacheComponents: false,
   partialPrefetching: false,
-  turbopack: {
-    rules: {
-      "*.css": {
-        loaders: ["@tailwindcss/turbopack"],
-        as: "*.css",
-      },
-    },
-  },
 
   /* Rewrites amigables */
   async rewrites() {
