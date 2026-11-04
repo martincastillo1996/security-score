@@ -674,17 +674,17 @@ export default function NeuronalGravityHomePage() {
               </div>
             </Link>
 
-            {/* Menú de Navegación de Negocio */}
+            {/* Menú de Navegación de Negocio con Rutas Limpias */}
             <nav className="hidden lg:flex items-center gap-7 text-[13px] font-medium text-neutral-300">
-              <a href="#soluciones" className="hover:text-white transition-colors duration-200">
+              <Link href="/soluciones" className="hover:text-white transition-colors duration-200">
                 {content.nav.solutions}
-              </a>
-              <a href="#metodologia" className="hover:text-white transition-colors duration-200">
+              </Link>
+              <Link href="/metodologia" className="hover:text-white transition-colors duration-200">
                 {content.nav.methodology}
-              </a>
-              <a href="#industrias" className="hover:text-white transition-colors duration-200">
+              </Link>
+              <Link href="/casos" className="hover:text-white transition-colors duration-200">
                 {content.nav.industries}
-              </a>
+              </Link>
               <Link 
                 href="/scanner" 
                 className="flex items-center gap-1.5 text-[#38bdf8] hover:text-white transition-colors duration-200"
@@ -692,9 +692,9 @@ export default function NeuronalGravityHomePage() {
                 <span className="h-1.5 w-1.5 rounded-full bg-[#38bdf8] shadow-[0_0_8px_#38bdf8] animate-pulse" />
                 <span>{content.nav.defensaTi}</span>
               </Link>
-              <a href="#liderazgo" className="hover:text-white transition-colors duration-200">
+              <Link href="/liderazgo" className="hover:text-white transition-colors duration-200">
                 {content.nav.about}
-              </a>
+              </Link>
             </nav>
 
             {/* Acciones */}
