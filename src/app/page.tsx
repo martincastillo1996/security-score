@@ -37,7 +37,7 @@ export default function NeuronalGravityHomePage() {
   const { language } = useI18n();
   const [selectedIndustry, setSelectedIndustry] = useState<number>(0);
 
-  const content = {
+  const contentMap = {
     es: {
       nav: {
         solutions: 'Soluciones de Negocio',
@@ -605,72 +605,9 @@ export default function NeuronalGravityHomePage() {
         disclaimer: 'Soluções desenvolvidas sob estritos acordos de confidencialidade e segurança de dados.',
       },
     },
-  }[language] || {
-    // Fallback ES
-    nav: {
-      solutions: 'Soluciones de Negocio',
-      methodology: 'Cómo Trabajamos',
-      industries: 'Casos por Industria',
-      defensaTi: 'DEFENSA TI',
-      about: 'Liderazgo',
-      contactBtn: 'Cotizar Proyecto de IA',
-    },
-    hero: {
-      badge: 'NEURONALGRAVITY.COM • INTELIGENCIA ARTIFICIAL APLICADA A NEGOCIOS',
-      title1: 'Impulsa tu Empresa con',
-      title2: 'Soluciones de Negocio con Inteligencia Artificial.',
-      desc: 'Diseñamos e implementamos agentes autónomos, automatizaciones operativas inteligentes y ciberdefensa perimetral que multiplican las ventas y reducen costos.',
-      ctaPrimary: 'Agendar Asesoría de Negocio con IA',
-      ctaSecondary: 'Ver Soluciones de Negocio',
-      scannerCallout: '¿Buscas auditar la seguridad de tu página web?',
-      scannerLinkText: 'Probar gratis DEFENSA TI →',
-      stats: [
-        { value: '+300%', label: 'Capacidad de Atención', desc: 'Agentes 24/7 en WhatsApp y web' },
-        { value: '-65%', label: 'Costos Operativos', desc: 'Automatización de tareas repetitivas' },
-        { value: '< 30 Días', label: 'Tiempo a Producción', desc: 'De la idea a un sistema funcionando' },
-        { value: '100% ROI', label: 'Orientado a Resultados', desc: 'Soluciones con retorno medible' },
-      ],
-    },
-    solutions: {
-      badge: 'Servicios & Capacidades',
-      title: 'Soluciones de IA Diseñadas para Generar Rentabilidad',
-      desc: 'Herramientas prácticas que se integran a tus flujos de trabajo.',
-      items: [],
-    },
-    methodology: {
-      badge: 'Metodología',
-      title: 'Cómo Llevamos la IA a tu Negocio en 4 Pasos',
-      desc: 'Proceso ágil y transparente.',
-      steps: [],
-    },
-    industries: {
-      badge: 'Casos Reales',
-      title: 'Impacto Comprobado en Diversas Industrias',
-      desc: 'Soluciones aplicadas en diferentes sectores.',
-      items: [],
-    },
-    founder: {
-      badge: 'Fundador & Consultor',
-      title: 'Martin Castillo',
-      role: 'Arquitecto de Soluciones de Negocio con IA',
-      desc: 'Fundador de Neuronal Gravity.',
-      quote: '"La IA debe multiplicar las utilidades de tu empresa."',
-      whatsappCta: 'Consultar por WhatsApp (+1 785 643-3991)',
-      linkedinCta: 'LinkedIn',
-      githubCta: 'GitHub',
-    },
-    ctaFinal: {
-      title: '¿Tienes un proceso que te quita tiempo y dinero?',
-      desc: 'Hablemos hoy sobre cómo automatizarlo con IA.',
-      btnWhatsApp: 'Hablar por WhatsApp',
-      btnDefensa: 'Probar DEFENSA TI',
-    },
-    footer: {
-      tagline: 'Neuronal Gravity • Soluciones de Negocio con IA',
-      copy: '© 2026 Neuronal Gravity',
-      disclaimer: 'Soluciones bajo confidencialidad.',
-    },
   };
+
+  const content = contentMap[language as keyof typeof contentMap] || contentMap.es;
 
   return (
     <div className="relative min-h-screen bg-[#000000] text-[#f5f5f7] selection:bg-[#0071e3] selection:text-white font-sans antialiased overflow-x-hidden">
