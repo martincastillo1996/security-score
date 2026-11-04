@@ -136,54 +136,94 @@ export default function BusinessOverview({ report }: Props) {
 
       </div>
 
-      {/* Resumen Ejecutivo para Gerencia con fondo sólido opaco */}
-      <div className="p-7 rounded-3xl bg-[#161618] border border-white/10 shadow-2xl space-y-5">
-        <h3 className="text-base font-bold text-white flex items-center gap-2.5">
-          <Building2 className="w-5 h-5 text-[#2997ff]" />
-          Dictamen Ejecutivo para Gerencia y Dirección
-        </h3>
+      {/* Resumen Ejecutivo para Gerencia - Formato Ultra Claro y Humano */}
+      <div className="p-6 sm:p-7 rounded-3xl bg-[#141416] border border-white/10 shadow-2xl space-y-5">
+        <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-2 border-b border-white/10 pb-4">
+          <div className="flex items-center gap-2.5">
+            <Building2 className="w-5 h-5 text-[#2997ff]" />
+            <h3 className="text-base font-bold text-white tracking-tight">
+              Diagnóstico en Términos de Negocio (Para el Dueño o Gerente)
+            </h3>
+          </div>
+          <span className="text-[11px] px-2.5 py-0.5 rounded-full bg-blue-500/10 text-blue-300 border border-blue-500/20 w-fit">
+            Sin tecnicismos complicados
+          </span>
+        </div>
         
-        <div className="space-y-3.5 text-xs sm:text-sm text-neutral-200">
-          <div className="flex items-start gap-3 p-3 rounded-2xl bg-white/2 border border-white/5">
+        <div className="space-y-3 text-xs sm:text-sm">
+          
+          {/* 1. Candado de Seguridad */}
+          <div className="flex items-start gap-3 p-3.5 rounded-2xl bg-black/40 border border-white/5">
             <CheckCircle2 className="w-5 h-5 text-emerald-400 shrink-0 mt-0.5" />
-            <span>
-              <strong className="text-white">Certificado Digital:</strong> {report.ssl?.valid ? `Válido y activo por los próximos ${report.ssl.daysRemaining} días.` : 'Certificado inválido o expirado. Requiere renovación urgente.'}
-            </span>
+            <div className="space-y-0.5">
+              <strong className="text-white block">1. Candado de Seguridad (Certificado SSL):</strong>
+              <span className="text-neutral-300">
+                {report.ssl?.valid 
+                  ? `Está activo por los próximos ${report.ssl.daysRemaining} días. La conexión básica entre tu cliente y tu página viaja cifrada.`
+                  : 'Está vencido o presenta fallas. Los navegadores muestran la pantalla roja de advertencia.'}
+              </span>
+            </div>
           </div>
 
-          <div className="flex items-start gap-3 p-3 rounded-2xl bg-white/2 border border-white/5">
+          {/* 2. Escudo contra engaños */}
+          <div className="flex items-start gap-3 p-3.5 rounded-2xl bg-black/40 border border-white/5">
             {missingHeaders.length > 0 ? (
               <AlertTriangle className="w-5 h-5 text-amber-400 shrink-0 mt-0.5" />
             ) : (
               <CheckCircle2 className="w-5 h-5 text-emerald-400 shrink-0 mt-0.5" />
             )}
-            <span>
-              <strong className="text-white">Blindaje de Navegador:</strong> Se identificaron {missingHeaders.length} políticas de seguridad ausentes que permiten ataques de intermediario o inyecciones de código.
-            </span>
+            <div className="space-y-0.5">
+              <strong className="text-white block">2. Protección Anti-Clonación en Navegadores:</strong>
+              <span className="text-neutral-300">
+                {missingHeaders.length > 0 
+                  ? `Faltan ${missingHeaders.length} reglas de blindaje perimetral. Sin estas reglas, terceros pueden incrustar tu web en otros sitios para suplantar tu identidad.`
+                  : 'Tu portal cuenta con todas las reglas que impiden ser duplicado dentro de otras páginas.'}
+              </span>
+            </div>
           </div>
 
-          <div className="flex items-start gap-3 p-3 rounded-2xl bg-white/2 border border-white/5">
+          {/* 3. Acceso a datos internos */}
+          <div className="flex items-start gap-3 p-3.5 rounded-2xl bg-black/40 border border-white/5">
             {hasOpenAdminPorts ? (
               <ShieldAlert className="w-5 h-5 text-rose-400 shrink-0 mt-0.5" />
             ) : (
               <CheckCircle2 className="w-5 h-5 text-emerald-400 shrink-0 mt-0.5" />
             )}
-            <span>
-              <strong className="text-white">Perímetro de Red:</strong> {hasOpenAdminPorts ? 'Se aconseja colocar una VPN o lista blanca de IPs de inmediato.' : 'No se detectaron puertos de bases de datos o servicios de administración visibles al escaneo público.'}
-            </span>
+            <div className="space-y-0.5">
+              <strong className="text-white block">3. Accesos y Bases de Datos:</strong>
+              <span className="text-neutral-300">
+                {hasOpenAdminPorts 
+                  ? 'Hay puertos de gestión abiertos a todo internet. Cualquier atacante puede intentar contraseñas por fuerza bruta.'
+                  : 'Tus bases de datos y accesos privados están debidamente ocultos de miradas públicas.'}
+              </span>
+            </div>
           </div>
 
-          {/* Cumplimiento Legal Peruano */}
-          <div className="flex items-start gap-3 p-3 rounded-2xl bg-[#0071e3]/10 border border-[#0071e3]/20">
-            <CheckCircle2 className="w-5 h-5 text-[#2997ff] shrink-0 mt-0.5" />
-            <span>
-              <strong className="text-white">Ley Peruana N° 29733 (Protección de Datos Personales):</strong> Para portales peruanos con tratamiento de usuarios locales, la falta de HTTPS estricto (HSTS) o cookies sin directiva <em>Secure</em> contraviene las medidas de seguridad perimetral exigidas por la Autoridad Nacional de Protección de Datos Personales (ANPDP).
-            </span>
+          {/* 4. Aceptación de Pagos */}
+          <div className="flex items-start gap-3 p-3.5 rounded-2xl bg-emerald-500/10 border border-emerald-500/25">
+            <CheckCircle2 className="w-5 h-5 text-emerald-400 shrink-0 mt-0.5" />
+            <div className="space-y-0.5">
+              <strong className="text-white block">4. Compatibilidad con Pasarelas de Pago (Yape, Niubiz, Mercado Pago, Stripe):</strong>
+              <span className="text-neutral-300">
+                Las pasarelas rechazan transacciones o retienen fondos cuando el portal auditado tiene calificación D o F por sospecha de riesgo transaccional. Mantener Grado A asegura fluidez en tus cobros.
+              </span>
+            </div>
+          </div>
+
+          {/* 5. Leyes de Protección de Datos */}
+          <div className="flex items-start gap-3 p-3.5 rounded-2xl bg-[#0071e3]/10 border border-[#0071e3]/25">
+            <CheckCircle2 className="w-5 h-5 text-[#38bdf8] shrink-0 mt-0.5" />
+            <div className="space-y-0.5">
+              <strong className="text-white block">5. Leyes de Protección de Datos (Perú Ley 29733, Colombia Ley 1581, México, Chile):</strong>
+              <span className="text-neutral-300">
+                Exigen que las sesiones de los clientes viajen con cookies seguras (<em>Secure / HttpOnly</em>) para evitar multas de entes reguladores ante filtración de datos de usuarios.
+              </span>
+            </div>
           </div>
         </div>
 
-        <div className="pt-2 text-xs text-neutral-400">
-          💡 Puedes alternar a la pestaña <strong>&ldquo;Vista Técnica (SysAdmin / Dev)&rdquo;</strong> para ver los comandos de servidor y directivas que tu programador necesita aplicar.
+        <div className="pt-2 text-xs text-neutral-400 border-t border-white/5 flex items-center gap-2">
+          <span>💡 Si tu programador necesita las instrucciones técnicas exactas de código, cambia a la pestaña superior <strong>&ldquo;Vista Técnica (SysAdmin / Dev)&rdquo;</strong>.</span>
         </div>
       </div>
 

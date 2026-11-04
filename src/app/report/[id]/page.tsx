@@ -22,6 +22,7 @@ import NeuralBackground from '@/components/NeuralBackground';
 import WhatsAppCta from '@/components/WhatsAppCta';
 import BusinessOverview from '@/components/BusinessOverview';
 import ServerLocationCard from '@/components/ServerLocationCard';
+import AiConsultantWidget from '@/components/AiConsultantWidget';
 import { Briefcase, Terminal } from 'lucide-react';
 import { AuditReportRecord } from '@/lib/storage/reportStore';
 
@@ -271,6 +272,9 @@ export default function ReportPage({ params }: { params: Promise<{ id: string }>
               />
             </div>
           )}
+
+          {/* Asistente IA Flotante */}
+          <AiConsultantWidget report={report} />
         </main>
       </div>
     </div>

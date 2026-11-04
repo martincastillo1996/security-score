@@ -13,6 +13,16 @@ const nextConfig: NextConfig = {
     },
   },
 
+  /* Rewrites amigables */
+  async rewrites() {
+    return [
+      {
+        source: '/defensati',
+        destination: '/scanner',
+      },
+    ];
+  },
+
   /* Hardening perimetral de cabeceras HTTP */
   async headers() {
     return [

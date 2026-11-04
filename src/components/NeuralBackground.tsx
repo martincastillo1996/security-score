@@ -92,7 +92,7 @@ export default function NeuralBackground({ onSelectDomain }: NeuralProps) {
         vy,
         baseVx: vx,
         baseVy: vy,
-        radius: isImportant ? 3.5 : 2.2,
+        radius: isImportant ? 3.8 : 2.5,
         fontSize: isImportant ? (isMobile ? 11 : 13) : (isMobile ? 9 : 11),
         isImportant,
       });
@@ -256,14 +256,19 @@ export default function NeuralBackground({ onSelectDomain }: NeuralProps) {
         const renderX = Math.round(n1.x);
         const renderY = Math.round(n1.y);
 
+        // Puntos de la red
         ctx.beginPath();
         ctx.arc(renderX, renderY, n1.radius, 0, Math.PI * 2);
         ctx.fillStyle = n1.isImportant ? '#38bdf8' : '#ffffff';
         ctx.fill();
 
-        ctx.font = `600 ${n1.fontSize}px ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace`;
-        ctx.fillStyle = n1.isImportant ? '#bae6fd' : '#cbd5e1';
-        ctx.fillText(n1.domain, renderX + 9, renderY + 4);
+        // En pantallas o áreas con contenido, no pintamos texto superpuesto para evitar distracción visual
+        // Si se desea activar, se mantiene en opacidad casi invisible (0.04)
+        if (n1.isImportant) {
+          ctx.font = `500 ${n1.fontSize - 2}px ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace`;
+          ctx.fillStyle = 'rgba(56, 189, 248, 0.10)';
+          ctx.fillText(n1.domain, renderX + 8, renderY + 4);
+        }
 
         for (let j = i + 1; j < total; j++) {
           const n2 = nodes[j];
@@ -272,7 +277,7 @@ export default function NeuralBackground({ onSelectDomain }: NeuralProps) {
           const dist = Math.sqrt(dx * dx + dy * dy);
 
           if (dist < maxLinkDist) {
-            const alpha = (1 - dist / maxLinkDist) * 0.4;
+            const alpha = (1 - dist / maxLinkDist) * 0.6;
             ctx.beginPath();
             ctx.moveTo(renderX, renderY);
             ctx.lineTo(Math.round(n2.x), Math.round(n2.y));

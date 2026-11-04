@@ -127,7 +127,6 @@ export default function PrintableReport({ report, auditId }: Props) {
 
             if (p.isOpen) {
               if (isPort80) {
-                // Si el sitio NO tiene SSL válido, el puerto 80 es texto plano expuesto
                 badgeText = hasValidSsl ? 'REDIREC.' : 'EXPUESTO';
                 borderStyle = hasValidSsl
                   ? 'border-amber-400 bg-amber-50/50'
@@ -189,10 +188,15 @@ export default function PrintableReport({ report, auditId }: Props) {
         </table>
       </div>
 
+      {/* Descargo Legal de Responsabilidad Expresa */}
+      <div className="mt-4 p-2.5 rounded border border-neutral-300 bg-neutral-50 text-[8.5px] text-neutral-600 leading-relaxed font-sans">
+        <strong>Aviso Legal y Descargo de Responsabilidad:</strong> Este documento contiene un diagnóstico automatizado no intrusivo generado con base en directivas públicas OWASP y análisis de cabeceras de transporte. Este dictamen se expide a título exclusivo de <strong>asesoría técnica y recomendaciones de buenas prácticas perimetrales</strong>. No constituye una certificación de infalibilidad ni auditoría de código interno o credenciales. DEFENSA TI y sus consultores quedan exentos de toda responsabilidad derivada de la implementación o incidentes de seguridad externos.
+      </div>
+
       {/* Pie de Página */}
-      <div className="mt-auto border-t border-neutral-300 pt-3 flex justify-between items-center text-[9px] font-mono text-neutral-500">
+      <div className="mt-3 border-t border-neutral-300 pt-2 flex justify-between items-center text-[9px] font-mono text-neutral-500">
         <span>DEFENSA TI &bull; Reporte emitido automáticamente</span>
-        <span>Uso confidencial &bull; Página 1 de 1</span>
+        <span>Asesoría de Buenas Prácticas Latam &bull; Página 1 de 1</span>
       </div>
     </div>
   );

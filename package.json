@@ -6,7 +6,7 @@
   "author": "Martin C.<castillo.karol96@gmail.com>",
   "scripts": {
     "dev": "next dev",
-    "build": "next build",
+    "build": "next build --webpack",
     "start": "next start",
     "lint": "eslint",
     "test:ssrf": "npx tsx scripts/test-ssrf.mjs"
