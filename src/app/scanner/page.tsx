@@ -125,10 +125,10 @@ export default function HomePage() {
   return (
     <div className="relative min-h-screen bg-[#000000] text-[#f5f5f7] selection:bg-[#0071e3] selection:text-white font-sans antialiased overflow-x-hidden">
       
-      {/* Fondo Interactivo (+20% visibilidad de nodos) */}
-      <div className="fixed inset-0 pointer-events-none z-0 opacity-65">
+      {/* Fondo Interactivo Original con Dominios Flotantes */}
+      <div className="fixed inset-0 pointer-events-none z-0 opacity-45">
         <NeuralBackground />
-        <div className="absolute inset-0 bg-radial from-transparent via-[#000000]/30 to-[#000000]/70" />
+        <div className="absolute inset-0 bg-radial from-transparent via-[#000000]/40 to-[#000000]/80" />
       </div>
 
       {/* Iluminación Ambiental */}
