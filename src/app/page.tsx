@@ -820,7 +820,7 @@ export default function NeuronalGravityHomePage() {
                 return (
                   <div
                     key={index}
-                    className="relative rounded-3xl p-7 bg-linear-to-b from-white/[0.04] to-white/[0.01] border border-white/10 hover:border-white/25 shadow-xl flex flex-col justify-between space-y-6 transition-all group hover:-translate-y-1"
+                    className="relative rounded-3xl p-7 bg-[#0e1118]/90 backdrop-blur-xl border border-white/15 hover:border-white/30 shadow-2xl flex flex-col justify-between space-y-6 transition-all group hover:-translate-y-1"
                   >
                     <div className="space-y-4">
                       <div className="flex items-center justify-between">
@@ -836,13 +836,13 @@ export default function NeuronalGravityHomePage() {
                         {sol.title}
                       </h3>
 
-                      <p className="text-xs sm:text-sm text-neutral-300 leading-relaxed font-normal">
+                      <p className="text-xs sm:text-sm text-neutral-100 font-medium leading-relaxed">
                         {sol.desc}
                       </p>
 
-                      <div className="space-y-2 pt-2 border-t border-white/5">
+                      <div className="space-y-2 pt-2 border-t border-white/10">
                         {sol.bullets.map((bullet, bIdx) => (
-                          <div key={bIdx} className="flex items-start gap-2 text-xs text-neutral-400">
+                          <div key={bIdx} className="flex items-start gap-2 text-xs sm:text-[13px] text-neutral-200">
                             <CheckCircle2 className="w-3.5 h-3.5 text-emerald-400 shrink-0 mt-0.5" />
                             <span>{bullet}</span>
                           </div>
@@ -897,15 +897,15 @@ export default function NeuronalGravityHomePage() {
               {content.methodology.steps.map((st, i) => (
                 <div
                   key={i}
-                  className="relative rounded-3xl p-6 bg-linear-to-b from-white/[0.04] to-transparent border border-white/10 space-y-4 text-left"
+                  className="relative rounded-3xl p-6 bg-[#0e1118]/90 backdrop-blur-xl border border-white/15 space-y-4 text-left shadow-xl"
                 >
-                  <div className="text-3xl font-black font-mono text-[#38bdf8]/60">
+                  <div className="text-3xl font-black font-mono text-[#38bdf8]">
                     {st.num}
                   </div>
                   <h3 className="text-lg font-bold text-white tracking-tight">
                     {st.title}
                   </h3>
-                  <p className="text-xs text-neutral-300 leading-relaxed">
+                  <p className="text-xs sm:text-[13px] text-neutral-100 font-medium leading-relaxed">
                     {st.desc}
                   </p>
                 </div>
