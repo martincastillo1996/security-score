@@ -21,6 +21,8 @@ interface DomainNode {
   radius: number;
   fontSize: number;
   isImportant: boolean;
+  twinklePhase: number;
+  twinkleSpeed: number;
 }
 
 interface BlastWave {
@@ -33,9 +35,10 @@ interface BlastWave {
 
 interface NeuralProps {
   onSelectDomain?: (domain: string) => void;
+  showDomains?: boolean;
 }
 
-export default function NeuralBackground({ onSelectDomain }: NeuralProps) {
+export default function NeuralBackground({ onSelectDomain, showDomains = true }: NeuralProps) {
   const canvasRef = useRef<HTMLCanvasElement | null>(null);
 
   const onSelectDomainRef = useRef(onSelectDomain);
@@ -74,7 +77,7 @@ export default function NeuralBackground({ onSelectDomain }: NeuralProps) {
     resize();
     window.addEventListener('resize', resize);
 
-    const count = isMobile ? 26 : 46;
+    const count = isMobile ? (showDomains ? 26 : 35) : (showDomains ? 46 : 60);
     const nodes: DomainNode[] = [];
     const maxLinkDist = isMobile ? 95 : 140;
 
@@ -95,6 +98,8 @@ export default function NeuralBackground({ onSelectDomain }: NeuralProps) {
         radius: isImportant ? 3.5 : 2.2,
         fontSize: isImportant ? (isMobile ? 11 : 13) : (isMobile ? 9 : 11),
         isImportant,
+        twinklePhase: Math.random() * Math.PI * 2,
+        twinkleSpeed: 0.015 + Math.random() * 0.025,
       });
     }
 
@@ -256,16 +261,45 @@ export default function NeuralBackground({ onSelectDomain }: NeuralProps) {
         const renderX = Math.round(n1.x);
         const renderY = Math.round(n1.y);
 
-        // Puntos de la red
-        ctx.beginPath();
-        ctx.arc(renderX, renderY, n1.radius, 0, Math.PI * 2);
-        ctx.fillStyle = n1.isImportant ? '#38bdf8' : '#ffffff';
-        ctx.fill();
+        if (showDomains) {
+          // Puntos y nombres de dominios flotantes (Para DEFENSA TI)
+          ctx.beginPath();
+          ctx.arc(renderX, renderY, n1.radius, 0, Math.PI * 2);
+          ctx.fillStyle = n1.isImportant ? '#38bdf8' : '#ffffff';
+          ctx.fill();
 
-        // Nombres de dominios flotantes originales
-        ctx.font = `600 ${n1.fontSize}px ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace`;
-        ctx.fillStyle = n1.isImportant ? '#bae6fd' : '#cbd5e1';
-        ctx.fillText(n1.domain, renderX + 9, renderY + 4);
+          ctx.font = `600 ${n1.fontSize}px ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace`;
+          ctx.fillStyle = n1.isImportant ? '#bae6fd' : '#cbd5e1';
+          ctx.fillText(n1.domain, renderX + 9, renderY + 4);
+        } else {
+          // Modo Estelar Neuronal (Para la Página Principal - solo nodos iluminados como estrellas)
+          n1.twinklePhase += n1.twinkleSpeed;
+          const starIntensity = 0.55 + 0.45 * Math.sin(n1.twinklePhase);
+          const glowRadius = n1.radius * (2.2 + 1.2 * starIntensity);
+
+          // Halo difuso de luz estelar
+          const halo = ctx.createRadialGradient(renderX, renderY, 0, renderX, renderY, glowRadius);
+          if (n1.isImportant) {
+            halo.addColorStop(0, `rgba(255, 255, 255, ${0.95 * starIntensity})`);
+            halo.addColorStop(0.35, `rgba(56, 189, 248, ${0.75 * starIntensity})`);
+            halo.addColorStop(1, 'rgba(56, 189, 248, 0)');
+          } else {
+            halo.addColorStop(0, `rgba(255, 255, 255, ${0.9 * starIntensity})`);
+            halo.addColorStop(0.35, `rgba(186, 230, 253, ${0.5 * starIntensity})`);
+            halo.addColorStop(1, 'rgba(186, 230, 253, 0)');
+          }
+
+          ctx.beginPath();
+          ctx.arc(renderX, renderY, glowRadius, 0, Math.PI * 2);
+          ctx.fillStyle = halo;
+          ctx.fill();
+
+          // Núcleo brillante de la estrella
+          ctx.beginPath();
+          ctx.arc(renderX, renderY, n1.radius * (0.8 + 0.2 * starIntensity), 0, Math.PI * 2);
+          ctx.fillStyle = '#ffffff';
+          ctx.fill();
+        }
 
         for (let j = i + 1; j < total; j++) {
           const n2 = nodes[j];
@@ -313,7 +347,7 @@ export default function NeuralBackground({ onSelectDomain }: NeuralProps) {
       window.removeEventListener('resize', resize);
       cancelAnimationFrame(animationFrameId);
     };
-  }, []);
+  }, [showDomains]);
 
   return (
     <canvas

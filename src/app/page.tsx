@@ -674,10 +674,10 @@ export default function NeuronalGravityHomePage() {
   return (
     <div className="relative min-h-screen bg-[#000000] text-[#f5f5f7] selection:bg-[#0071e3] selection:text-white font-sans antialiased overflow-x-hidden">
       
-      {/* Fondo Interactivo Original con Dominios Flotantes */}
-      <div className="fixed inset-0 pointer-events-none z-0 opacity-45">
-        <NeuralBackground />
-        <div className="absolute inset-0 bg-radial from-transparent via-[#000000]/40 to-[#000000]/80" />
+      {/* Fondo Interactivo Estelar (Solo Nodos Iluminados como Estrellas, sin Dominios) */}
+      <div className="fixed inset-0 pointer-events-none z-0 opacity-60">
+        <NeuralBackground showDomains={false} />
+        <div className="absolute inset-0 bg-radial from-transparent via-[#000000]/40 to-[#000000]/85" />
       </div>
 
       {/* Iluminación Ambiental */}
