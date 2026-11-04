@@ -77,9 +77,10 @@ export default function NeuralBackground({ onSelectDomain, showDomains = true }:
     resize();
     window.addEventListener('resize', resize);
 
-    const count = isMobile ? (showDomains ? 26 : 35) : (showDomains ? 46 : 60);
+    // Aumento orgánico de densidad de nodos y constelaciones para mayor riqueza visual
+    const count = isMobile ? (showDomains ? 40 : 55) : (showDomains ? 85 : 110);
     const nodes: DomainNode[] = [];
-    const maxLinkDist = isMobile ? 95 : 140;
+    const maxLinkDist = isMobile ? 110 : 165;
 
     for (let i = 0; i < count; i++) {
       const domain = TOP_DOMAINS[i % TOP_DOMAINS.length];
