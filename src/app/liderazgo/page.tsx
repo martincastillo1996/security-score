@@ -7,11 +7,11 @@ import {
   Sparkles, 
   ShieldCheck, 
   MessageSquare, 
-  Linkedin, 
-  Github, 
   CheckCircle2,
   Terminal,
-  Cpu
+  Cpu,
+  Globe,
+  Code
 } from 'lucide-react';
 
 export const metadata: Metadata = {
@@ -110,7 +110,7 @@ export default function LiderazgoPage() {
                   rel="noopener noreferrer"
                   className="inline-flex items-center gap-2 px-4 py-2.5 rounded-xl bg-white/5 hover:bg-white/10 border border-white/10 text-white text-xs font-semibold transition-all active:scale-95"
                 >
-                  <Linkedin className="w-3.5 h-3.5 text-[#0a66c2]" />
+                  <Globe className="w-3.5 h-3.5 text-[#0a66c2]" />
                   <span>LinkedIn</span>
                 </a>
 
@@ -120,7 +120,7 @@ export default function LiderazgoPage() {
                   rel="noopener noreferrer"
                   className="inline-flex items-center gap-2 px-4 py-2.5 rounded-xl bg-white/5 hover:bg-white/10 border border-white/10 text-white text-xs font-semibold transition-all active:scale-95"
                 >
-                  <Github className="w-3.5 h-3.5" />
+                  <Code className="w-3.5 h-3.5 text-neutral-300" />
                   <span>GitHub</span>
                 </a>
               </div>

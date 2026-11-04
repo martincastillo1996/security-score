@@ -184,7 +184,7 @@ export default function SolucionesPage() {
                     </Link>
                   ) : (
                     <a
-                      href={`https://wa.me/17856433991?text=${encodeURIComponent(sol.whatsappText)}`}
+                      href={`https://wa.me/17856433991?text=${encodeURIComponent(sol.whatsappText || '')}`}
                       target="_blank"
                       rel="noopener noreferrer"
                       className="w-full inline-flex items-center justify-center gap-2 py-3 px-4 rounded-xl bg-[#0071e3] hover:bg-[#0077ed] text-white text-xs font-semibold shadow-md shadow-[#0071e3]/30 transition-all"
