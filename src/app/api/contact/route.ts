@@ -24,6 +24,22 @@ export async function POST(req: Request) {
       date: new Date().toISOString(),
     });
 
+    // Envío a Webhook opcional (Discord / Slack / Make / Zapier) si está configurado
+    const webhookUrl = process.env.LEAD_WEBHOOK_URL;
+    if (webhookUrl) {
+      try {
+        await fetch(webhookUrl, {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({
+            content: `🚨 **¡Nuevo Lead Comercial Recibido!**\n**Nombre:** ${name}\n**Empresa:** ${company || 'N/A'}\n**Email:** ${email}\n**Teléfono:** ${phone || 'N/A'}\n**Servicio:** ${service}\n**Presupuesto:** ${budget || 'A definir'}\n**Detalles:** ${details || 'Sin notas adicionales'}\n**Fecha:** ${new Date().toLocaleString('es-PE', { timeZone: 'America/Lima' })}`,
+          }),
+        });
+      } catch (webhookErr) {
+        console.error('Error enviando notificación webhook de lead:', webhookErr);
+      }
+    }
+
     return NextResponse.json({
       success: true,
       message: 'Solicitud recibida correctamente. Nos comunicaremos a la brevedad.',
