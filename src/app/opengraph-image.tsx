@@ -1,6 +1,5 @@
 import { ImageResponse } from 'next/og';
 
-export const runtime = 'edge';
 export const alt = 'Neuronal Gravity | Inteligencia Artificial Aplicada a Negocios & Ciberdefensa';
 export const size = {
   width: 1200,
