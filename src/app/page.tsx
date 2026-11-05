@@ -6,7 +6,6 @@ import Image from 'next/image';
 import NeuralBackground from '@/components/NeuralBackground';
 import Apple3DGlobe from '@/components/Apple3DGlobe';
 import LanguageSelector from '@/components/LanguageSelector';
-import AiConsultantWidget from '@/components/AiConsultantWidget';
 import FloatingWhatsAppButton from '@/components/FloatingWhatsAppButton';
 import { useI18n } from '@/lib/i18n/I18nContext';
 import {
@@ -114,7 +113,7 @@ export default function NeuronalGravityHomePage() {
               'Evita bloqueos de bancos y alertas rojas de "Sitio no seguro"',
               'Generación automática de órdenes de trabajo para tus programadores',
             ],
-            action: { text: 'Abrir Escáner DEFENSA TI', href: '/scanner' },
+            action: { text: 'Abrir Escáner DEFENSA TI', href: '/defensati' },
             color: 'from-cyan-500/20 to-blue-500/20 border-cyan-500/40 text-cyan-400',
           },
           {
@@ -303,7 +302,7 @@ export default function NeuronalGravityHomePage() {
               'Prevent red "Not Secure" browser warnings and checkout rejections',
               'Downloadable step-by-step engineering work orders for dev teams',
             ],
-            action: { text: 'Launch DEFENSA TI Scanner', href: '/scanner' },
+            action: { text: 'Launch DEFENSA TI Scanner', href: '/defensati' },
             color: 'from-cyan-500/20 to-blue-500/20 border-cyan-500/40 text-cyan-400',
           },
           {
@@ -492,7 +491,7 @@ export default function NeuronalGravityHomePage() {
               'Evita bloqueios em gateways de pagamento e telas vermelhas de alerta',
               'Ordens técnicas claras para a equipe de desenvolvimento',
             ],
-            action: { text: 'Abrir Scanner DEFENSA TI', href: '/scanner' },
+            action: { text: 'Abrir Scanner DEFENSA TI', href: '/defensati' },
             color: 'from-cyan-500/20 to-blue-500/20 border-cyan-500/40 text-cyan-400',
           },
           {
@@ -640,7 +639,7 @@ export default function NeuronalGravityHomePage() {
               {content.hero.scannerCallout}
             </span>
             <Link
-              href="/scanner"
+              href="/defensati"
               className="font-bold text-[#38bdf8] hover:text-white underline decoration-[#38bdf8]/50 hover:decoration-white transition-colors"
             >
               {content.hero.scannerLinkText}
@@ -688,7 +687,7 @@ export default function NeuronalGravityHomePage() {
                 {content.nav.industries}
               </Link>
               <Link 
-                href="/scanner" 
+                href="/defensati" 
                 className="flex items-center gap-1.5 text-[#38bdf8] hover:text-white transition-colors duration-200"
               >
                 <span className="h-1.5 w-1.5 rounded-full bg-[#38bdf8] shadow-[0_0_8px_#38bdf8] animate-pulse" />
@@ -761,7 +760,7 @@ export default function NeuronalGravityHomePage() {
                 </div>
                 <div className="h-4 w-px bg-white/10 hidden sm:block" />
                 <Link
-                  href="/scanner"
+                  href="/defensati"
                   className="font-bold text-[#38bdf8] hover:text-white flex items-center gap-1 transition-colors"
                 >
                   Auditar pasarela de pago y seguridad gratis
@@ -1130,7 +1129,7 @@ export default function NeuronalGravityHomePage() {
               </a>
 
               <Link
-                href="/scanner"
+                href="/defensati"
                 className="w-full sm:w-auto inline-flex items-center justify-center gap-2 px-6 py-4 rounded-2xl bg-white/5 hover:bg-white/10 border border-white/10 text-white font-semibold text-sm transition-all"
               >
                 <ShieldCheck className="w-4 h-4 text-[#38bdf8]" />
@@ -1183,9 +1182,6 @@ export default function NeuronalGravityHomePage() {
             </div>
           </div>
         </footer>
-
-        {/* Asistente Flotante de IA de Neuronal Gravity */}
-        <AiConsultantWidget />
 
         {/* Botón Flotante de WhatsApp para Contacto Directo */}
         <FloatingWhatsAppButton />

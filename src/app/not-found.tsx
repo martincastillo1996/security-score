@@ -82,7 +82,7 @@ export default function NotFound() {
                 <span>Ir a la Portada Principal</span>
               </Link>
               <Link
-                href="/scanner"
+                href="/defensati"
                 className="w-full sm:w-auto inline-flex items-center justify-center gap-2 px-5 py-3 rounded-2xl bg-white/5 hover:bg-white/10 border border-white/10 text-neutral-200 hover:text-white text-xs font-semibold transition-all active:scale-[0.98]"
               >
                 <Sparkles className="w-4 h-4 text-[#38bdf8]" />

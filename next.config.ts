@@ -9,8 +9,8 @@ const nextConfig: NextConfig = {
   async rewrites() {
     return [
       {
-        source: '/defensati',
-        destination: '/scanner',
+        source: '/scanner',
+        destination: '/defensati',
       },
     ];
   },

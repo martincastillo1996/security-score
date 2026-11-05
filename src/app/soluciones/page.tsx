@@ -61,7 +61,7 @@ export default function SolucionesPage() {
       ],
       color: 'from-cyan-500/20 to-blue-500/20 border-cyan-500/40 text-cyan-400',
       cta: 'Probar Escáner DEFENSA TI',
-      href: '/scanner'
+      href: '/defensati'
     },
     {
       icon: Code2,
