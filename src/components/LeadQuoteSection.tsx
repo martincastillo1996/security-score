@@ -85,6 +85,12 @@ export default function LeadQuoteSection() {
       }
 
       setSuccess(true);
+
+      // Redirección profesional directa a WhatsApp tras 1.2 segundos para iniciar chat con Martín
+      const waUrl = getWhatsAppAlternativeUrl();
+      setTimeout(() => {
+        window.open(waUrl, '_blank', 'noopener,noreferrer');
+      }, 1200);
     } catch {
       setError('No pudimos enviar tu mensaje directamente. Puedes contactar directamente por WhatsApp a Martín.');
     } finally {
@@ -179,17 +185,17 @@ export default function LeadQuoteSection() {
                 </div>
                 <h3 className="text-xl font-bold text-white">¡Solicitud Recibida con Éxito!</h3>
                 <p className="text-xs sm:text-sm text-neutral-300 max-w-md mx-auto leading-relaxed">
-                  Gracias por contactarnos. Martin Castillo revisará tus requerimientos y te responderá con una propuesta inicial y diagnóstico de factibilidad a <strong>{formData.email}</strong>.
+                  Gracias por contactarnos. Hemos recibido tus requerimientos en el servidor y te estamos abriendo WhatsApp para atenderte de inmediato con Martín Castillo.
                 </p>
-                <div className="pt-4">
+                <div className="pt-2">
                   <a
                     href={getWhatsAppAlternativeUrl()}
                     target="_blank"
                     rel="noopener noreferrer"
-                    className="inline-flex items-center gap-2 px-5 py-2.5 rounded-xl bg-white/10 hover:bg-white/15 border border-white/20 text-white text-xs font-semibold transition-all"
+                    className="inline-flex items-center gap-2 px-6 py-3 rounded-xl bg-[#25D366] hover:bg-[#20ba59] text-white text-xs font-bold transition-all shadow-lg shadow-emerald-500/30"
                   >
-                    <span>Abrir seguimiento en WhatsApp</span>
-                    <ArrowRight className="w-3.5 h-3.5" />
+                    <span>Abrir Chat de WhatsApp Directo</span>
+                    <ArrowRight className="w-4 h-4" />
                   </a>
                 </div>
               </div>
