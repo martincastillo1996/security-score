@@ -11,7 +11,9 @@ import {
   Terminal,
   Cpu,
   Globe,
-  Code
+  Code,
+  Mail,
+  Phone
 } from 'lucide-react';
 
 export const metadata: Metadata = {
@@ -103,6 +105,22 @@ export default function LiderazgoPage() {
                 >
                   <MessageSquare className="w-3.5 h-3.5" />
                   <span>WhatsApp (+1 785 643-3991)</span>
+                </a>
+
+                <a
+                  href="tel:+51941235586"
+                  className="inline-flex items-center gap-2 px-4 py-2.5 rounded-xl bg-white/5 hover:bg-white/10 border border-white/10 text-white text-xs font-semibold transition-all active:scale-95"
+                >
+                  <Phone className="w-3.5 h-3.5 text-[#38bdf8]" />
+                  <span>Llamadas (+51 941 235 586)</span>
+                </a>
+
+                <a
+                  href="mailto:castillo.karol96@gmail.com"
+                  className="inline-flex items-center gap-2 px-4 py-2.5 rounded-xl bg-white/5 hover:bg-white/10 border border-white/10 text-white text-xs font-semibold transition-all active:scale-95"
+                >
+                  <Mail className="w-3.5 h-3.5 text-amber-400" />
+                  <span>castillo.karol96@gmail.com</span>
                 </a>
 
                 <a

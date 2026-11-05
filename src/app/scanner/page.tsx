@@ -440,7 +440,7 @@ export default function HomePage() {
               </a>
 
               <a
-                href="mailto:martincastillorojas@gmail.com"
+                href="mailto:castillo.karol96@gmail.com"
                 className="inline-flex items-center gap-2 px-4 py-2 rounded-xl bg-white/5 hover:bg-white/10 border border-white/10 text-white font-medium transition-all"
               >
                 <svg className="w-4 h-4 text-sky-400" fill="none" viewBox="0 0 24 24" stroke="currentColor">
