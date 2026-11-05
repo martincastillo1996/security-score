@@ -1,5 +1,7 @@
 import { NextResponse } from 'next/server';
 import { Resend } from 'resend';
+import { saveLead } from '@/lib/storage/leadStore';
+import { v4 as uuidv4 } from 'uuid';
 
 export async function POST(req: Request) {
   try {
@@ -14,6 +16,22 @@ export async function POST(req: Request) {
     }
 
     const timestamp = new Date().toLocaleString('es-PE', { timeZone: 'America/Lima' });
+
+    // 0. Persistencia del Lead en Almacenamiento Estructurado
+    const leadRecord = {
+      id: uuidv4(),
+      name,
+      company: company || '',
+      email,
+      phone: phone || '',
+      service,
+      budget: budget || '',
+      details: details || '',
+      createdAt: new Date().toISOString(),
+      userAgent: req.headers.get('user-agent') || undefined,
+      ip: req.headers.get('x-forwarded-for') || undefined,
+    };
+    saveLead(leadRecord);
 
     // Log estructurado en servidor
     console.log('[NUEVO LEAD - NEURONAL GRAVITY]', {
