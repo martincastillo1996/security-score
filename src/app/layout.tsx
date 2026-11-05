@@ -3,6 +3,7 @@ import { Geist, Geist_Mono } from "next/font/google";
 import "./globals.css";
 import { I18nProvider } from "@/lib/i18n/I18nContext";
 import CookieConsentBanner from "@/components/CookieConsentBanner";
+import DonationModal from "@/components/DonationModal";
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -42,6 +43,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
       <body className="min-h-full flex flex-col bg-black text-[#f5f5f7]">
         <I18nProvider>
           {children}
+          <DonationModal />
           <CookieConsentBanner />
         </I18nProvider>
       </body>

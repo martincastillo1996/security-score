@@ -18,7 +18,6 @@ import RealThreatCasesModal from '@/components/RealThreatCasesModal';
 import HowItWorksGuide from '@/components/HowItWorksGuide';
 import PricingSection from '@/components/PricingSection';
 import AppleCyberHud from '@/components/AppleCyberHud';
-import DonationModal from '@/components/DonationModal';
 import SocialViralHub from '@/components/SocialViralHub';
 import NeuronalGravityHub from '@/components/NeuronalGravityHub';
 import LanguageSelector from '@/components/LanguageSelector';
@@ -421,12 +420,6 @@ export default function HomePage() {
 
           </div>
         </main>
-
-        {/* Modal Flotante de Donación */}
-        <DonationModal />
-
-        {/* Banner Flotante de Consentimiento de Cookies (Ley Peruana 29733 / RGPD) */}
-        <CookieConsentBanner />
 
         {/* Asistente DEFENSA IT AI (Consultor Virtual Autónomo con Traspaso a WhatsApp) */}
         <AiConsultantWidget report={report} />

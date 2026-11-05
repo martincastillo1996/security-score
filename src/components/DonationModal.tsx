@@ -338,10 +338,15 @@ export default function DonationModal() {
 
             </div>
 
-            {/* Garantía de Seguridad */}
-            <div className="flex items-center justify-center gap-1.5 text-[10px] text-neutral-400 pt-2 border-t border-white/5">
-              <ShieldCheck className="w-3.5 h-3.5 text-emerald-400" />
-              <span>Transacciones cifradas con Culqi (Yape, Tarjetas y PagoEfectivo)</span>
+            {/* Garantía de Seguridad y Confianza Oficial Culqi */}
+            <div className="p-3 rounded-2xl bg-emerald-500/10 border border-emerald-500/25 space-y-1">
+              <div className="flex items-center gap-1.5 text-xs font-bold text-emerald-400">
+                <ShieldCheck className="w-4 h-4 text-emerald-400 shrink-0" />
+                <span>Pago 100% Seguro y Protegido por Culqi</span>
+              </div>
+              <p className="text-[11px] text-neutral-300 leading-relaxed pl-5">
+                Tus datos viajan con cifrado bancario TLS 1.3 de extremo a extremo. Procesado oficialmente por <strong>Culqi (empresa del Grupo Credicorp / BCP)</strong>. Aceptamos Yape, todas las tarjetas y PagoEfectivo sin guardar tus datos financieros.
+              </p>
             </div>
 
           </div>
