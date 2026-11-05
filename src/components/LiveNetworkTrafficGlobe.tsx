@@ -7,7 +7,6 @@ import {
   AlertOctagon, 
   FileSpreadsheet, 
   CheckCircle2, 
-  ExternalLink,
   ShieldCheck,
   TrendingUp,
   MessageSquare,
@@ -20,19 +19,19 @@ export default function LiveNetworkTrafficGlobe() {
   const [activeTab, setActiveTab] = useState<'ventas' | 'facturas' | 'seguridad'>('ventas');
 
   return (
-    <section className="relative rounded-3xl p-8 sm:p-12 bg-linear-to-b from-[#080d1a] via-[#05070e] to-[#010204] border border-[#0071e3]/40 overflow-hidden space-y-10 shadow-2xl">
+    <section className="relative rounded-3xl p-8 sm:p-12 bg-linear-to-b from-[#0a0f1d] via-[#060812] to-[#020306] border border-[#0071e3]/40 overflow-hidden space-y-10 shadow-2xl">
       
       {/* Resplandor superior sutil */}
-      <div className="absolute top-0 right-1/4 w-[500px] h-[300px] bg-[#0071e3]/15 rounded-full blur-[140px] pointer-events-none" />
+      <div className="absolute top-0 right-1/4 w-[500px] h-[300px] bg-[#0071e3]/20 rounded-full blur-[140px] pointer-events-none" />
       <div className="absolute bottom-0 left-10 w-[350px] h-[250px] bg-emerald-500/10 rounded-full blur-[120px] pointer-events-none" />
 
       <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-12 items-center relative z-10">
         
-        {/* Columna Izquierda: Datos Inapelables y Fuentes Reales */}
+        {/* Columna Izquierda: Tipografía Grande, Nítida y de Alto Contraste */}
         <div className="lg:col-span-6 space-y-6 text-left">
           
-          <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-rose-500/15 border border-rose-500/30 text-rose-300 text-xs font-semibold">
-            <AlertOctagon className="w-3.5 h-3.5 text-rose-400" />
+          <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-rose-500/20 border border-rose-500/40 text-rose-300 text-xs font-bold tracking-wide">
+            <AlertOctagon className="w-4 h-4 text-rose-400" />
             <span>Realidad Financiera del Mercado en 2026</span>
           </div>
 
@@ -40,149 +39,152 @@ export default function LiveNetworkTrafficGlobe() {
             ¿Cuánto Dinero Pierde tu Empresa por Procesos Lentos?
           </h2>
 
-          <p className="text-sm text-neutral-300 leading-relaxed">
+          <p className="text-base sm:text-lg text-neutral-200 leading-relaxed font-normal">
             No son estimaciones abstractas. Son datos medidos por consultoras globales: el cliente moderno no espera respuestas lentas y los errores manuales destruyen el margen de ganancia de cualquier negocio.
           </p>
 
-          {/* SELECTOR DE PUNTOS CRÍTICOS (TABS APPLE STYLE) */}
-          <div className="flex items-center gap-1.5 p-1 rounded-2xl bg-white/5 border border-white/10 max-w-md">
+          {/* SELECTOR DE PUNTOS CRÍTICOS (BOTONES GRANDES Y CLAROS) */}
+          <div className="flex flex-wrap sm:flex-nowrap items-center gap-2 p-1.5 rounded-2xl bg-[#141416] border border-white/15 max-w-lg">
             <button
               onClick={() => setActiveTab('ventas')}
-              className={`flex-1 flex items-center justify-center gap-2 py-2 px-3 rounded-xl text-xs font-semibold transition-all cursor-pointer ${
+              className={`flex-1 flex items-center justify-center gap-2 py-3 px-4 rounded-xl text-xs sm:text-sm font-bold transition-all cursor-pointer ${
                 activeTab === 'ventas'
-                  ? 'bg-[#0071e3] text-white shadow-md'
-                  : 'text-neutral-400 hover:text-white'
+                  ? 'bg-[#0071e3] text-white shadow-lg shadow-[#0071e3]/40'
+                  : 'text-neutral-300 hover:text-white hover:bg-white/5'
               }`}
             >
-              <Clock className="w-3.5 h-3.5" />
+              <Clock className="w-4 h-4" />
               <span>Fuga en Ventas</span>
             </button>
 
             <button
               onClick={() => setActiveTab('facturas')}
-              className={`flex-1 flex items-center justify-center gap-2 py-2 px-3 rounded-xl text-xs font-semibold transition-all cursor-pointer ${
+              className={`flex-1 flex items-center justify-center gap-2 py-3 px-4 rounded-xl text-xs sm:text-sm font-bold transition-all cursor-pointer ${
                 activeTab === 'facturas'
-                  ? 'bg-[#0071e3] text-white shadow-md'
-                  : 'text-neutral-400 hover:text-white'
+                  ? 'bg-[#0071e3] text-white shadow-lg shadow-[#0071e3]/40'
+                  : 'text-neutral-300 hover:text-white hover:bg-white/5'
               }`}
             >
-              <FileSpreadsheet className="w-3.5 h-3.5" />
+              <FileSpreadsheet className="w-4 h-4" />
               <span>Costos Operativos</span>
             </button>
 
             <button
               onClick={() => setActiveTab('seguridad')}
-              className={`flex-1 flex items-center justify-center gap-2 py-2 px-3 rounded-xl text-xs font-semibold transition-all cursor-pointer ${
+              className={`flex-1 flex items-center justify-center gap-2 py-3 px-4 rounded-xl text-xs sm:text-sm font-bold transition-all cursor-pointer ${
                 activeTab === 'seguridad'
-                  ? 'bg-[#0071e3] text-white shadow-md'
-                  : 'text-neutral-400 hover:text-white'
+                  ? 'bg-[#0071e3] text-white shadow-lg shadow-[#0071e3]/40'
+                  : 'text-neutral-300 hover:text-white hover:bg-white/5'
               }`}
             >
-              <ShieldCheck className="w-3.5 h-3.5" />
+              <ShieldCheck className="w-4 h-4" />
               <span>Riesgo Digital</span>
             </button>
           </div>
 
-          {/* TARJETA COMPARATIVA: EL PROBLEMA REAL VS NUESTRA SOLUCIÓN CON IA */}
-          <div className="p-6 rounded-2xl bg-black/75 border border-white/15 backdrop-blur-2xl space-y-4 shadow-xl">
+          {/* TARJETA COMPARATIVA DE ALTO CONTRASTE Y LETRAS GRANDES */}
+          <div className="p-7 rounded-3xl bg-[#0c0e14] border border-white/20 shadow-2xl space-y-5">
             
             {activeTab === 'ventas' && (
-              <div className="space-y-4 animate-in fade-in duration-200">
+              <div className="space-y-5 animate-in fade-in duration-200">
                 <div className="flex items-center justify-between border-b border-white/10 pb-3">
-                  <span className="text-xs uppercase font-bold tracking-wider text-rose-400 flex items-center gap-1.5">
+                  <span className="text-xs sm:text-sm uppercase font-black tracking-wider text-rose-400 flex items-center gap-2">
                     <TrendingDown className="w-4 h-4" />
                     El Problema Tradicional
                   </span>
-                  <span className="text-[10px] font-mono text-neutral-400">
+                  <span className="text-xs font-semibold text-neutral-300 bg-white/5 px-2.5 py-1 rounded-md border border-white/10">
                     Fuente: Harvard Business Review
                   </span>
                 </div>
 
-                <div className="space-y-2">
-                  <div className="text-3xl sm:text-4xl font-mono font-black text-white tracking-tight">
-                    -391% <span className="text-xs font-sans text-rose-300 font-normal">en probabilidad de venta</span>
+                <div className="space-y-3">
+                  <div className="text-4xl sm:text-5xl font-mono font-black text-white tracking-tight flex items-baseline gap-2">
+                    <span className="text-rose-400">-391%</span>
+                    <span className="text-sm sm:text-base font-sans text-neutral-200 font-medium">en probabilidad de cerrar la venta</span>
                   </div>
-                  <p className="text-xs text-neutral-300 leading-relaxed">
-                    Si un prospecto te escribe a WhatsApp o web y tardas <strong>más de 5 minutos</strong> en responder, las probabilidades de cerrar la venta se desploman en casi un 400%. La gente compra al primero que contesta.
+                  <p className="text-sm sm:text-base text-neutral-200 leading-relaxed font-normal">
+                    Si un cliente te escribe a WhatsApp o a tu web y tardas <strong className="text-white underline decoration-rose-400 font-bold">más de 5 minutos</strong> en responder, las probabilidades de cerrar la compra caen un 391%. El cliente moderno le compra al primero que contesta.
                   </p>
                 </div>
 
-                {/* La Solución con Neuronal Gravity */}
-                <div className="p-3.5 rounded-xl bg-emerald-500/10 border border-emerald-500/20 text-xs text-emerald-300 space-y-1">
-                  <div className="font-bold text-white flex items-center gap-1.5">
-                    <CheckCircle2 className="w-3.5 h-3.5 text-emerald-400" />
-                    Solución Neuronal Gravity:
+                {/* La Solución con Neuronal Gravity con Máximo Contraste */}
+                <div className="p-5 rounded-2xl bg-emerald-950/40 border border-emerald-500/40 space-y-2">
+                  <div className="text-sm sm:text-base font-black text-emerald-300 flex items-center gap-2">
+                    <CheckCircle2 className="w-5 h-5 text-emerald-400 shrink-0" />
+                    Solución de Neuronal Gravity:
                   </div>
-                  <p className="text-neutral-300">
-                    Agentes autónomos de IA que responden en <strong>menos de 3 segundos</strong>, califican el cliente y cierran ventas los 365 días del año.
+                  <p className="text-xs sm:text-sm text-neutral-100 leading-relaxed">
+                    Agentes de inteligencia artificial en WhatsApp que responden en <strong className="text-white font-bold">menos de 3 segundos</strong>, muestran tu catálogo con precios actualizados y cierran ventas los 365 días del año.
                   </p>
                 </div>
               </div>
             )}
 
             {activeTab === 'facturas' && (
-              <div className="space-y-4 animate-in fade-in duration-200">
+              <div className="space-y-5 animate-in fade-in duration-200">
                 <div className="flex items-center justify-between border-b border-white/10 pb-3">
-                  <span className="text-xs uppercase font-bold tracking-wider text-amber-400 flex items-center gap-1.5">
+                  <span className="text-xs sm:text-sm uppercase font-black tracking-wider text-amber-400 flex items-center gap-2">
                     <TrendingDown className="w-4 h-4" />
                     El Problema Tradicional
                   </span>
-                  <span className="text-[10px] font-mono text-neutral-400">
+                  <span className="text-xs font-semibold text-neutral-300 bg-white/5 px-2.5 py-1 rounded-md border border-white/10">
                     Fuente: Gartner Research
                   </span>
                 </div>
 
-                <div className="space-y-2">
-                  <div className="text-3xl sm:text-4xl font-mono font-black text-white tracking-tight">
-                    30% <span className="text-xs font-sans text-amber-300 font-normal">del tiempo en tareas mecánicas</span>
+                <div className="space-y-3">
+                  <div className="text-4xl sm:text-5xl font-mono font-black text-white tracking-tight flex items-baseline gap-2">
+                    <span className="text-amber-400">30%</span>
+                    <span className="text-sm sm:text-base font-sans text-neutral-200 font-medium">del tiempo pagado perdido en digitación</span>
                   </div>
-                  <p className="text-xs text-neutral-300 leading-relaxed">
-                    Los equipos administrativos y contables desperdician casi un tercio de su jornada digitando facturas, conciliando archivos Excel y armando reportes que una máquina hace en 1 segundo.
+                  <p className="text-sm sm:text-base text-neutral-200 leading-relaxed font-normal">
+                    Los equipos administrativos y contables desperdician casi un tercio de su jornada pasando datos a mano de facturas, cuadrando comprobantes en Excel y armando reportes que la tecnología procesa en 1 segundo.
                   </p>
                 </div>
 
                 {/* La Solución con Neuronal Gravity */}
-                <div className="p-3.5 rounded-xl bg-purple-500/10 border border-purple-500/20 text-xs text-purple-300 space-y-1">
-                  <div className="font-bold text-white flex items-center gap-1.5">
-                    <CheckCircle2 className="w-3.5 h-3.5 text-purple-400" />
-                    Solución Neuronal Gravity:
+                <div className="p-5 rounded-2xl bg-purple-950/40 border border-purple-500/40 space-y-2">
+                  <div className="text-sm sm:text-base font-black text-purple-300 flex items-center gap-2">
+                    <CheckCircle2 className="w-5 h-5 text-purple-400 shrink-0" />
+                    Solución de Neuronal Gravity:
                   </div>
-                  <p className="text-neutral-300">
-                    Automatización de documentos con visión artificial OCR: extracción sin errores directo a tu ERP o base de datos.
+                  <p className="text-xs sm:text-sm text-neutral-100 leading-relaxed">
+                    Automatización documental con visión inteligente OCR: lectura y extracción automática de facturas y contratos directo a tu ERP o base de datos sin errores de digitación.
                   </p>
                 </div>
               </div>
             )}
 
             {activeTab === 'seguridad' && (
-              <div className="space-y-4 animate-in fade-in duration-200">
+              <div className="space-y-5 animate-in fade-in duration-200">
                 <div className="flex items-center justify-between border-b border-white/10 pb-3">
-                  <span className="text-xs uppercase font-bold tracking-wider text-[#38bdf8] flex items-center gap-1.5">
+                  <span className="text-xs sm:text-sm uppercase font-black tracking-wider text-[#38bdf8] flex items-center gap-2">
                     <TrendingDown className="w-4 h-4" />
                     El Problema Tradicional
                   </span>
-                  <span className="text-[10px] font-mono text-neutral-400">
+                  <span className="text-xs font-semibold text-neutral-300 bg-white/5 px-2.5 py-1 rounded-md border border-white/10">
                     Fuente: IBM Security & OWASP
                   </span>
                 </div>
 
-                <div className="space-y-2">
-                  <div className="text-3xl sm:text-4xl font-mono font-black text-white tracking-tight">
-                    $2.4M <span className="text-xs font-sans text-cyan-300 font-normal">costo promedio por filtración</span>
+                <div className="space-y-3">
+                  <div className="text-4xl sm:text-5xl font-mono font-black text-white tracking-tight flex items-baseline gap-2">
+                    <span className="text-[#38bdf8]">$2.4M USD</span>
+                    <span className="text-sm sm:text-base font-sans text-neutral-200 font-medium">costo promedio por filtración y fraude</span>
                   </div>
-                  <p className="text-xs text-neutral-300 leading-relaxed">
-                    Tener certificados vencidos, cabeceras web desprotegidas o puertos abiertos facilita que clonen tu portal para estafar a tus clientes o secuestren tu base de datos.
+                  <p className="text-sm sm:text-base text-neutral-200 leading-relaxed font-normal">
+                    Tener certificados SSL débiles, puertos expuestos o páginas web sin cabeceras perimetrales facilita que delincuentes clonen tu web para estafar a tus clientes o robar bases de datos.
                   </p>
                 </div>
 
                 {/* La Solución con Neuronal Gravity */}
-                <div className="p-3.5 rounded-xl bg-blue-500/10 border border-blue-500/20 text-xs text-blue-300 space-y-1">
-                  <div className="font-bold text-white flex items-center gap-1.5">
-                    <CheckCircle2 className="w-3.5 h-3.5 text-[#38bdf8]" />
-                    Solución Neuronal Gravity:
+                <div className="p-5 rounded-2xl bg-sky-950/40 border border-[#38bdf8]/40 space-y-2">
+                  <div className="text-sm sm:text-base font-black text-sky-300 flex items-center gap-2">
+                    <CheckCircle2 className="w-5 h-5 text-[#38bdf8] shrink-0" />
+                    Solución de Neuronal Gravity:
                   </div>
-                  <p className="text-neutral-300">
-                    Auditoría perimetral determinista DEFENSA TI y blindaje TLS 1.3 de extremo a extremo sin tocar tu código base.
+                  <p className="text-xs sm:text-sm text-neutral-100 leading-relaxed">
+                    Auditoría perimetral continua con DEFENSA TI y blindaje TLS 1.3 de extremo a extremo para proteger tus pasarelas de pago sin tocar tu código base.
                   </p>
                 </div>
               </div>
@@ -190,16 +192,16 @@ export default function LiveNetworkTrafficGlobe() {
 
           </div>
 
-          {/* Compromisos de Valor Innegociables */}
-          <div className="grid grid-cols-2 gap-3 pt-1">
-            <div className="p-3.5 rounded-xl bg-white/[0.03] border border-white/10 text-xs text-neutral-300">
-              <div className="font-bold text-white">Retorno de Inversión (ROI)</div>
-              <div className="text-neutral-400 text-[11px] mt-0.5">La solución se paga sola en &lt; 45 días</div>
+          {/* Compromisos de Valor Innegociables en Blanco Puro y Nítido */}
+          <div className="grid grid-cols-1 sm:grid-cols-2 gap-3 pt-2">
+            <div className="p-4 rounded-2xl bg-[#141416] border border-white/15 text-xs text-neutral-200">
+              <div className="font-bold text-white text-sm">Retorno de Inversión (ROI)</div>
+              <div className="text-neutral-300 text-xs mt-1">La implementación se amortiza sola en menos de 45 días.</div>
             </div>
 
-            <div className="p-3.5 rounded-xl bg-white/[0.03] border border-white/10 text-xs text-neutral-300">
-              <div className="font-bold text-white">Soberanía de Datos Privada</div>
-              <div className="text-neutral-400 text-[11px] mt-0.5">Tus datos nunca entrenan modelos públicos</div>
+            <div className="p-4 rounded-2xl bg-[#141416] border border-white/15 text-xs text-neutral-200">
+              <div className="font-bold text-white text-sm">Soberanía de Datos Privada</div>
+              <div className="text-neutral-300 text-xs mt-1">Tus datos nunca se usan para entrenar IA pública de terceros.</div>
             </div>
           </div>
 
@@ -216,10 +218,10 @@ export default function LiveNetworkTrafficGlobe() {
 
             <Apple3DGlobe lat={-12.0464} lon={-77.0428} />
 
-            {/* Pill flotante indicando el nodo matriz */}
-            <div className="absolute bottom-4 sm:bottom-8 px-4 py-2 rounded-2xl bg-black/85 border border-white/15 backdrop-blur-xl shadow-2xl flex items-center gap-2.5 text-xs text-neutral-200">
-              <span className="w-2 h-2 rounded-full bg-emerald-400 animate-ping" />
-              <span>Infraestructura optimizada para operaciones en <strong>Latinoamérica y EE.UU.</strong></span>
+            {/* Pill flotante indicando el nodo matriz con contraste total */}
+            <div className="absolute bottom-4 sm:bottom-8 px-5 py-2.5 rounded-2xl bg-[#0e1118] border border-white/20 shadow-2xl flex items-center gap-2.5 text-xs text-white font-medium">
+              <span className="w-2.5 h-2.5 rounded-full bg-emerald-400 animate-ping" />
+              <span>Infraestructura optimizada para operaciones en <strong className="text-[#38bdf8]">Latinoamérica y EE.UU.</strong></span>
             </div>
 
           </div>
