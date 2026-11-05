@@ -701,16 +701,6 @@ export default function NeuronalGravityHomePage() {
 
             {/* Acciones */}
             <div className="flex items-center gap-3">
-              <a
-                href="https://wa.me/17856433991?text=Hola%20Martin,%20deseo%20agendar%20una%20reuni%C3%B3n%20para%20evaluar%20soluciones%20de%20IA%20para%20mi%20empresa"
-                target="_blank"
-                rel="noopener noreferrer"
-                className="hidden sm:inline-flex items-center gap-2 px-4 py-2 rounded-xl bg-linear-to-r from-emerald-500 to-teal-600 hover:from-emerald-400 hover:to-teal-500 text-white text-xs font-semibold shadow-[0_0_20px_rgba(16,185,129,0.35)] active:scale-95 transition-all"
-              >
-                <MessageSquare className="w-3.5 h-3.5" />
-                <span>{content.nav.contactBtn}</span>
-              </a>
-
               <LanguageSelector />
             </div>
           </div>
