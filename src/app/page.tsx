@@ -60,10 +60,26 @@ export default function NeuronalGravityHomePage() {
         scannerCallout: '¿Buscas auditar la seguridad de tu página web?',
         scannerLinkText: 'Probar gratis DEFENSA TI →',
         stats: [
-          { value: '+300%', label: 'Capacidad de Atención', desc: 'Agentes conversacionales 24/7 en WhatsApp y web' },
-          { value: '-65%', label: 'Costos Operativos', desc: 'Automatización de tareas repetitivas y documentos' },
-          { value: '< 30 Días', label: 'Tiempo a Producción', desc: 'De la idea a un sistema de IA funcionando en tu empresa' },
-          { value: '100% ROI', label: 'Orientado a Resultados', desc: 'Soluciones con retorno financiero y métricas claras' },
+          { 
+            value: '< 3 Segundos', 
+            label: 'Respuesta al Cliente', 
+            desc: 'Tus prospectos reciben atención y precios inmediatos en WhatsApp sin esperar horas.' 
+          },
+          { 
+            value: '24 Horas / 7 Días', 
+            label: 'Cierre de Ventas Activo', 
+            desc: 'Capturas pedidos y clientes incluso de noche y fines de semana sin pagar horas extra.' 
+          },
+          { 
+            value: 'Cero Digitado', 
+            label: 'Facturas & Documentos', 
+            desc: 'La IA extrae datos de contratos y facturas directo a tu Excel o sistema en 1 segundo.' 
+          },
+          { 
+            value: 'Soberanía Total', 
+            label: 'Control de tus Datos', 
+            desc: 'Tu información comercial es privada y jamás se comparte con terceros ni IA pública.' 
+          },
         ],
       },
       solutions: {
