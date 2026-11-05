@@ -63,3 +63,32 @@ body {
 ::-webkit-scrollbar-thumb:hover {
   background: #3f3f46;
 }
+
+/* Animaciones Cósmicas Neuronal Gravity & Apple Intelligence Orb */
+@keyframes cosmicOrbRotate {
+  0% { transform: rotate(0deg) scale(1); }
+  50% { transform: rotate(180deg) scale(1.08); }
+  100% { transform: rotate(360deg) scale(1); }
+}
+
+@keyframes cosmicOrbPulse {
+  0%, 100% { opacity: 0.6; transform: scale(0.95); }
+  50% { opacity: 1; transform: scale(1.15); filter: blur(6px); }
+}
+
+@keyframes gravitationalFloat {
+  0%, 100% { transform: translateY(0px); }
+  50% { transform: translateY(-6px); }
+}
+
+.animate-cosmic-rotate {
+  animation: cosmicOrbRotate 12s linear infinite;
+}
+
+.animate-cosmic-pulse {
+  animation: cosmicOrbPulse 4s ease-in-out infinite;
+}
+
+.animate-gravitational-float {
+  animation: gravitationalFloat 5s ease-in-out infinite;
+}

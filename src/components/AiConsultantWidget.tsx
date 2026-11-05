@@ -15,34 +15,30 @@ import {
 import { useI18n } from '@/lib/i18n/I18nContext';
 import { AuditReportRecord } from '@/lib/storage/reportStore';
 
-// Icono Ciber-Futurista Apple Neural Core para DEFENSA IT AI
-function CyberCoreIcon({ className = 'w-6 h-6' }: { className?: string }) {
+// Orbe Gravitacional Vivo - Estilo Apple Intelligence / Cosmos Neuronal
+function AppleCosmicOrb({ className = 'w-9 h-9' }: { className?: string }) {
   return (
-    <svg viewBox="0 0 24 24" fill="none" className={className} xmlns="http://www.w3.org/2000/svg">
-      <defs>
-        <linearGradient id="cyberGlow" x1="2" y1="2" x2="22" y2="22" gradientUnits="userSpaceOnUse">
-          <stop stopColor="#38bdf8" />
-          <stop offset="0.5" stopColor="#3b82f6" />
-          <stop offset="1" stopColor="#818cf8" />
-        </linearGradient>
-        <radialGradient id="cyberCore" cx="12" cy="12" r="5" gradientUnits="userSpaceOnUse">
-          <stop stopColor="#60a5fa" />
-          <stop offset="1" stopColor="#1e3a8a" />
-        </radialGradient>
-      </defs>
-      {/* Anillo exterior segmentado */}
-      <circle cx="12" cy="12" r="9" stroke="url(#cyberGlow)" strokeWidth="1.6" strokeDasharray="5 3" />
-      {/* Rombo orbital de seguridad */}
-      <path d="M12 4.5L19.5 12L12 19.5L4.5 12Z" stroke="#38bdf8" strokeWidth="1.2" strokeOpacity="0.8" />
-      {/* Núcleo de Fusión Cuántica */}
-      <circle cx="12" cy="12" r="3.2" fill="url(#cyberCore)" />
-      <circle cx="12" cy="12" r="1.5" fill="#ffffff" />
-      {/* Pines de interconexión neural */}
-      <line x1="12" y1="2" x2="12" y2="4" stroke="#38bdf8" strokeWidth="1.8" strokeLinecap="round" />
-      <line x1="12" y1="20" x2="12" y2="22" stroke="#38bdf8" strokeWidth="1.8" strokeLinecap="round" />
-      <line x1="2" y1="12" x2="4" y2="12" stroke="#38bdf8" strokeWidth="1.8" strokeLinecap="round" />
-      <line x1="20" y1="12" x2="22" y2="12" stroke="#38bdf8" strokeWidth="1.8" strokeLinecap="round" />
-    </svg>
+    <div className={`relative flex items-center justify-center ${className}`}>
+      {/* Resplandor nebulosa exterior pulsante */}
+      <span className="absolute -inset-2 rounded-full bg-linear-to-tr from-[#0071e3]/50 via-[#a855f7]/40 to-[#38bdf8]/50 blur-md animate-cosmic-pulse pointer-events-none" />
+      
+      {/* Ondas orbitales gravitacionales */}
+      <div className="absolute inset-0 rounded-full border border-[#38bdf8]/40 animate-cosmic-rotate pointer-events-none" />
+      <div className="absolute -inset-1 rounded-full border border-dashed border-[#c084fc]/30 animate-spin-slow pointer-events-none" />
+
+      {/* Orbe iridiscente central Apple Intelligence */}
+      <div className="relative w-full h-full rounded-full bg-linear-to-tr from-[#0071e3] via-[#818cf8] to-[#38bdf8] p-[1.5px] shadow-[0_0_20px_rgba(56,189,248,0.6)]">
+        <div className="w-full h-full rounded-full bg-[#07090e] flex items-center justify-center relative overflow-hidden">
+          
+          {/* Núcleo estelar interno con rotación fluida */}
+          <div className="absolute inset-0 bg-radial from-[#38bdf8]/60 via-[#9333ea]/30 to-transparent animate-cosmic-rotate" />
+          
+          {/* Constelación o punto de singularidad de gravedad */}
+          <span className="relative z-10 w-2 h-2 rounded-full bg-white shadow-[0_0_10px_#ffffff] animate-ping" />
+          <span className="absolute z-10 w-2 h-2 rounded-full bg-white" />
+        </div>
+      </div>
+    </div>
   );
 }
 
@@ -315,24 +311,32 @@ Quisiera coordinar contigo una reunión para evaluar cómo implementar solucione
 
   return (
     <>
-      {/* Botón Flotante con Marca DEFENSA IT AI */}
-      <div className="fixed bottom-6 right-6 z-50 flex items-center gap-3">
+      {/* Botón Flotante con Marca Neuronal Gravity AI - Apple Cosmic Pulse */}
+      <div className="fixed bottom-6 right-6 z-50 flex items-center gap-3 animate-gravitational-float">
         {!isOpen && (
           <button
             onClick={() => setIsOpen(true)}
-            className="flex items-center gap-2.5 px-4 py-2.5 rounded-2xl bg-[#141416]/95 border border-[#38bdf8]/30 hover:border-[#38bdf8] text-xs text-neutral-200 shadow-[0_10px_35px_rgba(0,0,0,0.8)] backdrop-blur-2xl transition-all cursor-pointer group"
+            className="relative flex items-center gap-3 px-4 py-2.5 rounded-full bg-[#0c0e14]/90 border border-white/20 hover:border-[#38bdf8] text-xs text-white shadow-[0_15px_35px_rgba(0,0,0,0.85)] backdrop-blur-2xl transition-all cursor-pointer group hover:scale-105 active:scale-95"
           >
-            <span className="w-2 h-2 rounded-full bg-emerald-400 animate-pulse shadow-[0_0_8px_#34d399]" />
-            <span>{t.aiBot.consultBtn} <strong className="text-white group-hover:text-[#38bdf8] transition-colors">{t.aiBot.title}</strong></span>
+            {/* Resplandor cósmico dinámico tipo aura Apple Intelligence */}
+            <span className="absolute -inset-1 rounded-full bg-linear-to-r from-[#0071e3]/40 via-[#a855f7]/30 to-[#38bdf8]/40 blur-md opacity-70 group-hover:opacity-100 transition-opacity animate-cosmic-pulse" />
+            
+            <span className="relative flex h-2.5 w-2.5">
+              <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-emerald-400 opacity-75" />
+              <span className="relative inline-flex rounded-full h-2.5 w-2.5 bg-emerald-400 shadow-[0_0_8px_#34d399]" />
+            </span>
+            <span className="relative font-medium text-neutral-200">
+              {t.aiBot.consultBtn} <strong className="text-white group-hover:text-[#38bdf8] transition-colors font-bold">{t.aiBot.title}</strong>
+            </span>
           </button>
         )}
         <button
           onClick={() => setIsOpen(!isOpen)}
-          className="relative group p-3.5 rounded-2xl bg-linear-to-b from-[#141416] via-[#101726] to-[#080d1a] border border-[#38bdf8]/40 hover:border-[#38bdf8] text-white shadow-[0_0_30px_rgba(56,189,248,0.35)] hover:shadow-[0_0_45px_rgba(56,189,248,0.6)] active:scale-95 transition-all cursor-pointer"
+          className="relative group p-3 rounded-full bg-linear-to-b from-[#141b2d] via-[#0b0f19] to-[#04060c] border border-white/20 hover:border-[#38bdf8] text-white shadow-[0_0_30px_rgba(56,189,248,0.4)] hover:shadow-[0_0_55px_rgba(168,85,247,0.7)] active:scale-95 transition-all cursor-pointer"
           aria-label={t.aiBot.title}
         >
-          {isOpen ? <X className="w-6 h-6 text-neutral-300" /> : <CyberCoreIcon className="w-6 h-6 group-hover:rotate-45 transition-transform duration-300" />}
-          <span className="absolute -top-1 -right-1 w-3 h-3 rounded-full bg-emerald-400 border-2 border-black shadow-[0_0_8px_#34d399]" />
+          {isOpen ? <X className="w-6 h-6 text-neutral-300 relative z-10" /> : <AppleCosmicOrb className="w-8 h-8" />}
+          <span className="absolute -top-0.5 -right-0.5 w-3.5 h-3.5 rounded-full bg-emerald-400 border-2 border-black shadow-[0_0_10px_#34d399] z-20" />
         </button>
       </div>
 
@@ -340,12 +344,12 @@ Quisiera coordinar contigo una reunión para evaluar cómo implementar solucione
       {isOpen && (
         <div className="fixed bottom-24 right-4 sm:right-6 z-50 w-[94vw] sm:w-[450px] max-h-[640px] h-[80vh] flex flex-col rounded-3xl bg-[#0c0d10]/98 border border-white/15 shadow-[0_25px_60px_rgba(0,0,0,0.95)] backdrop-blur-2xl overflow-hidden animate-in fade-in slide-in-from-bottom-5 duration-200">
           
-          {/* Cabecera con DEFENSA IT AI */}
+          {/* Cabecera con Neuronal Gravity AI */}
           <div className="px-5 py-3.5 border-b border-white/10 bg-white/5 flex items-center justify-between">
             <div className="flex items-center gap-3">
               <div className="relative">
                 <div className="w-10 h-10 rounded-2xl bg-[#0f172a] border border-[#38bdf8]/40 flex items-center justify-center text-white shadow-inner">
-                  <CyberCoreIcon className="w-6 h-6" />
+                  <AppleCosmicOrb className="w-6 h-6" />
                 </div>
                 <span className="absolute -bottom-0.5 -right-0.5 w-3 h-3 rounded-full bg-emerald-400 border-2 border-[#0c0d10] shadow-[0_0_6px_#34d399]" />
               </div>
@@ -376,8 +380,8 @@ Quisiera coordinar contigo una reunión para evaluar cómo implementar solucione
                   className={`flex gap-2.5 ${m.role === 'user' ? 'justify-end' : 'justify-start'}`}
                 >
                   {m.role === 'assistant' && (
-                    <div className="w-6 h-6 rounded-lg bg-sky-950/60 border border-sky-500/30 flex items-center justify-center text-sky-400 shrink-0 mt-0.5">
-                      <CyberCoreIcon className="w-4 h-4" />
+                    <div className="w-7 h-7 rounded-full bg-black/60 border border-sky-500/40 flex items-center justify-center shrink-0 mt-0.5">
+                      <AppleCosmicOrb className="w-5 h-5" />
                     </div>
                   )}
                   <div
