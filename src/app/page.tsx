@@ -668,8 +668,10 @@ export default function NeuronalGravityHomePage() {
                     AI BIZ
                   </span>
                 </div>
-                <span className="text-[11px] text-neutral-400 font-mono mt-0.5">
-                  neuronalgravity.com
+                <span className="text-[11px] text-neutral-400 font-mono mt-0.5 flex items-center gap-1.5">
+                  <span>neuronalgravity.com</span>
+                  <span className="text-neutral-600">&bull;</span>
+                  <span className="text-[#38bdf8] font-sans font-semibold">by Martin Castillo</span>
                 </span>
               </div>
             </Link>
@@ -1162,7 +1164,7 @@ export default function NeuronalGravityHomePage() {
                 </div>
                 <div>
                   <span className="font-bold text-white text-sm">NEURONAL GRAVITY</span>
-                  <p className="text-[11px] text-neutral-400">neuronalgravity.com</p>
+                  <p className="text-[11px] text-neutral-400">neuronalgravity.com &bull; <span className="text-[#38bdf8] font-semibold">by Martin Castillo</span></p>
                 </div>
               </div>
 

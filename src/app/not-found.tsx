@@ -33,7 +33,7 @@ export default function NotFound() {
                 NEURONAL GRAVITY
               </span>
               <span className="text-[11px] text-neutral-400 font-mono mt-0.5">
-                neuronalgravity.com
+                neuronalgravity.com &bull; <span className="text-[#38bdf8] font-sans font-semibold">by Martin Castillo</span>
               </span>
             </div>
           </Link>
@@ -107,8 +107,8 @@ export default function NotFound() {
       </main>
 
       {/* Footer Minimalista */}
-      <footer className="relative z-10 border-t border-white/5 py-6 px-6 text-center text-xs text-neutral-500">
-        <p>© 2026 Neuronal Gravity &bull; neuronalgravity.com &bull; Todos los derechos reservados.</p>
+      <footer className="relative z-10 border-t border-white/5 py-6 px-6 text-center text-xs text-neutral-400">
+        <p>© 2026 Neuronal Gravity &bull; neuronalgravity.com &bull; <span className="text-[#38bdf8] font-semibold">by Martin Castillo</span> &bull; Todos los derechos reservados.</p>
       </footer>
 
     </div>

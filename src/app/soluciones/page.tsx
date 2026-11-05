@@ -108,6 +108,7 @@ export default function SolucionesPage() {
             <span className="font-bold text-base tracking-tight text-white leading-none">
               NEURONAL GRAVITY
             </span>
+            <span className="text-xs text-[#38bdf8] font-mono font-semibold">by Martin Castillo</span>
           </Link>
           <Link
             href="/"
@@ -203,8 +204,8 @@ export default function SolucionesPage() {
       </main>
 
       {/* Footer */}
-      <footer className="relative z-10 border-t border-white/5 py-6 px-6 text-center text-xs text-neutral-500">
-        <p>© 2026 Neuronal Gravity &bull; Consultoría Estratégica &bull; neuronalgravity.com</p>
+      <footer className="relative z-10 border-t border-white/5 py-6 px-6 text-center text-xs text-neutral-400">
+        <p>© 2026 Neuronal Gravity &bull; Consultoría Estratégica &bull; neuronalgravity.com &bull; <span className="text-[#38bdf8] font-semibold">by Martin Castillo</span></p>
       </footer>
 
     </div>
