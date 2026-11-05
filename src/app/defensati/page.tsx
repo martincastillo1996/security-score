@@ -13,7 +13,6 @@ import BusinessOverview from '@/components/BusinessOverview';
 import ServerLocationCard from '@/components/ServerLocationCard';
 import CookieResults from '@/components/CookieResults';
 import CookieConsentBanner from '@/components/CookieConsentBanner';
-import AiConsultantWidget from '@/components/AiConsultantWidget';
 import RealThreatCasesModal from '@/components/RealThreatCasesModal';
 import HowItWorksGuide from '@/components/HowItWorksGuide';
 import PricingSection from '@/components/PricingSection';
@@ -420,9 +419,6 @@ export default function HomePage() {
 
           </div>
         </main>
-
-        {/* Asistente DEFENSA IT AI (Consultor Virtual Autónomo con Traspaso a WhatsApp) */}
-        <AiConsultantWidget report={report} />
 
         <footer className="border-t border-white/10 py-14 text-xs text-neutral-400 bg-[#000000]/90 backdrop-blur-xl mt-24">
           <div className="max-w-5xl mx-auto px-6 space-y-8 text-center">

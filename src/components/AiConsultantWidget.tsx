@@ -174,7 +174,7 @@ export default function AiConsultantWidget({ report }: Props) {
   useEffect(() => {
     if (report?.url && report.url !== lastReportUrl.current) {
       lastReportUrl.current = report.url;
-      const greeting = `Hola, ¿qué tal? Soy **DEFENSA IT AI**. He revisado la auditoría de **${report.url}** (Nota: **${report.score}/100**, Grado **${report.grade || 'F'}**).\n\n¿Deseas saber si tu web tiene riesgo de clonación o cómo dejarla en Grado A+ hoy mismo?`;
+      const greeting = `Hola, ¿qué tal? Soy **Neuronal Gravity AI**. He revisado la auditoría de **${report.url}** (Nota: **${report.score}/100**, Grado **${report.grade || 'F'}**).\n\n¿Deseas saber si tu web tiene riesgo de clonación o cómo dejarla en Grado A+ hoy mismo?`;
       queueMicrotask(() => {
         setMessages([{ role: 'assistant', content: greeting }]);
       });
@@ -428,7 +428,7 @@ Quisiera coordinar contigo una reunión para evaluar cómo implementar solucione
                 <div className="w-6 h-6 rounded-lg bg-sky-950/60 border border-sky-500/30 flex items-center justify-center text-sky-400">
                   <Loader2 className="w-3.5 h-3.5 animate-spin" />
                 </div>
-                <span className="italic text-[11px] text-sky-300">DEFENSA IT AI está evaluando tu consulta...</span>
+                <span className="italic text-[11px] text-sky-300">Neuronal Gravity AI está evaluando tu consulta...</span>
               </div>
             )}
             <div ref={messagesEndRef} />

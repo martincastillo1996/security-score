@@ -4,6 +4,7 @@ import "./globals.css";
 import { I18nProvider } from "@/lib/i18n/I18nContext";
 import CookieConsentBanner from "@/components/CookieConsentBanner";
 import DonationModal from "@/components/DonationModal";
+import AiConsultantWidget from "@/components/AiConsultantWidget";
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -43,6 +44,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
       <body className="min-h-full flex flex-col bg-black text-[#f5f5f7]">
         <I18nProvider>
           {children}
+          <AiConsultantWidget />
           <DonationModal />
           <CookieConsentBanner />
         </I18nProvider>
