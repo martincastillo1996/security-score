@@ -57,7 +57,7 @@ export default function SocialViralHub({ targetUrl, score }: Props) {
           
           {/* TikTok */}
           <a
-            href="https://tiktok.com/@martincastillo"
+            href="https://www.tiktok.com/@k_martin_castillo96"
             target="_blank"
             rel="noopener noreferrer"
             className="p-3.5 rounded-2xl bg-black/60 hover:bg-black/90 border border-white/10 hover:border-pink-500/40 transition-all flex flex-col items-center justify-center gap-1.5 group cursor-pointer"
