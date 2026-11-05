@@ -9,6 +9,7 @@ import LanguageSelector from '@/components/LanguageSelector';
 import LeadQuoteSection from '@/components/LeadQuoteSection';
 import FaqSection from '@/components/FaqSection';
 import LiveNetworkTrafficGlobe from '@/components/LiveNetworkTrafficGlobe';
+import GlobalCyberThreatsAndSeoScanner from '@/components/GlobalCyberThreatsAndSeoScanner';
 import FloatingWhatsAppButton from '@/components/FloatingWhatsAppButton';
 import { useI18n } from '@/lib/i18n/I18nContext';
 import {
@@ -795,6 +796,9 @@ export default function NeuronalGravityHomePage() {
 
           {/* RED GLOBAL DE INFRAESTRUCTURA DE IA & TRÁFICO EN VIVO (ARRIBA DE SOLUCIONES) */}
           <LiveNetworkTrafficGlobe />
+
+          {/* MONITOR GLOBAL DE AMENAZAS Y DIAGNÓSTICO DE SEO / SEGURIDAD WEB */}
+          <GlobalCyberThreatsAndSeoScanner />
 
           {/* SOLUCIONES DE NEGOCIO CON IA (CORE CATALOG) */}
           <section id="soluciones" className="space-y-12">
