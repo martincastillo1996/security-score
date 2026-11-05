@@ -8,6 +8,7 @@ import Apple3DGlobe from '@/components/Apple3DGlobe';
 import LanguageSelector from '@/components/LanguageSelector';
 import LeadQuoteSection from '@/components/LeadQuoteSection';
 import FaqSection from '@/components/FaqSection';
+import LiveNetworkTrafficGlobe from '@/components/LiveNetworkTrafficGlobe';
 import FloatingWhatsAppButton from '@/components/FloatingWhatsAppButton';
 import { useI18n } from '@/lib/i18n/I18nContext';
 import {
@@ -792,6 +793,9 @@ export default function NeuronalGravityHomePage() {
             ))}
           </section>
 
+          {/* RED GLOBAL DE INFRAESTRUCTURA DE IA & TRÁFICO EN VIVO (ARRIBA DE SOLUCIONES) */}
+          <LiveNetworkTrafficGlobe />
+
           {/* SOLUCIONES DE NEGOCIO CON IA (CORE CATALOG) */}
           <section id="soluciones" className="space-y-12">
             <div className="text-center space-y-4 max-w-3xl mx-auto">
@@ -970,44 +974,6 @@ export default function NeuronalGravityHomePage() {
                 </div>
               </div>
             )}
-          </section>
-
-          {/* GLOBO 3D Y RED GLOBAL DE INFRAESTRUCTURA DE IA */}
-          <section className="relative rounded-3xl p-8 sm:p-12 bg-linear-to-b from-[#080d1a] via-[#05070e] to-[#010204] border border-[#0071e3]/30 overflow-hidden space-y-10">
-            <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 items-center relative z-10">
-              <div className="lg:col-span-6 space-y-5 text-left">
-                <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-blue-500/15 border border-blue-400/30 text-[#38bdf8] text-xs font-semibold">
-                  <Brain className="w-3.5 h-3.5 text-[#38bdf8]" />
-                  <span>Infraestructura Segura de IA en la Nube</span>
-                </div>
-
-                <h2 className="text-3xl sm:text-4xl font-extrabold text-white tracking-tight">
-                  Despliegues con Baja Latencia y Soberanía de Datos
-                </h2>
-
-                <p className="text-sm text-neutral-300 leading-relaxed">
-                  Tus agentes y modelos se ejecutan en servidores perimetrales de alta velocidad con cifrado TLS 1.3 de extremo a extremo, cumpliendo con estrictas directivas de confidencialidad para proteger la información confidencial de tu empresa y tus clientes.
-                </p>
-
-                <div className="grid grid-cols-2 gap-3 pt-2">
-                  <div className="p-3.5 rounded-xl bg-white/[0.03] border border-white/10 text-xs text-neutral-300">
-                    <div className="font-bold text-white">Cifrado Militar</div>
-                    <div className="text-neutral-400 text-[11px] mt-0.5">TLS 1.3 & Zero-Data-Leak</div>
-                  </div>
-                  <div className="p-3.5 rounded-xl bg-white/[0.03] border border-white/10 text-xs text-neutral-300">
-                    <div className="font-bold text-white">Edge Latency</div>
-                    <div className="text-neutral-400 text-[11px] mt-0.5">&lt; 30ms en Latam & US</div>
-                  </div>
-                </div>
-              </div>
-
-              {/* Globo 3D Cobe */}
-              <div className="lg:col-span-6 flex justify-center items-center relative">
-                <div className="relative w-full max-w-[420px] aspect-square rounded-full flex items-center justify-center">
-                  <Apple3DGlobe lat={-12.0464} lon={-77.0428} />
-                </div>
-              </div>
-            </div>
           </section>
 
           {/* LIDERAZGO & CONSULTOR PRINCIPAL */}
