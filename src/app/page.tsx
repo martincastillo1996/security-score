@@ -6,6 +6,8 @@ import Image from 'next/image';
 import NeuralBackground from '@/components/NeuralBackground';
 import Apple3DGlobe from '@/components/Apple3DGlobe';
 import LanguageSelector from '@/components/LanguageSelector';
+import LeadQuoteSection from '@/components/LeadQuoteSection';
+import FaqSection from '@/components/FaqSection';
 import FloatingWhatsAppButton from '@/components/FloatingWhatsAppButton';
 import { useI18n } from '@/lib/i18n/I18nContext';
 import {
@@ -1107,6 +1109,12 @@ export default function NeuronalGravityHomePage() {
 
             </div>
           </section>
+
+          {/* FORMULARIO DE COTIZACIÓN DE NEGOCIO */}
+          <LeadQuoteSection />
+
+          {/* PREGUNTAS FRECUENTES (FAQ) */}
+          <FaqSection />
 
           {/* CALL TO ACTION FINAL DE NEGOCIO */}
           <section className="text-center space-y-6 py-12 rounded-3xl bg-linear-to-b from-[#0071e3]/20 via-[#7928ca]/10 to-transparent border border-white/10 p-8 sm:p-12">
