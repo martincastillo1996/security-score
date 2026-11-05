@@ -118,7 +118,7 @@ const translations: Record<Language, Translations> = {
     },
     reportCard: {
       targetAnalyzed: 'Objetivo Analizado',
-      printBtn: 'Imprimir Reporte',
+      printBtn: 'Descargar Dictamen PDF',
       shareBtn: 'Compartir Auditoría',
       copiedBtn: '¡Enlace Copiado!',
       businessTab: 'Vista de Negocio (Directores / Dueños)',
@@ -198,7 +198,7 @@ const translations: Record<Language, Translations> = {
     },
     reportCard: {
       targetAnalyzed: 'Analyzed Target',
-      printBtn: 'Print Report',
+      printBtn: 'Download PDF Report',
       shareBtn: 'Share Audit',
       copiedBtn: 'Link Copied!',
       businessTab: 'Business View (Executive / Owner)',
@@ -278,7 +278,7 @@ const translations: Record<Language, Translations> = {
     },
     reportCard: {
       targetAnalyzed: 'Alvo Analisado',
-      printBtn: 'Imprimir Relatório',
+      printBtn: 'Baixar Relatório PDF',
       shareBtn: 'Compartilhar Auditoria',
       copiedBtn: 'Link Copiado!',
       businessTab: 'Visão de Negócios (Diretoria / Donos)',

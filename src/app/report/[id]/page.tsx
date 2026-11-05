@@ -9,7 +9,8 @@ import {
   Check, 
   ArrowLeft,
   AlertTriangle,
-  Loader2
+  Loader2,
+  Download
 } from 'lucide-react';
 import ScoreCircle from '@/components/ScoreCircle';
 import SslResults from '@/components/SslResults';
@@ -102,6 +103,14 @@ export default function ReportPage({ params }: { params: Promise<{ id: string }>
   };
 
   const handlePrint = () => {
+    if (report?.url) {
+      try {
+        const cleanHost = new URL(report.url).hostname.replace(/[^a-zA-Z0-9.-]/g, '_');
+        document.title = `Dictamen-DEFENSA-TI-${cleanHost}`;
+      } catch {
+        // Ignorar si la URL no es válida
+      }
+    }
     window.print();
   };
 
@@ -186,9 +195,11 @@ export default function ReportPage({ params }: { params: Promise<{ id: string }>
               </button>
               <button
                 onClick={handlePrint}
-                className="px-4 py-2 rounded-xl bg-white/10 hover:bg-white/15 border border-white/10 text-white text-xs font-medium flex items-center gap-2"
+                className="px-4 py-2 rounded-xl bg-white/10 hover:bg-white/15 border border-white/10 text-white text-xs font-semibold flex items-center gap-2 group transition-all cursor-pointer"
+                title="Descargar dictamen forense en formato PDF con membrete oficial"
               >
-                <Printer className="w-3.5 h-3.5" /> PDF
+                <Download className="w-3.5 h-3.5 text-[#38bdf8] group-hover:translate-y-0.5 transition-transform" />
+                <span>Descargar Dictamen PDF</span>
               </button>
             </div>
           </div>

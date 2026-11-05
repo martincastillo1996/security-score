@@ -26,6 +26,7 @@ import {
   AlertTriangle,
   ArrowRight,
   Check,
+  Download,
   Printer,
   Search,
   Share2,
@@ -117,6 +118,14 @@ export default function HomePage() {
   };
 
   const handlePrint = () => {
+    if (report?.url) {
+      try {
+        const cleanHost = new URL(report.url).hostname.replace(/[^a-zA-Z0-9.-]/g, '_');
+        document.title = `Dictamen-DEFENSA-TI-${cleanHost}`;
+      } catch {
+        // Ignorar si la URL no es válida
+      }
+    }
     window.print();
   };
 
@@ -289,10 +298,11 @@ export default function HomePage() {
                 <div className="flex items-center gap-3">
                   <button
                     onClick={handlePrint}
-                    className="flex-1 sm:flex-initial px-5 py-2.5 rounded-2xl bg-white/10 hover:bg-white/15 active:scale-[0.98] border border-white/15 text-white text-xs font-semibold flex items-center justify-center gap-2 transition-all shadow-md cursor-pointer"
+                    className="flex-1 sm:flex-initial px-5 py-2.5 rounded-2xl bg-white/10 hover:bg-white/15 active:scale-[0.98] border border-white/15 text-white text-xs font-semibold flex items-center justify-center gap-2 transition-all shadow-md cursor-pointer group"
+                    title="Descargar dictamen forense en formato PDF con membrete oficial"
                   >
-                    <Printer className="w-4 h-4" />
-                    {t.reportCard.printBtn}
+                    <Download className="w-4 h-4 text-[#38bdf8] group-hover:translate-y-0.5 transition-transform" />
+                    <span>{t.reportCard.printBtn}</span>
                   </button>
                   <button
                     onClick={copyShareLink}
