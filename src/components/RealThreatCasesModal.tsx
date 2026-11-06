@@ -13,14 +13,11 @@ import {
 import { PERU_DEPARTMENTS, PERU_VIEWBOX } from './peruMapData';
 
 interface RegionalIncident {
-  region: string;
   badge: string;
   businessType: string;
-  exactCompanies: string;
   threatType: string;
   lossMetric: string;
   solution: string;
-  pnpReportContext: string;
 }
 
 export default function RealThreatCasesModal() {
@@ -79,84 +76,63 @@ export default function RealThreatCasesModal() {
     },
   ];
 
-  // Casos típicos documentados en el ecosistema comercial peruano con empresas y rubros reales
+  // Casos típicos documentados en el ecosistema comercial peruano (resumidos y directos)
   const regionalIncidents: Record<string, RegionalIncident[]> = {
     LIMA: [
       {
-        region: 'Lima y Callao',
-        badge: 'Comercio Minorista / E-commerce',
-        businessType: 'Marcas de Ropa en Gamarra, Zapaterías y Tiendas de Tecnología',
-        exactCompanies: 'Tiendas online de confección textil en Gamarra (La Victoria), marcas independientes de calzado y distribuidoras de tecnología en Wilson y Miraflores.',
-        threatType: 'Clonación visual por Clickjacking',
-        lossMetric: 'Desvío de cobros y pedidos mediante formularios incrustados en páginas espejo que simulaban checkout de Niubiz y Yape.',
-        solution: 'Implementación estricta de directivas Content-Security-Policy (CSP) y X-Frame-Options DENY.',
-        pnpReportContext: 'Modalidad de suplantación y fraude informático tipificada bajo el Art. 8 y 9 de la Ley N° 30096 (DIVINDAT PNP).'
+        badge: 'E-commerce & Moda',
+        businessType: 'Tiendas de Ropa y Calzado (Gamarra y Online)',
+        threatType: 'Clonación de Checkout',
+        lossMetric: 'Desvío de cobros de Niubiz y Yape mediante formularios espejo incrustados.',
+        solution: 'Directivas estrictas CSP y bloqueo de iframes (X-Frame-Options DENY).'
       },
       {
-        region: 'Lima y Callao',
-        badge: 'Distribución B2B & Ferretería',
-        businessType: 'Mayoristas Ferreteros, Distribuidoras de Repuestos e Importadoras B2B',
-        exactCompanies: 'Importadoras de maquinaria y ferretería industrial en el Callao, distribuidores mayoristas de autopartes en Ate y empresas de suministros en Cercado de Lima.',
-        threatType: 'Robo de sesiones en redes no seguras',
-        lossMetric: 'Interceptación de sesiones de ejecutivos de venta al conectarse a paneles web sin cifrado forzado, alterando cuentas bancarias en cotizaciones.',
-        solution: 'Directivas de cookies configuradas como HttpOnly, Secure y SameSite=Strict con cifrado forzado en todo el subdominio.',
-        pnpReportContext: 'Reportes de acceso no autorizado seguidos por la Fiscalía Especializada en Ciberdelincuencia de Lima Centro.'
+        badge: 'Comercio B2B & Ferretería',
+        businessType: 'Mayoristas Industriales y Repuestos',
+        threatType: 'Robo de Sesión en Wi-Fi',
+        lossMetric: 'Interceptación de accesos a paneles web sin cifrado forzado en subdominios.',
+        solution: 'Cifrado HSTS obligatorio y cookies HttpOnly + SameSite=Strict.'
       },
     ],
     NORTE: [
       {
-        region: 'Norte (La Libertad, Piura, Lambayeque)',
-        badge: 'Agroindustria & Exportación',
-        businessType: 'Empresas Agroexportadoras y Operadoras Logísticas en Virú y Piura',
-        exactCompanies: 'Exportadoras de arándanos, uva y mango en los valles de Chao/Virú (La Libertad) y Piura, además de operadoras de transporte y frío en el Puerto de Paita.',
-        threatType: 'Caída de confianza por certificado SSL mal encadenado',
-        lossMetric: 'Navegadores de compradores internacionales en EE.UU. y Europa mostraron pantallas rojas de "Conexión no privada", retrasando órdenes de compra.',
-        solution: 'Corrección de cadena intermedia de certificados TLS, activación de OCSP Stapling y renovación limpia de DNS.',
-        pnpReportContext: 'Verificado en auditorías de infraestructura perimétrica según guías de Indecopi sobre comercio seguro.'
+        badge: 'Agroexportación',
+        businessType: 'Exportadoras y Operadores Logísticos (Virú y Piura)',
+        threatType: 'Alerta Roja SSL en el Extranjero',
+        lossMetric: 'Navegadores en EE.UU./Europa mostraron "Sitio no seguro" por certificados mal encadenados.',
+        solution: 'Cadena intermedia TLS corregida, OCSP Stapling y renovación limpia.'
       },
       {
-        region: 'Norte (Trujillo)',
-        badge: 'Retail & Tiendas Locales',
-        businessType: 'Fabricantes de Calzado en El Porvenir y Boutiques Comerciales en Trujillo y Chiclayo',
-        exactCompanies: 'Empresas productoras de calzado en El Porvenir (Trujillo), tiendas de moda en Mall Plaza Trujillo y boutiques de vestir en el centro de Chiclayo y Piura.',
-        threatType: 'Bloqueo de pasarela por contenido mixto HTTP/HTTPS',
-        lossMetric: 'Navegadores bloquean scripts de pago en checkout al detectar recursos no seguros (Mixed Content) o protocolos TLS obsoletos, frustrando la compra.',
-        solution: 'Túnel perimetral TLS 1.3 obligatorio con suite de cifrado de alta compatibilidad en servidores web.',
-        pnpReportContext: 'Observación recurrente de pasarelas de pago reguladas en el Perú ante incidentes de ciberdelincuencia.'
+        badge: 'Retail & Calzado',
+        businessType: 'Fabricantes de Calzado y Boutiques (Trujillo)',
+        threatType: 'Bloqueo de Pasarela de Pagos',
+        lossMetric: 'Pasarelas pausaron cobros al detectar contenido mixto HTTP/HTTPS en checkout.',
+        solution: 'Túnel perimetral TLS 1.3 forzado y eliminación de llamadas HTTP inseguras.'
       },
     ],
     SUR: [
       {
-        region: 'Sur (Cusco, Arequipa, Puno)',
         badge: 'Turismo & Hotelería',
-        businessType: 'Agencias de Tours Receptivo y Hoteles Boutique en Cusco y Arequipa',
-        exactCompanies: 'Operadores de Camino Inca y paquetes a Machu Picchu (Cusco), hoteles boutique en San Blas y Yanahuara, y agencias de aventura al Cañón del Colca (Arequipa).',
-        threatType: 'Bloqueo temporal de fondos por riesgo de seguridad',
-        lossMetric: 'Retención preventiva de liquidaciones bancarias y pasarelas de pago (Niubiz/Stripe) por incumplimiento de requisitos mínimos perimetrales PCI-DSS.',
-        solution: 'Endurecimiento perimetral conforme a directivas OWASP y activación obligatoria de cabeceras HSTS y TLS 1.3.',
-        pnpReportContext: 'Casos seguidos por la Fiscalía Especializada en Ciberdelincuencia de Arequipa y Cusco (Ministerio Público).'
+        businessType: 'Agencias de Tours y Hoteles Boutique (Cusco y Arequipa)',
+        threatType: 'Retención Preventiva de Fondos',
+        lossMetric: 'Pasarelas internacionales retuvieron liquidaciones por incumplir requisitos perimetrales.',
+        solution: 'Endurecimiento perimetral conforme a directivas OWASP y cabeceras HSTS activas.'
       },
       {
-        region: 'Sur (Arequipa)',
         badge: 'Gastronomía & Servicios',
-        businessType: 'Restaurantes Turísticos, Picanterías Tradicionales y Cadenas Gastronómicas',
-        exactCompanies: 'Picanterías tradicionales en Arequipa (Yanahuara/Characato), restaurantes campestres en el Valle Sagrado (Cusco) y cafeterías de especialidad con carta QR y delivery.',
-        threatType: 'Inyección de enlaces de spam y redirecciones no deseadas',
-        lossMetric: 'Alteración de menús virtuales y enlaces de pedidos para desviar transferencias de Yape y Plin a terceros, además de advertencias de "Sitio engañoso" en Google.',
-        solution: 'Cierre de puertos innecesarios expuestos (FTP/SSH), bloqueo de inyección de scripts externos mediante CSP y WAF perimetral activo.',
-        pnpReportContext: 'Infección externa documentada por alteración de código y falta de firewall de aplicaciones (WAF).'
+        businessType: 'Restaurantes Turísticos y Delivery',
+        threatType: 'Inyección de Enlaces de Spam',
+        lossMetric: 'Scripts externos alteraron cartas QR y enlaces de pedidos de Yape.',
+        solution: 'Cierre de puertos innecesarios expuestos y reglas WAF anti-inyección.'
       },
     ],
     CENTRO: [
       {
-        region: 'Centro y Oriente (Junín, San Martín, Loreto)',
-        badge: 'Distribución & Farmacias',
-        businessType: 'Cadenas de Boticas Regionales, Droguerías y Distribuidoras Médicas',
-        exactCompanies: 'Cadenas locales de farmacias en Huancayo (El Tambo/Chilca), distribuidoras de medicamentos en Tarapoto y comercializadoras de insumos médicos en Iquitos y Pucallpa.',
-        threatType: 'Exposición de puertos de administración en la web pública',
-        lossMetric: 'Robots automatizados prueban ataques de fuerza bruta las 24 horas del día contra paneles administrativos al tener puertos MySQL/RDP abiertos.',
-        solution: 'Aislamiento perimetral y bloqueo de accesos administrativos fuera de IP autorizada.',
-        pnpReportContext: 'Monitoreo de puertos abiertos no autorizados analizados bajo directivas oficiales de seguridad digital.'
+        badge: 'Salud & Distribución',
+        businessType: 'Cadenas de Boticas y Distribuidoras (Huancayo y Oriente)',
+        threatType: 'Puertos de Base de Datos Expuestos',
+        lossMetric: 'Robots automatizados atacando puertos de administración y bases de datos abiertos en la web.',
+        solution: 'Aislamiento de firewall perimetral y cierre de puertos fuera de IP autorizada.'
       },
     ],
   };
@@ -441,66 +417,50 @@ export default function RealThreatCasesModal() {
               </div>
             </div>
 
-            {/* SECCIÓN 3: CASOS COMERCIALES DOCUMENTADOS DE LA REGIÓN */}
+            {/* SECCIÓN 3: CASOS REALES RESUMIDOS */}
             <div className="space-y-3">
               <span className="text-xs font-bold text-neutral-400 uppercase tracking-wider block font-mono">
                 Casos y situaciones reales en {currentStats.name}:
               </span>
 
-              <div className="space-y-3">
+              <div className="grid grid-cols-1 md:grid-cols-2 gap-3">
                 {currentCases.map((incident, idx) => (
                   <div
                     key={idx}
-                    className="p-5 rounded-2xl bg-white/[0.02] border border-white/10 space-y-3"
+                    className="p-4 rounded-2xl bg-white/[0.02] border border-white/10 space-y-2.5 flex flex-col justify-between"
                   >
-                    <div className="flex flex-wrap items-center justify-between gap-2 border-b border-white/5 pb-2.5">
-                      <div className="space-y-0.5">
-                        <span className="text-xs font-mono font-semibold text-[#38bdf8] block">
+                    <div className="flex items-start justify-between gap-2">
+                      <div>
+                        <span className="text-[10px] font-mono font-semibold text-[#38bdf8] block uppercase">
                           {incident.badge}
                         </span>
-                        <h4 className="text-sm sm:text-base font-bold text-white">
+                        <h4 className="text-xs sm:text-sm font-bold text-white leading-snug">
                           {incident.businessType}
                         </h4>
                       </div>
-                      <span className="px-2.5 py-1 rounded-full bg-rose-500/10 border border-rose-500/30 text-rose-300 text-[10px] font-mono font-bold">
+                      <span className="px-2 py-0.5 rounded-full bg-rose-500/10 border border-rose-500/30 text-rose-300 text-[10px] font-mono font-bold shrink-0">
                         {incident.threatType}
                       </span>
                     </div>
 
-                    {/* Empresas y giros específicos del caso real */}
-                    <div className="p-3 rounded-xl bg-white/[0.03] border border-white/10 flex flex-col sm:flex-row sm:items-start gap-2 text-xs">
-                      <div className="shrink-0 mt-0.5 px-2 py-0.5 rounded-md bg-[#0071e3]/15 border border-[#0071e3]/30 text-[#38bdf8] font-mono font-bold text-[10px] uppercase self-start">
-                        Empresas y Giros Reales:
-                      </div>
-                      <p className="text-neutral-200 text-xs font-medium leading-relaxed">
-                        {incident.exactCompanies}
-                      </p>
-                    </div>
-
-                    <div className="grid grid-cols-1 sm:grid-cols-2 gap-3 text-xs">
-                      <div className="p-3.5 rounded-xl bg-rose-950/20 border border-rose-500/20 space-y-1">
+                    <div className="space-y-2 text-xs pt-1">
+                      <div className="p-2.5 rounded-xl bg-rose-950/20 border border-rose-500/20">
                         <span className="text-[10px] font-bold text-rose-300 flex items-center gap-1 uppercase font-mono">
-                          <AlertTriangle className="w-3 h-3" />
-                          <span>Impacto en el negocio:</span>
+                          <AlertTriangle className="w-3 h-3 shrink-0" />
+                          <span>Riesgo / Incidente:</span>
                         </span>
-                        <p className="text-neutral-300 text-[11px] leading-relaxed">
+                        <p className="text-neutral-300 text-[11px] leading-relaxed mt-0.5">
                           {incident.lossMetric}
                         </p>
-                        <p className="text-[10px] text-neutral-400 italic pt-1 border-t border-rose-500/10">
-                          {incident.pnpReportContext}
-                        </p>
                       </div>
 
-                      <div className="p-3.5 rounded-xl bg-emerald-950/20 border border-emerald-500/20 space-y-1">
+                      <div className="p-2.5 rounded-xl bg-emerald-950/20 border border-emerald-500/20">
                         <span className="text-[10px] font-bold text-emerald-300 flex items-center gap-1 uppercase font-mono">
-                          <ShieldCheck className="w-3 h-3" />
-                          <span>Solución técnica aplicada con DEFENSA TI:</span>
+                          <ShieldCheck className="w-3 h-3 shrink-0" />
+                          <span>Solución DEFENSA TI:</span>
                         </span>
-                        <p className="text-neutral-300 text-[11px] leading-relaxed">
+                        <p className="text-neutral-300 text-[11px] leading-relaxed mt-0.5">
                           {incident.solution}
-                        </p>
-                        <p className="text-[10px] text-emerald-400/80 font-mono pt-1 border-t border-emerald-500/10">
-                          &bull; Mitigación preventiva verificable en auditoría perimetral.
                         </p>
                       </div>
                     </div>
@@ -509,40 +469,34 @@ export default function RealThreatCasesModal() {
               </div>
             </div>
 
-            {/* SECCIÓN 4: FUENTES OFICIALES DEL ESTADO PERUANO Y MEDIOS CONFIABLES */}
-            <div className="p-5 rounded-2xl bg-black/60 border border-white/10 space-y-3">
+            {/* SECCIÓN 4: FUENTES OFICIALES (COMPACTO Y ELEGANTE) */}
+            <div className="p-4 rounded-2xl bg-black/60 border border-white/10 space-y-2.5">
               <div className="flex items-center justify-between border-b border-white/10 pb-2">
                 <span className="text-xs font-bold text-white flex items-center gap-2">
-                  <FileText className="w-4 h-4 text-[#38bdf8]" />
-                  <span>Fuentes Públicas Oficiales y Reportes Reales (2025 - 2026):</span>
+                  <FileText className="w-3.5 h-3.5 text-[#38bdf8]" />
+                  <span>Fuentes Públicas Oficiales (2025 - 2026):</span>
                 </span>
                 <span className="text-[10px] text-neutral-400 font-mono">Información Verificable</span>
               </div>
 
-              <div className="grid grid-cols-1 sm:grid-cols-2 gap-3 text-xs">
+              <div className="grid grid-cols-1 sm:grid-cols-2 gap-2">
                 {officialSources.map((source, sIdx) => (
                   <a
                     key={sIdx}
                     href={source.url}
                     target="_blank"
                     rel="noopener noreferrer"
-                    className="p-3 rounded-xl bg-white/[0.02] hover:bg-white/[0.06] border border-white/10 hover:border-[#38bdf8]/40 transition-all block space-y-1 group"
+                    className="p-2.5 rounded-xl bg-white/[0.03] hover:bg-white/[0.07] border border-white/10 hover:border-[#38bdf8]/40 transition-all flex items-center justify-between gap-3 group text-xs cursor-pointer"
                   >
-                    <div className="flex items-center justify-between">
-                      <span className="text-[10px] font-mono px-2 py-0.5 rounded bg-sky-500/10 text-sky-400 font-bold border border-sky-500/20">
-                        {source.badge}
+                    <div className="min-w-0">
+                      <span className="text-[10px] font-mono text-[#38bdf8] block truncate">
+                        {source.badge} &bull; {source.source}
                       </span>
-                      <ExternalLink className="w-3.5 h-3.5 text-neutral-400 group-hover:text-white transition-colors" />
+                      <span className="text-neutral-200 group-hover:text-white font-medium truncate block text-xs">
+                        {source.title}
+                      </span>
                     </div>
-                    <h5 className="font-bold text-white text-[11px] leading-snug group-hover:text-[#38bdf8] transition-colors">
-                      {source.source}
-                    </h5>
-                    <p className="text-[10px] text-neutral-400 leading-normal line-clamp-2">
-                      {source.title}
-                    </p>
-                    <span className="text-[9px] text-neutral-400 font-mono block pt-0.5">
-                      {source.date}
-                    </span>
+                    <ExternalLink className="w-3.5 h-3.5 text-neutral-500 group-hover:text-[#38bdf8] shrink-0" />
                   </a>
                 ))}
               </div>
