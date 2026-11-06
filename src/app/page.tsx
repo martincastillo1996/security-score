@@ -1156,7 +1156,7 @@ export default function NeuronalGravityHomePage() {
                 <Link href="/liderazgo" className="hover:text-white transition-colors">Liderazgo</Link>
                 <Link href="/scanner" className="hover:text-white transition-colors">DEFENSA TI</Link>
                 <a href="https://wa.me/17856433991" target="_blank" rel="noopener noreferrer" className="hover:text-white transition-colors">WhatsApp (+1 785 643-3991)</a>
-                <a href="tel:+51941235586" className="hover:text-white transition-colors">Llamadas (+51 941 235 586)</a>
+                <a href="tel:+51987010380" className="hover:text-white transition-colors">Llamadas (+51 987 010 380)</a>
                 <a href="mailto:castillo.karol96@gmail.com" className="hover:text-white transition-colors text-amber-300/80">castillo.karol96@gmail.com</a>
               </div>
             </div>

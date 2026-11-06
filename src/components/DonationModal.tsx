@@ -199,12 +199,12 @@ export default function DonationModal() {
               <div className="flex items-center justify-between p-3 rounded-xl bg-black/80 border border-purple-500/30 font-mono text-sm">
                 <div className="flex items-center gap-2">
                   <span className="w-2.5 h-2.5 rounded-full bg-purple-400 animate-pulse" />
-                  <span className="text-white font-bold tracking-wider">941 235 586</span>
+                  <span className="text-white font-bold tracking-wider">987 010 380</span>
                   <span className="text-[11px] text-neutral-400 font-sans hidden sm:inline">(Martín C.)</span>
                 </div>
                 <button
                   type="button"
-                  onClick={() => handleCopy('941235586', 'yape-num')}
+                  onClick={() => handleCopy('987010380', 'yape-num')}
                   className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-lg bg-purple-600 hover:bg-purple-500 text-white text-[11px] font-sans font-semibold transition-all cursor-pointer shadow-md active:scale-95"
                 >
                   {copiedText === 'yape-num' ? <Check className="w-3.5 h-3.5 text-emerald-300" /> : <Copy className="w-3.5 h-3.5" />}
