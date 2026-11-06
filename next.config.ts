@@ -1,6 +1,10 @@
 import type { NextConfig } from "next";
 
 const nextConfig: NextConfig = {
+  /* Seguridad y Hardening de Producción */
+  poweredByHeader: false,
+  productionBrowserSourceMaps: false,
+
   /* Opciones de rendimiento existentes */
   cacheComponents: false,
   partialPrefetching: false,

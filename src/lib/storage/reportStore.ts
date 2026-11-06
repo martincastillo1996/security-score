@@ -38,7 +38,16 @@ if (!globalForReports.__reportsMap) {
 
 export const reportStore = globalForReports.__reportsMap;
 
+const MAX_STORED_REPORTS = 1000;
+
 export function saveReport(id: string, report: AuditReportRecord): void {
+  if (reportStore.size >= MAX_STORED_REPORTS) {
+    // Evict oldest entry (first key in map iterator)
+    const oldestKey = reportStore.keys().next().value;
+    if (oldestKey) {
+      reportStore.delete(oldestKey);
+    }
+  }
   reportStore.set(id, report);
 }
 
