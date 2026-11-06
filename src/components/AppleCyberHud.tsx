@@ -13,8 +13,21 @@ export default function AppleCyberHud() {
   ];
 
   return (
-    <div className="w-full max-w-4xl mx-auto py-4">
-      {/* Bento Grid con el Estilo Exacto de la Captura */}
+    <div id="arquitectura" className="w-full max-w-4xl mx-auto py-4 scroll-mt-24 space-y-5">
+      {/* Encabezado de Arquitectura Perimetral */}
+      <div className="text-center space-y-1.5">
+        <span className="text-[11px] font-mono font-bold text-[#38bdf8] uppercase tracking-wider">
+          Telemetría y Motor Perimetral
+        </span>
+        <h3 className="text-xl sm:text-2xl font-black text-white tracking-tight">
+          Inspección Cero-Riesgo a Nivel Sockets
+        </h3>
+        <p className="text-xs text-neutral-400 max-w-lg mx-auto">
+          Evaluación asíncrona no intrusiva de puertos, transporte TLS y cabeceras OWASP en tiempo real.
+        </p>
+      </div>
+
+      {/* Bento Grid */}
       <div className="grid grid-cols-1 sm:grid-cols-3 gap-4 text-left">
         
         {/* Tarjeta 1: ENGINE CORE V1.2 */}

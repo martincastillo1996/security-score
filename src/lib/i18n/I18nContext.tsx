@@ -89,7 +89,7 @@ const translations: Record<Language, Translations> = {
   es: {
     nav: {
       pricing: 'Planes & Tarifas',
-      architecture: 'Arquitectura',
+      architecture: '¿Cómo Funciona?',
       realCases: 'Casos Reales',
       engine: 'OWASP Core',
     },
@@ -169,7 +169,7 @@ const translations: Record<Language, Translations> = {
   en: {
     nav: {
       pricing: 'Plans & Pricing',
-      architecture: 'Architecture',
+      architecture: 'How It Works',
       realCases: 'Real Incidents',
       engine: 'OWASP Core',
     },
@@ -249,7 +249,7 @@ const translations: Record<Language, Translations> = {
   pt: {
     nav: {
       pricing: 'Planos & Tarifas',
-      architecture: 'Arquitetura',
+      architecture: 'Como Funciona',
       realCases: 'Casos Reais',
       engine: 'OWASP Core',
     },

@@ -173,8 +173,8 @@ export default function HomePage() {
             </div>
 
             <nav className="hidden md:flex items-center gap-7 text-[13px] font-medium text-neutral-400">
+              <a href="#como-funciona" className="hover:text-white transition-colors duration-200">{t.nav.architecture}</a>
               <a href="#planes" className="text-white hover:text-[#2997ff] transition-colors duration-200">{t.nav.pricing}</a>
-              <a href="#especificaciones" className="hover:text-white transition-colors duration-200">{t.nav.architecture}</a>
               <a href="#casos-reales" className="hover:text-white transition-colors duration-200">{t.nav.realCases}</a>
             </nav>
 
@@ -418,9 +418,9 @@ export default function HomePage() {
             </section>
 
             {/* Paso 3: Planes y Tarifas de Solución Express */}
-            <section id="planes" className="scroll-mt-20">
+            <div>
               <PricingSection targetUrl={report?.url} score={report?.score} grade={report?.grade} />
-            </section>
+            </div>
 
             {/* Paso 4: Hub Viral & Difusión en Redes */}
             <SocialViralHub targetUrl={report?.url} score={report?.score} />

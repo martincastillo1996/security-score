@@ -14,7 +14,7 @@ import {
 
 export default function HowItWorksGuide() {
   return (
-    <div className="w-full max-w-5xl mx-auto space-y-6">
+    <section id="como-funciona" className="w-full max-w-5xl mx-auto space-y-6 scroll-mt-24">
       {/* Tarjeta Bento Informativa Superior en Estilo Apple Pro Dark Glass */}
       <div className="p-7 sm:p-10 rounded-[32px] bg-[#0c0d10] border border-white/10 shadow-[0_20px_50px_rgba(0,0,0,0.8)] space-y-8 text-left relative overflow-hidden">
         
@@ -155,6 +155,6 @@ export default function HowItWorksGuide() {
         </div>
 
       </div>
-    </div>
+    </section>
   );
 }
