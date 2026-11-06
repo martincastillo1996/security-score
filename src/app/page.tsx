@@ -6,6 +6,7 @@ import NeuralBackground from '@/components/NeuralBackground';
 import NeuronalGravityBrandLogo from '@/components/NeuronalGravityBrandLogo';
 import AiConsultantWidget from '@/components/AiConsultantWidget';
 import FounderProfileCard from '@/components/FounderProfileCard';
+import DonationModal from '@/components/DonationModal';
 import { 
   ShieldCheck, 
   ArrowRight, 
@@ -248,6 +249,9 @@ export default function NeuronalGravityHubHome() {
 
       {/* Orbe Flotante de Consulta */}
       <AiConsultantWidget />
+
+      {/* Modal de Donación con Yape y Culqi */}
+      <DonationModal />
     </div>
   );
 }

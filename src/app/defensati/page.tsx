@@ -25,6 +25,8 @@ import CompetitorComparisonSection from '@/components/CompetitorComparisonSectio
 import VerifiedBadgeWidget from '@/components/VerifiedBadgeWidget';
 import SslAlertWidget from '@/components/SslAlertWidget';
 import NeuralScanTakeover from '@/components/NeuralScanTakeover';
+import DonationModal from '@/components/DonationModal';
+import OpenSourceSupportBanner from '@/components/OpenSourceSupportBanner';
 import { useI18n } from '@/lib/i18n/I18nContext';
 import { AuditReportRecord } from '@/lib/storage/reportStore';
 import {
@@ -37,7 +39,8 @@ import {
   ShieldCheck,
   Sparkles,
   Briefcase,
-  Terminal
+  Terminal,
+  Coffee
 } from 'lucide-react';
 import Link from 'next/link';
 import { useState, useRef, useEffect, useCallback } from 'react';
@@ -184,6 +187,18 @@ export default function HomePage() {
               <a href="#como-funciona" className="hover:text-white transition-colors duration-200">{t.nav.architecture}</a>
               <a href="#planes" className="text-white hover:text-[#2997ff] transition-colors duration-200">{t.nav.pricing}</a>
               <a href="#casos-reales" className="hover:text-white transition-colors duration-200">{t.nav.realCases}</a>
+              <button
+                type="button"
+                onClick={() => {
+                  if (typeof window !== 'undefined') {
+                    window.dispatchEvent(new CustomEvent('open-donation-modal'));
+                  }
+                }}
+                className="inline-flex items-center gap-1.5 text-amber-400 hover:text-amber-300 font-semibold transition-colors cursor-pointer"
+              >
+                <Coffee className="w-3.5 h-3.5" />
+                <span>Apoyar Open Source</span>
+              </button>
             </nav>
 
             <div className="flex items-center gap-2.5 sm:gap-3">
@@ -452,6 +467,9 @@ export default function HomePage() {
               <PricingSection targetUrl={report?.url} score={report?.score} grade={report?.grade} />
             </div>
 
+            {/* Banner de Apoyo Open Source (Yape & Culqi) */}
+            <OpenSourceSupportBanner />
+
             {/* Paso 4: Hub Viral & Difusión en Redes */}
             <SocialViralHub targetUrl={report?.url} score={report?.score} />
 
@@ -551,6 +569,9 @@ export default function HomePage() {
 
       {/* Widget Asistente IA Flotante */}
       <AiConsultantWidget report={report || undefined} />
+
+      {/* Modal de Donación con Yape y Culqi */}
+      <DonationModal />
     </div>
   );
 }

@@ -62,13 +62,21 @@ export default function DonationModal() {
   const [copiedText, setCopiedText] = useState<string | null>(null);
 
   useEffect(() => {
+    // Escuchar evento global para abrir el modal desde cualquier botón del sitio
+    const handleOpen = () => setIsOpen(true);
+    window.addEventListener('open-donation-modal', handleOpen);
+
     // Escuchar el evento de confirmación de Culqi
     window.culqi = () => {
-      alert('¡Muchas gracias por apoyar a Neuronal Gravity! Tu aporte impulsa nuestra infraestructura independiente.');
+      alert('¡Muchas gracias por apoyar a Neuronal Gravity & DEFENSA TI! Tu aporte impulsa nuestra infraestructura de código abierto.');
       if (window.Culqi) {
         window.Culqi.close();
       }
       setIsOpen(false);
+    };
+
+    return () => {
+      window.removeEventListener('open-donation-modal', handleOpen);
     };
   }, []);
 
@@ -164,15 +172,15 @@ export default function DonationModal() {
             {/* Cabecera */}
             <div className="flex items-start justify-between gap-4 border-b border-white/10 pb-4">
               <div className="space-y-1">
-                <div className="inline-flex items-center gap-1.5 px-3 py-0.5 rounded-full bg-amber-500/15 border border-amber-500/30 text-amber-300 text-[10px] font-bold uppercase tracking-wider">
+                <div className="inline-flex items-center gap-1.5 px-3 py-0.5 rounded-full bg-emerald-500/15 border border-emerald-500/30 text-emerald-300 text-[10px] font-bold uppercase tracking-wider">
                   <Sparkles className="w-3.5 h-3.5" />
-                  Yape &bull; Culqi Oficial
+                  Open Source &bull; Yape &bull; Culqi
                 </div>
                 <h3 className="text-xl font-bold text-white tracking-tight">
-                  Apoyar a Neuronal Gravity
+                  Apoyar a DEFENSA TI (Código Abierto)
                 </h3>
                 <p className="text-xs text-neutral-300 leading-relaxed">
-                  Tu aporte mantiene nuestras herramientas de auditoría perimetral y código abierto gratuitas.
+                  Tu aporte voluntario mantiene nuestros servidores perimetrales, base de datos de vulnerabilidades y herramientas libres para la comunidad.
                 </p>
               </div>
 
