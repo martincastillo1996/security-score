@@ -25,20 +25,20 @@ export default function PricingSection({ targetUrl, score, grade }: Props) {
       tag: 'Promoción de Lanzamiento',
       originalPrice: 'S/. 65',
       pricePen: 'GRATIS',
-      badge: 'Disponible gratis por lanzamiento',
+      badge: 'Entrega: Inmediata en pantalla',
       highlight: false,
       isFree: true,
-      description: 'Revisión perimetral profunda al instante. Informe formal con membrete institucional, estado de cabeceras y código listo para aplicar.',
+      description: 'Revisión perimetral profunda al instante. Informe formal descargable con membrete, estado de cabeceras y código listo para aplicar.',
       features: [
         'Diagnóstico perimetral profundo sin tocar tu servidor (Cero riesgo)',
-        'Informe técnico formal descargable con membrete institucional y RUC',
+        'Informe técnico formal descargable con membrete y RUC',
         'Receta de código lista para copiar y pegar (Nginx, Apache o Cloudflare)',
         'Checklist prioritario para que tu equipo corrija las fallas en minutos',
         'Acceso 100% libre sin registro de tarjetas ni contraseñas',
       ],
       ctaAction: 'Escanear Web Gratis',
       popular: false,
-      footerNote: 'Disponible gratis por lanzamiento',
+      footerNote: 'Acceso libre sin registro de tarjetas',
     },
     {
       name: 'Blindaje Llave en Mano',
@@ -127,23 +127,23 @@ export default function PricingSection({ targetUrl, score, grade }: Props) {
 
               {/* Precios (Exclusivo en Soles para Perú) */}
               <div className="pt-2 border-t border-white/10">
-                <div className="flex items-baseline justify-between gap-3">
+                <div className="flex items-baseline justify-between gap-2">
                   {p.isFree ? (
-                    <div className="flex items-baseline gap-2.5">
-                      <span className="text-xl sm:text-2xl font-bold text-neutral-400 line-through decoration-rose-500 decoration-2 whitespace-nowrap">
+                    <div className="flex items-baseline gap-2 shrink-0">
+                      <span className="text-lg sm:text-xl font-bold text-neutral-500 line-through decoration-rose-500 decoration-2">
                         {p.originalPrice}
                       </span>
-                      <span className="text-3xl sm:text-4xl font-black text-emerald-400 tracking-tight whitespace-nowrap">
+                      <span className="text-3xl sm:text-4xl font-black text-emerald-400 tracking-tight">
                         GRATIS
                       </span>
                     </div>
                   ) : (
-                    <span className="text-3xl sm:text-4xl font-black text-white tracking-tight whitespace-nowrap">
+                    <span className="text-3xl sm:text-4xl font-black text-white tracking-tight">
                       {p.pricePen}
                     </span>
                   )}
-                  <span className="text-xs text-neutral-400 font-medium whitespace-nowrap">
-                    {p.isFree ? 'Por lanzamiento' : 'Pago único'}
+                  <span className="text-xs text-neutral-400 font-medium text-right shrink-0">
+                    {p.isFree ? 'Sin costo' : 'Pago único'}
                   </span>
                 </div>
                 <div className="text-[12px] text-emerald-400 font-semibold mt-1 flex items-center gap-1.5">
