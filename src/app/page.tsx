@@ -146,19 +146,70 @@ export default function NeuronalGravityHubHome() {
         {/* BLOQUE 3: SOBRE MARTÍN CASTILLO, FUNDADOR (TARJETA IDÉNTICA A LA CAPTURA) */}
         <FounderProfileCard />
 
-        {/* BLOQUE 4: FUTURO (TEXTO EXACTO AUTORIZADO) */}
-        <section className="p-8 sm:p-10 rounded-3xl bg-[#0f1219]/90 border border-white/10 backdrop-blur-xl space-y-6">
-          <div className="space-y-3 max-w-2xl">
-            <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-purple-500/15 border border-purple-500/30 text-purple-300 text-xs font-semibold">
-              <Cpu className="w-3.5 h-3.5" />
-              <span>Próximamente &bull; En desarrollo</span>
+        {/* BLOQUE 4: FUTURO (SOLUCIONES EN FASE DE LABORATORIO) */}
+        <section className="relative p-8 sm:p-12 rounded-3xl bg-[#0f1219]/90 border border-purple-500/20 backdrop-blur-xl shadow-2xl overflow-hidden hover:border-purple-500/40 transition-all">
+          {/* Resplandor ambiental cósmico violeta/azul */}
+          <div className="absolute top-0 right-0 w-96 h-96 bg-purple-600/10 rounded-full blur-3xl pointer-events-none" />
+          <div className="absolute bottom-0 left-0 w-80 h-80 bg-blue-600/10 rounded-full blur-3xl pointer-events-none" />
+
+          <div className="flex flex-col lg:flex-row items-center justify-between gap-10 relative z-10">
+            <div className="space-y-4 max-w-xl text-center lg:text-left">
+              <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-purple-500/15 border border-purple-500/30 text-purple-300 text-xs font-semibold backdrop-blur-md">
+                <Cpu className="w-3.5 h-3.5 text-purple-400" />
+                <span>Próximamente &bull; En desarrollo</span>
+              </div>
+
+              <h2 className="text-2xl sm:text-3xl font-extrabold text-white tracking-tight leading-tight">
+                Próximas Soluciones: Nuevos proyectos y herramientas tecnológicas para distintos rubros (en fase de laboratorio)
+              </h2>
+
+              <p className="text-sm sm:text-base text-neutral-300 leading-relaxed font-normal">
+                En <strong>Neuronal Gravity</strong> nos encontramos desarrollando y testeando nuevas soluciones de ingeniería de software e inteligencia artificial aplicadas a diversos sectores comerciales. Cada proyecto atraviesa una fase estricta de pruebas en nuestro laboratorio técnico antes de su lanzamiento oficial para producción.
+              </p>
+
+              <div className="pt-2 flex flex-wrap items-center justify-center lg:justify-start gap-2.5 text-xs font-mono text-purple-300">
+                <span className="px-3 py-1 rounded-lg bg-purple-500/10 border border-purple-500/20">
+                  &bull; Soluciones Multi-Rubro
+                </span>
+                <span className="px-3 py-1 rounded-lg bg-purple-500/10 border border-purple-500/20">
+                  &bull; Modelos de Lenguaje &amp; Automatización
+                </span>
+                <span className="px-3 py-1 rounded-lg bg-purple-500/10 border border-purple-500/20">
+                  &bull; Laboratorio Experimental
+                </span>
+              </div>
             </div>
-            <h2 className="text-2xl font-extrabold text-white tracking-tight">
-              Próximas Soluciones: Integración de LLMs avanzados para automatización de consultas y operaciones de negocio (en fase de laboratorio)
-            </h2>
-            <p className="text-sm text-neutral-300 leading-relaxed font-normal">
-              Diseñamos arquitecturas avanzadas para conectar Modelos de Lenguaje a flujos de trabajo empresariales, optimizando consultas operativas con trazabilidad de ingeniería y privacidad estricta. Actualmente en fase experimental y laboratorio técnico.
-            </p>
+
+            {/* Diseño 3D Isométrico Cósmico de Laboratorio / Núcleo de IA */}
+            <div className="relative w-64 h-64 sm:w-72 sm:h-72 shrink-0 flex items-center justify-center">
+              {/* Anillos orbitales giratorios */}
+              <div className="absolute inset-0 rounded-full border border-purple-500/20 animate-[spin_20s_linear_infinite]" />
+              <div className="absolute inset-4 rounded-full border border-dashed border-sky-400/25 animate-[spin_15s_linear_infinite_reverse]" />
+              <div className="absolute inset-10 rounded-full border border-purple-400/30 animate-[spin_25s_linear_infinite]" />
+
+              {/* Orbe Central 3D Dark Glass con Glow Cósmico */}
+              <div className="relative w-36 h-36 rounded-3xl bg-gradient-to-tr from-[#16122b] via-[#1f1642] to-[#2e1d66] border border-purple-400/40 p-4 shadow-[0_0_50px_rgba(168,85,247,0.35)] flex flex-col items-center justify-center transform rotate-6 hover:rotate-0 transition-transform duration-500 backdrop-blur-2xl">
+                {/* Reflejo glass Apple superior */}
+                <div className="absolute inset-x-2 top-2 h-10 rounded-t-2xl bg-gradient-to-b from-white/20 to-transparent pointer-events-none" />
+
+                <div className="w-14 h-14 rounded-2xl bg-gradient-to-br from-purple-500 to-sky-400 p-[1.5px] shadow-[0_0_25px_rgba(168,85,247,0.5)]">
+                  <div className="w-full h-full bg-[#0a0d14] rounded-2xl flex items-center justify-center">
+                    <Sparkles className="w-7 h-7 text-purple-300 animate-pulse" />
+                  </div>
+                </div>
+
+                <div className="mt-2.5 text-center">
+                  <span className="text-[10px] font-mono tracking-widest uppercase font-extrabold text-transparent bg-clip-text bg-gradient-to-r from-purple-300 to-sky-300 block">
+                    NG &bull; LAB
+                  </span>
+                  <span className="text-[9px] text-neutral-400 font-mono">Fase Experimental</span>
+                </div>
+
+                {/* Micro nodos orbitales flotantes */}
+                <div className="absolute -top-2 -right-2 w-4 h-4 rounded-full bg-sky-400 shadow-[0_0_12px_#38bdf8] border-2 border-[#0f1219]" />
+                <div className="absolute -bottom-2 -left-2 w-3.5 h-3.5 rounded-full bg-purple-400 shadow-[0_0_12px_#c084fc] border-2 border-[#0f1219]" />
+              </div>
+            </div>
           </div>
         </section>
 
