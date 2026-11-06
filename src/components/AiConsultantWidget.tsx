@@ -123,7 +123,7 @@ export default function AiConsultantWidget({ report }: Props) {
         },
         {
           label: '¿Cuánto cuesta y cuánto tarda blindar mi sitio?',
-          query: '¿Cuánto cuesta y cuánto tiempo demora realizar la puesta a punto perimetral para subir mi web a Grado A+?',
+          query: '¿Cuánto cuesta y cuánto tiempo demora realizar la puesta a punto perimetral para subir mi web a Grado A?',
           interestTag: 'Intención de Compra y Tarifas',
         },
       ]
@@ -170,7 +170,7 @@ export default function AiConsultantWidget({ report }: Props) {
   useEffect(() => {
     if (report?.url && report.url !== lastReportUrl.current) {
       lastReportUrl.current = report.url;
-      const greeting = `Hola, ¿qué tal? Soy **Neuronal Gravity AI**. He revisado la auditoría de **${report.url}** (Nota: **${report.score}/100**, Grado **${report.grade || 'F'}**).\n\n¿Deseas saber si tu web tiene riesgo de clonación o cómo dejarla en Grado A+ hoy mismo?`;
+      const greeting = `Hola, ¿qué tal? Soy **Neuronal Gravity AI**. He revisado la auditoría de **${report.url}** (Nota: **${report.score}/100**, Grado **${report.grade || 'F'}**).\n\n¿Deseas saber si tu web tiene riesgo de clonación o cómo dejarla en Grado A hoy mismo?`;
       queueMicrotask(() => {
         setMessages([{ role: 'assistant', content: greeting }]);
       });
@@ -216,7 +216,7 @@ export default function AiConsultantWidget({ report }: Props) {
 • Consulta puntual: "${query}"
 ━━━━━━━━━━━━━━━━━━━━━
 
-Quisiera coordinar contigo una asesoría para poner a punto mi sitio y subir a Grado A+.`;
+Quisiera coordinar contigo una asesoría para poner a punto mi sitio y subir a Grado A.`;
 
       return `https://wa.me/17856433991?text=${encodeURIComponent(message)}`;
     }

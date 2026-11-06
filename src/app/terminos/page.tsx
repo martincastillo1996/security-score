@@ -74,6 +74,13 @@ export default function TerminosPage() {
             Se emite Boleta o Factura Electrónica bajo el RUC 10704877850.
           </p>
         </section>
+
+        <section className="space-y-3 text-sm leading-relaxed">
+          <h2 className="text-lg font-bold text-white">6. Ley Aplicable y Jurisdicción</h2>
+          <p>
+            Los presentes Términos se rigen e interpretan bajo las leyes de la República del Perú. Cualquier controversia, desacuerdo o reclamación derivada de la prestación de los servicios de DEFENSA TI se someterá a la jurisdicción y competencia exclusiva de los jueces y tribunales del Distrito Judicial de Lima, Perú.
+          </p>
+        </section>
       </main>
     </div>
   );

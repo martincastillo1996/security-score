@@ -48,7 +48,7 @@ export default function WhatsAppCta({ url, score, grade }: WhatsAppCtaProps) {
 • Calificación: ${score}/100 (Grado ${grade})
 • Ubicación: 📍 ${locationStr || 'Detectada en la app'}
 • Dispositivo: ${deviceType}
-• Interés: Puesta a punto perimetral y blindaje Grado A+
+• Interés: Puesta a punto perimetral y blindaje Grado A
 ━━━━━━━━━━━━━━━━━━━━━
 
 Quisiera coordinar contigo una asesoría para poner a punto las directivas perimetrales y dejar mi sitio protegido.`;
@@ -67,7 +67,7 @@ Quisiera coordinar contigo una asesoría para poner a punto las directivas perim
             Asesoría y Puesta a Punto Perimetral &bull; Per�
           </div>
           <h3 className="text-xl sm:text-2xl font-bold text-white tracking-tight">
-            ¿Deseas que dejemos tu sitio en Grado A+ hoy mismo?
+            ¿Deseas que dejemos tu sitio en Grado A hoy mismo?
           </h3>
           <p className="text-xs sm:text-sm text-neutral-300 leading-relaxed">
             Aplicamos las mejores prácticas en Cloudflare o tu servidor para evitar rechazos en pasarelas de pago (Mercado Pago, Niubiz, Stripe) y eliminar advertencias de &quot;Sitio no seguro&quot;.

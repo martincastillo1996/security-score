@@ -48,10 +48,10 @@ export default function NeuronalGravityHubHome() {
               <span>DEFENSA TI</span>
             </Link>
             <Link 
-              href="/defensati/escaner" 
+              href="/defensati#autoevaluacion" 
               className="text-neutral-400 hover:text-white transition-colors hidden sm:inline-block"
             >
-              Escáner Abierto
+              Autoevaluación Gratuita
             </Link>
             <a
               href={`${siteConfig.contact.whatsappLink}?text=${encodeURIComponent('Hola Martín, vi el portal de Neuronal Gravity y deseo consultar sobre una solución técnica.')}`}

@@ -21,7 +21,7 @@ export const siteConfig = {
     owner: 'Martín Castillo',
     ruc: '10704877850',
     receiptNotice: 'Comprobante de pago disponible',
-    locationNotice: '[PENDIENTE: Ubicación confirmada]',
+    locationNotice: 'Lima, Perú',
     githubRepo: 'https://github.com/martincastillo1996/security-score',
   },
 
@@ -82,13 +82,5 @@ export const siteConfig = {
         guaranteeText: 'Si no mejoramos tu calificación al menos un grado, te devolvemos el pago.',
       },
     ],
-    incidentCleanup: {
-      id: 'limpieza',
-      name: 'Limpieza de Sitio Hackeado',
-      priceFrom: 500,
-      priceDisplay: 'Desde S/ 500',
-      note: 'Tras diagnóstico previo de alcance y daños.',
-      description: 'Desinfección de malware, eliminación de redirecciones no deseadas, puertas traseras (backdoors) y restauración limpia del servicio.',
-    },
   },
 } as const;

@@ -162,10 +162,15 @@ export default function PricingSection({ targetUrl, score, grade }: Props) {
         ))}
       </div>
 
-      {/* Garantía y Confianza */}
-      <div className="p-4 rounded-2xl bg-white/2 border border-white/5 max-w-xl mx-auto flex items-center justify-center gap-3 text-center text-xs text-neutral-400">
-        <ShieldCheck className="w-4 h-4 text-emerald-400 shrink-0" />
-        <span>Garantía de resultado: Si no dejamos tu web en Grado A+, no pagas absolutamente nada.</span>
+      {/* Garantía a Grado A y Límite Legal */}
+      <div className="p-5 rounded-2xl bg-[#141416]/90 border border-emerald-500/30 max-w-2xl mx-auto space-y-2 text-left text-xs">
+        <div className="flex items-center gap-2 text-emerald-400 font-bold">
+          <ShieldCheck className="w-4 h-4 shrink-0" />
+          <span>Garantía a Grado A con Límite Legal</span>
+        </div>
+        <p className="text-[11px] text-neutral-300 leading-relaxed font-mono">
+          &ldquo;Trabajamos para llevar tu web a Grado A en la evaluación final del blindaje contratado. Este es un servicio informativo y preventivo: la auditoría y el blindaje informan y previenen, no garantizan seguridad absoluta ni que no habrá ataques futuros. La garantía cubre solo el trabajo de blindaje realizado y entregado, dentro de su alcance. Martín / DEFENSA TI no se hace responsable por ataques futuros, vulnerabilidades nuevas, fallas del hosting o de proveedores, ni por lo que el cliente haga o deje de hacer después del blindaje. Desde la entrega, el cliente es responsable de mantener sus actualizaciones al día, proteger y no compartir sus accesos, cambiar las contraseñas entregadas y conservar copias de seguridad vigentes. Modificar el sitio, instalar código, plugins o temas sin revisión, o no mantenerlo, deja la garantía sin efecto sobre lo modificado.&rdquo;
+        </p>
       </div>
     </section>
   );

@@ -300,10 +300,10 @@ export default function DefensatiSingleProductLanding() {
               </div>
               <div className="pt-2">
                 <Link
-                  href="/defensati/escaner"
+                  href="#autoevaluacion"
                   className="inline-flex items-center gap-2 text-xs font-bold text-emerald-400 hover:text-white transition-colors"
                 >
-                  <span>Abrir Escáner y generar PDF gratis →</span>
+                  <span>Pedir mi PDF gratis por WhatsApp →</span>
                 </Link>
               </div>
             </div>
@@ -919,7 +919,7 @@ export default function DefensatiSingleProductLanding() {
               <Link href="/terminos" className="hover:text-white transition-colors">Términos del Servicio</Link>
               <Link href="/privacidad" className="hover:text-white transition-colors">Política de Privacidad (Ley 29733)</Link>
               <Link href="/defensati/informe-ejemplo" className="hover:text-white transition-colors">Informe de Ejemplo</Link>
-              <Link href="/defensati/escaner" className="hover:text-white transition-colors text-[#38bdf8]">Escáner Abierto</Link>
+              <Link href="#autoevaluacion" className="hover:text-white transition-colors text-[#38bdf8]">Autoevaluación Gratuita</Link>
               <a href="https://wa.me/17856433991" target="_blank" rel="noopener noreferrer" className="hover:text-white transition-colors">WhatsApp (+1 785 643 3991)</a>
             </div>
           </div>

@@ -55,7 +55,7 @@ export default function LeadQuoteSection() {
     { 
       id: 'Auditoría y Blindaje DEFENSA TI', 
       title: 'Auditoría y Blindaje DEFENSA TI', 
-      desc: 'Detección perimetral, pasarelas de pago y protección anti-clonación Grado A+',
+      desc: 'Detección perimetral, pasarelas de pago y protección anti-clonación Grado A',
       icon: ShieldCheck,
       color: 'text-[#38bdf8] border-[#38bdf8]/40' 
     },
