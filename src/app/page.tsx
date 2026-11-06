@@ -122,7 +122,7 @@ export default function NeuronalGravityHubHome() {
                 </h3>
 
                 <p className="text-sm text-neutral-300 leading-relaxed font-normal">
-                  Servicio especializado de auditoría externa determinista y blindaje preventivo para sitios web en todas las plataformas (WordPress, Wix, Shopify, sistemas a medida y comercio electrónico). Protegemos la reputación de tu empresa corrigiendo vulnerabilidades visibles antes de que sean explotadas.
+                  Auditoría de seguridad externa y blindaje técnico para sitios web de negocios, con especialización en WordPress, WooCommerce y sistemas web a medida. Detectamos vulnerabilidades visibles antes de que afecten tus ventas y aplicamos las correcciones necesarias.
                 </p>
 
                 <p className="text-xs text-neutral-400 font-mono">
