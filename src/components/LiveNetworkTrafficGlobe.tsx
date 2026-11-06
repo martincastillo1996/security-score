@@ -95,11 +95,11 @@ export default function LiveNetworkTrafficGlobe() {
 
                 <div className="space-y-3">
                   <div className="text-4xl sm:text-5xl font-mono font-black text-white tracking-tight flex items-baseline gap-2">
-                    <span className="text-rose-400">-391%</span>
-                    <span className="text-sm sm:text-base font-sans text-neutral-200 font-medium">en probabilidad de cerrar la venta</span>
+                    <span className="text-rose-400">10x</span>
+                    <span className="text-sm sm:text-base font-sans text-neutral-200 font-medium">menos chances de calificar al cliente después de 5 min</span>
                   </div>
                   <p className="text-sm sm:text-base text-neutral-200 leading-relaxed font-normal">
-                    Si un cliente te escribe a WhatsApp o a tu web y tardas <strong className="text-white underline decoration-rose-400 font-bold">más de 5 minutos</strong> en responder, las probabilidades de cerrar la compra caen un 391%. El cliente moderno le compra al primero que contesta.
+                    El estudio de <strong className="text-white font-bold">Harvard Business Review</strong> demuestra que esperar más de 5 minutos para responder a un cliente reduce 10 veces las probabilidades de calificar la oportunidad. En ventas por WhatsApp, quien responde primero se queda con la venta.
                   </p>
                 </div>
 

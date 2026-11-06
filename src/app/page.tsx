@@ -747,26 +747,42 @@ export default function NeuronalGravityHomePage() {
               {content.hero.desc}
             </p>
 
-            {/* Botones de Acción de Negocio */}
+            {/* Botones de Acción de Negocio: Demo en Vivo por WhatsApp */}
             <div className="pt-4 flex flex-col sm:flex-row items-center justify-center gap-4 max-w-xl mx-auto">
               <a
-                href="https://wa.me/17856433991?text=Hola%20Martin,%20quiero%20agendar%20una%20asesor%C3%ADa%20de%20IA%20para%20mi%20negocio%20a%20trav%C3%A9s%20de%20neuronalgravity.com"
+                href="https://wa.me/51987010380?text=Hola%20Mart%C3%ADn,%20quiero%20probar%20una%20demo%20del%20agente%20de%20WhatsApp%20para%20mi%20negocio."
                 target="_blank"
                 rel="noopener noreferrer"
-                className="w-full sm:w-auto inline-flex items-center justify-center gap-2.5 px-7 py-4 rounded-2xl bg-linear-to-r from-[#0071e3] to-[#38bdf8] hover:opacity-95 text-white font-bold text-sm shadow-[0_0_35px_rgba(0,113,227,0.45)] active:scale-98 transition-all"
+                className="w-full sm:w-auto inline-flex items-center justify-center gap-2.5 px-7 py-4 rounded-2xl bg-linear-to-r from-emerald-500 via-[#25D366] to-teal-500 hover:opacity-95 text-white font-bold text-sm shadow-[0_0_35px_rgba(37,211,102,0.45)] active:scale-98 transition-all"
               >
-                <TrendingUp className="w-4 h-4" />
-                <span>{content.hero.ctaPrimary}</span>
+                <MessageSquare className="w-5 h-5 fill-white" />
+                <span>Probar Demo en WhatsApp (En 10 Segundos)</span>
                 <ArrowRight className="w-4 h-4" />
               </a>
 
               <a
-                href="#soluciones"
+                href="#cotizar"
                 className="w-full sm:w-auto inline-flex items-center justify-center gap-2 px-6 py-4 rounded-2xl bg-white/5 hover:bg-white/10 border border-white/10 text-white font-semibold text-sm transition-all"
               >
                 <Briefcase className="w-4 h-4 text-[#38bdf8]" />
-                <span>{content.hero.ctaSecondary}</span>
+                <span>Cotizar Piloto (Desde S/ 490)</span>
               </a>
+            </div>
+
+            {/* Badges de Confianza Local Perú */}
+            <div className="pt-4 flex flex-wrap items-center justify-center gap-3 text-xs text-neutral-300">
+              <span className="px-3 py-1 rounded-full bg-white/5 border border-white/10 flex items-center gap-1.5 font-medium">
+                <CheckCircle2 className="w-3.5 h-3.5 text-emerald-400" />
+                Factura / Boleta Electrónica (RUC Perú)
+              </span>
+              <span className="px-3 py-1 rounded-full bg-white/5 border border-white/10 flex items-center gap-1.5 font-medium">
+                <CheckCircle2 className="w-3.5 h-3.5 text-emerald-400" />
+                Yape / Plin / BCP / BBVA
+              </span>
+              <span className="px-3 py-1 rounded-full bg-white/5 border border-white/10 flex items-center gap-1.5 font-medium">
+                <ShieldCheck className="w-3.5 h-3.5 text-[#38bdf8]" />
+                Acuerdo de Confidencialidad (NDA)
+              </span>
             </div>
 
             {/* Tarjeta rápida de DEFENSA TI en el Hero */}
@@ -1110,7 +1126,7 @@ export default function NeuronalGravityHomePage() {
             </p>
             <div className="pt-4 flex flex-col sm:flex-row items-center justify-center gap-4">
               <a
-                href="https://wa.me/17856433991?text=Hola%20Martin,%20quiero%20cotizar%20una%20soluci%C3%B3n%20de%20IA%20para%20mi%20empresa%20a%20trav%C3%A9s%20de%20neuronalgravity.com"
+                href="https://wa.me/51987010380?text=Hola%20Mart%C3%ADn,%20quiero%20cotizar%20un%20piloto%20de%20IA%20para%20mi%20empresa."
                 target="_blank"
                 rel="noopener noreferrer"
                 className="w-full sm:w-auto inline-flex items-center justify-center gap-2.5 px-8 py-4 rounded-2xl bg-linear-to-r from-emerald-500 to-teal-600 hover:opacity-95 text-white font-bold text-sm sm:text-base shadow-[0_0_40px_rgba(16,185,129,0.45)] transition-all"
@@ -1154,8 +1170,8 @@ export default function NeuronalGravityHomePage() {
                 <a href="#metodologia" className="hover:text-white transition-colors">Metodología</a>
                 <a href="#industrias" className="hover:text-white transition-colors">Casos por Industria</a>
                 <Link href="/liderazgo" className="hover:text-white transition-colors">Liderazgo</Link>
-                <Link href="/scanner" className="hover:text-white transition-colors">DEFENSA TI</Link>
-                <a href="https://wa.me/17856433991" target="_blank" rel="noopener noreferrer" className="hover:text-white transition-colors">WhatsApp (+1 785 643-3991)</a>
+                <Link href="/defensati" className="hover:text-white transition-colors">DEFENSA TI</Link>
+                <a href="https://wa.me/51987010380" target="_blank" rel="noopener noreferrer" className="hover:text-white transition-colors">WhatsApp (+51 987 010 380)</a>
                 <a href="tel:+51987010380" className="hover:text-white transition-colors">Llamadas (+51 987 010 380)</a>
                 <a href="mailto:castillo.karol96@gmail.com" className="hover:text-white transition-colors text-amber-300/80">castillo.karol96@gmail.com</a>
               </div>

@@ -1,6 +1,6 @@
 'use client';
 
-import { useState, useEffect } from 'react';
+import { useState } from 'react';
 import { 
   ShieldAlert, 
   Search, 
@@ -16,11 +16,6 @@ import {
 import Link from 'next/link';
 
 export default function GlobalCyberThreatsAndSeoScanner() {
-  // Contadores en vivo de amenazas perimetrales y pérdida comercial
-  const [vulnerableSites, setVulnerableSites] = useState(8412950);
-  const [threatsInFlight, setThreatsInFlight] = useState(389240);
-  const [revenueLostUsd, setRevenueLostUsd] = useState(14820900);
-
   // Estado del micro-escáner interactivo de SEO & Seguridad
   const [domainInput, setDomainInput] = useState('');
   const [isAnalyzing, setIsAnalyzing] = useState(false);
@@ -32,19 +27,6 @@ export default function GlobalCyberThreatsAndSeoScanner() {
     criticalIssues: string[];
     aiFixAdvice: string;
   } | null>(null);
-
-  useEffect(() => {
-    const interval = setInterval(() => {
-      // Incrementos dinámicos en vivo
-      setVulnerableSites((prev) => prev + Math.floor(Math.random() * 4) + 1);
-      setThreatsInFlight((prev) => prev + Math.floor(Math.random() * 9) + 3);
-      setRevenueLostUsd((prev) => prev + Math.floor(Math.random() * 45) + 20);
-    }, 1200);
-
-    return () => clearInterval(interval);
-  }, []);
-
-  const formatNumber = (num: number) => num.toLocaleString('en-US');
 
   const handleSimulateScan = (e: React.FormEvent) => {
     e.preventDefault();
@@ -91,57 +73,56 @@ export default function GlobalCyberThreatsAndSeoScanner() {
         </p>
       </div>
 
-      {/* 3 TARJETAS HUD: AMENAZAS EN VIVO Y PÉRDIDAS COMERCIALES */}
+      {/* 3 TARJETAS HUD: PILOTO Y MÉTRICAS DE RIESGO REALES */}
       <div className="grid grid-cols-1 md:grid-cols-3 gap-5">
         
-        {/* Tarjeta 1: Webs Vulnerables */}
+        {/* Tarjeta 1: Auditoría Técnica Perimetral */}
         <div className="p-6 rounded-3xl bg-linear-to-b from-[#181116] via-[#120c10] to-[#0a0709] border border-rose-500/30 shadow-xl space-y-3 relative overflow-hidden group">
           <div className="flex items-center justify-between">
             <span className="text-[11px] font-bold uppercase tracking-wider text-rose-300">
-              Webs Vulnerables en Latam & Global
+              Vulnerabilidad en Pasarelas y SSL
             </span>
-            <ShieldAlert className="w-5 h-5 text-rose-400 animate-pulse" />
+            <ShieldAlert className="w-5 h-5 text-rose-400" />
           </div>
           <div className="text-3xl sm:text-4xl font-mono font-black text-white tracking-tight">
-            {formatNumber(vulnerableSites)}
+            7 de cada 10
           </div>
-          <p className="text-xs text-neutral-400 leading-snug">
-            Sitios con puertos abiertos, certificados débiles o propensos a clonación fraudulenta detectados por la red.
+          <p className="text-xs text-neutral-200 leading-snug">
+            Sitios web en la región carecen de cabeceras HSTS y Content-Security-Policy obligatorias para evitar clonaciones.
           </p>
         </div>
 
-        {/* Tarjeta 2: Ciberamenazas y Malware en Tránsito */}
+        {/* Tarjeta 2: Caída de Conversión por Fricción */}
         <div className="p-6 rounded-3xl bg-linear-to-b from-[#18140f] via-[#120f0b] to-[#0a0806] border border-amber-500/30 shadow-xl space-y-3 relative overflow-hidden group">
           <div className="flex items-center justify-between">
             <span className="text-[11px] font-bold uppercase tracking-wider text-amber-300">
-              Amenazas & Inyecciones en Tránsito
+              Pérdida por Lentitud y Respuesta Tardía
             </span>
             <AlertTriangle className="w-5 h-5 text-amber-400" />
           </div>
           <div className="text-3xl sm:text-4xl font-mono font-black text-amber-400 tracking-tight">
-            {formatNumber(threatsInFlight)}
+            &gt; 5 minutos
           </div>
-          <p className="text-xs text-neutral-400 leading-snug">
-            Ataques automatizados, bots de scraping no autorizados y sondeos buscando robar credenciales.
+          <p className="text-xs text-neutral-200 leading-snug">
+            Tardar más de 5 minutos en responder una consulta comercial en WhatsApp reduce drásticamente el cierre de ventas.
           </p>
         </div>
 
-        {/* Tarjeta 3: Pérdida en Ventas por Mal SEO y Seguridad */}
+        {/* Tarjeta 3: Piloto Rápido y Retorno */}
         <div className="p-6 rounded-3xl bg-linear-to-b from-[#0f171f] via-[#091118] to-[#04080d] border border-[#38bdf8]/30 shadow-xl space-y-3 relative overflow-hidden group">
           <div className="flex items-center justify-between">
             <span className="text-[11px] font-bold uppercase tracking-wider text-[#38bdf8]">
-              Ventas Perdidas por Fricción & Mal SEO
+              Plazo de Puesta en Marcha
             </span>
             <TrendingDown className="w-5 h-5 text-[#38bdf8]" />
           </div>
           <div className="text-3xl sm:text-4xl font-mono font-black text-white tracking-tight">
-            ${formatNumber(revenueLostUsd)} <span className="text-xs font-sans text-neutral-400">USD</span>
+            7 Días
           </div>
-          <p className="text-xs text-neutral-400 leading-snug">
-            Empresas que no indexan en Google o tardan minutos en responder a sus prospectos por falta de IA.
+          <p className="text-xs text-neutral-200 leading-snug">
+            Desplegamos un piloto funcional con tu catálogo y preguntas frecuentes sin alterar tu infraestructura actual.
           </p>
         </div>
-
       </div>
 
       {/* HERRAMIENTA INTERACTIVA: AUDITORÍA PREVENTIVA DE WEB & SEO */}

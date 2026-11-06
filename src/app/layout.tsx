@@ -3,7 +3,6 @@ import { Geist, Geist_Mono } from "next/font/google";
 import "./globals.css";
 import { I18nProvider } from "@/lib/i18n/I18nContext";
 import CookieConsentBanner from "@/components/CookieConsentBanner";
-import DonationModal from "@/components/DonationModal";
 import AiConsultantWidget from "@/components/AiConsultantWidget";
 import FloatingWhatsAppButton from "@/components/FloatingWhatsAppButton";
 
@@ -65,7 +64,7 @@ const jsonLd = {
       ],
       "contactPoint": {
         "@type": "ContactPoint",
-        "telephone": "+1-785-643-3991",
+        "telephone": "+51-987-010-380",
         "contactType": "customer service",
         "availableLanguage": ["Spanish", "English"]
       }
@@ -100,7 +99,6 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
         <I18nProvider>
           {children}
           <AiConsultantWidget />
-          <DonationModal />
           <CookieConsentBanner />
           <FloatingWhatsAppButton />
         </I18nProvider>
