@@ -254,7 +254,7 @@ export default function RealCasesSection() {
             Nada de informes teóricos de 80 páginas. Te entregamos un <strong>Dictamen Técnico Ejecutivo de 2 páginas</strong> con membrete institucional, RUC 10704877850, telemetría de 6 cabeceras críticas, diagnóstico de SSL, sondeo de puertos y <strong>la receta de código lista para copiar y pegar</strong> (Nginx, Apache o Cloudflare).
           </p>
 
-          <div className="flex flex-wrap items-center gap-3 text-xs text-neutral-400 pt-1">
+          <div className="flex flex-wrap items-center justify-center md:justify-start gap-3 text-xs text-neutral-400 pt-1">
             <span className="flex items-center gap-1 text-emerald-400 font-semibold">
               <CheckCircle2 className="w-3.5 h-3.5" />
               Membrete Oficial
@@ -272,22 +272,23 @@ export default function RealCasesSection() {
           </div>
         </div>
 
-        {/* Botones de acción hacia el informe ejemplo */}
-        <div className="flex flex-col sm:flex-row md:flex-col gap-3 w-full md:w-auto shrink-0">
+        {/* Botón de acción hacia el informe ejemplo */}
+        <div className="w-full md:w-auto shrink-0 flex justify-center">
           <Link
             href="/defensati/informe-ejemplo"
-            className="inline-flex items-center justify-center gap-2 px-6 py-3.5 rounded-2xl bg-[#0071e3] hover:bg-[#0077ed] text-white font-bold text-xs sm:text-sm transition-all shadow-[0_10px_30px_rgba(0,113,227,0.35)] active:scale-95 text-center"
+            className="w-full sm:w-auto inline-flex items-center justify-center gap-2 px-6 py-3.5 rounded-2xl bg-[#0071e3] hover:bg-[#0077ed] text-white font-bold text-xs sm:text-sm transition-all shadow-[0_10px_30px_rgba(0,113,227,0.35)] active:scale-95 text-center whitespace-nowrap"
           >
             <Eye className="w-4 h-4" />
             <span>Ver Informe de Ejemplo Interactivo</span>
             <ArrowRight className="w-4 h-4" />
           </Link>
-
-          <div className="flex justify-center">
-            <RealThreatCasesModal />
-          </div>
         </div>
 
+      </div>
+
+      {/* BANNER INDEPENDIENTE: CASOS REALES Y DENUNCIAS EN PERÚ */}
+      <div className="w-full">
+        <RealThreatCasesModal />
       </div>
 
     </section>

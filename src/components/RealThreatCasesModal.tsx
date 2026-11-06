@@ -201,7 +201,7 @@ export default function RealThreatCasesModal() {
       {/* Botón de Llamado a la Acción 3D en Rojo de Alto Impacto */}
       <button
         onClick={() => setIsOpen(true)}
-        className="group relative w-full max-w-4xl mx-auto rounded-3xl p-6 sm:p-7 bg-gradient-to-r from-[#20070a] via-[#140407] to-[#20070a] border-2 border-red-500/60 shadow-[0_15px_40px_rgba(239,68,68,0.25),inset_0_1px_0_rgba(255,255,255,0.15)] hover:border-red-400 hover:shadow-[0_20px_50px_rgba(239,68,68,0.45)] hover:scale-[1.01] active:scale-[0.99] transition-all duration-300 cursor-pointer text-left overflow-hidden"
+        className="group relative w-full rounded-3xl p-6 sm:p-8 bg-gradient-to-r from-[#20070a] via-[#140407] to-[#20070a] border-2 border-red-500/60 shadow-[0_15px_40px_rgba(239,68,68,0.25),inset_0_1px_0_rgba(255,255,255,0.15)] hover:border-red-400 hover:shadow-[0_20px_50px_rgba(239,68,68,0.45)] hover:scale-[1.005] active:scale-[0.99] transition-all duration-300 cursor-pointer text-left overflow-hidden"
       >
         {/* Glow de fondo rojo ambiental */}
         <div className="absolute top-0 right-1/4 w-80 h-32 bg-red-600/15 rounded-full blur-3xl pointer-events-none group-hover:bg-red-600/25 transition-all" />
@@ -243,8 +243,8 @@ export default function RealThreatCasesModal() {
           </div>
 
           {/* Lado derecho: Botón 3D con Sombra de Profundidad Física */}
-          <div className="shrink-0 self-start md:self-center">
-            <div className="inline-flex items-center gap-2 px-6 py-3.5 rounded-2xl bg-gradient-to-b from-red-500 via-red-600 to-red-700 hover:from-red-400 hover:to-red-600 border-t border-rose-300/50 text-white font-extrabold text-xs sm:text-sm shadow-[0_6px_0_#991b1b,0_12px_25px_rgba(239,68,68,0.5)] group-hover:shadow-[0_4px_0_#991b1b,0_15px_30px_rgba(239,68,68,0.65)] group-hover:translate-y-[2px] active:translate-y-[6px] active:shadow-[0_0px_0_#991b1b] transition-all">
+          <div className="shrink-0 self-start md:self-center w-full md:w-auto">
+            <div className="w-full sm:w-auto inline-flex items-center justify-center gap-2 px-6 py-3.5 rounded-2xl bg-gradient-to-b from-red-500 via-red-600 to-red-700 hover:from-red-400 hover:to-red-600 border-t border-rose-300/50 text-white font-extrabold text-xs sm:text-sm whitespace-nowrap shadow-[0_6px_0_#991b1b,0_12px_25px_rgba(239,68,68,0.5)] group-hover:shadow-[0_4px_0_#991b1b,0_15px_30px_rgba(239,68,68,0.65)] group-hover:translate-y-[2px] active:translate-y-[6px] active:shadow-[0_0px_0_#991b1b] transition-all">
               <span className="text-base">🇵🇪</span>
               <span className="tracking-wide uppercase">Abrir Casos Reales</span>
               <ArrowRight className="w-4 h-4 group-hover:translate-x-1 transition-transform" />
