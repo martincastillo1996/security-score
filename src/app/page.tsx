@@ -2,20 +2,15 @@
 
 import React from 'react';
 import Link from 'next/link';
-import Image from 'next/image';
 import NeuralBackground from '@/components/NeuralBackground';
 import AiConsultantWidget from '@/components/AiConsultantWidget';
+import FounderProfileCard from '@/components/FounderProfileCard';
 import { 
   ShieldCheck, 
   ArrowRight, 
-  ExternalLink, 
   Sparkles, 
-  FileCode,
   Layers,
-  Cpu,
-  Globe,
-  Mail,
-  MessageSquare
+  Cpu
 } from 'lucide-react';
 import { siteConfig } from '@/config/site';
 
@@ -145,87 +140,8 @@ export default function NeuronalGravityHubHome() {
           </div>
         </section>
 
-        {/* BLOQUE 3: SOBRE MARTÍN CASTILLO, FUNDADOR */}
-        <section className="p-8 sm:p-10 rounded-3xl bg-[#0f1219]/90 border border-white/10 backdrop-blur-xl space-y-8">
-          <div className="flex flex-col sm:flex-row items-center sm:items-start gap-8">
-            
-            {/* Foto de Martín Castillo */}
-            <div className="relative w-36 h-44 sm:w-44 sm:h-52 rounded-2xl overflow-hidden border-2 border-white/15 shadow-2xl shrink-0 bg-neutral-900">
-              <Image
-                src="/martin-castillo-preview.jpg"
-                alt="Martin Castillo - Fundador de Neuronal Gravity"
-                fill
-                className="object-cover object-top"
-                priority
-              />
-              <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-transparent pointer-events-none" />
-            </div>
-
-            {/* Información Técnica Real */}
-            <div className="space-y-4 text-center sm:text-left flex-1">
-              <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-[#0071e3]/15 border border-[#0071e3]/30 text-[#38bdf8] text-xs font-semibold">
-                <Sparkles className="w-3.5 h-3.5" />
-                <span>Desarrollador & Fundador</span>
-              </div>
-
-              <h2 className="text-2xl sm:text-3xl font-extrabold text-white tracking-tight">
-                Martín Castillo
-              </h2>
-
-              <p className="text-sm font-medium text-neutral-300 leading-relaxed">
-                Fundador y desarrollador de <strong>Neuronal Gravity</strong> y creador de <strong>DEFENSA TI</strong>.
-              </p>
-
-              <p className="text-xs sm:text-sm text-neutral-400 leading-relaxed font-normal">
-                Diseño y construyo herramientas tecnológicas desde cero. He desarrollado el motor de auditoría perimetral de DEFENSA TI con inspección no invasiva de cabeceras, SSL y defensas SSRF, manteniendo el código del analizador disponible de manera abierta en GitHub.
-              </p>
-
-              {/* Enlaces Reales de Contacto */}
-              <div className="flex flex-wrap items-center justify-center sm:justify-start gap-3 pt-2">
-                <a
-                  href={`${siteConfig.contact.whatsappLink}?text=${encodeURIComponent('Hola Martín, vi tu perfil en Neuronal Gravity y deseo conversar.')}`}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="inline-flex items-center gap-2 px-4 py-2 rounded-xl bg-emerald-600 hover:bg-emerald-500 text-white text-xs font-semibold transition-all shadow-md shadow-emerald-600/30"
-                >
-                  <MessageSquare className="w-3.5 h-3.5" />
-                  <span>WhatsApp ({siteConfig.contact.whatsappFormatted})</span>
-                </a>
-
-                <a
-                  href="https://github.com/martincastillo1996"
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="inline-flex items-center gap-2 px-4 py-2 rounded-xl bg-white/5 hover:bg-white/10 border border-white/10 text-neutral-200 text-xs font-semibold transition-all hover:text-white"
-                >
-                  <FileCode className="w-3.5 h-3.5 text-[#38bdf8]" />
-                  <span>GitHub</span>
-                  <ExternalLink className="w-3 h-3 text-neutral-500" />
-                </a>
-
-                <a
-                  href="https://www.linkedin.com/in/karol-martin-castillo-rojas-83b384234/"
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="inline-flex items-center gap-2 px-4 py-2 rounded-xl bg-white/5 hover:bg-white/10 border border-white/10 text-neutral-200 text-xs font-semibold transition-all hover:text-white"
-                >
-                  <Globe className="w-3.5 h-3.5 text-[#0a66c2]" />
-                  <span>LinkedIn</span>
-                  <ExternalLink className="w-3 h-3 text-neutral-500" />
-                </a>
-
-                <a
-                  href="mailto:martincastillorojas@gmail.com"
-                  className="inline-flex items-center gap-2 px-4 py-2 rounded-xl bg-white/5 hover:bg-white/10 border border-white/10 text-neutral-200 text-xs font-semibold transition-all hover:text-white"
-                >
-                  <Mail className="w-3.5 h-3.5 text-amber-400" />
-                  <span>Email Directo</span>
-                </a>
-              </div>
-            </div>
-
-          </div>
-        </section>
+        {/* BLOQUE 3: SOBRE MARTÍN CASTILLO, FUNDADOR (TARJETA IDÉNTICA A LA CAPTURA) */}
+        <FounderProfileCard />
 
         {/* BLOQUE 4: FUTURO (TEXTO EXACTO AUTORIZADO) */}
         <section className="p-8 sm:p-10 rounded-3xl bg-[#0f1219]/90 border border-white/10 backdrop-blur-xl space-y-6">

@@ -4,6 +4,7 @@ import React, { useState } from 'react';
 import Link from 'next/link';
 import NeuralBackground from '@/components/NeuralBackground';
 import AiConsultantWidget from '@/components/AiConsultantWidget';
+import FounderProfileCard from '@/components/FounderProfileCard';
 import { 
   ShieldCheck, 
   ArrowRight, 
@@ -11,7 +12,6 @@ import {
   HelpCircle, 
   MessageSquare, 
   Check, 
-  ExternalLink,
   ChevronDown,
   Eye,
   AlertTriangle,
@@ -900,36 +900,8 @@ export default function DefensatiSingleProductLanding() {
           )}
         </section>
 
-        {/* 9. ATENCIÓN DIRECTA */}
-        <section className="p-8 sm:p-12 rounded-3xl bg-[#141416]/80 backdrop-blur-xl border border-white/10 text-left max-w-4xl mx-auto space-y-6">
-          <span className="text-xs font-mono uppercase tracking-wider text-[#38bdf8] font-bold">Atención Directa</span>
-          <h3 className="text-2xl sm:text-3xl font-extrabold text-white tracking-tight">
-            Detrás de DEFENSA TI hay una persona, no un call center
-          </h3>
-          <p className="text-sm text-neutral-200 leading-relaxed font-normal">
-            Mi nombre es <strong>Martin Castillo</strong>. Lidero la arquitectura de seguridad y auditoría en DEFENSA TI (servicio de seguridad web de Neuronal Gravity). Cada informe se revisa personalmente con rigor de ingeniería en lenguaje de negocio.
-          </p>
-          <div className="flex flex-wrap items-center gap-3 pt-2">
-            <a
-              href="https://wa.me/17856433991?text=Hola%20Mart%C3%ADn,%20quiero%20pedir%20mi%20auditor%C3%ADa%20por%20WhatsApp%20-%20S/%2065"
-              target="_blank"
-              rel="noopener noreferrer"
-              className="inline-flex items-center gap-2 px-5 py-2.5 rounded-xl bg-[#25D366] hover:bg-[#20ba59] text-white text-xs font-bold transition-all shadow-md shadow-emerald-500/20"
-            >
-              <MessageSquare className="w-4 h-4" />
-              <span>Pedir mi auditoría por WhatsApp - S/ 65 (+1 785 643 3991)</span>
-            </a>
-            <a
-              href="https://github.com/martincastillo1996/security-score"
-              target="_blank"
-              rel="noopener noreferrer"
-              className="inline-flex items-center gap-2 px-5 py-2.5 rounded-xl bg-white/5 hover:bg-white/10 border border-white/10 text-neutral-300 text-xs font-semibold transition-all"
-            >
-              <ExternalLink className="w-4 h-4" />
-              <span>Código Abierto del Auditor en GitHub</span>
-            </a>
-          </div>
-        </section>
+        {/* 9. TARJETA OFICIAL DEL FUNDADOR */}
+        <FounderProfileCard />
       </main>
 
       {/* PIE DE PÁGINA PROFESIONAL CON TEXTO LEGAL EN LETRA PEQUEÑA */}
