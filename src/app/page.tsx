@@ -97,37 +97,48 @@ export default function NeuronalGravityHubHome() {
             <span className="text-xs text-neutral-400 font-mono">1 de 1 disponible hoy</span>
           </div>
 
-          <div className="relative rounded-3xl bg-[#0f1219]/90 border border-[#38bdf8]/30 p-8 sm:p-10 backdrop-blur-xl shadow-2xl overflow-hidden hover:border-[#38bdf8]/60 transition-all">
-            <div className="absolute top-0 right-0 w-96 h-96 bg-[#0071e3]/10 rounded-full blur-3xl pointer-events-none" />
+          <div className="relative rounded-[32px] bg-gradient-to-b from-[#10141f] via-[#0b0e15] to-[#07090e] border border-[#38bdf8]/40 p-8 sm:p-10 backdrop-blur-2xl shadow-[0_20px_50px_rgba(0,113,227,0.22)] overflow-hidden hover:border-[#38bdf8]/70 transition-all">
+            <div className="absolute top-0 right-0 w-96 h-96 bg-[#0071e3]/15 rounded-full blur-[100px] pointer-events-none" />
+            <div className="absolute bottom-0 left-0 w-80 h-80 bg-sky-500/10 rounded-full blur-[90px] pointer-events-none" />
 
             <div className="flex flex-col lg:flex-row lg:items-center justify-between gap-8 relative z-10">
-              <div className="space-y-4 max-w-2xl">
-                <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-[#0071e3]/20 border border-[#0071e3]/40 text-[#38bdf8] text-xs font-semibold">
-                  <ShieldCheck className="w-3.5 h-3.5" />
+              <div className="space-y-4 max-w-2xl text-left">
+                <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-gradient-to-r from-blue-500/20 via-sky-500/20 to-blue-600/20 border border-sky-400/50 text-sky-200 text-xs font-bold shadow-[0_0_15px_rgba(56,189,248,0.25)]">
+                  <ShieldCheck className="w-4 h-4 text-[#38bdf8]" />
                   <span>DEFENSA TI es el servicio de seguridad web de Neuronal Gravity</span>
                 </div>
 
-                <h3 className="text-2xl sm:text-3xl font-extrabold text-white tracking-tight">
+                <h3 className="text-2xl sm:text-3xl md:text-4xl font-black text-white tracking-tight leading-tight">
                   DEFENSA TI &bull; Auditoría y Blindaje Web
                 </h3>
 
-                <p className="text-sm text-neutral-300 leading-relaxed font-normal">
-                  Auditoría de seguridad externa y blindaje técnico para sitios web de negocios, con especialización en WordPress, WooCommerce y sistemas web a medida. Detectamos vulnerabilidades visibles antes de que afecten tus ventas y aplicamos las correcciones necesarias.
+                <p className="text-sm sm:text-base text-neutral-100 leading-relaxed font-normal">
+                  Auditoría perimetral de seguridad externa y blindaje técnico para sitios web de negocios, con especialización en <strong className="text-white font-semibold">WordPress, WooCommerce y sistemas web a medida</strong>. Detectamos vulnerabilidades visibles antes de que afecten tus ventas y aplicamos las correcciones necesarias.
                 </p>
 
-                <p className="text-xs text-neutral-400 font-mono">
-                  Cobertura para empresas en todo el Perú &bull; Diagnóstico técnico objetivo en 48 horas laborables.
-                </p>
+                <div className="pt-2 flex flex-wrap items-center gap-2.5 text-xs">
+                  <span className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-xl bg-white/5 border border-white/10 text-neutral-200 font-medium">
+                    <span className="w-2 h-2 rounded-full bg-emerald-400 animate-pulse shrink-0" />
+                    <span>Cobertura para empresas en todo el Perú</span>
+                  </span>
+                  <span className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-xl bg-white/5 border border-white/10 text-neutral-200 font-medium">
+                    <span className="text-[#38bdf8] font-bold">⚡ 48h</span>
+                    <span>Diagnóstico técnico objetivo garantizado</span>
+                  </span>
+                </div>
               </div>
 
-              <div className="lg:w-64 shrink-0 flex flex-col justify-center space-y-4 text-center">
+              <div className="lg:w-72 shrink-0 flex flex-col justify-center space-y-3 text-center">
                 <Link
                   href="/defensati"
-                  className="w-full inline-flex items-center justify-center gap-2 px-6 py-3.5 rounded-xl bg-[#0071e3] hover:bg-[#0077ed] text-white text-xs font-bold transition-all shadow-lg"
+                  className="w-full inline-flex items-center justify-center gap-2 px-6 py-4 rounded-2xl bg-gradient-to-r from-[#0071e3] to-[#2997ff] hover:from-[#0077ed] hover:to-[#38bdf8] text-white text-sm font-extrabold transition-all shadow-[0_10px_25px_rgba(0,113,227,0.35)] hover:shadow-[0_15px_35px_rgba(0,113,227,0.55)] active:scale-95 cursor-pointer"
                 >
                   <span>Probar Escáner Perimetral</span>
                   <ArrowRight className="w-4 h-4" />
                 </Link>
+                <span className="text-[11px] text-neutral-300 font-medium">
+                  100% Gratuito &bull; Sin contraseñas
+                </span>
               </div>
             </div>
           </div>
@@ -153,8 +164,8 @@ export default function NeuronalGravityHubHome() {
                 Próximas Soluciones: Nuevos proyectos y herramientas tecnológicas para distintos rubros (en fase de laboratorio)
               </h2>
 
-              <p className="text-sm sm:text-base text-neutral-300 leading-relaxed font-normal">
-                En <strong>Neuronal Gravity</strong> nos encontramos desarrollando y testeando nuevas soluciones de ingeniería de software e inteligencia artificial aplicadas a diversos sectores comerciales. Cada proyecto atraviesa una fase estricta de pruebas en nuestro laboratorio técnico antes de su lanzamiento oficial para producción.
+              <p className="text-sm sm:text-base text-neutral-100 leading-relaxed font-normal">
+                En <strong className="text-white font-semibold">Neuronal Gravity</strong> nos encontramos desarrollando y testeando nuevas soluciones de ingeniería de software e inteligencia artificial aplicadas a diversos sectores comerciales. Cada proyecto atraviesa una fase estricta de pruebas antes de su lanzamiento oficial para producción.
               </p>
 
               <div className="pt-2 flex flex-wrap items-center justify-center lg:justify-start gap-2.5 text-xs font-mono text-purple-300">
