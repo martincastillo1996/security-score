@@ -407,12 +407,10 @@ export default function HomePage() {
               </div>
             </section>
 
-            {/* Paso 2: Telemetría & Arquitectura Apple Pro (Bento Grid - Solo visible al escanear) */}
-            {report && (
-              <section id="especificaciones" className="scroll-mt-20">
-                <AppleCyberHud />
-              </section>
-            )}
+            {/* Paso 2: Telemetría & Arquitectura Apple Pro (Bento Grid) */}
+            <section id="especificaciones" className="scroll-mt-20">
+              <AppleCyberHud />
+            </section>
 
             {/* Paso 3: Planes y Tarifas de Solución Express */}
             <section id="planes" className="scroll-mt-20">
