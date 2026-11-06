@@ -101,15 +101,14 @@ export default function HomePage() {
 
   const copyShareLink = () => {
     if (!auditId) return;
-    let shareableUrl = `${window.location.origin}/report/${auditId}`;
+    // URL limpia y estándar basada en el ID único de auditoría (sin meter megabytes en el query string)
+    const shareableUrl = `${window.location.origin}/report/${auditId}`;
     try {
       if (report) {
         localStorage.setItem(`report_${auditId}`, JSON.stringify(report));
-        const encoded = btoa(encodeURIComponent(JSON.stringify(report)));
-        shareableUrl = `${window.location.origin}/report/${auditId}?d=${encoded}`;
       }
     } catch {
-      // Fallback
+      // Ignorar fallo de localStorage
     }
     navigator.clipboard.writeText(shareableUrl);
     setCopied(true);

@@ -96,7 +96,8 @@ export default function ReportPage({ params }: { params: Promise<{ id: string }>
   }, [auditId]);
 
   const copyShareLink = () => {
-    navigator.clipboard.writeText(window.location.href);
+    const cleanUrl = `${window.location.origin}/report/${auditId}`;
+    navigator.clipboard.writeText(cleanUrl);
     setCopied(true);
     setTimeout(() => setCopied(false), 2000);
   };
