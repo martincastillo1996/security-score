@@ -92,3 +92,17 @@ body {
 .animate-gravitational-float {
   animation: gravitationalFloat 5s ease-in-out infinite;
 }
+
+/* Órbita de 360 grados para el punto verde activo */
+@keyframes greenOrbOrbit {
+  from {
+    transform: rotate(0deg) translateX(26px) rotate(0deg);
+  }
+  to {
+    transform: rotate(360deg) translateX(26px) rotate(-360deg);
+  }
+}
+
+.animate-orbit-dot {
+  animation: greenOrbOrbit 4s linear infinite;
+}

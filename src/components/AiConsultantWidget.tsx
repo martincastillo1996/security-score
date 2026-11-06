@@ -332,11 +332,16 @@ Quisiera coordinar contigo una reunión para evaluar cómo implementar solucione
         )}
         <button
           onClick={() => setIsOpen(!isOpen)}
-          className="relative group p-3 rounded-full bg-linear-to-b from-[#141b2d] via-[#0b0f19] to-[#04060c] border border-white/20 hover:border-[#38bdf8] text-white shadow-[0_0_30px_rgba(56,189,248,0.4)] hover:shadow-[0_0_55px_rgba(168,85,247,0.7)] active:scale-95 transition-all cursor-pointer"
+          className="relative group p-3 rounded-full bg-linear-to-b from-[#141b2d] via-[#0b0f19] to-[#04060c] border border-white/20 hover:border-[#38bdf8] text-white shadow-[0_0_30px_rgba(56,189,248,0.4)] hover:shadow-[0_0_55px_rgba(168,85,247,0.7)] active:scale-95 transition-all cursor-pointer flex items-center justify-center"
           aria-label={t.aiBot.title}
         >
           {isOpen ? <X className="w-6 h-6 text-neutral-300 relative z-10" /> : <AppleCosmicOrb className="w-8 h-8" />}
-          <span className="absolute -top-0.5 -right-0.5 w-3.5 h-3.5 rounded-full bg-emerald-400 border-2 border-black shadow-[0_0_10px_#34d399] z-20" />
+          
+          {/* Anillo de trayectoria orbital y punto verde orbitando 360 grados */}
+          <div className="absolute inset-0 pointer-events-none flex items-center justify-center">
+            <div className="w-[52px] h-[52px] rounded-full border border-emerald-500/20 pointer-events-none" />
+            <span className="absolute w-3 h-3 rounded-full bg-emerald-400 border border-black shadow-[0_0_10px_#34d399] z-20 animate-orbit-dot" />
+          </div>
         </button>
       </div>
 
