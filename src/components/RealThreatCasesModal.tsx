@@ -10,7 +10,7 @@ import {
   FileText,
   ArrowRight
 } from 'lucide-react';
-import { PERU_SVG_PATH } from './peruPathData';
+import { PERU_DEPARTMENTS, PERU_VIEWBOX } from './peruMapData';
 
 interface RegionalIncident {
   region: string;
@@ -26,7 +26,15 @@ export default function RealThreatCasesModal() {
   const [isOpen, setIsOpen] = useState(false);
   const [activeRegion, setActiveRegion] = useState<string>('LIMA');
 
-  // Regiones del Perú con coordenadas exactas sobre el mapa cartográfico oficial (escala 0-1000)
+  // Mapeo oficial de departamentos por macro-región
+  const REGION_DEPTS: Record<string, string[]> = {
+    LIMA: ['LIMA', 'CALLAO'],
+    NORTE: ['TUMBES', 'PIURA', 'LAMBAYEQUE', 'LA LIBERTAD', 'CAJAMARCA', 'AMAZONAS', 'ANCASH'],
+    CENTRO: ['JUNIN', 'PASCO', 'HUANUCO', 'HUANCAVELICA', 'SAN MARTIN', 'LORETO', 'UCAYALI'],
+    SUR: ['AREQUIPA', 'CUSCO', 'PUNO', 'TACNA', 'MOQUEGUA', 'ICA', 'APURIMAC', 'AYACUCHO', 'MADRE DE DIOS']
+  };
+
+  // Regiones del Perú con coordenadas matemáticas exactas sobre el GeoJSON Oficial (escala 600x800)
   const regions = [
     { 
       code: 'LIMA', 
@@ -35,7 +43,7 @@ export default function RealThreatCasesModal() {
       unshieldedRate: '79%', 
       fraudGrowth: '+44%', 
       topThreat: 'Clonación de checkout Yape y pasarelas Niubiz',
-      svgCoords: { cx: 430, cy: 620, r: 24 },
+      svgCoords: { cx: 201.1, cy: 515.0, r: 16 },
       departments: 'Lima Metropolitana, Callao y provincias limeñas'
     },
     { 
@@ -45,7 +53,7 @@ export default function RealThreatCasesModal() {
       unshieldedRate: '82%', 
       fraudGrowth: '+38%', 
       topThreat: 'Rechazo de pasarelas por falta de TLS 1.3 y HSTS',
-      svgCoords: { cx: 280, cy: 380, r: 26 },
+      svgCoords: { cx: 121.7, cy: 356.2, r: 17 },
       departments: 'La Libertad, Piura, Lambayeque, Tumbes, Cajamarca'
     },
     { 
@@ -55,7 +63,7 @@ export default function RealThreatCasesModal() {
       unshieldedRate: '75%', 
       fraudGrowth: '+41%', 
       topThreat: 'Retención de fondos y falsos espejos en portales turísticos',
-      svgCoords: { cx: 660, cy: 740, r: 26 },
+      svgCoords: { cx: 420.9, cy: 691.2, r: 17 },
       departments: 'Arequipa, Cusco, Tacna, Puno, Moquegua, Ica'
     },
     { 
@@ -65,7 +73,7 @@ export default function RealThreatCasesModal() {
       unshieldedRate: '84%', 
       fraudGrowth: '+49%', 
       topThreat: 'Robo de credenciales en Wi-Fi y puertos de administración expuestos',
-      svgCoords: { cx: 580, cy: 430, r: 28 },
+      svgCoords: { cx: 274.1, cy: 515.8, r: 18 },
       departments: 'Junín, San Martín, Loreto, Ucayali, Huánuco, Pasco'
     },
   ];
@@ -278,10 +286,10 @@ export default function RealThreatCasesModal() {
                   <span>Mapa de Nodos Perimetrales (Perú)</span>
                 </div>
 
-                <div className="relative w-72 h-84 sm:w-80 sm:h-96 flex items-center justify-center">
+                <div className="relative w-72 h-96 sm:w-80 sm:h-[420px] flex items-center justify-center">
                   <svg 
-                    viewBox="0 0 1024 1024" 
-                    className="w-full h-full drop-shadow-[0_0_30px_rgba(0,113,227,0.35)] select-none"
+                    viewBox={PERU_VIEWBOX}
+                    className="w-full h-full drop-shadow-[0_0_25px_rgba(0,113,227,0.3)] select-none"
                     xmlns="http://www.w3.org/2000/svg"
                   >
                     <defs>
@@ -290,21 +298,32 @@ export default function RealThreatCasesModal() {
                         <stop offset="50%" stopColor="#0f172a" />
                         <stop offset="100%" stopColor="#080d1a" />
                       </linearGradient>
+                      <linearGradient id="activeDeptGradient" x1="0%" y1="0%" x2="100%" y2="100%">
+                        <stop offset="0%" stopColor="#0284c7" />
+                        <stop offset="50%" stopColor="#0369a1" />
+                        <stop offset="100%" stopColor="#0c4a6e" />
+                      </linearGradient>
                       <filter id="neonGlow" x="-20%" y="-20%" width="140%" height="140%">
-                        <feDropShadow dx="0" dy="0" stdDeviation="8" floodColor="#0071e3" floodOpacity="0.5" />
+                        <feDropShadow dx="0" dy="0" stdDeviation="4" floodColor="#38bdf8" floodOpacity="0.6" />
                       </filter>
                     </defs>
 
-                    {/* Silueta Cartográfica Oficial de la República del Perú */}
-                    <g transform="translate(0, 1024) scale(0.1, -0.1)">
-                      <path
-                        d={PERU_SVG_PATH}
-                        fill="url(#peruOfficialGradient)"
-                        stroke="#38bdf8"
-                        strokeWidth="24"
-                        strokeLinejoin="round"
-                        filter="url(#neonGlow)"
-                      />
+                    {/* Todos los Departamentos Oficiales del Perú */}
+                    <g>
+                      {PERU_DEPARTMENTS.map((dept) => {
+                        const isHighlighted = REGION_DEPTS[activeRegion]?.includes(dept.name);
+                        return (
+                          <path
+                            key={dept.name}
+                            d={dept.d}
+                            fill={isHighlighted ? 'url(#activeDeptGradient)' : 'url(#peruOfficialGradient)'}
+                            stroke={isHighlighted ? '#38bdf8' : 'rgba(255,255,255,0.12)'}
+                            strokeWidth={isHighlighted ? '1.5' : '0.6'}
+                            strokeLinejoin="round"
+                            className="transition-all duration-300"
+                          />
+                        );
+                      })}
                     </g>
 
                     {/* Nodos interactivos de macro-regiones */}
@@ -320,9 +339,9 @@ export default function RealThreatCasesModal() {
                             <circle
                               cx={reg.svgCoords.cx}
                               cy={reg.svgCoords.cy}
-                              r={reg.svgCoords.r + 10}
+                              r={reg.svgCoords.r + 8}
                               fill="#0071e3"
-                              opacity="0.35"
+                              opacity="0.4"
                               className="animate-ping"
                             />
                           )}
@@ -330,19 +349,21 @@ export default function RealThreatCasesModal() {
                             cx={reg.svgCoords.cx}
                             cy={reg.svgCoords.cy}
                             r={reg.svgCoords.r}
-                            fill={isSelected ? '#0071e3' : '#0f172a'}
-                            stroke={isSelected ? '#38bdf8' : '#475569'}
-                            strokeWidth="3.5"
-                            className="transition-colors duration-300 hover:fill-[#0071e3]/80"
+                            fill={isSelected ? '#0071e3' : '#0a101d'}
+                            stroke={isSelected ? '#38bdf8' : '#64748b'}
+                            strokeWidth={isSelected ? '2.5' : '1.5'}
+                            filter={isSelected ? 'url(#neonGlow)' : undefined}
+                            className="transition-colors duration-300 hover:fill-[#0071e3]"
                           />
                           <text
                             x={reg.svgCoords.cx}
-                            y={reg.svgCoords.cy + 5}
+                            y={reg.svgCoords.cy + 3.5}
                             textAnchor="middle"
-                            fontSize="13"
+                            fontSize="8"
                             fontWeight="900"
                             fill="#ffffff"
                             pointerEvents="none"
+                            fontFamily="monospace"
                           >
                             {reg.code}
                           </text>
