@@ -256,33 +256,15 @@ export default function AiConsultantWidget({ report }: Props) {
               </div>
             </div>
 
-            {/* Grupo de Avatares superpuestos + Botón cerrar */}
-            <div className="flex items-center gap-1.5 shrink-0">
-              <div className="flex -space-x-2.5 overflow-hidden p-0.5">
-                {/* Avatar 1: Orbe Cósmico Neuronality AI */}
-                <div className="relative w-7 h-7 rounded-full flex items-center justify-center shrink-0">
-                  <AppleCosmicOrb className="w-7 h-7" />
-                </div>
-                {/* Avatar 2: Ingeniero / Asistente */}
-                <div className="relative w-7 h-7 rounded-full ring-2 ring-[#0071e3] bg-gradient-to-tr from-[#0071e3] to-[#38bdf8] flex items-center justify-center text-white shadow-md">
-                  <ShieldCheck className="w-4 h-4 text-white" />
-                </div>
-                {/* Avatar 3: Neuronal Gravity Badge */}
-                <div className="relative w-7 h-7 rounded-full ring-2 ring-[#0071e3] bg-[#07090e] border border-white/20 flex items-center justify-center text-[9px] font-black text-[#38bdf8] shadow-md">
-                  NG
-                </div>
-              </div>
-
-              {/* Cerrar burbuja */}
-              <button
-                type="button"
-                onClick={() => setBubbleDismissed(true)}
-                className="p-1 rounded-lg text-neutral-400 hover:text-white hover:bg-white/10 transition-colors cursor-pointer"
-                aria-label="Cerrar sugerencia"
-              >
-                <X className="w-3.5 h-3.5" />
-              </button>
-            </div>
+            {/* Botón cerrar sugerencia */}
+            <button
+              type="button"
+              onClick={() => setBubbleDismissed(true)}
+              className="p-1.5 rounded-xl text-neutral-400 hover:text-white hover:bg-white/10 transition-colors cursor-pointer shrink-0"
+              aria-label="Cerrar sugerencia"
+            >
+              <X className="w-4 h-4" />
+            </button>
           </div>
 
           {/* Fila inferior: Botones de píldora estilo Astra / Crisp */}
