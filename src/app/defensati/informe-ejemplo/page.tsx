@@ -25,6 +25,7 @@ import { siteConfig } from '@/config/site';
 import HeaderWhatsAppButton from '@/components/HeaderWhatsAppButton';
 import { AuditReportRecord } from '@/lib/storage/reportStore';
 import AuditEngineExplanation from '@/components/AuditEngineExplanation';
+import HeaderResults from '@/components/HeaderResults';
 
 const DEMO_REPORT: AuditReportRecord = {
   id: 'DEMO-EJEMPLO-2026',
@@ -479,51 +480,8 @@ Set dynamic: Referrer-Policy = "strict-origin-when-cross-origin"`;
                 </div>
               </div>
 
-              {/* Tabla de Cabeceras OWASP / RFC */}
-              <div className="space-y-3">
-                <h3 className="text-sm font-bold text-white flex items-center gap-2">
-                  <Terminal className="w-4 h-4 text-[#38bdf8]" />
-                  <span>Evaluación de Cabeceras RFC y Parámetros Requeridos</span>
-                </h3>
-                <div className="overflow-x-auto rounded-2xl border border-white/10">
-                  <table className="w-full text-left text-xs border-collapse">
-                    <thead className="bg-white/5 border-b border-white/10 font-mono text-neutral-400 text-[11px]">
-                      <tr>
-                        <th className="p-3">Cabecera</th>
-                        <th className="p-3">Estado</th>
-                        <th className="p-3">Severidad</th>
-                        <th className="p-3">Directiva de Remediación</th>
-                      </tr>
-                    </thead>
-                    <tbody className="divide-y divide-white/5 text-[11px] font-mono">
-                      <tr>
-                        <td className="p-3 font-bold text-white">X-Frame-Options</td>
-                        <td className="p-3 text-rose-400 font-bold">✗ FALTA</td>
-                        <td className="p-3 text-rose-300">ALTA</td>
-                        <td className="p-3 text-emerald-400">DENY</td>
-                      </tr>
-                      <tr>
-                        <td className="p-3 font-bold text-white">Strict-Transport-Security</td>
-                        <td className="p-3 text-rose-400 font-bold">✗ FALTA</td>
-                        <td className="p-3 text-rose-300">ALTA</td>
-                        <td className="p-3 text-emerald-400">max-age=31536000; includeSubDomains; preload</td>
-                      </tr>
-                      <tr>
-                        <td className="p-3 font-bold text-white">Content-Security-Policy</td>
-                        <td className="p-3 text-rose-400 font-bold">✗ FALTA</td>
-                        <td className="p-3 text-rose-300">CRÍTICA</td>
-                        <td className="p-3 text-emerald-400">frame-ancestors &apos;none&apos;;</td>
-                      </tr>
-                      <tr>
-                        <td className="p-3 font-bold text-white">X-Content-Type-Options</td>
-                        <td className="p-3 text-emerald-400 font-bold">✓ PRESENTE</td>
-                        <td className="p-3 text-neutral-400">MEDIA</td>
-                        <td className="p-3 text-neutral-300">nosniff</td>
-                      </tr>
-                    </tbody>
-                  </table>
-                </div>
-              </div>
+              {/* Evaluación Interactiva de Cabeceras OWASP / RFC */}
+              <HeaderResults headers={DEMO_REPORT.headers || []} />
 
               {/* RECETA DE CÓDIGO INTERACTIVA (NGINX / APACHE / CLOUDFLARE) */}
               <div className="space-y-4 p-5 sm:p-6 rounded-2xl bg-black/70 border border-white/15">
