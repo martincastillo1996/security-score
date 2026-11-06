@@ -29,9 +29,109 @@ if (!globalForScanCache.__domainScanCache) {
 
 const domainScanCache = globalForScanCache.__domainScanCache;
 
+// Rate Limiter Per-IP para Escaneos (10 escaneos cada 15 minutos por cliente)
+const scanRateLimitMap = new Map<string, { count: number; resetTime: number }>();
+const SCAN_WINDOW_MS = 15 * 60 * 1000; // 15 minutos
+const SCAN_MAX_REQUESTS = 10;
+
+function getClientIp(req: Request): string {
+  const forwarded = req.headers.get('x-forwarded-for');
+  if (forwarded) return forwarded.split(',')[0].trim();
+  const realIp = req.headers.get('x-real-ip');
+  if (realIp) return realIp.trim();
+  return '127.0.0.1';
+}
+
+function checkScanRateLimit(ip: string): { allowed: boolean; remaining: number; resetInSec: number } {
+  const now = Date.now();
+  const record = scanRateLimitMap.get(ip);
+
+  if (!record || now > record.resetTime) {
+    scanRateLimitMap.set(ip, { count: 1, resetTime: now + SCAN_WINDOW_MS });
+    return { allowed: true, remaining: SCAN_MAX_REQUESTS - 1, resetInSec: Math.ceil(SCAN_WINDOW_MS / 1000) };
+  }
+
+  if (record.count >= SCAN_MAX_REQUESTS) {
+    return {
+      allowed: false,
+      remaining: 0,
+      resetInSec: Math.ceil((record.resetTime - now) / 1000),
+    };
+  }
+
+  record.count += 1;
+  return {
+    allowed: true,
+    remaining: SCAN_MAX_REQUESTS - record.count,
+    resetInSec: Math.ceil((record.resetTime - now) / 1000),
+  };
+}
+
+// Filtro Anti-Scrapers y Bots Maliciosos que buscan usar la API como proxy gratuito
+const BLOCKED_BOT_USER_AGENTS = /python-requests|aiohttp|curl\/|wget\/|scrapy|postmanruntime|libwww-perl|httpclient|okhttp|go-http-client/i;
+
+function isAllowedDomain(urlOrHost: string | null): boolean {
+  if (!urlOrHost) return false;
+  try {
+    let hostname = urlOrHost.trim();
+    if (hostname.includes('://')) {
+      hostname = new URL(hostname).hostname;
+    } else {
+      hostname = hostname.split(':')[0].trim();
+    }
+    hostname = hostname.toLowerCase();
+
+    if (hostname === 'neuronalgravity.com' || hostname.endsWith('.neuronalgravity.com')) return true;
+    if (hostname === 'security-score-seven.vercel.app' || hostname.endsWith('.vercel.app')) return true;
+    if (hostname === 'localhost' || hostname === '127.0.0.1') return true;
+    return false;
+  } catch {
+    return false;
+  }
+}
+
 export async function POST(req: Request) {
   const startTime = Date.now();
   try {
+    const clientIp = getClientIp(req);
+
+    // 0. Protección Anti-Bots / Scrapers (Evita que terceros usen tu backend como API pública)
+    const userAgent = req.headers.get('user-agent') || '';
+    const origin = req.headers.get('origin');
+
+    if (!userAgent || BLOCKED_BOT_USER_AGENTS.test(userAgent)) {
+      return NextResponse.json(
+        { error: 'Acceso denegado: El uso automatizado vía scripts o scrapers está estrictamente restringido.' },
+        { status: 403 }
+      );
+    }
+
+    // Bloqueo de Hotlinking (Evita que otra web incruste llamadas a tu API de escaneo)
+    if (origin && !isAllowedDomain(origin)) {
+      return NextResponse.json(
+        { error: 'Acceso no autorizado desde este origen.' },
+        { status: 403 }
+      );
+    }
+
+    // 0.1 Control de Tasa (Máximo 10 escaneos por cada 15 minutos por IP)
+    const rateCheck = checkScanRateLimit(clientIp);
+    if (!rateCheck.allowed) {
+      return NextResponse.json(
+        {
+          error: `Has alcanzado el límite de escaneos permitidos (máximo 10 escaneos cada 15 minutos). Por favor espera ${Math.ceil(rateCheck.resetInSec / 60)} minutos o contáctanos por WhatsApp para auditorías masivas.`,
+        },
+        {
+          status: 429,
+          headers: {
+            'Retry-After': String(rateCheck.resetInSec),
+            'X-RateLimit-Limit': String(SCAN_MAX_REQUESTS),
+            'X-RateLimit-Remaining': '0',
+          },
+        }
+      );
+    }
+
     const { url, force } = await req.json();
 
     if (!url) {
