@@ -1,7 +1,6 @@
 'use client';
 
 import React, { useState, useEffect, useRef } from 'react';
-import Image from 'next/image';
 import { useRouter } from 'next/navigation';
 import { 
   X, 
@@ -241,14 +240,9 @@ export default function AiConsultantWidget({ report }: Props) {
             {/* Grupo de Avatares superpuestos + Botón cerrar */}
             <div className="flex items-center gap-1.5 shrink-0">
               <div className="flex -space-x-2.5 overflow-hidden p-0.5">
-                {/* Avatar 1: Martin Castillo */}
-                <div className="relative w-7 h-7 rounded-full ring-2 ring-[#0071e3] overflow-hidden bg-neutral-900 shadow-md">
-                  <Image
-                    src="/martin-castillo-preview.jpg"
-                    alt="Martin Castillo"
-                    fill
-                    className="object-cover object-top"
-                  />
+                {/* Avatar 1: Neuronality AI */}
+                <div className="relative w-7 h-7 rounded-full ring-2 ring-[#0071e3] bg-gradient-to-tr from-[#0071e3] via-[#7928ca] to-[#38bdf8] flex items-center justify-center text-[#38bdf8] shadow-md">
+                  <Bot className="w-4 h-4 text-white" />
                 </div>
                 {/* Avatar 2: Ingeniero / Asistente */}
                 <div className="relative w-7 h-7 rounded-full ring-2 ring-[#0071e3] bg-gradient-to-tr from-[#0071e3] to-[#38bdf8] flex items-center justify-center text-white shadow-md">
