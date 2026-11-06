@@ -4,7 +4,6 @@ import React, { useState } from 'react';
 import Link from 'next/link';
 import Image from 'next/image';
 import NeuralBackground from '@/components/NeuralBackground';
-import Apple3DGlobe from '@/components/Apple3DGlobe';
 import LanguageSelector from '@/components/LanguageSelector';
 import LeadQuoteSection from '@/components/LeadQuoteSection';
 import FaqSection from '@/components/FaqSection';

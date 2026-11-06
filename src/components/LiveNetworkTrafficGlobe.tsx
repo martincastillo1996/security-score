@@ -7,11 +7,7 @@ import {
   AlertOctagon, 
   FileSpreadsheet, 
   CheckCircle2, 
-  ShieldCheck,
-  TrendingUp,
-  MessageSquare,
-  Zap,
-  ArrowRight
+  ShieldCheck
 } from 'lucide-react';
 import Apple3DGlobe from '@/components/Apple3DGlobe';
 

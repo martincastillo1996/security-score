@@ -5,11 +5,8 @@ import NeuralBackground from '@/components/NeuralBackground';
 import { 
   ArrowLeft, 
   Sparkles, 
-  ShieldCheck, 
   MessageSquare, 
   CheckCircle2,
-  Terminal,
-  Cpu,
   Globe,
   Code,
   Mail,

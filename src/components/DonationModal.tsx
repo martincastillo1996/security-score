@@ -9,7 +9,6 @@ import {
   Sparkles, 
   CreditCard, 
   Smartphone, 
-  CheckCircle2, 
   ShieldCheck, 
   ArrowRight,
   Copy,
@@ -48,7 +47,7 @@ declare global {
 const CULQI_PUBLIC_KEY = 'pk_test_4X14aLJdiXe9CfYC';
 
 export default function DonationModal() {
-  const { t } = useI18n();
+  useI18n();
   const [isOpen, setIsOpen] = useState(false);
   const [currency, setCurrency] = useState<'PEN' | 'USD'>('PEN');
   

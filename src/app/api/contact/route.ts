@@ -106,6 +106,35 @@ export async function POST(req: Request) {
       }
     }
 
+    // 3. Envío opcional a Telegram Bot
+    const telegramToken = process.env.TELEGRAM_BOT_TOKEN;
+    const telegramChatId = process.env.TELEGRAM_CHAT_ID;
+    if (telegramToken && telegramChatId) {
+      try {
+        const text = `🚨 *NUEVO LEAD COMERCIAL - NEURONAL GRAVITY*\n\n` +
+          `👤 *Nombre:* ${name}\n` +
+          `🏢 *Empresa:* ${company || 'N/A'}\n` +
+          `✉️ *Email:* ${email}\n` +
+          `📱 *Teléfono:* ${phone || 'N/A'}\n` +
+          `🛠️ *Servicio:* ${service}\n` +
+          `💰 *Presupuesto:* ${budget || 'A definir'}\n` +
+          (details ? `📝 *Detalles:* ${details}\n` : '') +
+          `🕒 *Fecha:* ${timestamp}`;
+
+        await fetch(`https://api.telegram.org/bot${telegramToken}/sendMessage`, {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({
+            chat_id: telegramChatId,
+            text,
+            parse_mode: 'Markdown',
+          }),
+        });
+      } catch (tgErr) {
+        console.error('Error enviando notificación a Telegram:', tgErr);
+      }
+    }
+
     return NextResponse.json({
       success: true,
       message: 'Solicitud recibida correctamente. Nos comunicaremos a la brevedad.',

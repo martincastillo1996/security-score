@@ -33,6 +33,50 @@ export const metadata: Metadata = {
     title: "Neuronal Gravity | Soluciones de Negocio con IA",
     description: "Agentes autónomos de ventas en WhatsApp 24/7 y ciberdefensa perimetral para empresas.",
   },
+  other: {
+    "theme-color": "#000000",
+  },
+};
+
+const jsonLd = {
+  "@context": "https://schema.org",
+  "@graph": [
+    {
+      "@type": "Organization",
+      "@id": "https://neuronalgravity.com/#organization",
+      "name": "Neuronal Gravity",
+      "url": "https://neuronalgravity.com",
+      "logo": "https://neuronalgravity.com/martin-castillo.png",
+      "description": "Soluciones de Inteligencia Artificial Aplicada a Negocios, Automatización Operativa y Ciberdefensa Perimetral con DEFENSA TI.",
+      "founder": {
+        "@type": "Person",
+        "name": "Martin Castillo",
+        "jobTitle": "Consultor Principal & Fundador",
+        "url": "https://www.tiktok.com/@k_martin_castillo96",
+      },
+      "sameAs": [
+        "https://www.tiktok.com/@k_martin_castillo96",
+        "https://github.com/martincastillo1996/security-score"
+      ],
+      "contactPoint": {
+        "@type": "ContactPoint",
+        "telephone": "+1-785-643-3991",
+        "contactType": "customer service",
+        "availableLanguage": ["Spanish", "English"]
+      }
+    },
+    {
+      "@type": "ProfessionalService",
+      "@id": "https://neuronalgravity.com/#service",
+      "name": "DEFENSA TI & AI Solutions",
+      "url": "https://neuronalgravity.com/defensati",
+      "provider": {
+        "@id": "https://neuronalgravity.com/#organization"
+      },
+      "serviceType": "Cybersecurity and Artificial Intelligence Consulting",
+      "areaServed": ["PE", "Latam", "Worldwide"]
+    }
+  ]
 };
 
 export default function RootLayout({ children }: { children: React.ReactNode }) {
@@ -41,6 +85,12 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
       lang="es"
       className={`${geistSans.variable} ${geistMono.variable} h-full antialiased bg-black`}
     >
+      <head>
+        <script
+          type="application/ld+json"
+          dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
+        />
+      </head>
       <body className="min-h-full flex flex-col bg-black text-[#f5f5f7]">
         <I18nProvider>
           {children}

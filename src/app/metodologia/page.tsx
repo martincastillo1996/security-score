@@ -10,8 +10,7 @@ import {
   Search,
   Cpu,
   Layers,
-  TrendingUp,
-  ShieldAlert
+  TrendingUp
 } from 'lucide-react';
 
 export const metadata: Metadata = {

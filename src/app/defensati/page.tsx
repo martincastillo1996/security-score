@@ -12,7 +12,6 @@ import WhatsAppCta from '@/components/WhatsAppCta';
 import BusinessOverview from '@/components/BusinessOverview';
 import ServerLocationCard from '@/components/ServerLocationCard';
 import CookieResults from '@/components/CookieResults';
-import CookieConsentBanner from '@/components/CookieConsentBanner';
 import RealThreatCasesModal from '@/components/RealThreatCasesModal';
 import HowItWorksGuide from '@/components/HowItWorksGuide';
 import PricingSection from '@/components/PricingSection';
@@ -27,7 +26,6 @@ import {
   ArrowRight,
   Check,
   Download,
-  Printer,
   Search,
   Share2,
   ShieldCheck,

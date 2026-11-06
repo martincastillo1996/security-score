@@ -11,7 +11,6 @@ import {
   ArrowRight,
   ExternalLink,
   Bot,
-  Zap,
   Radio
 } from 'lucide-react';
 import Link from 'next/link';

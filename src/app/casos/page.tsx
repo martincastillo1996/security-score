@@ -9,8 +9,6 @@ import {
   ArrowRight, 
   ArrowLeft, 
   Sparkles, 
-  TrendingUp, 
-  Clock, 
   CheckCircle2,
   MessageSquare
 } from 'lucide-react';
