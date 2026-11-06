@@ -1,243 +1,357 @@
 'use client';
 
-import React from 'react';
+import React, { useState } from 'react';
 import Link from 'next/link';
 import NeuralBackground from '@/components/NeuralBackground';
-import { ShieldCheck, ArrowLeft, BookOpen, AlertTriangle, Scale, Lock } from 'lucide-react';
+import { 
+  ShieldCheck, 
+  ArrowLeft, 
+  Lock, 
+  Database, 
+  Scale, 
+  BookOpen, 
+  Server,
+  CheckCircle2
+} from 'lucide-react';
 
-export default function TerminosPage() {
+export default function TerminosYPrivacidadPage() {
+  const [activeTab, setActiveTab] = useState<'todos' | 'terminos' | 'privacidad'>('todos');
+
   return (
     <div className="min-h-screen bg-[#07090e] text-white selection:bg-[#0071e3] selection:text-white font-sans antialiased relative overflow-x-hidden">
       <div className="fixed inset-0 z-0 pointer-events-none">
         <NeuralBackground showDomains={false} />
       </div>
 
-      <header className="sticky top-0 z-50 backdrop-blur-xl bg-black/60 border-b border-white/10">
-        <div className="max-w-4xl mx-auto px-6 h-16 flex items-center justify-between">
+      <header className="sticky top-0 z-50 backdrop-blur-xl bg-black/70 border-b border-white/10">
+        <div className="max-w-5xl mx-auto px-4 sm:px-6 h-16 flex items-center justify-between">
           <Link href="/" className="flex items-center gap-2.5 text-white font-bold tracking-tight">
             <ShieldCheck className="w-5 h-5 text-emerald-400" />
-            <span>DEFENSA TI</span>
+            <span>NEURONAL GRAVITY &bull; DEFENSA TI</span>
           </Link>
-          <Link href="/" className="text-xs text-neutral-300 hover:text-white flex items-center gap-1.5 transition-colors">
-            <ArrowLeft className="w-4 h-4" />
-            <span>Volver al inicio</span>
-          </Link>
+          <div className="flex items-center gap-3">
+            <Link 
+              href="/reclamaciones" 
+              className="text-xs text-amber-300 hover:text-amber-200 flex items-center gap-1 font-semibold transition-colors border border-amber-400/30 px-3 py-1.5 rounded-xl bg-amber-400/10"
+            >
+              <BookOpen className="w-3.5 h-3.5" />
+              <span className="hidden sm:inline">Libro de Reclamaciones</span>
+            </Link>
+            <Link href="/" className="text-xs text-neutral-300 hover:text-white flex items-center gap-1.5 transition-colors">
+              <ArrowLeft className="w-4 h-4" />
+              <span>Volver</span>
+            </Link>
+          </div>
         </div>
       </header>
 
-      <main className="relative z-10 max-w-4xl mx-auto px-6 py-12 sm:py-16 space-y-10 text-neutral-200">
-        <div className="space-y-3 border-b border-white/10 pb-6">
-          <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-emerald-500/10 border border-emerald-500/30 text-emerald-400 text-xs font-semibold">
-            <Scale className="w-3.5 h-3.5" />
-            <span>Marco Legal República del Perú &bull; Versión 2.0 (Vigente 2026)</span>
+      <main className="relative z-10 max-w-4xl mx-auto px-4 sm:px-6 py-10 sm:py-14 space-y-10 text-neutral-200">
+        
+        {/* Cabecera Principal */}
+        <div className="space-y-4 border-b border-white/10 pb-6">
+          <div className="flex flex-wrap items-center gap-2">
+            <span className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-emerald-500/10 border border-emerald-500/30 text-emerald-400 text-xs font-semibold">
+              <Scale className="w-3.5 h-3.5" />
+              <span>Marco Legal República del Perú</span>
+            </span>
+            <span className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-sky-500/10 border border-sky-500/30 text-sky-400 text-xs font-semibold">
+              <Lock className="w-3.5 h-3.5" />
+              <span>Ley N° 29733 &bull; D.S. 016-2024-JUS &bull; Ley N° 30096</span>
+            </span>
           </div>
-          <h1 className="text-3xl sm:text-4xl font-extrabold text-white tracking-tight">
-            Términos y Condiciones del Servicio
+
+          <h1 className="text-3xl sm:text-4xl font-extrabold text-white tracking-tight leading-tight">
+            Términos del Servicio y Política de Privacidad
           </h1>
-          <p className="text-xs text-neutral-400">
-            Última actualización: 6 de noviembre de 2026 &bull; Prestador: Karol Martin Castillo Rojas &bull; RUC: 10704877850 &bull; Lima, Perú
-          </p>
+
+          <div className="p-4 rounded-2xl bg-white/5 border border-white/10 text-xs text-neutral-300 space-y-1.5">
+            <p>
+              <strong>Titular y Prestador:</strong> Karol Martin Castillo Rojas (Persona Natural con Negocio) &bull; <strong>RUC:</strong> 10704877850 &bull; Domicilio: Lima, República del Perú.
+            </p>
+            <p>
+              <strong>Contacto Oficial y Ejercicio de Derechos:</strong> Correo: <a href="mailto:castillo.karol96@gmail.com" className="text-[#38bdf8] underline">castillo.karol96@gmail.com</a> &bull; WhatsApp Oficial: <a href="https://wa.me/17856433991" className="text-emerald-400 underline">+1 (785) 643-3991</a>.
+            </p>
+            <p className="text-[11px] text-neutral-400">
+              * Vigente a partir de 2026. Documento unificado de observancia obligatoria para contrataciones y uso en todo el territorio nacional peruano.
+            </p>
+          </div>
+
+          {/* Filtros de navegación rápida */}
+          <div className="flex gap-2 pt-2">
+            <button
+              onClick={() => setActiveTab('todos')}
+              className={`px-3.5 py-1.5 rounded-xl text-xs font-semibold transition-all ${
+                activeTab === 'todos' ? 'bg-[#0071e3] text-white shadow-md' : 'bg-white/5 text-neutral-400 hover:text-white'
+              }`}
+            >
+              Ver Documento Completo
+            </button>
+            <button
+              onClick={() => setActiveTab('terminos')}
+              className={`px-3.5 py-1.5 rounded-xl text-xs font-semibold transition-all ${
+                activeTab === 'terminos' ? 'bg-[#0071e3] text-white shadow-md' : 'bg-white/5 text-neutral-400 hover:text-white'
+              }`}
+            >
+              Términos del Servicio (Ley 30096 y Código Consumidor)
+            </button>
+            <button
+              onClick={() => setActiveTab('privacidad')}
+              className={`px-3.5 py-1.5 rounded-xl text-xs font-semibold transition-all ${
+                activeTab === 'privacidad' ? 'bg-[#0071e3] text-white shadow-md' : 'bg-white/5 text-neutral-400 hover:text-white'
+              }`}
+            >
+              Protección de Datos (Ley 29733 / D.S. 016-2024-JUS)
+            </button>
+          </div>
         </div>
 
-        {/* 1. Identificación del Prestador */}
-        <section className="space-y-3 text-sm leading-relaxed">
-          <h2 className="text-lg font-bold text-white flex items-center gap-2">
-            <span>1. Identificación del Prestador</span>
-          </h2>
-          <p>
-            El presente contrato de prestación de servicios regula el acceso y contratación de las soluciones técnicas de auditoría y blindaje web provistas bajo la marca comercial <strong>DEFENSA TI</strong> (proyecto tecnológico de <strong>Neuronal Gravity</strong>), de titularidad de <strong>Karol Martin Castillo Rojas</strong>, con RUC <strong>10704877850</strong>, con domicilio en la ciudad de Lima, República del Perú, y canales de contacto oficial: correo electrónico <strong>castillo.karol96@gmail.com</strong> y WhatsApp <strong>+1 (785) 643-3991</strong>.
-          </p>
-        </section>
-
-        {/* 2. Ámbito Territorial y Naturaleza del Servicio */}
-        <section className="space-y-3 text-sm leading-relaxed">
-          <h2 className="text-lg font-bold text-white flex items-center gap-2">
-            <span>2. Ámbito Territorial y Naturaleza del Servicio</span>
-          </h2>
-          <p>
-            Los servicios de auditoría y blindaje perimetral de DEFENSA TI están dirigidos y prestados <strong>exclusivamente a personas naturales y personas jurídicas que operen y desarrollen actividades en la República del Perú</strong>.
-          </p>
-          <p>
-            DEFENSA TI brinda servicios de evaluación técnica perimetral no intrusiva y configuración preventiva de seguridad web (con especialización en WordPress, WooCommerce y plataformas web a medida). Las auditorías se ejecutan sobre componentes públicos y protocolos de red (cabeceras HTTP, cifrado SSL/TLS, configuración DNS y análisis perimetral de puertos expuestos).
-          </p>
-        </section>
-
-        {/* 3. Declaración y Garantía de Autorización (Ley 30096) */}
-        <section className="space-y-3 text-sm leading-relaxed">
-          <h2 className="text-lg font-bold text-white flex items-center gap-2">
-            <Lock className="w-4 h-4 text-emerald-400" />
-            <span>3. Declaración y Garantía de Autorización del Titular (Ley 30096)</span>
-          </h2>
-          <p>
-            En estricto cumplimiento de la <strong>Ley N° 30096 (Ley de Delitos Informáticos)</strong> y sus modificatorias:
-          </p>
-          <ul className="list-disc pl-5 space-y-2 text-neutral-300">
-            <li>
-              <strong>Declaración del Cliente:</strong> Al solicitar un diagnóstico o contratar un plan, el cliente <strong>declara y garantiza</strong> que es el titular legítimo del dominio web ingresado o que cuenta con la delegación y autorización expresa y por escrito de la empresa u organización propietaria para someter el sitio a evaluaciones técnicas de seguridad.
-            </li>
-            <li>
-              <strong>Permiso del Proveedor de Infraestructura:</strong> El cliente declara y garantiza que la auditoría no infringe los términos de servicio de su proveedor de hosting o nube, siendo de exclusiva responsabilidad del cliente tramitar cualquier consentimiento previo que su proveedor exija.
-            </li>
-            <li>
-              <strong>Metodología No Intrusiva:</strong> Las evaluaciones realizadas por DEFENSA TI consisten exclusivamente en revisiones externas pasivas. No implican pruebas de denegación de servicio (DoS/DDoS), alteración destructiva de datos, inyección maliciosa ni extracción o sustracción de bases de datos.
-            </li>
-            <li>
-              <strong>Cláusula de Indemnidad:</strong> Si la declaración de titularidad del cliente resultara falsa, inexacta o no autorizada, el cliente asumirá de forma exclusiva toda la responsabilidad legal, penal, civil o administrativa que pudiera derivarse, obligándose a mantener plenamente indemne a Karol Martin Castillo Rojas y al equipo de DEFENSA TI frente a reclamaciones de terceros o proveedores de telecomunicaciones.
-            </li>
-            <li>
-              <strong>Facultad de Suspensión:</strong> DEFENSA TI se reserva el derecho irrestricto de rechazar, suspender o cancelar cualquier diagnóstico o servicio si surgen dudas razonables sobre la titularidad del dominio o la legitimidad de la solicitud.
-            </li>
-          </ul>
-        </section>
-
-        {/* 4. Condiciones de Uso del Escáner Gratuito */}
-        <section className="space-y-3 text-sm leading-relaxed">
-          <h2 className="text-lg font-bold text-white">4. Condiciones del Escáner Gratuito</h2>
-          <p>
-            El escáner perimetral accesible en nuestro portal es una herramienta gratuita de orientación preliminar. Queda expresamente prohibido su empleo contra dominios ajenos sin consentimiento, así como el uso abusivo, automatizado o mediante scripts masivos contra nuestra API. El escáner se brinda &ldquo;tal cual&rdquo; (as is) sin garantías de disponibilidad ininterrumpida.
-          </p>
-        </section>
-
-        {/* 5. Alcance Técnico, Copias de Respaldo y Exclusiones */}
-        <section className="space-y-3 text-sm leading-relaxed">
-          <h2 className="text-lg font-bold text-white flex items-center gap-2">
-            <AlertTriangle className="w-4 h-4 text-amber-400" />
-            <span>5. Alcance Técnico, Copias de Respaldo y Exclusiones</span>
-          </h2>
-          <p>
-            Para los servicios que requieran configuración correctiva sobre el sitio del cliente:
-          </p>
-          <ul className="list-disc pl-5 space-y-2 text-neutral-300">
-            <li>
-              <strong>Protocolo de Accesos:</strong> No se solicitan contraseñas maestras. El cliente habilitará un usuario temporal con los privilegios mínimos necesarios, el cual deberá ser eliminado por el cliente una vez concluido el servicio.
-            </li>
-            <li>
-              <strong>Copias de Seguridad (Backups):</strong> DEFENSA TI procurará realizar una copia de seguridad previa cuando sea técnicamente factible dentro del entorno del cliente. No obstante, <strong>el cliente mantiene en todo momento la obligación principal de conservar y verificar sus propias copias de seguridad íntegras y vigentes</strong> antes de autorizar cualquier intervención técnica.
-            </li>
-            <li>
-              <strong>Incompatibilidades de Software:</strong> La actualización de CMS, plugins o temas puede generar incompatibilidades imprevistas con código personalizado desarrollado por terceros. En tal supuesto, la responsabilidad técnica de DEFENSA TI se limita a restaurar el sitio al estado respaldado previo a la intervención.
-            </li>
-            <li>
-              <strong>Exclusiones Expresas:</strong> El blindaje perimetral no incluye rescate o desinfección forense de servidores comprometidos a nivel de sistema operativo raíz (root/SSH), pruebas de penetración destructivas (pentesting ofensivo), auditoría de código interno de terceros ni garantías sobre fallas de conectividad originadas en el proveedor de hosting o caídas de DNS globales.
-            </li>
-          </ul>
-        </section>
-
-        {/* 6. Garantía de Calificación y Procedimiento de Incumplimiento */}
-        <section id="garantia" className="space-y-3 text-sm leading-relaxed scroll-mt-20">
-          <h2 className="text-lg font-bold text-white flex items-center gap-2">
-            <span>6. Garantía del Servicio Activada tras la Contratación y Pago</span>
-          </h2>
-          <p>
-            En virtud del principio de buena fe contractual (Art. 1401 y concordantes del Código Civil peruano), las siguientes condiciones y cláusulas de garantía técnica entran en pleno vigor a favor del cliente a partir de la confirmación formal del pago:
-          </p>
-          <div className="p-4 rounded-xl bg-white/5 border border-white/10 text-xs text-neutral-300 leading-relaxed space-y-3">
-            <p>
-              <strong>Alcance y Meta de la Garantía:</strong> En los planes de blindaje contratados, DEFENSA TI se compromete a mejorar la calificación perimetral del sitio web auditado en <strong>al menos un grado</strong> respecto al estado inicial (o meta Grado A en el plan Total).
-            </p>
-            <div className="p-3.5 rounded-lg bg-black/40 border border-emerald-500/30 text-emerald-300 font-mono text-[11px] leading-relaxed">
-              &ldquo;Trabajamos para llevar tu web a Grado A en la evaluación final del blindaje contratado. Este es un servicio informativo y preventivo: la auditoría y el blindaje informan y previenen, no garantizan seguridad absoluta ni que no habrá ataques futuros. La garantía cubre solo el trabajo de blindaje realizado y entregado, dentro de su alcance. Martín / DEFENSA TI no se hace responsable por ataques futuros, vulnerabilidades nuevas, fallas del hosting o de proveedores, ni por lo que el cliente haga o deje de hacer después del blindaje. Desde la entrega, el cliente es responsable de mantener sus actualizaciones al día, proteger y no compartir sus accesos, cambiar las contraseñas entregadas y conservar copias de seguridad vigentes. Modificar el sitio, instalar código, plugins o temas sin revisión, o no mantenerlo, deja la garantía sin efecto sobre lo modificado.&rdquo;
+        {/* ========================================================================= */}
+        {/* PARTE I: TÉRMINOS Y CONDICIONES DEL SERVICIO */}
+        {/* ========================================================================= */}
+        {(activeTab === 'todos' || activeTab === 'terminos') && (
+          <div className="space-y-8">
+            <div className="flex items-center gap-2 pb-2 border-b border-white/10 text-emerald-400">
+              <Scale className="w-5 h-5" />
+              <h2 className="text-xl font-extrabold uppercase tracking-wider text-white">
+                Parte I: Términos y Condiciones del Servicio
+              </h2>
             </div>
-            <p>
-              <strong>Criterio de Incumplimiento:</strong> Se considerará incumplimiento únicamente si, habiendo el cliente facilitado los accesos temporales necesarios y dentro del alcance técnico pactado, la re-medición técnica final no refleja la mejora comprometida.
-            </p>
-            <p>
-              <strong>Plazo de Reclamo y Devolución:</strong> El cliente dispone de un plazo de <strong>15 días calendario</strong> contados desde la entrega formal del informe final para comunicar cualquier disconformidad con la calificación obtenida. Ante un reclamo fundado, DEFENSA TI repetirá los ajustes sin costo adicional; de persistir la imposibilidad técnica, se procederá con la <strong>devolución del 100% del pago realizado</strong>.
-            </p>
+
+            {/* 1. Ámbito Territorial y Exclusividad Perú */}
+            <section className="space-y-3 text-sm leading-relaxed">
+              <h3 className="text-base font-bold text-white">1. Ámbito Territorial Exclusivo (República del Perú)</h3>
+              <p>
+                Los servicios de auditoría perimetral y blindaje web ofrecidos por <strong>DEFENSA TI</strong> y la plataforma <strong>Neuronal Gravity</strong> están destinados y prestados <strong>exclusivamente a personas naturales y personas jurídicas domiciliadas o que desarrollen actividades comerciales en la República del Perú</strong>.
+              </p>
+              <p>
+                No realizamos prospección, venta activa ni contratación de servicios para mercados extranjeros. Todo pago, comprobante tributario y relación contractual se estructura bajo la legislación peruana y las normativas de la Superintendencia Nacional de Aduanas y de Administración Tributaria (SUNAT).
+              </p>
+            </section>
+
+            {/* 2. Declaración y Garantía de Autorización (Ley 30096 - Delitos Informáticos) */}
+            <section className="space-y-3 text-sm leading-relaxed">
+              <h3 className="text-base font-bold text-white flex items-center gap-2">
+                <Lock className="w-4 h-4 text-emerald-400" />
+                <span>2. Declaración y Garantía de Titularidad (Ley N° 30096)</span>
+              </h3>
+              <p>
+                En estricto cumplimiento de la <strong>Ley N° 30096 (Ley de Delitos Informáticos del Perú)</strong> y sus modificatorias:
+              </p>
+              <ul className="list-disc pl-5 space-y-2 text-neutral-300">
+                <li>
+                  <strong>Declaración Bajo Juramento:</strong> El cliente declara y garantiza expresamente que es el propietario legítimo del dominio web ingresado, o que ostenta poder formal y por escrito de la empresa para someterlo a diagnóstico y remediación perimetral.
+                </li>
+                <li>
+                  <strong>Técnica No Intrusiva:</strong> DEFENSA TI realiza análisis perimetrales externos y deterministas (cabeceras HTTP, certificados SSL/TLS, DNS y sondeo pasivo de puertos de red). <strong>Quedan prohibidas y expresamente excluidas cualquier maniobra de inyección destructiva, denegación de servicio (DDoS), interceptación o vulneración no autorizada de bases de datos.</strong>
+                </li>
+                <li>
+                  <strong>Cláusula de Indemnidad:</strong> Si la información proporcionada por el usuario fuera fraudulenta o no autorizada, el usuario asumirá toda la responsabilidad penal, civil y administrativa, eximiendo y manteniendo indemne a Karol Martin Castillo Rojas y al equipo de DEFENSA TI.
+                </li>
+              </ul>
+            </section>
+
+            {/* 3. Definición de Planes, Precios en Soles y Tiempos de Entrega */}
+            <section className="space-y-3 text-sm leading-relaxed">
+              <h3 className="text-base font-bold text-white">3. Modalidades de Contratación y Plazos Técnicos de Entrega</h3>
+              <p>
+                Las tarifas se expresan preferentemente en moneda nacional (PEN / Nuevos Soles) e incluyen los siguientes alcances y plazos de ejecución técnica:
+              </p>
+              <div className="grid grid-cols-1 md:grid-cols-3 gap-3 pt-2 text-xs">
+                <div className="p-4 rounded-xl bg-white/5 border border-white/10 space-y-2">
+                  <span className="font-bold text-white block text-sm">Auditoría (S/ 65 PEN / $19 USD)</span>
+                  <p className="text-neutral-300">Diagnóstico externo no intrusivo sin acceso a claves. Entrega de informe técnico con prioridades en <strong>48 horas laborables</strong>.</p>
+                </div>
+                <div className="p-4 rounded-xl bg-white/5 border border-white/10 space-y-2">
+                  <span className="font-bold text-white block text-sm">Blindaje Esencial (S/ 165 PEN / $49 USD)</span>
+                  <p className="text-neutral-300">Incluye auditoría previa y remediación directa de cabeceras críticas (HSTS, CSP, X-Frame), endurecimiento de accesos y CMS estándar en <strong>3 a 5 días hábiles</strong>.</p>
+                </div>
+                <div className="p-4 rounded-xl bg-white/5 border border-white/10 space-y-2">
+                  <span className="font-bold text-white block text-sm">Blindaje Total (S/ 335 PEN / $99 USD)</span>
+                  <p className="text-neutral-300">Auditoría + Blindaje + WAF perimetral y meta técnica de Grado A en la re-evaluación final, ejecutado en <strong>5 a 7 días hábiles</strong>.</p>
+                </div>
+              </div>
+            </section>
+
+            {/* 4. Garantía de Servicio Delimitada */}
+            <section id="garantia" className="space-y-3 text-sm leading-relaxed scroll-mt-20">
+              <h3 className="text-base font-bold text-white flex items-center gap-2">
+                <ShieldCheck className="w-4 h-4 text-emerald-400" />
+                <span>4. Garantía de Grado A y Límites Técnicos del Servicio</span>
+              </h3>
+              <div className="p-4 rounded-2xl bg-white/5 border border-white/10 text-xs text-neutral-300 leading-relaxed space-y-2">
+                <p>
+                  <strong>Alcance de la Garantía:</strong> En los planes contratados que incluyan remediación (Blindaje Esencial y Blindaje Total), garantizamos que las configuraciones técnicas implementadas por nosotros alcanzarán la nota acordada (meta Grado A) en la fecha de cierre y entrega formal del informe.
+                </p>
+                <p>
+                  <strong>Naturaleza Preventiva:</strong> La ciberseguridad es una disciplina de gestión continua y reducción de riesgo, no de inmunidad absoluta. La garantía no cubre ataques de día cero desconocidos por la industria, caídas atribuibles al proveedor de hosting, modificaciones posteriores de código realizadas por el cliente o terceros, ni filtraciones provocadas por contraseñas débiles o negligencia interna del contratante.
+                </p>
+              </div>
+            </section>
+
+            {/* 5. Facturación y Pasarelas de Pago */}
+            <section className="space-y-3 text-sm leading-relaxed">
+              <h3 className="text-base font-bold text-white">5. Pagos y Emisión de Comprobantes de Pago</h3>
+              <p>
+                Los pagos se realizan mediante transferencias bancarias directas, aplicativos móviles autorizados (Yape / Plin) o pasarelas de pago peruanas certificadas (Culqi / Niez). <strong>DEFENSA TI no almacena ni procesa números de tarjetas bancarias.</strong> Conforme a la normativa tributaria peruana, por cada servicio prestado se emite la correspondiente <strong>Boleta de Venta o Factura Electrónica</strong> informada ante SUNAT.
+              </p>
+            </section>
+
+            {/* 6. Libro de Reclamaciones */}
+            <section className="space-y-3 text-sm leading-relaxed">
+              <h3 className="text-base font-bold text-white flex items-center gap-2">
+                <BookOpen className="w-4 h-4 text-amber-300" />
+                <span>6. Libro de Reclamaciones Virtual (INDECOPI)</span>
+              </h3>
+              <p>
+                En cumplimiento del <strong>Decreto Supremo N° 011-2011-PCM</strong> y el <strong>Código de Protección y Defensa del Consumidor (Ley N° 29571)</strong>, ponemos a disposición de todos los usuarios nuestro Libro de Reclamaciones Virtual para asentar quejas o reclamos. Toda comunicación ingresada será atendida en un plazo máximo e improrrogable de <strong>quince (15) días hábiles</strong>.
+              </p>
+              <div className="pt-1">
+                <Link
+                  href="/reclamaciones"
+                  className="inline-flex items-center gap-2 px-4 py-2 rounded-xl bg-amber-400/10 hover:bg-amber-400/20 border border-amber-400/30 text-amber-300 font-bold text-xs transition-all"
+                >
+                  <BookOpen className="w-3.5 h-3.5" />
+                  <span>Acceder al Libro de Reclamaciones Virtual</span>
+                </Link>
+              </div>
+            </section>
           </div>
-        </section>
+        )}
 
-        {/* 7. Límite Cuantitativo de Responsabilidad */}
-        <section className="space-y-3 text-sm leading-relaxed">
-          <h2 className="text-lg font-bold text-white flex items-center gap-2">
-            <span>7. Límite Cuantitativo de Responsabilidad Legal</span>
-          </h2>
-          <p>
-            Conforme al Código Civil y la legislación de protección al consumidor, DEFENSA TI no excluye la responsabilidad que por ley resulte inderogable (dolo o culpa inexcusable). Sin perjuicio de ello:
-          </p>
-          <div className="p-4 rounded-xl bg-emerald-500/10 border border-emerald-500/30 text-xs text-emerald-200 leading-relaxed font-mono">
-            &ldquo;La responsabilidad económica total y acumulada de Karol Martin Castillo Rojas / DEFENSA TI frente al cliente por cualquier daño, perjuicio o controversia derivada de la prestación del servicio contratado estará expresamente limitada al monto efectivamente pagado por el cliente por el servicio específico que originó el reclamo.&rdquo;
-          </div>
-          <p className="text-xs text-neutral-400">
-            DEFENSA TI no se hace responsable por ataques informáticos futuros, incidentes ocasionados por negligencia del cliente al compartir contraseñas, omisión de actualizaciones posteriores a la entrega o vulnerabilidades de día cero (0-day) sobrevenidas.
-          </p>
-        </section>
-
-        {/* 8. Tarifas, Pagos, Facturación y Cancelaciones */}
-        <section className="space-y-3 text-sm leading-relaxed">
-          <h2 className="text-lg font-bold text-white flex items-center gap-2">
-            <span>8. Tarifas, Pasarelas de Pago y Facturación</span>
-          </h2>
-          <ul className="list-disc pl-5 space-y-2 text-neutral-300">
-            <li>
-              <strong>Precios Finales en Moneda Nacional:</strong> Todos los precios aplicables para clientes en el Perú se encuentran expresados en Soles (PEN) y corresponden a pagos únicos sin cobros recurrentes ni mensualidades ocultas.
-            </li>
-            <li>
-              <strong>Medios de Pago Autorizados:</strong> Los pagos se coordinan y procesan de forma segura mediante <strong>Yape</strong> y la pasarela de pagos <strong>Culqi</strong> (tarjetas de crédito y débito nacionales).
-            </li>
-            <li>
-              <strong>Condiciones de Pago:</strong> Los planes de S/ 65 y S/ 165 se cancelan al 100% por adelantado al iniciar el servicio. En el plan de S/ 335, se abona 50% al inicio y el 50% restante contra entrega verificada del informe. La entrega final de informes ejecutivos y credenciales quedará suspendida en tanto no se cancele el saldo pendiente.
-            </li>
-            <li>
-              <strong>Comprobantes Electrónicos:</strong> Por cada servicio contratado se emite Boleta de Venta o Factura Electrónica conforme a las directivas de la SUNAT bajo el RUC <strong>10704877850</strong>.
-            </li>
-          </ul>
-        </section>
-
-        {/* 9. Confidencialidad y Propiedad Intelectual */}
-        <section className="space-y-3 text-sm leading-relaxed">
-          <h2 className="text-lg font-bold text-white flex items-center gap-2">
-            <span>9. Confidencialidad y Propiedad Intelectual</span>
-          </h2>
-          <p>
-            <strong>Confidencialidad del Informe:</strong> El informe de auditoría entregado es de titularidad exclusiva del cliente una vez cancelado el servicio. DEFENSA TI no divulga, comercializa ni expone públicamente los resultados ni las vulnerabilidades detectadas en el sitio del cliente sin consentimiento expreso por escrito.
-          </p>
-          <p>
-            <strong>Propiedad Intelectual:</strong> Las herramientas de escaneo, metodologías de blindaje y componentes de software desarrollados por Neuronal Gravity / DEFENSA TI permanecen bajo la titularidad de su autor o bajo las licencias de código abierto que rigen sus respectivos repositorios públicos en GitHub.
-          </p>
-        </section>
-
-        {/* 10. Libro de Reclamaciones Virtual */}
-        <section className="space-y-3 text-sm leading-relaxed">
-          <h2 className="text-lg font-bold text-white flex items-center gap-2">
-            <BookOpen className="w-4 h-4 text-sky-400" />
-            <span>10. Libro de Reclamaciones Virtual (INDECOPI)</span>
-          </h2>
-          <p>
-            En cumplimiento del <strong>Decreto Supremo N° 011-2011-PCM</strong> y las disposiciones de <strong>INDECOPI</strong>, ponemos a disposición de nuestros usuarios el <strong>Libro de Reclamaciones Virtual</strong> para el registro de cualquier queja o reclamo relacionado con los servicios prestados.
-          </p>
-          <div className="p-4 rounded-xl bg-white/5 border border-white/10 flex flex-col sm:flex-row items-start sm:items-center justify-between gap-3 text-xs">
-            <div>
-              <span className="font-bold text-white block">Libro de Reclamaciones Virtual - DEFENSA TI</span>
-              <span className="text-neutral-400 text-[11px]">Conforme a la normativa peruana, todo reclamo será atendido en un plazo máximo de quince (15) días hábiles.</span>
+        {/* ========================================================================= */}
+        {/* PARTE II: POLÍTICA DE PROTECCIÓN DE DATOS PERSONALES */}
+        {/* ========================================================================= */}
+        {(activeTab === 'todos' || activeTab === 'privacidad') && (
+          <div className="space-y-8 pt-6">
+            <div className="flex items-center gap-2 pb-2 border-b border-white/10 text-sky-400">
+              <Lock className="w-5 h-5" />
+              <h2 className="text-xl font-extrabold uppercase tracking-wider text-white">
+                Parte II: Política de Privacidad y Tratamiento de Datos Personales
+              </h2>
             </div>
-            <Link
-              href="/reclamaciones"
-              className="px-4 py-2 rounded-xl bg-white/10 hover:bg-white/20 border border-white/20 text-white font-bold transition-all shrink-0 inline-flex items-center gap-1.5"
-            >
-              <BookOpen className="w-3.5 h-3.5 text-sky-400" />
-              <span>Registrar Reclamo</span>
-            </Link>
-          </div>
-        </section>
 
-        {/* 11. Ley Aplicable y Jurisdicción */}
-        <section className="space-y-3 text-sm leading-relaxed">
-          <h2 className="text-lg font-bold text-white flex items-center gap-2">
-            <span>11. Ley Aplicable y Jurisdicción</span>
-          </h2>
+            {/* 1. Marco Legal Peruano */}
+            <section className="space-y-3 text-sm leading-relaxed">
+              <h3 className="text-base font-bold text-white">1. Marco Normativo Vigente</h3>
+              <p>
+                El tratamiento de datos personales en esta plataforma se rige conforme a la <strong>Ley N° 29733 (Ley de Protección de Datos Personales)</strong> y su <strong>Nuevo Reglamento aprobado mediante Decreto Supremo N° 016-2024-JUS</strong> (vigente desde marzo de 2025), garantizando los principios de legalidad, consentimiento previo, informado, expreso e inequívoco, finalidad, proporcionalidad y seguridad técnica.
+              </p>
+            </section>
+
+            {/* 2. Banco de Datos Personales */}
+            <section className="space-y-3 text-sm leading-relaxed">
+              <h3 className="text-base font-bold text-white">2. Banco de Datos Personales</h3>
+              <p>
+                Los datos personales recopilados a través del sitio web, chats o formularios se incorporan en el banco de datos denominado <strong>&ldquo;Clientes y Contactos Comerciales DEFENSA TI&rdquo;</strong>, de titularidad de Karol Martin Castillo Rojas, encontrándose en proceso formal de inscripción y registro ante la Autoridad Nacional de Protección de Datos Personales (ANPDP) del Ministerio de Justicia y Derechos Humanos (MINJUS).
+              </p>
+            </section>
+
+            {/* 3. Datos que Recopilamos y Datos Técnicos */}
+            <section className="space-y-3 text-sm leading-relaxed">
+              <h3 className="text-base font-bold text-white flex items-center gap-2">
+                <Database className="w-4 h-4 text-sky-400" />
+                <span>3. Datos Recopilados y Plazos Específicos de Conservación</span>
+              </h3>
+              <ul className="list-disc pl-5 space-y-2 text-neutral-300">
+                <li>
+                  <strong>Datos de Contacto y Cotización (Nombre, teléfono, correo):</strong> Se conservan durante el tiempo necesario para la relación comercial y hasta por un plazo máximo de <strong>2 años</strong> tras el último contacto, salvo solicitud de supresión anticipada.
+                </li>
+                <li>
+                  <strong>Dirección IP y Registro de Escaneos Públicos:</strong> Registrados para control de abuso y limitación de tasa (rate limiting). Los resultados de escáner se almacenan en memoria caché por un máximo de <strong>24 horas</strong> y luego son depurados.
+                </li>
+                <li>
+                  <strong>Datos Tributarios y de Facturación (DNI/RUC, Razón Social, Dirección):</strong> Se conservan durante <strong>cinco (5) años</strong> en estricto cumplimiento del Código Tributario y obligaciones ante SUNAT.
+                </li>
+                <li>
+                  <strong>Registros del Libro de Reclamaciones:</strong> Se conservan durante <strong>dos (2) años</strong> conforme a la directiva de INDECOPI para fiscalización.
+                </li>
+              </ul>
+            </section>
+
+            {/* 4. Terceros Encargados y Flujo Transfronterizo */}
+            <section className="space-y-3 text-sm leading-relaxed">
+              <h3 className="text-base font-bold text-white flex items-center gap-2">
+                <Server className="w-4 h-4 text-emerald-400" />
+                <span>4. Terceros Encargados del Tratamiento y Transferencia Transfronteriza</span>
+              </h3>
+              <p>
+                DEFENSA TI no comercializa ni vende datos personales. Para la operatividad técnica de la plataforma, determinados datos son procesados por terceros bajo estándares estrictos de seguridad perimetral, implicando un <strong>flujo transfronterizo de datos</strong> con las siguientes entidades:
+              </p>
+              <div className="grid grid-cols-1 sm:grid-cols-2 gap-3 pt-2 text-xs">
+                <div className="p-3.5 rounded-xl bg-white/5 border border-white/10 space-y-1">
+                  <strong className="text-white block">Vercel Inc. (EE. UU.)</strong>
+                  <span className="text-neutral-400">Infraestructura de hosting, CDN perimetral y entrega de la aplicación web.</span>
+                </div>
+                <div className="p-3.5 rounded-xl bg-white/5 border border-white/10 space-y-1">
+                  <strong className="text-white block">DigitalOcean LLC (EE. UU.)</strong>
+                  <span className="text-neutral-400">Servidores para ejecución del motor de auditoría perimetral y proxies.</span>
+                </div>
+                <div className="p-3.5 rounded-xl bg-white/5 border border-white/10 space-y-1">
+                  <strong className="text-white block">Meta Platforms Inc. / WhatsApp (EE. UU.)</strong>
+                  <span className="text-neutral-400">Canal cifrado de mensajería para coordinación de soporte y entrega.</span>
+                </div>
+                <div className="p-3.5 rounded-xl bg-white/5 border border-white/10 space-y-1">
+                  <strong className="text-white block">Culqi / Compañía Incubadora (Perú)</strong>
+                  <span className="text-neutral-400">Procesamiento seguro y certificado de pagos con tarjeta de crédito/débito.</span>
+                </div>
+              </div>
+            </section>
+
+            {/* 5. Privacidad en Modelos de Inteligencia Artificial */}
+            <section className="space-y-3 text-sm leading-relaxed">
+              <h3 className="text-base font-bold text-white">5. Política de Inteligencia Artificial</h3>
+              <p>
+                Los resúmenes y parches técnicos sugeridos se procesan mediante llamadas aisladas a modelos de lenguaje vía API empresarial. <strong>Ningún dato personal, credencial o información confidencial de clientes en Perú es utilizada para entrenar modelos públicos de inteligencia artificial.</strong>
+              </p>
+            </section>
+
+            {/* 6. Derechos ARCO y Revocatoria */}
+            <section className="space-y-3 text-sm leading-relaxed">
+              <h3 className="text-base font-bold text-white flex items-center gap-2">
+                <CheckCircle2 className="w-4 h-4 text-sky-400" />
+                <span>6. Ejercicio de Derechos ARCO y Revocatoria del Consentimiento</span>
+              </h3>
+              <p>
+                El titular de los datos personales puede ejercer en cualquier momento sus derechos de <strong>Acceso, Rectificación, Cancelación y Oposición (ARCO)</strong>, así como el derecho de revocar el consentimiento previamente otorgado, sin costo alguno:
+              </p>
+              <ul className="list-disc pl-5 space-y-1.5 text-neutral-300">
+                <li>
+                  Enviando una solicitud al correo oficial: <strong>castillo.karol96@gmail.com</strong> indicando en el asunto &ldquo;Ejercicio de Derechos ARCO&rdquo; y adjuntando copia simple de su DNI/RUC.
+                </li>
+                <li>
+                  <strong>Plazos de Respuesta según D.S. 016-2024-JUS:</strong> Acceso (20 días hábiles); Rectificación, Cancelación u Oposición (10 días hábiles).
+                </li>
+                <li>
+                  <strong>Tutela ante la Autoridad:</strong> En caso de denegatoria o disconformidad con la respuesta, el titular tiene expedito su derecho a recurrir en reclamación ante la Dirección de Protección de Datos Personales del MINJUS en Lima, Perú.
+                </li>
+              </ul>
+            </section>
+
+            {/* 7. Política sobre Menores de Edad */}
+            <section className="space-y-3 text-sm leading-relaxed">
+              <h3 className="text-base font-bold text-white">7. Usuarios Mayores de Edad</h3>
+              <p>
+                Los servicios de auditoría y ciberseguridad están diseñados estrictamente para empresas, negocios y mayores de 18 años con capacidad legal para contratar según el Código Civil Peruano. No recopilamos conscientemente datos de menores de edad.
+              </p>
+            </section>
+          </div>
+        )}
+
+        {/* Pie de Página Unificado */}
+        <div className="pt-8 border-t border-white/10 text-center space-y-3 text-xs text-neutral-400">
           <p>
-            Los presentes Términos y Condiciones se interpretan, ejecutan y rigen de conformidad con las leyes vigentes de la República del Perú. Para la resolución de controversias entre empresas, las partes se someten a la competencia de los jueces y tribunales del Distrito Judicial de Lima, Perú, <strong>sin perjuicio de los fueros y derechos que correspondan al consumidor final</strong> bajo el marco de la Ley N° 29571 (Código de Protección y Defensa del Consumidor).
+            &copy; 2026 DEFENSA TI &bull; Neuronal Gravity &bull; RUC 10704877850 &bull; Karol Martin Castillo Rojas.
           </p>
-        </section>
+          <div className="flex items-center justify-center gap-4 text-[11px] text-neutral-500">
+            <Link href="/" className="hover:text-white transition-colors">Inicio</Link>
+            <span>&bull;</span>
+            <Link href="/defensati" className="hover:text-white transition-colors text-[#38bdf8]">DEFENSA TI</Link>
+            <span>&bull;</span>
+            <Link href="/reclamaciones" className="hover:text-amber-300 transition-colors">Libro de Reclamaciones</Link>
+          </div>
+        </div>
+
       </main>
-
-      {/* Pie con Copyright y Contacto */}
-      <footer className="border-t border-white/10 py-8 text-xs text-neutral-400 bg-black/80 relative z-10 text-center">
-        <p>
-          &copy; {new Date().getFullYear()} DEFENSA TI &bull; Neuronal Gravity &bull; Karol Martin Castillo Rojas &bull; RUC 10704877850 &bull; Lima, Perú
-        </p>
-      </footer>
     </div>
   );
 }

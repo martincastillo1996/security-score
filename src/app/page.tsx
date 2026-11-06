@@ -230,8 +230,7 @@ export default function NeuronalGravityHubHome() {
             </div>
 
             <div className="flex flex-wrap items-center gap-6 text-xs text-neutral-300">
-              <Link href="/terminos" className="hover:text-white transition-colors">Términos del Servicio</Link>
-              <Link href="/privacidad" className="hover:text-white transition-colors">Política de Privacidad (Ley 29733)</Link>
+              <Link href="/terminos" className="hover:text-white transition-colors">Términos y Privacidad (Ley 29733)</Link>
               <Link href="/reclamaciones" className="hover:text-white transition-colors text-amber-300/90 font-medium">Libro de Reclamaciones</Link>
               <Link href="/defensati" className="hover:text-white transition-colors text-[#38bdf8]">DEFENSA TI</Link>
               <Link href="/defensati/informe-ejemplo" className="hover:text-white transition-colors">Informe Ejemplo</Link>

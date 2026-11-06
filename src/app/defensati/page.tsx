@@ -505,9 +505,7 @@ export default function HomePage() {
                 Soluciones Tecnológicas & Auditoría Perimetral Open Source &bull; Creado por Martin Castillo
               </p>
               <div className="flex flex-wrap items-center justify-center gap-4 text-xs text-neutral-400 pt-1">
-                <Link href="/terminos" className="hover:text-white transition-colors">Términos del Servicio</Link>
-                <span>&bull;</span>
-                <Link href="/privacidad" className="hover:text-white transition-colors">Política de Privacidad</Link>
+                <Link href="/terminos" className="hover:text-white transition-colors">Términos y Política de Privacidad (Perú)</Link>
                 <span>&bull;</span>
                 <Link href="/reclamaciones" className="hover:text-amber-300 transition-colors font-medium">Libro de Reclamaciones</Link>
               </div>
