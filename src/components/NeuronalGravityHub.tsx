@@ -31,7 +31,7 @@ export default function NeuronalGravityHub() {
       service3: 'Automatización & Inteligencia Artificial',
       service3Badge: 'Optimización Operativa',
       service3Desc: 'Flujos automatizados, agentes de atención comercial y optimización de procesos para reducir costos manuales.',
-      trustNote: 'Empresa formal en Perú • RUC 10704877850 • Acuerdos de Confidencialidad (NDA) para cada proyecto.',
+      trustNote: 'RUC 10704877850 • Acuerdos de Confidencialidad (NDA) para cada proyecto.',
     },
     en: {
       badge: 'Institutional Backing & Engineering Rigor',
@@ -48,7 +48,7 @@ export default function NeuronalGravityHub() {
       service3: 'Workflow Automation & AI',
       service3Badge: 'Operational Efficiency',
       service3Desc: 'Autonomous workflow automations, customer service agents, and operational cost reduction.',
-      trustNote: 'Registered enterprise in Peru • RUC 10704877850 • Standard Non-Disclosure Agreements (NDA).',
+      trustNote: 'RUC 10704877850 • Standard Non-Disclosure Agreements (NDA) for each project.',
     },
     pt: {
       badge: 'Respaldo Institucional e Solvência Técnica',
@@ -65,7 +65,7 @@ export default function NeuronalGravityHub() {
       service3: 'Automação & Inteligência Artificial',
       service3Badge: 'Otimização Operacional',
       service3Desc: 'Automação de processos empresariais e agentes inteligentes para redução de custos.',
-      trustNote: 'Empresa formal no Peru • RUC 10704877850 • Acordo de Confidencialidade (NDA).',
+      trustNote: 'RUC 10704877850 • Acordo de Confidencialidade (NDA) para cada projeto.',
     },
   }[language] || {
     badge: 'Respaldo Institucional y Solvencia Técnica',
@@ -82,7 +82,7 @@ export default function NeuronalGravityHub() {
     service3: 'Automatización & Inteligencia Artificial',
     service3Badge: 'Optimización Operativa',
     service3Desc: 'Flujos automatizados y optimización de procesos para empresas.',
-    trustNote: 'Empresa formal en Perú • RUC 10704877850 • Acuerdos de Confidencialidad (NDA).',
+    trustNote: 'RUC 10704877850 • Acuerdos de Confidencialidad (NDA) para cada proyecto.',
   };
 
   return (
