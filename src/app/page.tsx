@@ -23,13 +23,14 @@ import {
 } from 'lucide-react';
 
 export default function DefensatiSingleProductLanding() {
-  // Estado para la Autoevaluación interactiva de 1 minuto (5 preguntas)
+  // Estado para la Autoevaluación interactiva de 1 minuto (6 preguntas estratégicas)
   const [answers, setAnswers] = useState<Record<number, 'si' | 'no' | 'nose' | null>>({
     1: null,
     2: null,
     3: null,
     4: null,
     5: null,
+    6: null,
   });
 
   // Estado del Formulario Oficial de Auditoría
@@ -44,51 +45,69 @@ export default function DefensatiSingleProductLanding() {
   const [formSubmitted, setFormSubmitted] = useState(false);
   const [faqOpen, setFaqOpen] = useState<number | null>(0);
 
-  // Preguntas de la Autoevaluación (sin cifras inventadas)
+  // Preguntas de la Autoevaluación (sin cifras inventadas, con detección de malware y cierre a venta)
   const quizQuestions = [
     {
       id: 1,
+      name: 'HTTPS completo',
       title: '1. ¿Tu web tiene candado seguro (HTTPS) en absolutamente todas las páginas y formularios?',
       tip: 'Si aparece "No seguro" en alguna sección o al ingresar datos, los navegadores advierten al cliente y dañan la confianza de compra.',
     },
     {
       id: 2,
+      name: 'Plugins y temas',
       title: '2. ¿Has actualizado el gestor web, temas y extensiones en los últimos 30 días?',
-      tip: 'Las extensiones o temas desactualizados son una de las vías de acceso más habituales utilizadas en ataques automatizados.',
+      tip: 'Los plugins y temas desactualizados son una puerta de entrada frecuente para accesos no autorizados.',
     },
     {
       id: 3,
+      name: '2FA y accesos',
       title: '3. ¿Tienes doble factor de autenticación (2FA) o límite de intentos de ingreso para administradores?',
-      tip: 'Sin protección de accesos, robots automatizados pueden probar miles de combinaciones de contraseñas por minuto hasta ingresar.',
+      tip: 'Sin protección de accesos, robots automatizados pueden probar miles de contraseñas por minuto hasta ingresar.',
     },
     {
       id: 4,
+      name: 'Copias externas',
       title: '4. ¿Cuentas con copias de seguridad automáticas guardadas fuera de tu proveedor de hosting?',
       tip: 'Si el servidor sufre un incidente o bloqueo, una copia guardada en el mismo alojamiento también queda inaccesible.',
     },
     {
       id: 5,
+      name: 'Firewall WAF',
       title: '5. ¿Tienes un firewall de aplicaciones web (WAF) que detenga ataques antes de que toquen tu servidor?',
       tip: 'Un firewall activo filtra peticiones maliciosas, intentos de inyección y escaneos antes de que consuman recursos de tu web.',
     },
+    {
+      id: 6,
+      name: 'Síntomas de virus',
+      title: '6. ¿Notas redirecciones raras, anuncios que no pusiste o Google avisa de "Sitio peligroso"?',
+      tip: 'Si respondes "Sí", tu web ya muestra síntomas de una infección o inyección de código activa.',
+      isMalwareQuestion: true,
+    },
   ];
 
-  // Cálculo del resultado orientativo
+  // Cálculo del resultado dinámico de la autoevaluación
   const answeredCount = Object.values(answers).filter((v) => v !== null).length;
-  const noOrNoseCount = Object.values(answers).filter((v) => v === 'no' || v === 'nose').length;
+  const hasActiveMalware = answers[6] === 'si';
 
-  const getQuizGrade = () => {
-    if (answeredCount === 0) return null;
-    if (noOrNoseCount === 0) return { grade: 'A', label: 'Riesgo Bajo Estimado', color: 'text-emerald-400', bg: 'border-emerald-500/40 bg-emerald-950/20' };
-    if (noOrNoseCount <= 2) return { grade: 'B', label: 'Riesgo Moderado (Requiere Atención)', color: 'text-amber-400', bg: 'border-amber-500/40 bg-amber-950/20' };
-    return { grade: 'D / F', label: 'Riesgo Alto de Exposición', color: 'text-rose-400', bg: 'border-rose-500/40 bg-rose-950/20' };
-  };
+  // Identificar qué preguntas preventivas (1 al 5) fallaron
+  const failedItems: string[] = [];
+  if (answers[1] === 'no' || answers[1] === 'nose') failedItems.push('HTTPS incompleto');
+  if (answers[2] === 'no' || answers[2] === 'nose') failedItems.push('Plugins desactualizados');
+  if (answers[3] === 'no' || answers[3] === 'nose') failedItems.push('Sin 2FA ni límite de accesos');
+  if (answers[4] === 'no' || answers[4] === 'nose') failedItems.push('Sin respaldo fuera de hosting');
+  if (answers[5] === 'no' || answers[5] === 'nose') failedItems.push('Sin Firewall WAF activo');
 
-  const quizResult = getQuizGrade();
+  const weakPointsCount = failedItems.length;
 
-  // Generador de enlace para WhatsApp de la Autoevaluación
+  // Generador de enlace para WhatsApp con datos calificados
   const getQuizWhatsAppUrl = () => {
-    const text = `Hola Martín, realicé la autoevaluación de DEFENSA TI en mi web.\nResultado preliminar: ${quizResult?.grade || 'Evaluación'} (${quizResult?.label || ''}).\nRespondí no/no sé en ${noOrNoseCount} de 5 puntos. Quiero solicitar la auditoría formal.`;
+    if (hasActiveMalware) {
+      const text = `Hola Martín, hice la autoevaluación de DEFENSA TI en mi web y presenta síntomas de infección/redirecciones no deseadas. Necesito el servicio urgente de limpieza y desinfección de malware (desde $149 USD).`;
+      return `https://wa.me/51987010380?text=${encodeURIComponent(text)}`;
+    }
+    const failuresText = failedItems.length > 0 ? failedItems.join(', ') : 'ningún punto evidente';
+    const text = `Hola Martín, hice la autoevaluación de DEFENSA TI en mi web: detecté ${weakPointsCount} de 5 puntos débiles (${failuresText}). Quiero solicitar la auditoría formal de S/ 65.`;
     return `https://wa.me/51987010380?text=${encodeURIComponent(text)}`;
   };
 
@@ -527,67 +546,212 @@ export default function DefensatiSingleProductLanding() {
         </section>
 
         {/* 5. AUTOEVALUACIÓN INTERACTIVA DE 1 MINUTO */}
-        <section id="autoevaluacion" className="space-y-8 p-8 sm:p-12 rounded-3xl bg-[#141416]/80 backdrop-blur-xl border border-white/15">
+        <section id="autoevaluacion" className="space-y-8 p-6 sm:p-12 rounded-3xl bg-[#141416]/85 backdrop-blur-xl border border-white/15">
           <div className="text-center space-y-2 max-w-2xl mx-auto">
-            <span className="text-xs font-mono uppercase tracking-wider text-[#38bdf8] font-bold">Diagnóstico Rápido</span>
+            <div className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-[#0071e3]/10 border border-[#0071e3]/30 text-[#38bdf8] text-xs font-bold tracking-wide">
+              <HelpCircle className="w-3.5 h-3.5" />
+              <span>TEST DE VULNERABILIDAD RÁPIDO</span>
+            </div>
             <h2 className="text-3xl sm:text-4xl font-extrabold text-white tracking-tight">
               Autoevaluación de seguridad de tu web (1 minuto)
             </h2>
             <p className="text-xs text-neutral-300">
-              Responde con sinceridad estas 5 preguntas para estimar de forma orientativa qué tan expuesto está tu negocio.
+              Responde con sinceridad estas 6 preguntas para calcular de inmediato qué tan expuesto está tu negocio y recibir tu recomendación técnica.
             </p>
+            <div className="pt-2 flex items-center justify-center gap-2 text-xs font-mono">
+              <span className="text-neutral-400">Progreso:</span>
+              <span className={`font-bold ${answeredCount === 6 ? 'text-emerald-400' : 'text-[#38bdf8]'}`}>
+                {answeredCount} de 6 preguntas respondidas
+              </span>
+            </div>
           </div>
 
+          {/* Lista de Preguntas */}
           <div className="space-y-4 max-w-3xl mx-auto">
-            {quizQuestions.map((q) => (
-              <div key={q.id} className="p-5 rounded-2xl bg-white/5 border border-white/10 space-y-2.5 text-left">
-                <p className="text-sm font-bold text-white">{q.title}</p>
-                <p className="text-[11px] text-neutral-400">{q.tip}</p>
-                <div className="flex flex-wrap gap-2 pt-1">
-                  {(['si', 'no', 'nose'] as const).map((opt) => (
-                    <button
-                      key={opt}
-                      type="button"
-                      onClick={() => setAnswers({ ...answers, [q.id]: opt })}
-                      className={`px-4 py-1.5 rounded-xl text-xs font-semibold transition-all cursor-pointer ${
-                        answers[q.id] === opt
-                          ? opt === 'si'
+            {quizQuestions.map((q) => {
+              const isMalware = q.isMalwareQuestion;
+              return (
+                <div 
+                  key={q.id} 
+                  className={`p-5 rounded-2xl border space-y-2.5 text-left transition-all ${
+                    isMalware 
+                      ? 'bg-rose-950/15 border-rose-500/30' 
+                      : 'bg-white/5 border-white/10'
+                  }`}
+                >
+                  <div className="flex items-start justify-between gap-2">
+                    <p className={`text-sm font-bold ${isMalware ? 'text-rose-200' : 'text-white'}`}>
+                      {q.title}
+                    </p>
+                    {isMalware && (
+                      <span className="shrink-0 px-2 py-0.5 rounded text-[9px] font-bold uppercase bg-rose-500/20 text-rose-300 border border-rose-500/40">
+                        Síntoma Crítico
+                      </span>
+                    )}
+                  </div>
+                  <p className="text-[11px] text-neutral-400">{q.tip}</p>
+                  <div className="flex flex-wrap gap-2 pt-1">
+                    {(['si', 'no', 'nose'] as const).map((opt) => {
+                      const isSelected = answers[q.id] === opt;
+                      let activeClass = 'bg-white/10 text-neutral-300 hover:bg-white/15 hover:text-white';
+                      if (isSelected) {
+                        if (isMalware) {
+                          activeClass = opt === 'si' 
+                            ? 'bg-rose-600 text-white font-bold shadow-[0_0_15px_rgba(225,29,72,0.5)]' 
+                            : 'bg-emerald-600 text-white font-bold';
+                        } else {
+                          activeClass = opt === 'si'
                             ? 'bg-[#0071e3] text-white font-bold shadow-[0_0_15px_rgba(0,113,227,0.4)]'
-                            : 'bg-rose-500 text-white font-bold'
-                          : 'bg-white/10 text-neutral-300 hover:bg-white/15 hover:text-white'
-                      }`}
-                    >
-                      {opt === 'si' ? '✓ Sí' : opt === 'no' ? '✗ No' : '? No sé'}
-                    </button>
-                  ))}
+                            : 'bg-rose-500 text-white font-bold';
+                        }
+                      }
+                      return (
+                        <button
+                          key={opt}
+                          type="button"
+                          onClick={() => setAnswers({ ...answers, [q.id]: opt })}
+                          className={`px-4 py-2 rounded-xl text-xs font-semibold transition-all cursor-pointer ${activeClass}`}
+                        >
+                          {opt === 'si' ? '✓ Sí' : opt === 'no' ? '✗ No' : '? No sé'}
+                        </button>
+                      );
+                    })}
+                  </div>
+                </div>
+              );
+            })}
+          </div>
+
+          {/* TARJETA DINÁMICA DE RESULTADO & CIERRE A LA VENTA */}
+          <div className="max-w-3xl mx-auto pt-2">
+            {answeredCount === 0 ? (
+              <div className="p-6 rounded-2xl bg-white/[0.03] border border-white/10 text-center text-xs text-neutral-400">
+                Selecciona una opción en las preguntas arriba para calcular el nivel de riesgo de tu sitio web.
+              </div>
+            ) : hasActiveMalware ? (
+              /* CASO 1: VIRUS O REDIRECCIONES DETECTADAS (VENTA DE LIMPIEZA DESDE $149) */
+              <div className="p-7 sm:p-9 rounded-3xl bg-rose-950/30 border-2 border-rose-500 shadow-2xl shadow-rose-950/50 text-center space-y-5 animate-in fade-in duration-300">
+                <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-rose-500/20 border border-rose-500/40 text-rose-300 text-xs font-mono font-bold">
+                  <ShieldAlert className="w-4 h-4 text-rose-400 animate-pulse" />
+                  <span>ALERTA CRÍTICA: SÍNTOMAS DE INFECCIÓN ACTIVA</span>
+                </div>
+                <div className="space-y-2">
+                  <h3 className="text-2xl sm:text-3xl font-black text-white">
+                    Tu web requiere Desinfección y Limpieza Forense Urgente
+                  </h3>
+                  <p className="text-xs sm:text-sm text-rose-200/90 leading-relaxed max-w-xl mx-auto">
+                    Redirecciones extrañas, anuncios no autorizados o avisos de Google indican que atacantes ya alteraron archivos en tu servidor. 
+                    En este estado no requieres una auditoría preventiva, sino una <strong>limpieza y desinfección forense inmediata</strong> para frenar el daño comercial.
+                  </p>
+                </div>
+
+                <div className="pt-2 flex flex-col sm:flex-row items-center justify-center gap-3">
+                  <a
+                    href={getQuizWhatsAppUrl()}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="w-full sm:w-auto inline-flex items-center justify-center gap-2.5 px-8 py-4 rounded-2xl bg-rose-600 hover:bg-rose-500 text-white font-extrabold text-sm shadow-xl shadow-rose-600/30 transition-all active:scale-95 cursor-pointer"
+                  >
+                    <MessageSquare className="w-4 h-4" />
+                    <span>Solicitar Desinfección Urgente (Desde $149 USD)</span>
+                  </a>
+
+                  <a
+                    href="https://wa.me/51987010380?text=Hola%20Mart%C3%ADn,%20tengo%20dudas%20sobre%20si%20mi%20web%20est%C3%A1%20infectada"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="w-full sm:w-auto inline-flex items-center justify-center gap-2 px-6 py-4 rounded-2xl bg-white/5 hover:bg-white/10 border border-white/10 text-neutral-300 text-xs font-semibold transition-all"
+                  >
+                    <span>Consultar caso por WhatsApp</span>
+                  </a>
                 </div>
               </div>
-            ))}
-          </div>
+            ) : weakPointsCount > 0 ? (
+              /* CASO 2: TIENE PUNTOS DÉBILES PREVENTIVOS (VENTA AUDITORÍA S/ 65) */
+              <div className="p-7 sm:p-9 rounded-3xl bg-[#101422] border-2 border-[#0071e3] shadow-2xl shadow-[#0071e3]/20 text-center space-y-6 animate-in fade-in duration-300">
+                <div className="space-y-2">
+                  <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-[#0071e3]/15 border border-[#0071e3]/40 text-[#38bdf8] text-xs font-mono font-bold">
+                    <AlertTriangle className="w-4 h-4 text-amber-400" />
+                    <span>DIAGNÓSTICO ORIENTATIVO PRELIMINAR</span>
+                  </div>
+                  <h3 className="text-2xl sm:text-3xl font-black text-white">
+                    {weakPointsCount >= 3 ? 'Riesgo Alto de Exposición:' : 'Riesgo Moderado:'}{' '}
+                    <span className="text-[#38bdf8]">{weakPointsCount} de 5 puntos débiles detectados</span>
+                  </h3>
+                  <p className="text-xs sm:text-sm text-neutral-300 leading-relaxed max-w-xl mx-auto">
+                    Tu sitio presenta brechas de configuración que facilitan ataques automatizados y ponen en riesgo tus pedidos o datos.
+                  </p>
+                </div>
 
-          {/* Resultado de la Autoevaluación */}
-          {quizResult && (
-            <div className={`p-6 rounded-2xl border text-center max-w-2xl mx-auto space-y-4 ${quizResult.bg}`}>
-              <div className="space-y-1">
-                <span className="text-xs font-mono uppercase tracking-wider text-neutral-400">Resultado Orientativo Preliminar:</span>
-                <div className={`text-4xl font-black font-mono ${quizResult.color}`}>{quizResult.grade}</div>
-                <p className="text-sm font-bold text-white">{quizResult.label}</p>
-                <p className="text-xs text-neutral-300">
-                  Respondiste {noOrNoseCount} punto(s) en No o No sé. Esto es una estimación orientativa basada en tus respuestas.
-                </p>
+                {/* Chips de puntos débiles identificados */}
+                <div className="flex flex-wrap items-center justify-center gap-2 max-w-lg mx-auto">
+                  {failedItems.map((item, idx) => (
+                    <span key={idx} className="px-3 py-1 rounded-lg bg-rose-500/15 border border-rose-500/30 text-rose-300 text-xs font-medium">
+                      ✗ {item}
+                    </span>
+                  ))}
+                </div>
+
+                <div className="pt-2 flex flex-col sm:flex-row items-center justify-center gap-3">
+                  <a
+                    href={getQuizWhatsAppUrl()}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="w-full sm:w-auto inline-flex items-center justify-center gap-2.5 px-8 py-4 rounded-2xl bg-[#0071e3] hover:bg-[#0077ed] text-white font-extrabold text-sm shadow-xl shadow-[#0071e3]/30 transition-all active:scale-95 cursor-pointer"
+                  >
+                    <MessageSquare className="w-4 h-4" />
+                    <span>Auditar mi web por S/ 65 (~$19 USD)</span>
+                  </a>
+
+                  <Link
+                    href="/defensati"
+                    className="w-full sm:w-auto inline-flex items-center justify-center gap-2 px-6 py-4 rounded-2xl bg-white/5 hover:bg-white/10 border border-white/10 text-white font-semibold text-xs transition-all"
+                  >
+                    <span>O prueba el escáner gratuito en vivo →</span>
+                  </Link>
+                </div>
               </div>
+            ) : answeredCount === 6 ? (
+              /* CASO 3: TODO SÍ (AVISO ORIENTATIVO LEGAL SIN AFIRMAR QUE ES 100% INVIOLABLE) */
+              <div className="p-7 sm:p-9 rounded-3xl bg-emerald-950/20 border border-emerald-500/40 text-center space-y-5 animate-in fade-in duration-300">
+                <div className="inline-flex items-center gap-2 px-3.5 py-1 rounded-full bg-emerald-500/20 text-emerald-300 text-xs font-mono font-bold">
+                  <CheckCircle2 className="w-4 h-4 text-emerald-400" />
+                  <span>ESTADO PRELIMINAR FAVORABLE</span>
+                </div>
+                <div className="space-y-2">
+                  <h3 className="text-2xl sm:text-3xl font-black text-white">
+                    No detectamos riesgos evidentes en estas áreas evaluadas
+                  </h3>
+                  <p className="text-xs sm:text-sm text-neutral-300 leading-relaxed max-w-xl mx-auto">
+                    Has respondido favorablemente a las 5 preguntas preventivas. No obstante, recuerda que esta autoevaluación es orientativa: 
+                    una auditoría técnica externa confirma el estado real de puertos, cabeceras de seguridad y cifrado profundo de tu servidor.
+                  </p>
+                </div>
 
-              <a
-                href={getQuizWhatsAppUrl()}
-                target="_blank"
-                rel="noopener noreferrer"
-                className="inline-flex items-center gap-2 px-6 py-3 rounded-xl bg-[#25D366] hover:bg-[#20ba59] text-white text-xs font-bold shadow-lg shadow-emerald-500/30 transition-all cursor-pointer"
-              >
-                <MessageSquare className="w-4 h-4" />
-                <span>Consultar por WhatsApp con este resultado</span>
-              </a>
-            </div>
-          )}
+                <div className="pt-2 flex flex-col sm:flex-row items-center justify-center gap-3">
+                  <a
+                    href={getQuizWhatsAppUrl()}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="w-full sm:w-auto inline-flex items-center justify-center gap-2 px-8 py-3.5 rounded-2xl bg-white/10 hover:bg-white/15 border border-white/15 text-white font-bold text-xs transition-all cursor-pointer"
+                  >
+                    <span>Confirmar con Auditoría Técnica — S/ 65</span>
+                  </a>
+
+                  <Link
+                    href="/defensati"
+                    className="w-full sm:w-auto inline-flex items-center justify-center gap-2 px-6 py-3.5 rounded-2xl bg-emerald-500/15 hover:bg-emerald-500/25 border border-emerald-500/30 text-emerald-300 text-xs font-semibold transition-all"
+                  >
+                    <span>Comprobar con escáner en vivo (/defensati) →</span>
+                  </Link>
+                </div>
+              </div>
+            ) : (
+              <div className="p-6 rounded-2xl bg-white/[0.03] border border-white/10 text-center text-xs text-neutral-400">
+                Responde las {6 - answeredCount} pregunta(s) restante(s) para calcular el nivel de riesgo de tu web.
+              </div>
+            )}
+          </div>
         </section>
 
         {/* 6. PRECIOS Y PLANES (DECISIONES DEL DUEÑO: SOLES PRINCIPAL, USD REFERENCIA) */}
