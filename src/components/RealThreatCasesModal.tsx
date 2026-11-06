@@ -25,7 +25,7 @@ export default function RealThreatCasesModal() {
   const [isOpen, setIsOpen] = useState(false);
   const [activeRegion, setActiveRegion] = useState<string>('LIMA');
 
-  // Regiones del Perú con coordenadas calibradas exactamente sobre el mapa cartográfico oficial (escala 0-1000)
+  // Regiones del Perú con coordenadas exactas sobre el mapa cartográfico oficial (escala 0-1000)
   const regions = [
     { 
       code: 'LIMA', 
@@ -54,7 +54,7 @@ export default function RealThreatCasesModal() {
       unshieldedRate: '75%', 
       fraudGrowth: '+41%', 
       topThreat: 'Retención de fondos y falsos espejos en portales turísticos',
-      svgCoords: { cx: 680, cy: 780, r: 26 },
+      svgCoords: { cx: 660, cy: 740, r: 26 },
       departments: 'Arequipa, Cusco, Tacna, Puno, Moquegua, Ica'
     },
     { 
@@ -258,9 +258,6 @@ export default function RealThreatCasesModal() {
                       />
                     </g>
 
-                    {/* Estrella y rótulo de Lima (Capital) */}
-                    <circle cx="430" cy="620" r="38" fill="#0071e3" opacity="0.25" className="animate-ping" />
-
                     {/* Nodos interactivos de macro-regiones */}
                     {regions.map((reg) => {
                       const isSelected = activeRegion === reg.code;
@@ -274,9 +271,9 @@ export default function RealThreatCasesModal() {
                             <circle
                               cx={reg.svgCoords.cx}
                               cy={reg.svgCoords.cy}
-                              r={reg.svgCoords.r + 14}
+                              r={reg.svgCoords.r + 10}
                               fill="#0071e3"
-                              opacity="0.4"
+                              opacity="0.35"
                               className="animate-ping"
                             />
                           )}
