@@ -3,16 +3,36 @@ import { scanSsl } from '@/lib/scanner/sslScanner';
 import { scanHeaders, HeaderCheckItem } from '@/lib/scanner/headerScanner';
 import { calculateSecurityScore } from '@/lib/scanner/scoreEngine';
 import { generateRemediation, RemediationItem } from '@/lib/ai/remediation';
-import { saveReport } from '@/lib/storage/reportStore';
+import { saveReport, AuditReportRecord } from '@/lib/storage/reportStore';
 import { scanPerimetralPorts } from '@/lib/scanner/portScanner';
 import { lookupServerLocation } from '@/lib/scanner/geoScanner';
 import { v4 as uuidv4 } from 'uuid';
 import { isPrivateOrLocalHost, verifyDnsResolution } from '@/lib/security/ssrfValidator';
 
+// Caché en Memoria de Escaneos por Dominio (TTL de 2 horas para soportar picos masivos)
+const DOMAIN_SCAN_CACHE_TTL_MS = 2 * 60 * 60 * 1000; // 2 horas
+const MAX_CACHED_SCANS = 500;
+
+interface CachedScanEntry {
+  report: AuditReportRecord;
+  cachedAt: number;
+  expiresAt: number;
+}
+
+const globalForScanCache = globalThis as unknown as {
+  __domainScanCache?: Map<string, CachedScanEntry>;
+};
+
+if (!globalForScanCache.__domainScanCache) {
+  globalForScanCache.__domainScanCache = new Map<string, CachedScanEntry>();
+}
+
+const domainScanCache = globalForScanCache.__domainScanCache;
+
 export async function POST(req: Request) {
   const startTime = Date.now();
   try {
-    const { url } = await req.json();
+    const { url, force } = await req.json();
 
     if (!url) {
       return NextResponse.json(
@@ -54,6 +74,40 @@ export async function POST(req: Request) {
         { error: 'Acceso denegado: Auditoría bloqueada hacia host privado, loopback o metadatos cloud.' },
         { status: 400 }
       );
+    }
+
+    // 2.0 Caché Inteligente por Dominio (Zero-Downtime y $0 Costo en Picos de Tráfico)
+    const cacheKey = target.origin.toLowerCase();
+    if (!force && domainScanCache.has(cacheKey)) {
+      const cached = domainScanCache.get(cacheKey)!;
+      if (Date.now() < cached.expiresAt) {
+        const freshAuditId = uuidv4();
+        const cachedReport: AuditReportRecord = {
+          ...cached.report,
+          id: freshAuditId,
+          telemetry: {
+            durationMs: Date.now() - startTime,
+            aiModel: cached.report.telemetry?.aiModel || 'gemini-1.5-flash-cache',
+            targetResolvedIp: cached.report.telemetry?.targetResolvedIp,
+            engineVersion: '1.2.0-cloud-cache',
+          },
+        };
+
+        // Guardar para que la ruta /report/[id] resuelva con éxito inmediato
+        try {
+          saveReport(freshAuditId, cachedReport);
+        } catch {
+          // Ignorar fallback
+        }
+
+        return NextResponse.json({
+          id: freshAuditId,
+          report: cachedReport,
+          cached: true,
+        });
+      } else {
+        domainScanCache.delete(cacheKey);
+      }
     }
 
     // 2.1. Resolución DNS dual (IPv4 + IPv6) para neutralizar DNS Rebinding
@@ -184,6 +238,21 @@ export async function POST(req: Request) {
       saveReport(fullReport.id, fullReport);
     } catch {
       // Ignorar fallback
+    }
+
+    // Almacenar en caché de dominio para amortiguar picos de tráfico (TTL 2 horas)
+    try {
+      if (domainScanCache.size >= MAX_CACHED_SCANS) {
+        const oldestKey = domainScanCache.keys().next().value;
+        if (oldestKey) domainScanCache.delete(oldestKey);
+      }
+      domainScanCache.set(cacheKey, {
+        report: fullReport,
+        cachedAt: Date.now(),
+        expiresAt: Date.now() + DOMAIN_SCAN_CACHE_TTL_MS,
+      });
+    } catch {
+      // Fallback silencioso
     }
 
     return NextResponse.json({

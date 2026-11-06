@@ -235,13 +235,26 @@ export async function POST(req: NextRequest) {
         });
 
         reply = response.text || 'Hola, soy DEFENSA IT AI. ¿En qué puedo orientarte sobre la seguridad de tu web?';
-      } catch (geminiError) {
+      } catch (geminiError: unknown) {
         console.warn('Error en Gemini, conmutando a motor seguro de contingencia:', geminiError);
+        const errStr = String(geminiError);
+        const isQuotaOrRateLimit =
+          errStr.includes('429') ||
+          errStr.includes('RESOURCE_EXHAUSTED') ||
+          errStr.includes('quota') ||
+          errStr.includes('rate limit');
+
+        if (isQuotaOrRateLimit) {
+          reply = `Hola. En este momento nuestros servidores están atendiendo una alta demanda de consultas perimetrales. Para brindarte una cotización o asesoría técnica inmediata sin esperas, conéctate directamente con Martín por WhatsApp.`;
+        } else {
+          reply = `Hola. En DEFENSA TI auditamos y blindamos tu sitio web para evitar clonaciones de pasarelas (Yape/Niubiz) o alertas de "Sitio no seguro". Puedes escanear tu web gratis, acceder al Dictamen Técnico gratuito por lanzamiento o tocar el botón de WhatsApp para coordinar directamente con Martín.`;
+        }
+        shouldSuggestWhatsApp = true;
       }
     }
 
     if (!reply) {
-      reply = `Hola. En DEFENSA TI auditamos y blindamos tu sitio web para evitar clonaciones de pasarelas (Yape/Niubiz) o alertas de "Sitio no seguro". Puedes revisar nuestros planes desde S/. 65 o tocar el botón de WhatsApp para coordinar directamente con Martín.`;
+      reply = `Hola. En DEFENSA TI auditamos y blindamos tu sitio web para evitar clonaciones de pasarelas (Yape/Niubiz) o alertas de "Sitio no seguro". Puedes escanear tu web gratis, acceder al Dictamen Técnico gratuito por lanzamiento o tocar el botón de WhatsApp para coordinar directamente con Martín.`;
       shouldSuggestWhatsApp = true;
     }
 
