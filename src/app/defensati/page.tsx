@@ -24,6 +24,7 @@ import HeaderWhatsAppButton from '@/components/HeaderWhatsAppButton';
 import CompetitorComparisonSection from '@/components/CompetitorComparisonSection';
 import VerifiedBadgeWidget from '@/components/VerifiedBadgeWidget';
 import SslAlertWidget from '@/components/SslAlertWidget';
+import NeuralScanTakeover from '@/components/NeuralScanTakeover';
 import { useI18n } from '@/lib/i18n/I18nContext';
 import { AuditReportRecord } from '@/lib/storage/reportStore';
 import {
@@ -62,11 +63,15 @@ export default function HomePage() {
     setAuditId(null);
 
     try {
-      const res = await fetch('/api/scan', {
+      const scanPromise = fetch('/api/scan', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ url: finalUrl }),
       });
+
+      // Garantizar al menos 1400ms para que la animación de la red neuronal sea visible sin demorar al usuario
+      const minDelayPromise = new Promise((resolve) => setTimeout(resolve, 1400));
+      const [res] = await Promise.all([scanPromise, minDelayPromise]);
 
       const data = await res.json();
 
@@ -287,6 +292,9 @@ export default function HomePage() {
             {/* Comparador Cara a Cara contra tu Competidor */}
             <CompetitorComparisonSection />
 
+            {/* Apropiación Visual de Red Neuronal durante el Escaneo (Rápido, dinámico y de alta retención) */}
+            {loading && <NeuralScanTakeover targetUrl={url || 'sitio web'} />}
+
             {error && (
               <div className="p-4 rounded-2xl bg-rose-500/10 border border-rose-500/20 text-rose-400 text-xs flex items-center justify-center gap-2">
                 <AlertTriangle className="w-4 h-4 shrink-0" />
@@ -296,7 +304,7 @@ export default function HomePage() {
           </section>
 
           {/* Resumen Inicial: Qué es la app y qué puedes hacer (Super visual, espacioso y fácil de entender) */}
-          {!report && <HowItWorksGuide />}
+          {!report && !loading && <HowItWorksGuide />}
 
           {/* Resultados de Auditoría */}
           {report && (
