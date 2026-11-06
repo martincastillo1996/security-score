@@ -74,8 +74,11 @@ export default function NeuronalGravityHubHome() {
             <span>Desarrollo de Software & Ciberdefensa</span>
           </div>
 
-          <h1 className="text-3xl sm:text-5xl font-extrabold text-white tracking-tight leading-tight">
-            Soluciones tecnológicas listas para usar.
+          <h1 className="text-4xl sm:text-6xl md:text-7xl font-semibold tracking-[-0.035em] text-white leading-[1.08] max-w-4xl mx-auto">
+            Soluciones tecnológicas listas
+            <span className="block text-transparent bg-clip-text bg-gradient-to-b from-[#ffffff] via-[#e5e7eb] to-[#9ca3af]">
+              para usar.
+            </span>
           </h1>
 
           <p className="text-base sm:text-lg text-neutral-300 leading-relaxed font-normal">
