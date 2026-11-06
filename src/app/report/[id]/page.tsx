@@ -167,7 +167,7 @@ export default function ReportPage({ params }: { params: Promise<{ id: string }>
           </div>
         </header>
 
-        <main className="max-w-5xl mx-auto px-6 py-12 space-y-8 flex-1 w-full">
+        <main className="max-w-5xl mx-auto px-4 sm:px-6 py-10 sm:py-12 space-y-6 sm:space-y-8 flex-1 w-full overflow-x-hidden">
           {/* Barra de Acciones del Reporte */}
           <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 p-5 rounded-2xl bg-white/[0.03] border border-white/10 backdrop-blur-xl">
             <div>

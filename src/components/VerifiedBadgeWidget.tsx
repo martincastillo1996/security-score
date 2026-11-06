@@ -57,14 +57,14 @@ export default function VerifiedBadgeWidget({ domain, auditId, grade, score = 0 
       </p>
 
       {/* Previsualización del Sello */}
-      <div className="p-4 rounded-xl bg-black/60 border border-white/10 flex flex-col sm:flex-row items-center justify-between gap-4">
-        <div>
-          <span className="text-[11px] font-mono text-slate-400 block mb-2">Vista previa interactiva en tu sitio:</span>
+      <div className="p-3.5 sm:p-4 rounded-xl bg-black/60 border border-white/10 flex flex-col sm:flex-row items-center justify-between gap-4">
+        <div className="w-full sm:w-auto text-center sm:text-left">
+          <span className="text-[11px] font-mono text-slate-400 block mb-2">Vista previa en tu sitio:</span>
           {/* eslint-disable-next-line @next/next/no-img-element */}
           <img
             src={`/api/badge/${encodeURIComponent(cleanDomain)}`}
             alt="Sello de Seguridad DEFENSA TI"
-            className="rounded-lg shadow-md max-w-full"
+            className="rounded-lg shadow-md max-w-full mx-auto sm:mx-0"
             width={280}
             height={42}
           />
@@ -72,10 +72,10 @@ export default function VerifiedBadgeWidget({ domain, auditId, grade, score = 0 
 
         <button
           onClick={copyCode}
-          className="w-full sm:w-auto px-4 py-2.5 rounded-xl bg-[#0071e3] hover:bg-[#0077ed] text-white text-xs font-semibold flex items-center justify-center gap-2 transition-all cursor-pointer shadow-lg shadow-[#0071e3]/25 active:scale-95"
+          className="w-full sm:w-auto px-4 py-3 rounded-xl bg-[#0071e3] hover:bg-[#0077ed] text-white text-xs font-semibold flex items-center justify-center gap-2 transition-all cursor-pointer shadow-lg shadow-[#0071e3]/25 active:scale-95 text-center"
         >
-          {copied ? <Check className="w-4 h-4 text-emerald-300" /> : <Copy className="w-4 h-4" />}
-          {copied ? '¡Código Copiado al Portapapeles!' : 'Copiar Código HTML para tu Web'}
+          {copied ? <Check className="w-4 h-4 text-emerald-300 shrink-0" /> : <Copy className="w-4 h-4 shrink-0" />}
+          <span className="whitespace-normal leading-tight">{copied ? '¡Código Copiado!' : 'Copiar Código HTML'}</span>
         </button>
       </div>
     </div>

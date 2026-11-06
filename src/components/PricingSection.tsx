@@ -104,7 +104,7 @@ export default function PricingSection({ targetUrl, score, grade }: Props) {
         {plans.map((p, idx) => (
           <div
             key={idx}
-            className={`relative rounded-[28px] p-6 sm:p-7 flex flex-col justify-between transition-all ${
+            className={`relative rounded-[28px] p-5 sm:p-7 flex flex-col justify-between transition-all ${
               p.highlight
                 ? 'bg-gradient-to-b from-blue-600/15 via-[#0c0d10] to-[#0c0d10] border-2 border-[#0071e3] shadow-[0_20px_50px_rgba(0,113,227,0.3)] scale-[1.02]'
                 : 'bg-[#0c0d10] border border-white/10 hover:border-white/20 shadow-[0_20px_50px_rgba(0,0,0,0.8)]'

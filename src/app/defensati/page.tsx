@@ -198,7 +198,7 @@ export default function HomePage() {
         </header>
 
         {/* Contenido Principal */}
-        <main className="max-w-5xl mx-auto px-6 py-16 sm:py-20 space-y-16 flex-1 w-full">
+        <main className="max-w-5xl mx-auto px-4 sm:px-6 py-12 sm:py-20 space-y-12 sm:space-y-16 flex-1 w-full overflow-x-hidden">
           
           {/* Hero */}
           <section className="text-center space-y-6 max-w-2xl mx-auto pt-2">
@@ -207,14 +207,14 @@ export default function HomePage() {
               {t.hero.badge}
             </div>
             
-            <h1 className="text-4xl sm:text-6xl font-semibold tracking-[-0.03em] text-white leading-[1.08]">
+            <h1 className="text-3xl sm:text-6xl font-semibold tracking-[-0.03em] text-white leading-[1.12] sm:leading-[1.08]">
               {t.hero.title1}
               <span className="block text-transparent bg-clip-text bg-linear-to-b from-[#ffffff] via-[#d1d5db] to-[#6b7280]">
                 {t.hero.title2}
               </span>
             </h1>
             
-            <p className="text-base sm:text-lg text-slate-100 font-normal leading-relaxed max-w-xl mx-auto">
+            <p className="text-sm sm:text-lg text-slate-100 font-normal leading-relaxed max-w-xl mx-auto">
               {t.hero.desc}
             </p>
 
@@ -236,21 +236,22 @@ export default function HomePage() {
                   placeholder={t.hero.placeholder}
                   value={url}
                   onChange={(e) => setUrl(e.target.value)}
-                  className="w-full bg-transparent border-none py-2 text-sm text-white placeholder-neutral-500 focus:outline-none font-normal"
+                  className="w-full bg-transparent border-none py-2 text-[16px] sm:text-sm text-white placeholder-neutral-500 focus:outline-none font-normal"
                 />
                 <button
                   type="submit"
                   disabled={loading}
-                  className="px-5 py-2.5 bg-[#0071e3] hover:bg-[#0077ed] active:scale-[0.98] disabled:bg-neutral-800 disabled:text-neutral-500 font-medium text-xs rounded-xl transition-all flex items-center justify-center gap-1.5 text-white shadow-sm shrink-0 cursor-pointer"
+                  className="px-4 sm:px-5 py-2.5 bg-[#0071e3] hover:bg-[#0077ed] active:scale-[0.98] disabled:bg-neutral-800 disabled:text-neutral-500 font-medium text-xs rounded-xl transition-all flex items-center justify-center gap-1.5 text-white shadow-sm shrink-0 cursor-pointer"
                 >
                   {loading ? (
                     <>
                       <span className="w-3.5 h-3.5 border-2 border-white/30 border-t-white rounded-full animate-spin" />
-                      {t.hero.btnAnalyzing}
+                      <span className="hidden sm:inline">{t.hero.btnAnalyzing}</span>
+                      <span className="sm:hidden">Auditando...</span>
                     </>
                   ) : (
                     <>
-                      {t.hero.btnAudit}
+                      <span>{t.hero.btnAudit}</span>
                       <ArrowRight className="w-3.5 h-3.5" />
                     </>
                   )}
