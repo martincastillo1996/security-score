@@ -45,7 +45,7 @@ export default function TerminosPage() {
             <span>1. Identificación del Prestador</span>
           </h2>
           <p>
-            El presente contrato de prestación de servicios regula el acceso y contratación de las soluciones técnicas de auditoría y blindaje web provistas bajo la marca comercial <strong>DEFENSA TI</strong> (proyecto tecnológico de <strong>Neuronal Gravity</strong>), de titularidad de <strong>Karol Martin Castillo Rojas</strong>, con RUC <strong>10704877850</strong>, con domicilio en la ciudad de Lima, República del Perú, y canales de contacto oficial: correo electrónico <strong>martincastillorojas@gmail.com</strong> y WhatsApp <strong>+1 (785) 643-3991</strong>.
+            El presente contrato de prestación de servicios regula el acceso y contratación de las soluciones técnicas de auditoría y blindaje web provistas bajo la marca comercial <strong>DEFENSA TI</strong> (proyecto tecnológico de <strong>Neuronal Gravity</strong>), de titularidad de <strong>Karol Martin Castillo Rojas</strong>, con RUC <strong>10704877850</strong>, con domicilio en la ciudad de Lima, República del Perú, y canales de contacto oficial: correo electrónico <strong>castillo.karol96@gmail.com</strong> y WhatsApp <strong>+1 (785) 643-3991</strong>.
           </p>
         </section>
 
@@ -209,7 +209,7 @@ export default function TerminosPage() {
               <span className="text-neutral-400 text-[11px]">Conforme a la normativa peruana, todo reclamo será atendido en un plazo máximo de quince (15) días hábiles.</span>
             </div>
             <a
-              href="mailto:martincastillorojas@gmail.com?subject=Reclamo%20-%20Libro%20de%20Reclamaciones%20DEFENSA%20TI&body=Estimado%20Martin%20Castillo,%20deseo%20asentar%20un%20reclamo/queja%20formal%20sobre%20el%20servicio%20recibido:%0A%0A-%20Nombre%20o%20Raz%C3%B3n%20Social:%0A-%20DNI/RUC:%0A-%20Tel%C3%A9fono%20/%20WhatsApp:%0A-%20Dominio%20Web%20Auditado:%0A-%20Detalle%20del%20Reclamo:"
+              href="mailto:castillo.karol96@gmail.com?subject=Reclamo%20-%20Libro%20de%20Reclamaciones%20DEFENSA%20TI&body=Estimado%20Martin%20Castillo,%20deseo%20asentar%20un%20reclamo/queja%20formal%20sobre%20el%20servicio%20recibido:%0A%0A-%20Nombre%20o%20Raz%C3%B3n%20Social:%0A-%20DNI/RUC:%0A-%20Tel%C3%A9fono%20/%20WhatsApp:%0A-%20Dominio%20Web%20Auditado:%0A-%20Detalle%20del%20Reclamo:"
               className="px-4 py-2 rounded-xl bg-white/10 hover:bg-white/20 border border-white/20 text-white font-bold transition-all shrink-0"
             >
               Registrar Reclamo
