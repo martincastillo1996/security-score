@@ -104,7 +104,7 @@ export default function RemediationList({ items }: Props) {
           </button>
         </div>
         <p className="text-xs text-neutral-300 leading-relaxed">
-          En vez de editar archivos delicados de Linux o Apache, puedes añadir Cloudflare gratis a tu dominio y en <strong>Rules &gt; Transform Rules &gt; Modify Response Header</strong> pegar estos valores para subir a <strong>Grado A</strong> en 2 minutos:
+          En vez de editar archivos delicados de Linux o Apache, puedes añadir Cloudflare gratis a tu dominio y en <strong>Rules &gt; Transform Rules &gt; Modify Response Header</strong> pegar estos valores para subir a <strong>Grado A+</strong> en 2 minutos:
         </p>
         <pre className="p-3 rounded-xl bg-black/60 border border-white/10 text-[11px] font-mono text-amber-300 overflow-x-auto whitespace-pre">
           {masterCloudflareConfig}

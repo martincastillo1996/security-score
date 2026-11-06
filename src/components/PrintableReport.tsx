@@ -27,7 +27,7 @@ export default function PrintableReport({ report, auditId }: Props) {
   const isGitPlatform =
     report.url?.includes('github.com') || report.url?.includes('gitlab.com');
 
-  // DetecciÃ³n estricta de SSL
+  // Detección estricta de SSL
   const hasValidSsl =
     Boolean(report.ssl?.valid) &&
     report.ssl?.protocol !== 'Sin HTTPS' &&
@@ -94,7 +94,7 @@ export default function PrintableReport({ report, auditId }: Props) {
           <div>
             <span className="text-neutral-500 block">Estado:</span>
             <span className={`font-semibold ${hasValidSsl ? 'text-neutral-900' : 'text-rose-600 font-bold'}`}>
-              {hasValidSsl ? 'Certificado VÃ¡lido' : 'Sin HTTPS / InvÃ¡lido'}
+              {hasValidSsl ? 'Certificado Válido' : 'Sin HTTPS / Inválido'}
             </span>
           </div>
           <div>
@@ -106,7 +106,7 @@ export default function PrintableReport({ report, auditId }: Props) {
           <div>
             <span className="text-neutral-500 block">Vigencia Restante:</span>
             <span className="font-semibold text-neutral-900">
-              {hasValidSsl ? `${report.ssl?.daysRemaining ?? 'N/A'} dÃ­as` : '0 dÃ­as'}
+              {hasValidSsl ? `${report.ssl?.daysRemaining ?? 'N/A'} días` : '0 días'}
             </span>
           </div>
         </div>
@@ -115,7 +115,7 @@ export default function PrintableReport({ report, auditId }: Props) {
       {/* 2. Sockets Perimetrales */}
       <div className="mb-6">
         <h2 className="text-xs font-bold uppercase tracking-wider border-b border-neutral-300 pb-1 mb-2 text-neutral-900">
-          2. Superficie de ExposiciÃ³n de Red (Zero-Downtime TCP Sockets)
+          2. Superficie de Exposición de Red (Zero-Downtime TCP Sockets)
         </h2>
         <div className="grid grid-cols-5 gap-2">
           {(report.ports || []).map((p) => {
@@ -166,7 +166,7 @@ export default function PrintableReport({ report, auditId }: Props) {
               <th className="py-1">Cabecera</th>
               <th className="py-1">Estado</th>
               <th className="py-1">Severidad</th>
-              <th className="py-1">DescripciÃ³n Breve</th>
+              <th className="py-1">Descripción Breve</th>
             </tr>
           </thead>
           <tbody className="divide-y divide-neutral-200 font-mono">
@@ -175,12 +175,12 @@ export default function PrintableReport({ report, auditId }: Props) {
                 <td className="py-1.5 font-bold text-neutral-900">{h.name || h.header}</td>
                 <td className="py-1.5">
                   <span className="font-semibold text-neutral-900">
-                    {h.status === 'pass' || h.present ? 'â OK' : 'â FALTA'}
+                    {h.status === 'pass' || h.present ? '✓ OK' : '✗ FALTA'}
                   </span>
                 </td>
                 <td className="py-1.5 text-neutral-600 uppercase">{h.severity || 'MEDIA'}</td>
                 <td className="py-1.5 text-neutral-600 font-sans text-[10px]">
-                  {h.description || 'ValidaciÃ³n perimetral de cabecera conforme a especificaciÃ³n.'}
+                  {h.description || 'Validación perimetral de cabecera conforme a especificación.'}
                 </td>
               </tr>
             ))}
@@ -190,13 +190,13 @@ export default function PrintableReport({ report, auditId }: Props) {
 
       {/* Descargo Legal de Responsabilidad Expresa */}
       <div className="mt-4 p-2.5 rounded border border-neutral-300 bg-neutral-50 text-[8.5px] text-neutral-600 leading-relaxed font-sans">
-        <strong>Aviso Legal y Descargo de Responsabilidad:</strong> Este documento contiene un diagnÃ³stico automatizado no intrusivo generado con base en directivas pÃºblicas OWASP y anÃ¡lisis de cabeceras de transporte. Este dictamen se expide a tÃ­tulo exclusivo de <strong>asesorÃ­a tÃ©cnica y recomendaciones de buenas prÃ¡cticas perimetrales</strong>. No constituye una certificaciÃ³n de infalibilidad ni auditorÃ­a de cÃ³digo interno o credenciales. DEFENSA TI y sus consultores quedan exentos de toda responsabilidad derivada de la implementaciÃ³n o incidentes de seguridad externos.
+        <strong>Aviso Legal y Descargo de Responsabilidad:</strong> Este documento contiene un diagnóstico automatizado no intrusivo generado con base en directivas públicas OWASP y análisis de cabeceras de transporte. Este dictamen se expide a título exclusivo de <strong>asesoría técnica y recomendaciones de buenas prácticas perimetrales</strong>. No constituye una certificación de infalibilidad ni auditoría de código interno o credenciales. DEFENSA TI y sus consultores quedan exentos de toda responsabilidad derivada de la implementación o incidentes de seguridad externos.
       </div>
 
-      {/* Pie de PÃ¡gina */}
+      {/* Pie de Página */}
       <div className="mt-3 border-t border-neutral-300 pt-2 flex justify-between items-center text-[9px] font-mono text-neutral-500">
-        <span>DEFENSA TI &bull; Reporte emitido automÃ¡ticamente</span>
-        <span>AsesorÃ­a de Buenas PrÃ¡cticas Perú &bull; PÃ¡gina 1 de 1</span>
+        <span>DEFENSA TI &bull; Reporte emitido automáticamente</span>
+        <span>Asesoría de Buenas Prácticas Latam &bull; Página 1 de 1</span>
       </div>
     </div>
   );

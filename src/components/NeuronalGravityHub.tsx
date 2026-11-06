@@ -15,18 +15,18 @@ export default function NeuronalGravityHub() {
 
   const labels = {
     es: {
-      badge: 'Ecosistema TecnolÃ³gico & Open Source',
+      badge: 'Ecosistema Tecnológico & Open Source',
       title: 'Desarrollado bajo el ecosistema NeuronalGravity.com',
-      desc: 'NeuronalGravity es el laboratorio matriz de soluciones tecnolÃ³gicas avanzadas, herramientas de seguridad perimetral, inteligencia artificial y proyectos de cÃ³digo abierto diseÃ±ados para acelerar empresas en LatinoamÃ©rica y el mundo.',
+      desc: 'NeuronalGravity es el laboratorio matriz de soluciones tecnológicas avanzadas, herramientas de seguridad perimetral, inteligencia artificial y proyectos de código abierto diseñados para acelerar empresas en Latinoamérica y el mundo.',
       mainCta: 'Visitar NeuronalGravity.com',
       projectsTitle: 'Proyectos & Soluciones en el Ecosistema:',
       project1: 'DEFENSA TI',
-      project1Desc: 'Motor de auditorÃ­a perimetral no intrusiva y blindaje para e-commerce en Perú.',
+      project1Desc: 'Motor de auditoría perimetral no intrusiva y blindaje para e-commerce en Latam.',
       project2: 'Open Source Lab',
-      project2Desc: 'Herramientas y librerÃ­as pÃºblicas para desarrolladores y sysadmins.',
+      project2Desc: 'Herramientas y librerías públicas para desarrolladores y sysadmins.',
       project3: 'AI Applied Solutions',
       project3Desc: 'Automatizaciones e inteligencia artificial aplicada a procesos de negocio reales.',
-      labBadge: 'Matriz TecnolÃ³gica',
+      labBadge: 'Matriz Tecnológica',
     },
     en: {
       badge: 'Technology Ecosystem & Open Source',
@@ -35,7 +35,7 @@ export default function NeuronalGravityHub() {
       mainCta: 'Visit NeuronalGravity.com',
       projectsTitle: 'Ecosystem Projects & Solutions:',
       project1: 'DEFENSA TI',
-      project1Desc: 'Non-intrusive perimeter audit engine and e-commerce hardening in Perú.',
+      project1Desc: 'Non-intrusive perimeter audit engine and e-commerce hardening in Latam.',
       project2: 'Open Source Lab',
       project2Desc: 'Public tools and libraries for developers and system administrators.',
       project3: 'AI Applied Solutions',
@@ -43,32 +43,32 @@ export default function NeuronalGravityHub() {
       labBadge: 'Parent Tech Lab',
     },
     pt: {
-      badge: 'Ecossistema TecnolÃ³gico & Open Source',
+      badge: 'Ecossistema Tecnológico & Open Source',
       title: 'Desenvolvido sob o ecossistema NeuronalGravity.com',
-      desc: 'NeuronalGravity Ã© o laboratÃ³rio matriz de soluÃ§Ãµes tecnolÃ³gicas avanÃ§adas, seguranÃ§a perimetral, inteligÃªncia artificial e projetos de cÃ³digo aberto para empresas na AmÃ©rica Latina e no mundo.',
+      desc: 'NeuronalGravity é o laboratório matriz de soluções tecnológicas avançadas, segurança perimetral, inteligência artificial e projetos de código aberto para empresas na América Latina e no mundo.',
       mainCta: 'Acessar NeuronalGravity.com',
-      projectsTitle: 'Projetos & SoluÃ§Ãµes no Ecossistema:',
+      projectsTitle: 'Projetos & Soluções no Ecossistema:',
       project1: 'DEFENSA TI',
-      project1Desc: 'Motor de auditoria perimetral nÃ£o intrusiva e blindagem para e-commerce na AmÃ©rica Latina.',
+      project1Desc: 'Motor de auditoria perimetral não intrusiva e blindagem para e-commerce na América Latina.',
       project2: 'Open Source Lab',
-      project2Desc: 'Ferramentas e bibliotecas pÃºblicas para desenvolvedores e administradores.',
+      project2Desc: 'Ferramentas e bibliotecas públicas para desenvolvedores e administradores.',
       project3: 'AI Applied Solutions',
-      project3Desc: 'AutomaÃ§Ãµes e inteligÃªncia artificial aplicada a processos reais de negÃ³cios.',
-      labBadge: 'Matriz TecnolÃ³gica',
+      project3Desc: 'Automações e inteligência artificial aplicada a processos reais de negócios.',
+      labBadge: 'Matriz Tecnológica',
     },
   }[language] || {
-    badge: 'Ecosistema TecnolÃ³gico & Open Source',
+    badge: 'Ecosistema Tecnológico & Open Source',
     title: 'Desarrollado bajo el ecosistema NeuronalGravity.com',
-    desc: 'NeuronalGravity es el laboratorio matriz de soluciones tecnolÃ³gicas avanzadas, herramientas de seguridad perimetral, inteligencia artificial y proyectos de cÃ³digo abierto.',
+    desc: 'NeuronalGravity es el laboratorio matriz de soluciones tecnológicas avanzadas, herramientas de seguridad perimetral, inteligencia artificial y proyectos de código abierto.',
     mainCta: 'Visitar NeuronalGravity.com',
-    projectsTitle: 'Proyectos & SoluÃ§Ãµes en el Ecosistema:',
+    projectsTitle: 'Proyectos & Soluções en el Ecosistema:',
     project1: 'DEFENSA TI',
-    project1Desc: 'Motor de auditorÃ­a perimetral no intrusiva y blindaje para e-commerce.',
+    project1Desc: 'Motor de auditoría perimetral no intrusiva y blindaje para e-commerce.',
     project2: 'Open Source Lab',
-    project2Desc: 'Herramientas y librerÃ­as pÃºblicas para desarrolladores.',
+    project2Desc: 'Herramientas y librerías públicas para desarrolladores.',
     project3: 'AI Applied Solutions',
     project3Desc: 'Automatizaciones e inteligencia artificial aplicada.',
-    labBadge: 'Matriz TecnolÃ³gica',
+    labBadge: 'Matriz Tecnológica',
   };
 
   return (
@@ -150,7 +150,7 @@ export default function NeuronalGravityHub() {
                   <Cpu className="w-4 h-4" />
                 </div>
                 <span className="text-[10px] font-mono text-sky-400 bg-sky-500/10 px-2 py-0.5 rounded border border-sky-500/20 font-bold">
-                  AutÃ³nomo
+                  Autónomo
                 </span>
               </div>
               <h4 className="text-sm font-bold text-white">{labels.project3}</h4>
