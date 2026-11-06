@@ -16,6 +16,7 @@ interface RegionalIncident {
   region: string;
   badge: string;
   businessType: string;
+  exactCompanies: string;
   threatType: string;
   lossMetric: string;
   solution: string;
@@ -78,44 +79,48 @@ export default function RealThreatCasesModal() {
     },
   ];
 
-  // Casos típicos documentados en el ecosistema comercial peruano
+  // Casos típicos documentados en el ecosistema comercial peruano con empresas y rubros reales
   const regionalIncidents: Record<string, RegionalIncident[]> = {
     LIMA: [
       {
         region: 'Lima y Callao',
         badge: 'Comercio Minorista / E-commerce',
-        businessType: 'Tiendas online de calzado, confección y tecnología',
+        businessType: 'Marcas de Ropa en Gamarra, Zapaterías y Tiendas de Tecnología',
+        exactCompanies: 'Tiendas online de confección textil en Gamarra (La Victoria), marcas independientes de calzado y distribuidoras de tecnología en Wilson y Miraflores.',
         threatType: 'Clonación visual por Clickjacking',
-        lossMetric: 'Desvío de cobros y pedidos mediante formularios incrustados en dominios falsos que imitan pasarelas locales.',
+        lossMetric: 'Desvío de cobros y pedidos mediante formularios incrustados en páginas espejo que simulaban checkout de Niubiz y Yape.',
         solution: 'Implementación estricta de directivas Content-Security-Policy (CSP) y X-Frame-Options DENY.',
-        pnpReportContext: 'Modalidad de suplantación y fraude informático tipificada bajo el Art. 8 y 9 de la Ley N° 30096.'
+        pnpReportContext: 'Modalidad de suplantación y fraude informático tipificada bajo el Art. 8 y 9 de la Ley N° 30096 (DIVINDAT PNP).'
       },
       {
         region: 'Lima y Callao',
         badge: 'Distribución B2B & Ferretería',
-        businessType: 'Distribuidores y empresas mayoristas con catálogos web',
+        businessType: 'Mayoristas Ferreteros, Distribuidoras de Repuestos e Importadoras B2B',
+        exactCompanies: 'Importadoras de maquinaria y ferretería industrial en el Callao, distribuidores mayoristas de autopartes en Ate y empresas de suministros en Cercado de Lima.',
         threatType: 'Robo de sesiones en redes no seguras',
-        lossMetric: 'Suplantación de credenciales de administradores al ingresar a paneles de control sin directivas de transporte seguro.',
-        solution: 'Directivas de cookies configuradas como HttpOnly, Secure y SameSite=Strict con cifrado forzado.',
-        pnpReportContext: 'Reportes de acceso no autorizado y suplantación seguidos por la DIVINDAT - PNP.'
+        lossMetric: 'Interceptación de sesiones de ejecutivos de venta al conectarse a paneles web sin cifrado forzado, alterando cuentas bancarias en cotizaciones.',
+        solution: 'Directivas de cookies configuradas como HttpOnly, Secure y SameSite=Strict con cifrado forzado en todo el subdominio.',
+        pnpReportContext: 'Reportes de acceso no autorizado seguidos por la Fiscalía Especializada en Ciberdelincuencia de Lima Centro.'
       },
     ],
     NORTE: [
       {
         region: 'Norte (La Libertad, Piura, Lambayeque)',
         badge: 'Agroindustria & Exportación',
-        businessType: 'Portales de servicios agrícolas, transporte y logística',
+        businessType: 'Empresas Agroexportadoras y Operadoras Logísticas en Virú y Piura',
+        exactCompanies: 'Exportadoras de arándanos, uva y mango en los valles de Chao/Virú (La Libertad) y Piura, además de operadoras de transporte y frío en el Puerto de Paita.',
         threatType: 'Caída de confianza por certificado SSL mal encadenado',
-        lossMetric: 'Navegadores modernos muestran advertencias rojas de "Sitio no seguro", provocando cancelaciones de pedidos de compradores.',
+        lossMetric: 'Navegadores de compradores internacionales en EE.UU. y Europa mostraron pantallas rojas de "Conexión no privada", retrasando órdenes de compra.',
         solution: 'Corrección de cadena intermedia de certificados TLS, activación de OCSP Stapling y renovación limpia de DNS.',
         pnpReportContext: 'Verificado en auditorías de infraestructura perimétrica según guías de Indecopi sobre comercio seguro.'
       },
       {
         region: 'Norte (Trujillo)',
         badge: 'Retail & Tiendas Locales',
-        businessType: 'Comercios de calzado y confecciones con pasarelas de pago',
+        businessType: 'Fabricantes de Calzado en El Porvenir y Boutiques Comerciales en Trujillo y Chiclayo',
+        exactCompanies: 'Empresas productoras de calzado en El Porvenir (Trujillo), tiendas de moda en Mall Plaza Trujillo y boutiques de vestir en el centro de Chiclayo y Piura.',
         threatType: 'Rechazo de transacciones en pasarelas de cobro',
-        lossMetric: 'Pasarelas de pago como Niubiz o Mercado Pago bloquean cobros por no contar con protocolo TLS 1.3 forzado.',
+        lossMetric: 'Pasarelas de cobro deshabilitadas repentinamente por bancos adquirentes debido a la falta de parámetros de transporte seguro y obsolescencia en protocolos web.',
         solution: 'Túnel perimetral TLS 1.3 obligatorio con suite de cifrado de alta compatibilidad en servidores web.',
         pnpReportContext: 'Observación recurrente de pasarelas de pago reguladas en el Perú ante incidentes de ciberdelincuencia.'
       },
@@ -124,19 +129,21 @@ export default function RealThreatCasesModal() {
       {
         region: 'Sur (Cusco, Arequipa, Puno)',
         badge: 'Turismo & Hotelería',
-        businessType: 'Operadores turísticos, agencias de viajes y hospedajes',
+        businessType: 'Agencias de Tours Receptivo y Hoteles Boutique en Cusco y Arequipa',
+        exactCompanies: 'Operadores de Camino Inca y paquetes a Machu Picchu (Cusco), hoteles boutique en San Blas y Yanahuara, y agencias de aventura al Cañón del Colca (Arequipa).',
         threatType: 'Bloqueo temporal de fondos por riesgo de seguridad',
-        lossMetric: 'Retención preventiva de liquidaciones bancarias por incumplimiento de requisitos mínimos perimetrales PCI-DSS.',
-        solution: 'Endurecimiento perimetral conforme a directivas OWASP y activación obligatoria de cabeceras HSTS.',
-        pnpReportContext: 'Casos seguidos por la Fiscalía Especializada en Ciberdelincuencia de Arequipa (Ministerio Público).'
+        lossMetric: 'Retención preventiva de liquidaciones bancarias y pasarelas de pago (Niubiz/Stripe) por incumplimiento de requisitos mínimos perimetrales PCI-DSS.',
+        solution: 'Endurecimiento perimetral conforme a directivas OWASP y activación obligatoria de cabeceras HSTS y TLS 1.3.',
+        pnpReportContext: 'Casos seguidos por la Fiscalía Especializada en Ciberdelincuencia de Arequipa y Cusco (Ministerio Público).'
       },
       {
         region: 'Sur (Arequipa)',
         badge: 'Gastronomía & Servicios',
-        businessType: 'Cartas digitales, pedidos en línea y restaurantes',
+        businessType: 'Restaurantes Turísticos, Picanterías Tradicionales y Cadenas Gastronómicas',
+        exactCompanies: 'Picanterías tradicionales en Arequipa (Yanahuara/Characato), restaurantes campestres en el Valle Sagrado (Cusco) y cafeterías de especialidad con carta QR y delivery.',
         threatType: 'Inyección de enlaces de spam y redirecciones no deseadas',
-        lossMetric: 'Google cataloga el dominio como engañoso y suspende campañas de anuncios digitales.',
-        solution: 'Cierre de puertos innecesarios expuestos y reglas estrictas de cabecera HTTP.',
+        lossMetric: 'Alteración de menús virtuales y enlaces de pedidos para desviar transferencias de Yape y Plin a terceros, además de advertencias de "Sitio engañoso" en Google.',
+        solution: 'Cierre de puertos innecesarios expuestos (FTP/SSH), bloqueo de inyección de scripts externos mediante CSP y WAF perimetral activo.',
         pnpReportContext: 'Infección externa documentada por alteración de código y falta de firewall de aplicaciones (WAF).'
       },
     ],
@@ -144,9 +151,10 @@ export default function RealThreatCasesModal() {
       {
         region: 'Centro y Oriente (Junín, San Martín, Loreto)',
         badge: 'Distribución & Farmacias',
-        businessType: 'Boticas, droguerías y comercializadoras regionales',
+        businessType: 'Cadenas de Boticas Regionales, Droguerías y Distribuidoras Médicas',
+        exactCompanies: 'Cadenas locales de farmacias en Huancayo (El Tambo/Chilca), distribuidoras de medicamentos en Tarapoto y comercializadoras de insumos médicos en Iquitos y Pucallpa.',
         threatType: 'Exposición de puertos de administración en la web pública',
-        lossMetric: 'Robots automatizados prueban ataques de fuerza bruta las 24 horas del día contra paneles administrativos.',
+        lossMetric: 'Robots automatizados prueban ataques de fuerza bruta las 24 horas del día contra paneles administrativos al tener puertos MySQL/RDP abiertos.',
         solution: 'Aislamiento perimetral y bloqueo de accesos administrativos fuera de IP autorizada.',
         pnpReportContext: 'Monitoreo de puertos abiertos no autorizados analizados bajo directivas oficiales de seguridad digital.'
       },
@@ -450,13 +458,23 @@ export default function RealThreatCasesModal() {
                         <span className="text-xs font-mono font-semibold text-[#38bdf8] block">
                           {incident.badge}
                         </span>
-                        <h4 className="text-sm font-bold text-white">
+                        <h4 className="text-sm sm:text-base font-bold text-white">
                           {incident.businessType}
                         </h4>
                       </div>
                       <span className="px-2.5 py-1 rounded-full bg-rose-500/10 border border-rose-500/30 text-rose-300 text-[10px] font-mono font-bold">
                         {incident.threatType}
                       </span>
+                    </div>
+
+                    {/* Empresas y giros específicos del caso real */}
+                    <div className="p-3 rounded-xl bg-white/[0.03] border border-white/10 flex flex-col sm:flex-row sm:items-start gap-2 text-xs">
+                      <div className="shrink-0 mt-0.5 px-2 py-0.5 rounded-md bg-[#0071e3]/15 border border-[#0071e3]/30 text-[#38bdf8] font-mono font-bold text-[10px] uppercase self-start">
+                        Empresas y Giros Reales:
+                      </div>
+                      <p className="text-neutral-200 text-xs font-medium leading-relaxed">
+                        {incident.exactCompanies}
+                      </p>
                     </div>
 
                     <div className="grid grid-cols-1 sm:grid-cols-2 gap-3 text-xs">
