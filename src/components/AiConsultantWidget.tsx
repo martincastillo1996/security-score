@@ -1,41 +1,27 @@
 'use client';
 
-import React, { useState, useRef, useEffect } from 'react';
+import React, { useState } from 'react';
+import { useRouter } from 'next/navigation';
 import { 
   X, 
-  Send, 
   Sparkles, 
-  User, 
-  Loader2, 
-  MessageSquare, 
-  ArrowRight,
-  HelpCircle,
-  PhoneCall
+  ShieldCheck, 
+  ArrowRight, 
+  ExternalLink,
+  Search,
+  ChevronRight
 } from 'lucide-react';
-import { useI18n } from '@/lib/i18n/I18nContext';
 import { AuditReportRecord } from '@/lib/storage/reportStore';
 
 // Orbe Gravitacional Vivo - Estilo Apple Intelligence / Cosmos Neuronal
 function AppleCosmicOrb({ className = 'w-9 h-9' }: { className?: string }) {
   return (
     <div className={`relative flex items-center justify-center ${className}`}>
-      {/* Resplandor nebulosa exterior pulsante */}
-      <span className="absolute -inset-2 rounded-full bg-linear-to-tr from-[#0071e3]/50 via-[#a855f7]/40 to-[#38bdf8]/50 blur-md animate-cosmic-pulse pointer-events-none" />
-      
-      {/* Ondas orbitales gravitacionales */}
-      <div className="absolute inset-0 rounded-full border border-[#38bdf8]/40 animate-cosmic-rotate pointer-events-none" />
-      <div className="absolute -inset-1 rounded-full border border-dashed border-[#c084fc]/30 animate-spin-slow pointer-events-none" />
-
-      {/* Orbe iridiscente central Apple Intelligence */}
-      <div className="relative w-full h-full rounded-full bg-linear-to-tr from-[#0071e3] via-[#818cf8] to-[#38bdf8] p-[1.5px] shadow-[0_0_20px_rgba(56,189,248,0.6)]">
+      <span className="absolute -inset-2 rounded-full bg-gradient-to-tr from-[#0071e3]/50 via-[#a855f7]/40 to-[#38bdf8]/50 blur-md animate-pulse pointer-events-none" />
+      <div className="relative w-full h-full rounded-full bg-gradient-to-tr from-[#0071e3] via-[#818cf8] to-[#38bdf8] p-[1.5px] shadow-[0_0_20px_rgba(56,189,248,0.6)]">
         <div className="w-full h-full rounded-full bg-[#07090e] flex items-center justify-center relative overflow-hidden">
-          
-          {/* Núcleo estelar interno con rotación fluida */}
-          <div className="absolute inset-0 bg-radial from-[#38bdf8]/60 via-[#9333ea]/30 to-transparent animate-cosmic-rotate" />
-          
-          {/* Constelación o punto de singularidad de gravedad */}
-          <span className="relative z-10 w-2 h-2 rounded-full bg-white shadow-[0_0_10px_#ffffff] animate-ping" />
-          <span className="absolute z-10 w-2 h-2 rounded-full bg-white" />
+          <div className="absolute inset-0 bg-gradient-to-tr from-[#38bdf8]/60 via-[#9333ea]/30 to-transparent" />
+          <span className="relative z-10 w-2 h-2 rounded-full bg-white shadow-[0_0_10px_#ffffff]" />
         </div>
       </div>
     </div>
@@ -46,486 +32,272 @@ interface Props {
   report?: AuditReportRecord | null;
 }
 
-interface Message {
-  role: 'user' | 'assistant';
-  content: string;
-  isWhatsAppCta?: boolean;
-}
-
-export default function AiConsultantWidget({ report }: Props) {
-  const { t } = useI18n();
+export default function AiConsultantWidget({}: Props) {
+  const router = useRouter();
   const [isOpen, setIsOpen] = useState(false);
-  const [input, setInput] = useState('');
-  const [loading, setLoading] = useState(false);
-  const [showWhatsAppCta, setShowWhatsAppCta] = useState(false);
-  const [lastQuery, setLastQuery] = useState('');
-  
-  // TELEMETRÍA DEL PROSPECTO EN VIVO
-  const [secondsOnSite, setSecondsOnSite] = useState(1);
-  const [clientCity, setClientCity] = useState<string>('Detectando...');
-  const [clientCountry, setClientCountry] = useState<string>('');
-  const [clickedInterest, setClickedInterest] = useState<string>('Auditoría General');
+  const [view, setView] = useState<'menu' | 'scan' | 'plans'>('menu');
+  const [scanUrl, setScanUrl] = useState('');
 
-  // Contador de tiempo de permanencia en la app
-  useEffect(() => {
-    const timer = setInterval(() => {
-      setSecondsOnSite((prev) => prev + 1);
-    }, 1000);
-    return () => clearInterval(timer);
-  }, []);
-
-  // Obtener geolocalización aproximada del visitante ($0 costo, sin bloquear la carga)
-  useEffect(() => {
-    let isMounted = true;
-    const detectLocation = async () => {
-      try {
-        const timeZone = Intl.DateTimeFormat().resolvedOptions().timeZone || '';
-        const parts = timeZone.split('/');
-        if (isMounted) {
-          setClientCity(parts[1]?.replace(/_/g, ' ') || 'Latinoamérica');
-          setClientCountry(parts[0] || 'Región');
-        }
-
-        // Intento silencioso en segundo plano sin esperar ni bloquear
-        fetch('https://ipapi.co/json/', { cache: 'force-cache' })
-          .then((res) => (res.ok ? res.json() : null))
-          .then((data) => {
-            if (isMounted && data && data.city && data.country_name) {
-              setClientCity(data.city);
-              setClientCountry(data.country_name);
-            }
-          })
-          .catch(() => {
-            // Silencioso
-          });
-      } catch {
-        // Silencioso
-      }
-    };
-    detectLocation();
-    return () => {
-      isMounted = false;
-    };
-  }, []);
-
-  // Preguntas de alto impacto comercial según contexto
-  const quickQuestions = report
-    ? [
-        {
-          label: '¿Por qué mi web sacó Grado F si "funciona bien"?',
-          query: '¿Por qué mi página web obtuvo Grado F si aparentemente carga y funciona con normalidad?',
-          interestTag: 'Duda sobre Grado F vs Funcionamiento',
-        },
-        {
-          label: '¿Cómo clonan mi web para estafar a mis clientes?',
-          query: '¿Cómo es que pueden clonar mi página web mediante Clickjacking si no tengo cabeceras de protección?',
-          interestTag: 'Preocupación por Clonación y Phishing',
-        },
-        {
-          label: '¿Cuánto cuesta y cuánto tarda blindar mi sitio?',
-          query: '¿Cuánto cuesta y cuánto tiempo demora realizar la puesta a punto perimetral para subir mi web a Grado A?',
-          interestTag: 'Intención de Compra y Tarifas',
-        },
-      ]
-    : [
-        {
-          label: '¿Cómo un agente de IA en WhatsApp aumenta mis ventas?',
-          query: '¿Cómo funciona un agente de ventas con IA en WhatsApp y cuánto puede incrementar la conversión de mi negocio?',
-          interestTag: 'Agentes de Ventas en WhatsApp',
-        },
-        {
-          label: '¿Cómo automatizar la lectura de facturas y contratos?',
-          query: '¿Cómo podemos automatizar el procesamiento de facturas, contratos y documentos con IA para ahorrar costos operativos?',
-          interestTag: 'Automatización de Documentos con IA',
-        },
-        {
-          label: '¿Cómo funciona la auditoría perimetral de DEFENSA TI?',
-          query: '¿Cómo funciona el escáner de DEFENSA TI para proteger mi comercio electrónico y pasarelas de pago?',
-          interestTag: 'Ciberdefensa DEFENSA TI',
-        },
-      ];
-
-  // Inicialización de mensajes con saludo personalizado
-  const [messages, setMessages] = useState<Message[]>(() => {
-    if (report) {
-      return [
-        {
-          role: 'assistant',
-          content: `Hola, ¿qué tal? Soy **Neuronal Gravity AI**, el asistente de ciberseguridad e inteligencia artificial de Martín Castillo.\n\nAcabo de analizar **${report.url}** y obtuvo **${report.score}/100 (Grado ${report.grade || 'F'})**.\n\nPuedes hacerme cualquier consulta técnica o elegir una de las preguntas frecuentes abajo para evaluar tu nivel de riesgo.`,
-        },
-      ];
+  const plans = [
+    {
+      name: 'Auditoría',
+      price: 'S/ 65',
+      time: '48 horas',
+      desc: 'Diagnóstico no intrusivo de SSL, cabeceras y exposición con informe técnico en PDF.',
+      link: 'https://wa.me/17856433991?text=Hola%20Mart%C3%ADn,%20deseo%20contratar%20la%20Auditor%C3%ADa%20(S/%2065)%20para%20mi%20sitio%20web.'
+    },
+    {
+      name: 'Blindaje Esencial',
+      price: 'S/ 165',
+      time: '3 a 5 días',
+      desc: 'Corrección de fallas críticas y medias en cabeceras, SSL y CMS (WordPress/a medida). Incluye la Auditoría.',
+      link: 'https://wa.me/17856433991?text=Hola%20Mart%C3%ADn,%20deseo%20contratar%20el%20Blindaje%20Esencial%20(S/%20165)%20para%20mi%20sitio%20web.'
+    },
+    {
+      name: 'Blindaje Total',
+      price: 'S/ 335',
+      time: '5 a 7 días',
+      desc: 'Corrección completa, WAF avanzado y re-medición independiente. Meta: llegar a Grado A.',
+      link: 'https://wa.me/17856433991?text=Hola%20Mart%C3%ADn,%20deseo%20contratar%20el%20Blindaje%20Total%20(S/%20335)%20para%20mi%20sitio%20web.'
     }
-    return [
-      {
-        role: 'assistant',
-        content: 'Hola, ¿qué tal? Soy **Neuronal Gravity AI**, el asistente de soluciones de negocio e inteligencia artificial de Martín Castillo.\n\n¿En qué podemos impulsar tu empresa hoy? Consúltame sobre:\n• **Agentes de ventas 24/7 en WhatsApp**\n• **Automatización de facturas y documentos**\n• **Analítica predictiva y dashboards de negocio**\n• **Auditoría de ciberseguridad con DEFENSA TI**\n\n¿Qué proceso deseas optimizar en tu empresa?',
-      },
-    ];
-  });
+  ];
 
-  const lastReportUrl = useRef<string | undefined>(report?.url);
-  const messagesEndRef = useRef<HTMLDivElement>(null);
-
-  // Actualizar saludo cuando cambie el dominio auditado
-  useEffect(() => {
-    if (report?.url && report.url !== lastReportUrl.current) {
-      lastReportUrl.current = report.url;
-      const greeting = `Hola, ¿qué tal? Soy **Neuronal Gravity AI**. He revisado la auditoría de **${report.url}** (Nota: **${report.score}/100**, Grado **${report.grade || 'F'}**).\n\n¿Deseas saber si tu web tiene riesgo de clonación o cómo dejarla en Grado A hoy mismo?`;
-      queueMicrotask(() => {
-        setMessages([{ role: 'assistant', content: greeting }]);
-      });
-    }
-  }, [report]);
-
-  useEffect(() => {
-    if (isOpen) {
-      messagesEndRef.current?.scrollIntoView({ behavior: 'smooth' });
-    }
-  }, [messages, loading, isOpen]);
-
-  // Cálculo formateado del tiempo de permanencia
-  const getTimeOnSiteString = () => {
-    if (secondsOnSite < 60) return `${secondsOnSite} segundos`;
-    const minutes = Math.floor(secondsOnSite / 60);
-    const remainingSecs = secondsOnSite % 60;
-    return `${minutes}m ${remainingSecs}s`;
-  };
-
-  // Generador de Ficha de Inteligencia del Prospecto para WhatsApp Personal
-  const getWhatsAppHandoffUrl = (customQuery?: string) => {
-    const timeSpent = getTimeOnSiteString();
-    const locationStr = clientCountry ? `${clientCity}, ${clientCountry}` : clientCity;
-    const deviceType = typeof window !== 'undefined' && window.innerWidth < 768 ? '📱 Celular' : '💻 Computadora';
-
-    if (report) {
-      const domain = report?.url ? report.url.replace(/^https?:\/\//i, '').replace(/\/.*$/, '') : 'No especificado';
-      const score = report?.score ?? 'N/A';
-      const grade = report?.grade ?? 'F';
-      const query = customQuery || lastQuery || 'Quiero cotizar la puesta a punto perimetral.';
-
-      const message = `Hola Martín, vengo de hablar con tu asistente Neuronal Gravity AI sobre mi sitio web (${domain}).
-
-━━━━━━━━━━━━━━━━━━━━━
-📊 FICHA DEL PROSPECTO (AUDITORÍA PERIMETRAL)
-• Dominio: ${domain}
-• Calificación: ${score}/100 (Grado ${grade})
-• Ubicación: 📍 ${locationStr}
-• Tiempo en la app: ⏱️ ${timeSpent}
-• Dispositivo: ${deviceType}
-• Tema de mayor interés: 🎯 ${clickedInterest}
-• Consulta puntual: "${query}"
-━━━━━━━━━━━━━━━━━━━━━
-
-Quisiera coordinar contigo una asesoría para poner a punto mi sitio y subir a Grado A.`;
-
-      return `https://wa.me/17856433991?text=${encodeURIComponent(message)}`;
-    }
-
-    const query = customQuery || lastQuery || 'Quiero cotizar una solución de IA para mi empresa.';
-    const message = `Hola Martín, estuve conversando con tu asistente Neuronal Gravity AI en neuronalgravity.com.
-
-━━━━━━━━━━━━━━━━━━━━━
-📊 FICHA DEL PROSPECTO (SOLUCIONES DE NEGOCIO CON IA)
-• Ubicación: 📍 ${locationStr}
-• Tiempo en el sitio: ⏱️ ${timeSpent}
-• Dispositivo: ${deviceType}
-• Interés principal: 🎯 ${clickedInterest}
-• Consulta puntual: "${query}"
-━━━━━━━━━━━━━━━━━━━━━
-
-Quisiera coordinar contigo una reunión para evaluar cómo implementar soluciones de IA en mi negocio.`;
-
-    return `https://wa.me/17856433991?text=${encodeURIComponent(message)}`;
-  };
-
-  const handleSend = async (userText?: string, interestTag?: string) => {
-    const textToSend = userText || input;
-    if (!textToSend.trim() || loading) return;
-
-    if (interestTag) {
-      setClickedInterest(interestTag);
-    } else {
-      setClickedInterest('Consulta personalizada en chat');
-    }
-
-    setLastQuery(textToSend);
-    const newHistory: Message[] = [...messages, { role: 'user', content: textToSend }];
-    setMessages(newHistory);
-    setInput('');
-    setLoading(true);
-
-    try {
-      const missingHeaders = (report?.headers || []).filter((h) => !h.present).map((h) => h.header);
-      const openPorts = (report?.ports || []).filter((p) => p.isOpen).map((p) => p.port);
-
-      const res = await fetch('/api/ai-consultant', {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({
-          message: textToSend,
-          history: newHistory.slice(-6),
-          reportContext: report
-            ? {
-                url: report.url,
-                score: report.score,
-                grade: report.grade,
-                missingHeaders,
-                openPorts,
-                sslValid: report.ssl?.valid,
-                sslProtocol: report.ssl?.protocol,
-              }
-            : undefined,
-        }),
-      });
-
-      const data = await res.json();
-      if (!res.ok) throw new Error(data.error || 'Error al consultar al asistente');
-
-      if (data.shouldSuggestWhatsApp) {
-        setShowWhatsAppCta(true);
-      }
-
-      setMessages((prev) => [
-        ...prev,
-        {
-          role: 'assistant',
-          content: data.reply,
-          isWhatsAppCta: Boolean(data.shouldSuggestWhatsApp),
-        },
-      ]);
-    } catch {
-      setMessages((prev) => [
-        ...prev,
-        {
-          role: 'assistant',
-          content:
-            'Disculpa, hubo una intermitencia de conexión momentánea. Dale clic abajo para pasar directamente a mi WhatsApp y darte el informe personalizado.',
-          isWhatsAppCta: true,
-        },
-      ]);
-      setShowWhatsAppCta(true);
-    } finally {
-      setLoading(false);
-    }
+  const handleLaunchScan = (e: React.FormEvent) => {
+    e.preventDefault();
+    if (!scanUrl.trim()) return;
+    const clean = scanUrl.trim().replace(/^https?:\/\//i, '');
+    router.push(`/defensati?target=${encodeURIComponent(`https://${clean}`)}`);
   };
 
   return (
-    <>
-      {/* Botón Flotante con Marca Neuronal Gravity AI - Apple Cosmic Pulse */}
-      <div className="fixed bottom-6 right-6 z-50 flex items-center gap-3 animate-gravitational-float">
-        {!isOpen && (
-          <button
-            onClick={() => setIsOpen(true)}
-            className="relative flex items-center gap-3 px-4 py-2.5 rounded-full bg-[#0c0e14]/90 border border-white/20 hover:border-[#38bdf8] text-xs text-white shadow-[0_15px_35px_rgba(0,0,0,0.85)] backdrop-blur-2xl transition-all cursor-pointer group hover:scale-105 active:scale-95"
-          >
-            {/* Resplandor cósmico dinámico tipo aura Apple Intelligence */}
-            <span className="absolute -inset-1 rounded-full bg-linear-to-r from-[#0071e3]/40 via-[#a855f7]/30 to-[#38bdf8]/40 blur-md opacity-70 group-hover:opacity-100 transition-opacity animate-cosmic-pulse" />
-            
-            <span className="relative flex h-2.5 w-2.5">
-              <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-emerald-400 opacity-75" />
-              <span className="relative inline-flex rounded-full h-2.5 w-2.5 bg-emerald-400 shadow-[0_0_8px_#34d399]" />
-            </span>
-            <span className="relative font-medium text-neutral-200">
-              {t.aiBot.consultBtn} <strong className="text-white group-hover:text-[#38bdf8] transition-colors font-bold">{t.aiBot.title}</strong>
-            </span>
-          </button>
-        )}
+    <div className="fixed bottom-6 right-6 z-50 select-none">
+      {/* Botón flotante del Orbe */}
+      {!isOpen && (
         <button
-          onClick={() => setIsOpen(!isOpen)}
-          className="relative group p-3 rounded-full bg-linear-to-b from-[#141b2d] via-[#0b0f19] to-[#04060c] border border-white/20 hover:border-[#38bdf8] text-white shadow-[0_0_30px_rgba(56,189,248,0.4)] hover:shadow-[0_0_55px_rgba(168,85,247,0.7)] active:scale-95 transition-all cursor-pointer flex items-center justify-center"
-          aria-label={t.aiBot.title}
+          onClick={() => {
+            setIsOpen(true);
+            setView('menu');
+          }}
+          className="group relative flex items-center gap-3 px-4 py-2.5 rounded-full bg-[#0a0d14]/90 border border-white/15 backdrop-blur-2xl shadow-[0_10px_35px_rgba(0,0,0,0.7)] hover:border-[#38bdf8]/50 hover:shadow-[0_0_25px_rgba(56,189,248,0.4)] transition-all cursor-pointer active:scale-95"
+          aria-label="Abrir asistente Neuronal Gravity"
         >
-          {isOpen ? <X className="w-6 h-6 text-neutral-300 relative z-10" /> : <AppleCosmicOrb className="w-8 h-8" />}
-          
-          {/* Anillo de trayectoria orbital y punto verde orbitando 360 grados */}
-          <div className="absolute inset-0 pointer-events-none flex items-center justify-center">
-            <div className="w-[54px] h-[54px] rounded-full border border-emerald-500/25 pointer-events-none" />
-            <div className="absolute w-[54px] h-[54px] animate-spin-orbit pointer-events-none flex items-start justify-center">
-              <span className="w-3 h-3 -mt-1.5 rounded-full bg-emerald-400 border border-black shadow-[0_0_12px_#34d399] z-20 block" />
-            </div>
+          <AppleCosmicOrb className="w-8 h-8" />
+          <div className="flex flex-col text-left">
+            <span className="text-xs font-bold text-white flex items-center gap-1.5">
+              <span>Asistente Directo</span>
+              <span className="w-1.5 h-1.5 rounded-full bg-emerald-400 animate-pulse" />
+            </span>
+            <span className="text-[10px] text-neutral-400 font-mono">Guía &amp; Contacto</span>
           </div>
         </button>
-      </div>
+      )}
 
-      {/* Ventana de Chat Flotante */}
+      {/* Ventana Modal del Asistente Flujo Guiado */}
       {isOpen && (
-        <div className="fixed bottom-24 right-4 sm:right-6 z-50 w-[94vw] sm:w-[450px] max-h-[640px] h-[80vh] flex flex-col rounded-3xl bg-[#0c0d10]/98 border border-white/15 shadow-[0_25px_60px_rgba(0,0,0,0.95)] backdrop-blur-2xl overflow-hidden animate-in fade-in slide-in-from-bottom-5 duration-200">
+        <div className="w-[90vw] sm:w-96 rounded-3xl bg-[#0a0d14]/95 border border-white/15 backdrop-blur-2xl shadow-[0_20px_60px_rgba(0,0,0,0.8)] overflow-hidden flex flex-col transition-all">
           
-          {/* Cabecera con Neuronal Gravity AI */}
-          <div className="px-5 py-3.5 border-b border-white/10 bg-white/5 flex items-center justify-between">
+          {/* Cabecera */}
+          <div className="px-5 py-4 border-b border-white/10 flex items-center justify-between bg-white/[0.02]">
             <div className="flex items-center gap-3">
-              <div className="relative">
-                <div className="w-10 h-10 rounded-2xl bg-[#0f172a] border border-[#38bdf8]/40 flex items-center justify-center text-white shadow-inner">
-                  <AppleCosmicOrb className="w-6 h-6" />
-                </div>
-                <span className="absolute -bottom-0.5 -right-0.5 w-3 h-3 rounded-full bg-emerald-400 border-2 border-[#0c0d10] shadow-[0_0_6px_#34d399]" />
-              </div>
+              <AppleCosmicOrb className="w-8 h-8" />
               <div>
-                <h4 className="text-sm font-bold text-white flex items-center gap-1.5">
-                  {t.aiBot.title}
-                  <Sparkles className="w-3.5 h-3.5 text-sky-400" />
-                </h4>
-                <p className="text-[11px] text-emerald-400 font-medium">{t.aiBot.status}</p>
+                <h3 className="text-xs font-extrabold text-white tracking-tight flex items-center gap-1">
+                  <span>Neuronal Gravity</span>
+                  <Sparkles className="w-3 h-3 text-[#38bdf8]" />
+                </h3>
+                <p className="text-[10px] text-emerald-400 font-mono flex items-center gap-1">
+                  <span className="w-1.5 h-1.5 rounded-full bg-emerald-400" />
+                  <span>Asistente de Navegación</span>
+                </p>
               </div>
             </div>
 
-            <div className="flex items-center gap-1.5">
-              <button
-                onClick={() => setIsOpen(false)}
-                className="p-1.5 rounded-xl hover:bg-white/10 text-neutral-400 hover:text-white transition-colors cursor-pointer"
-              >
-                <X className="w-4 h-4" />
-              </button>
-            </div>
+            <button
+              onClick={() => setIsOpen(false)}
+              className="p-1.5 rounded-xl hover:bg-white/10 text-neutral-400 hover:text-white transition-colors cursor-pointer"
+            >
+              <X className="w-4 h-4" />
+            </button>
           </div>
 
-          {/* Área de Mensajes */}
-          <div className="flex-1 overflow-y-auto p-4 space-y-4 text-xs">
-            {messages.map((m, idx) => (
-              <div key={idx} className="space-y-2">
-                <div
-                  className={`flex gap-2.5 ${m.role === 'user' ? 'justify-end' : 'justify-start'}`}
-                >
-                  {m.role === 'assistant' && (
-                    <div className="w-7 h-7 rounded-full bg-black/60 border border-sky-500/40 flex items-center justify-center shrink-0 mt-0.5">
-                      <AppleCosmicOrb className="w-5 h-5" />
-                    </div>
-                  )}
-                  <div
-                    className={`max-w-[85%] p-3.5 rounded-2xl leading-relaxed ${
-                      m.role === 'user'
-                        ? 'bg-[#0071e3] text-white rounded-br-xs shadow-md'
-                        : 'bg-white/5 border border-white/10 text-neutral-200 rounded-bl-xs'
-                    }`}
+          {/* Cuerpo según vista */}
+          <div className="p-5 space-y-4 max-h-[75vh] overflow-y-auto">
+            
+            {/* VISTA 1: MENÚ PRINCIPAL */}
+            {view === 'menu' && (
+              <div className="space-y-4">
+                <div className="p-3.5 rounded-2xl bg-white/5 border border-white/10 text-xs text-neutral-200 leading-relaxed">
+                  👋 <strong>¡Hola!</strong> Soy el asistente guiado de <strong>Neuronal Gravity</strong>. ¿En qué te puedo orientar hoy?
+                </div>
+
+                <div className="space-y-2">
+                  {/* Opción 1: Auditar Web */}
+                  <button
+                    onClick={() => setView('scan')}
+                    className="w-full p-3.5 rounded-2xl bg-white/[0.03] hover:bg-white/[0.08] border border-white/10 hover:border-[#38bdf8]/50 text-left transition-all flex items-center justify-between group cursor-pointer"
                   >
-                    <p className="whitespace-pre-line">{m.content}</p>
-                  </div>
-                  {m.role === 'user' && (
-                    <div className="w-6 h-6 rounded-lg bg-white/10 flex items-center justify-center text-white shrink-0 mt-0.5">
-                      <User className="w-3.5 h-3.5" />
+                    <div className="flex items-center gap-3">
+                      <div className="w-8 h-8 rounded-xl bg-[#0071e3]/20 border border-[#0071e3]/30 flex items-center justify-center text-[#38bdf8] shrink-0">
+                        <Search className="w-4 h-4" />
+                      </div>
+                      <div>
+                        <div className="text-xs font-bold text-white group-hover:text-[#38bdf8] transition-colors">
+                          Quiero auditar mi página web
+                        </div>
+                        <div className="text-[10px] text-neutral-400">
+                          Escaneo perimetral gratuito de cabeceras y SSL
+                        </div>
+                      </div>
                     </div>
-                  )}
-                </div>
+                    <ChevronRight className="w-4 h-4 text-neutral-500 group-hover:text-white transition-colors" />
+                  </button>
 
-                {/* Tarjeta de Traspaso a WhatsApp */}
-                {m.isWhatsAppCta && (
-                  <div className="ml-8 p-3.5 rounded-2xl bg-linear-to-b from-[#25D366]/15 to-[#25D366]/5 border border-[#25D366]/30 space-y-2.5">
-                    <div className="flex items-center justify-between text-[11px] text-[#25D366] font-bold">
-                      <span className="flex items-center gap-1.5">
-                        <MessageSquare className="w-3.5 h-3.5" />
-                        Ficha de Diagnóstico Lista
-                      </span>
-                      <span className="w-2 h-2 rounded-full bg-[#25D366] animate-pulse" />
+                  {/* Opción 2: Ver Planes de Blindaje */}
+                  <button
+                    onClick={() => setView('plans')}
+                    className="w-full p-3.5 rounded-2xl bg-white/[0.03] hover:bg-white/[0.08] border border-white/10 hover:border-emerald-500/50 text-left transition-all flex items-center justify-between group cursor-pointer"
+                  >
+                    <div className="flex items-center gap-3">
+                      <div className="w-8 h-8 rounded-xl bg-emerald-500/20 border border-emerald-500/30 flex items-center justify-center text-emerald-400 shrink-0">
+                        <ShieldCheck className="w-4 h-4" />
+                      </div>
+                      <div>
+                        <div className="text-xs font-bold text-white group-hover:text-emerald-400 transition-colors">
+                          Cotizar Blindaje Técnico
+                        </div>
+                        <div className="text-[10px] text-neutral-400">
+                          Precios transparentes desde S/ 65 (solo pago único)
+                        </div>
+                      </div>
                     </div>
-                    <p className="text-[11px] text-neutral-300 leading-relaxed">
-                      Ya preparé la ficha técnica con tu dominio y nota para que hables con Martín por WhatsApp y te dé una cotización exacta.
-                    </p>
-                    <a
-                      href={getWhatsAppHandoffUrl(lastQuery)}
-                      target="_blank"
-                      rel="noopener noreferrer"
-                      className="inline-flex items-center justify-center gap-2 w-full py-2.5 px-3 rounded-xl bg-[#25D366] hover:bg-[#20ba59] text-black font-bold text-xs transition-all shadow-md active:scale-95"
-                    >
-                      Continuar en WhatsApp con Martín
-                      <ArrowRight className="w-3.5 h-3.5" />
-                    </a>
-                  </div>
-                )}
-              </div>
-            ))}
+                    <ChevronRight className="w-4 h-4 text-neutral-500 group-hover:text-white transition-colors" />
+                  </button>
 
-            {loading && (
-              <div className="flex gap-2.5 items-center text-neutral-400 text-xs">
-                <div className="w-6 h-6 rounded-lg bg-sky-950/60 border border-sky-500/30 flex items-center justify-center text-sky-400">
-                  <Loader2 className="w-3.5 h-3.5 animate-spin" />
+                  {/* Opción 3: WhatsApp Directo con Martín */}
+                  <a
+                    href="https://wa.me/17856433991?text=Hola%20Mart%C3%ADn,%20vi%20tu%20sitio%20web%20Neuronal%20Gravity%20y%20deseo%20hacerte%20una%20consulta%20directa."
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="w-full p-3.5 rounded-2xl bg-[#25D366]/15 hover:bg-[#25D366]/25 border border-[#25D366]/40 text-left transition-all flex items-center justify-between group cursor-pointer"
+                  >
+                    <div className="flex items-center gap-3">
+                      <div className="w-8 h-8 rounded-xl bg-[#25D366] flex items-center justify-center text-white shrink-0 shadow-md">
+                        <svg className="w-4 h-4 fill-white" viewBox="0 0 24 24">
+                          <path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z" />
+                        </svg>
+                      </div>
+                      <div>
+                        <div className="text-xs font-bold text-emerald-300">
+                          Hablar directo con Martín
+                        </div>
+                        <div className="text-[10px] text-neutral-400">
+                          WhatsApp personal: +1 785 643-3991
+                        </div>
+                      </div>
+                    </div>
+                    <ExternalLink className="w-4 h-4 text-emerald-400" />
+                  </a>
                 </div>
-                <span className="italic text-[11px] text-sky-300">Neuronal Gravity AI está evaluando tu consulta...</span>
               </div>
             )}
-            <div ref={messagesEndRef} />
-          </div>
 
-          {/* OPCIONES RÁPIDAS Y ESCAPE A WHATSAPP */}
-          {messages.length <= 2 && (
-            <div className="p-3 border-t border-white/10 bg-black/50 space-y-2">
-              <div className="flex items-center gap-1.5 text-[10px] text-neutral-400 font-bold uppercase tracking-wider px-1">
-                <HelpCircle className="w-3.5 h-3.5 text-blue-400" />
-                <span>{t.aiBot.faqTitle}</span>
-              </div>
-              <div className="flex flex-col gap-1.5">
-                {quickQuestions.map((q, i) => (
-                  <button
-                    key={i}
-                    onClick={() => handleSend(q.query, q.interestTag)}
-                    className="w-full text-left p-2.5 rounded-xl bg-white/5 hover:bg-white/10 border border-white/10 hover:border-blue-500/40 text-[11px] text-neutral-200 font-medium transition-all flex items-center justify-between gap-2 cursor-pointer group"
-                  >
-                    <span>{q.label}</span>
-                    <ArrowRight className="w-3 h-3 text-neutral-500 group-hover:text-blue-400 shrink-0 transition-colors" />
-                  </button>
-                ))}
-
-                {/* Opción destacada en verde WhatsApp para quien no desea escribir */}
-                <a
-                  href={getWhatsAppHandoffUrl('Hola Martín, prefiero coordinar directo por WhatsApp')}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="w-full text-left p-2.5 rounded-xl bg-[#25D366]/15 hover:bg-[#25D366]/25 border border-[#25D366]/40 text-[11px] text-[#25D366] font-semibold transition-all flex items-center justify-between gap-2 cursor-pointer shadow-[0_0_15px_rgba(37,211,102,0.15)]"
+            {/* VISTA 2: ESCANEO RÁPIDO */}
+            {view === 'scan' && (
+              <div className="space-y-4">
+                <button
+                  onClick={() => setView('menu')}
+                  className="text-xs text-[#38bdf8] hover:underline flex items-center gap-1 cursor-pointer"
                 >
-                  <span className="flex items-center gap-1.5">
-                    <PhoneCall className="w-3.5 h-3.5 text-[#25D366]" />
-                    {t.aiBot.optDirectWhatsApp}
-                  </span>
-                  <ArrowRight className="w-3 h-3 text-[#25D366] shrink-0" />
-                </a>
+                  &larr; Volver al menú
+                </button>
+
+                <div className="text-xs text-neutral-300">
+                  Ingresa tu dominio web para auditar de inmediato las cabeceras, protocolo SSL y vulnerabilidades visibles:
+                </div>
+
+                <form onSubmit={handleLaunchScan} className="space-y-3">
+                  <input
+                    type="text"
+                    required
+                    placeholder="ej: miweb.com o www.empresa.pe"
+                    value={scanUrl}
+                    onChange={(e) => setScanUrl(e.target.value)}
+                    className="w-full bg-white/5 border border-white/10 rounded-xl px-4 py-2.5 text-xs text-white placeholder-neutral-500 focus:outline-none focus:border-[#38bdf8]"
+                  />
+                  <button
+                    type="submit"
+                    className="w-full py-2.5 rounded-xl bg-[#0071e3] hover:bg-[#0077ed] text-white text-xs font-bold transition-all flex items-center justify-center gap-2 cursor-pointer"
+                  >
+                    <span>Ejecutar Escáner Ahora</span>
+                    <ArrowRight className="w-4 h-4" />
+                  </button>
+                </form>
+
+                <p className="text-[10px] text-neutral-400 text-center font-mono">
+                  Diagnóstico 100% externo, no invasivo y sin pedir contraseñas.
+                </p>
               </div>
-            </div>
-          )}
+            )}
 
-          {/* Barra inferior si ya se activó la opción de WhatsApp */}
-          {showWhatsAppCta && (
-            <div className="px-4 py-2 bg-black/60 border-t border-white/5 flex items-center justify-between text-[11px] text-neutral-400">
-              <span>¿Prefieres atención personalizada?</span>
-              <a
-                href={getWhatsAppHandoffUrl(lastQuery)}
-                target="_blank"
-                rel="noopener noreferrer"
-                className="text-[#25D366] hover:underline font-bold"
-              >
-                Abrir mi WhatsApp &rarr;
-              </a>
-            </div>
-          )}
+            {/* VISTA 3: PLANES DE BLINDAJE */}
+            {view === 'plans' && (
+              <div className="space-y-3">
+                <button
+                  onClick={() => setView('menu')}
+                  className="text-xs text-[#38bdf8] hover:underline flex items-center gap-1 cursor-pointer"
+                >
+                  &larr; Volver al menú
+                </button>
 
-          {/* Caja de Input */}
-          <form
-            onSubmit={(e) => {
-              e.preventDefault();
-              handleSend();
-            }}
-            className="p-3 border-t border-white/10 bg-white/5 flex items-center gap-2"
-          >
-            <input
-              type="text"
-              placeholder={t.aiBot.inputPlaceholder}
-              value={input}
-              onChange={(e) => setInput(e.target.value)}
-              className="flex-1 bg-white/5 border border-white/10 rounded-xl px-3.5 py-2 text-xs text-white placeholder-neutral-500 focus:outline-none focus:border-[#0071e3]"
-            />
-            <button
-              type="submit"
-              disabled={loading || !input.trim()}
-              className="p-2 rounded-xl bg-[#0071e3] hover:bg-[#0077ed] disabled:opacity-40 text-white transition-all shadow-md shrink-0 cursor-pointer"
-            >
-              <Send className="w-4 h-4" />
-            </button>
-          </form>
+                <div className="text-xs text-neutral-300">
+                  Solo 3 precios totales, pagos únicos sin mensualidades:
+                </div>
 
-          {/* Descargo legal */}
-          <div className="py-1 px-4 text-center text-[9px] text-neutral-500 bg-black/50">
-            {t.aiBot.legal}
+                <div className="space-y-2">
+                  {plans.map((p, idx) => (
+                    <div
+                      key={idx}
+                      className="p-3 rounded-xl bg-white/[0.03] border border-white/10 space-y-1.5 text-left"
+                    >
+                      <div className="flex items-center justify-between">
+                        <span className="text-xs font-bold text-white">{p.name}</span>
+                        <span className="text-xs font-mono font-bold text-emerald-400">{p.price}</span>
+                      </div>
+                      <p className="text-[11px] text-neutral-300 leading-snug">
+                        {p.desc}
+                      </p>
+                      <div className="flex items-center justify-between pt-1">
+                        <span className="text-[10px] text-neutral-400 font-mono">Entrega: {p.time}</span>
+                        <a
+                          href={p.link}
+                          target="_blank"
+                          rel="noopener noreferrer"
+                          className="text-[11px] font-bold text-[#38bdf8] hover:underline flex items-center gap-1"
+                        >
+                          <span>Elegir &rarr;</span>
+                        </a>
+                      </div>
+                    </div>
+                  ))}
+                </div>
+
+                <p className="text-[10px] text-neutral-400 text-center">
+                  Atención de Lunes a Sábado de 9:00 a 20:00 (Hora Perú)
+                </p>
+              </div>
+            )}
+
           </div>
+
+          {/* Pie del Widget */}
+          <div className="p-3 bg-black/40 border-t border-white/5 text-center">
+            <span className="text-[10px] text-neutral-400 font-mono">
+              Neuronal Gravity &bull; DEFENSA TI
+            </span>
+          </div>
+
         </div>
       )}
-    </>
+    </div>
   );
 }
