@@ -51,8 +51,8 @@ export default function HowItWorksGuide() {
               </div>
 
               {/* Gráfico visual simulado de barra de búsqueda */}
-              <div className="p-3 rounded-xl bg-black/50 border border-white/5 flex items-center gap-2.5">
-                <span className="w-2.5 h-2.5 rounded-full bg-sky-400" />
+              <div className="h-11 px-3.5 rounded-xl bg-black/50 border border-white/5 flex items-center gap-2.5">
+                <span className="w-2.5 h-2.5 rounded-full bg-sky-400 shrink-0" />
                 <span className="text-xs font-mono text-neutral-300 truncate">tutienda.pe</span>
               </div>
 
@@ -83,13 +83,15 @@ export default function HowItWorksGuide() {
               </div>
 
               {/* Gráfico visual simulado de semáforo de nota */}
-              <div className="p-3 rounded-xl bg-black/50 border border-white/5 flex items-center justify-between">
-                <div className="flex items-center gap-1.5">
+              <div className="h-11 px-3.5 rounded-xl bg-black/50 border border-white/5 flex items-center justify-between gap-2">
+                <div className="flex items-center gap-1.5 shrink-0">
                   <span className="w-2.5 h-2.5 rounded-full bg-rose-500" />
                   <span className="w-2.5 h-2.5 rounded-full bg-amber-400" />
                   <span className="w-2.5 h-2.5 rounded-full bg-emerald-400" />
                 </div>
-                <span className="text-xs font-bold text-amber-300 font-mono">Calificación Grado A a F</span>
+                <span className="text-[11px] sm:text-xs font-bold text-amber-300 font-mono whitespace-nowrap">
+                  Calificación Grado A a F
+                </span>
               </div>
 
               <div>
@@ -119,9 +121,9 @@ export default function HowItWorksGuide() {
               </div>
 
               {/* Gráfico visual simulado de candado blindado */}
-              <div className="p-3 rounded-xl bg-emerald-950/40 border border-emerald-500/20 flex items-center gap-2.5 text-emerald-300">
-                <Lock className="w-3.5 h-3.5" />
-                <span className="text-xs font-bold">Web 100% Protegida (Grado A)</span>
+              <div className="h-11 px-3.5 rounded-xl bg-emerald-950/40 border border-emerald-500/20 flex items-center gap-2.5 text-emerald-300">
+                <Lock className="w-3.5 h-3.5 shrink-0 text-emerald-400" />
+                <span className="text-xs font-bold whitespace-nowrap">Web 100% Protegida (Grado A)</span>
               </div>
 
               <div>
@@ -141,17 +143,41 @@ export default function HowItWorksGuide() {
         </div>
 
         {/* Franja de Utilidad Empresarial Inmediata */}
-        <div className="p-4 sm:p-5 rounded-2xl bg-white/5 border border-white/5 flex flex-col sm:flex-row items-center justify-between gap-3 text-xs sm:text-sm text-neutral-300">
-          <div className="flex items-center gap-2.5">
-            <span className="p-1.5 rounded-lg bg-emerald-500/20 text-emerald-400 shrink-0">
+        <div className="p-4 sm:p-5 rounded-2xl bg-white/5 border border-white/10 flex flex-col sm:flex-row items-center justify-between gap-4 text-xs sm:text-sm text-neutral-300">
+          <div className="flex items-center gap-3">
+            <span className="p-2 rounded-xl bg-emerald-500/20 text-emerald-400 shrink-0">
               <ShieldCheck className="w-4 h-4" />
             </span>
-            <span>Evita que tus clientes vean alertas de <strong>&ldquo;Sitio No Seguro&rdquo;</strong> o te retengan cobros en pasarelas.</span>
+            <div className="space-y-0.5">
+              <p className="leading-snug">
+                Evita que tus clientes vean alertas de <strong>&ldquo;Sitio No Seguro&rdquo;</strong> o te retengan cobros en pasarelas.
+              </p>
+              <div className="flex items-center gap-2 text-[11px] text-neutral-400">
+                <span className="w-1.5 h-1.5 rounded-full bg-emerald-400 animate-pulse" />
+                <span className="text-[#38bdf8] font-semibold">Resultados en tiempo real (1.2s)</span>
+                <span>&bull;</span>
+                <span>100% gratuito y sin contraseñas</span>
+              </div>
+            </div>
           </div>
-          <span className="text-xs text-[#38bdf8] font-bold flex items-center gap-1.5 shrink-0">
-            <span>Resultados en tiempo real</span>
+
+          <button
+            type="button"
+            onClick={() => {
+              const input = document.getElementById('url-scan-input') || document.querySelector('input[type="text"]');
+              if (input) {
+                input.scrollIntoView({ behavior: 'smooth', block: 'center' });
+                (input as HTMLInputElement).focus();
+              } else {
+                window.scrollTo({ top: 0, behavior: 'smooth' });
+              }
+            }}
+            className="inline-flex items-center justify-center gap-2 px-5 py-2.5 rounded-xl bg-gradient-to-r from-[#0071e3] to-[#2997ff] hover:from-[#0077ed] hover:to-[#38bdf8] text-white font-extrabold text-xs sm:text-sm shadow-lg shadow-blue-500/30 hover:shadow-blue-500/50 active:scale-95 transition-all cursor-pointer shrink-0 w-full sm:w-auto"
+          >
+            <Search className="w-3.5 h-3.5" />
+            <span>Escanear Mi Web Ahora</span>
             <ArrowRight className="w-3.5 h-3.5" />
-          </span>
+          </button>
         </div>
 
       </div>

@@ -228,6 +228,7 @@ export default function HomePage() {
                   <Search className="w-4 h-4" />
                 </div>
                 <input
+                  id="url-scan-input"
                   type="text"
                   placeholder={t.hero.placeholder}
                   value={url}
