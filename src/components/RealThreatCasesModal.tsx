@@ -157,30 +157,30 @@ export default function RealThreatCasesModal() {
   const officialSources = [
     {
       source: 'Ministerio Público - Fiscalía de la Nación',
-      title: 'Más de 29,000 denuncias por delitos informáticos registradas en el Perú (Fraude y suplantación concentran 92%)',
-      url: 'https://andina.pe/agencia/noticia-mas-29-mil-denuncias-delitos-informaticos-se-registraron-el-peru-2024-1007797.aspx',
+      title: 'Fraude informático y suplantación de identidad son los ciberdelitos más denunciados en el Perú',
+      url: 'https://andina.pe/agencia/noticia-fraude-informatico-y-suplantacion-identidad-son-los-ciberdelitos-mas-denunciados-1092617.aspx',
       date: 'Publicado por Agencia Andina • Reporte Oficial Fiscalía',
       badge: 'Ministerio Público'
     },
     {
       source: 'Policía Nacional del Perú (DIVINDAT / DIRINCRI)',
-      title: 'Policía Nacional alerta sobre nuevas modalidades de fraude informático y clonación web en comercios digitales',
-      url: 'https://elperuano.pe/noticia/226190-policia-nacional-alerta-sobre-nuevas-modalidades-de-fraude-informatico',
+      title: 'Estos son los ciberdelitos más denunciados en el Perú: modalidades de fraude informático y clonación',
+      url: 'https://elperuano.pe/noticia/303867-estos-son-los-ciberdelitos-mas-denunciados-en-el-peru-durante-el-2026',
       date: 'Diario Oficial El Peruano • DIVINDAT PNP',
       badge: 'PNP - DIVINDAT'
     },
     {
       source: 'INDECOPI - Alertas al Consumidor',
-      title: 'Guía oficial de advertencias sobre compras seguras y prevención de estafas en tiendas online en el Perú',
-      url: 'https://www.gob.pe/institucion/indecopi/noticias/923985-indecopi-brinda-recomendaciones-para-realizar-compras-seguras-por-internet',
+      title: 'Campaña Oficial: Compra por Internet de forma segura y prevención de fraudes en tiendas online',
+      url: 'https://www.gob.pe/institucion/indecopi/campa%C3%B1as/121190-compra-por-internet-de-forma-segura',
       date: 'Plataforma Digital Única del Estado Peruano (gob.pe/indecopi)',
       badge: 'INDECOPI'
     },
     {
       source: 'Congreso de la República del Perú',
-      title: 'Ley N° 30096 (Ley de Delitos Informáticos): Sanciones por acceso ilícito, tráfico de datos y fraude web',
-      url: 'https://busquedas.elperuano.pe/normaslegales/ley-de-delitos-informaticos-ley-n-30096-1000627-1/',
-      date: 'Marco Jurídico Vigente • Normas Legales El Peruano',
+      title: 'Ley N° 30096 (Ley de Delitos Informáticos): Texto legal oficial y sanciones por fraude y acceso no autorizado',
+      url: 'https://www.gob.pe/institucion/congreso-de-la-republica/normas-legales/239569-30096',
+      date: 'Marco Jurídico Vigente • Congreso de la República (gob.pe)',
       badge: 'Ley N° 30096'
     }
   ];
