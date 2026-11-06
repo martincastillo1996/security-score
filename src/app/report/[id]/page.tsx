@@ -42,25 +42,7 @@ export default function ReportPage({ params }: { params: Promise<{ id: string }>
   useEffect(() => {
     if (!auditId) return;
 
-    // 1. Intentar decodificar desde el parámetro ?d= en la URL
-    try {
-      const urlParams = new URLSearchParams(window.location.search);
-      const encoded = urlParams.get('d');
-      if (encoded) {
-        const decoded = JSON.parse(decodeURIComponent(atob(encoded)));
-        if (decoded && typeof decoded.score === 'number') {
-          queueMicrotask(() => {
-            setReport(decoded);
-            setLoading(false);
-          });
-          return;
-        }
-      }
-    } catch {
-      // Fallback
-    }
-
-    // 2. Intentar leer desde localStorage local
+    // 1. Intentar leer desde la sesión local del navegador (Caché instantánea de sesión)
     try {
       const cached = localStorage.getItem(`report_${auditId}`);
       if (cached) {
@@ -74,9 +56,10 @@ export default function ReportPage({ params }: { params: Promise<{ id: string }>
         }
       }
     } catch {
-      // Fallback
+      // Fallback a recuperación perimetral del servidor
     }
 
+    // 2. Recuperar el dictamen auténtico verificado desde el backend
     fetch(`/api/report/${auditId}`)
       .then(async (res) => {
         if (!res.ok) {
