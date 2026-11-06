@@ -24,7 +24,7 @@ export default function RealThreatCasesModal() {
   const [isOpen, setIsOpen] = useState(false);
   const [activeRegion, setActiveRegion] = useState<string>('LIMA');
 
-  // Regiones del Perú con coordenadas SVG relativas para el mapa interactivo
+  // Regiones del Perú con coordenadas calibradas sobre la silueta cartográfica real
   const regions = [
     { 
       code: 'LIMA', 
@@ -33,7 +33,7 @@ export default function RealThreatCasesModal() {
       unshieldedRate: '79%', 
       fraudGrowth: '+44%', 
       topThreat: 'Clonación de checkout Yape y pasarelas Niubiz',
-      svgCoords: { cx: 105, cy: 155, r: 12 },
+      svgCoords: { cx: 128, cy: 200, r: 13 },
       departments: 'Lima Metropolitana, Callao y provincias limeñas'
     },
     { 
@@ -43,7 +43,7 @@ export default function RealThreatCasesModal() {
       unshieldedRate: '82%', 
       fraudGrowth: '+38%', 
       topThreat: 'Rechazo de pasarelas por falta de TLS 1.3 y HSTS',
-      svgCoords: { cx: 65, cy: 75, r: 14 },
+      svgCoords: { cx: 80, cy: 115, r: 14 },
       departments: 'La Libertad, Piura, Lambayeque, Tumbes, Cajamarca'
     },
     { 
@@ -53,17 +53,17 @@ export default function RealThreatCasesModal() {
       unshieldedRate: '75%', 
       fraudGrowth: '+41%', 
       topThreat: 'Retención de fondos y falsos espejos en portales turísticos',
-      svgCoords: { cx: 165, cy: 220, r: 14 },
+      svgCoords: { cx: 220, cy: 260, r: 14 },
       departments: 'Arequipa, Cusco, Tacna, Puno, Moquegua, Ica'
     },
     { 
       code: 'CENTRO', 
-      name: 'Centro y Oriente (Huancayo, Tarapoto, Iquitos)', 
+      name: 'Centro y Selva (Huancayo, Tarapoto, Iquitos)', 
       icon: '🌿', 
       unshieldedRate: '84%', 
       fraudGrowth: '+49%', 
       topThreat: 'Robo de credenciales en Wi-Fi y puertos de administración expuestos',
-      svgCoords: { cx: 145, cy: 110, r: 16 },
+      svgCoords: { cx: 180, cy: 130, r: 15 },
       departments: 'Junín, San Martín, Loreto, Ucayali, Huánuco, Pasco'
     },
   ];
@@ -228,31 +228,65 @@ export default function RealThreatCasesModal() {
                   <span>Mapa de Nodos Perimetrales (Perú)</span>
                 </div>
 
-                <div className="relative w-64 h-72 sm:w-72 sm:h-80 flex items-center justify-center">
+                <div className="relative w-64 h-80 sm:w-80 sm:h-96 flex items-center justify-center">
                   <svg 
-                    viewBox="0 0 240 300" 
-                    className="w-full h-full drop-shadow-[0_0_20px_rgba(0,113,227,0.25)] select-none"
+                    viewBox="0 0 320 380" 
+                    className="w-full h-full drop-shadow-[0_0_25px_rgba(0,113,227,0.3)] select-none"
                     xmlns="http://www.w3.org/2000/svg"
                   >
-                    {/* Silueta vectorial esquemática y elegante de la geografía del Perú */}
+                    <defs>
+                      <linearGradient id="peruGradient" x1="0%" y1="0%" x2="100%" y2="100%">
+                        <stop offset="0%" stopColor="#0f172a" />
+                        <stop offset="50%" stopColor="#0a1020" />
+                        <stop offset="100%" stopColor="#080c14" />
+                      </linearGradient>
+                      <filter id="glow" x="-20%" y="-20%" width="140%" height="140%">
+                        <feGaussianBlur stdDeviation="4" result="blur" />
+                        <feComposite in="SourceGraphic" in2="blur" operator="over" />
+                      </filter>
+                    </defs>
+
+                    {/* Silueta Geográfica Oficial del Perú (Costa Pacífica, Vértice Norte Tumbes/Piura, Trapecio Amazónico Loreto y Altiplano Puno/Tacna) */}
                     <path
-                      d="M 50,45 
-                         C 75,30 110,25 145,40 
-                         C 175,55 205,75 220,110 
-                         C 215,140 185,160 180,185 
-                         C 175,210 205,245 190,270 
-                         C 165,280 145,260 120,240 
-                         C 95,210 80,180 70,150 
-                         C 50,115 35,75 50,45 Z"
-                      fill="#0d1424"
-                      stroke="#1e293b"
-                      strokeWidth="2"
+                      d="M 68,64 
+                         C 82,42 98,28 116,22
+                         C 134,16 160,20 185,32
+                         C 208,44 238,62 258,74
+                         C 278,86 288,106 276,126
+                         C 264,146 248,162 252,182
+                         C 256,202 272,216 286,236
+                         C 300,256 294,282 278,298
+                         C 262,314 246,328 238,348
+                         C 232,364 218,366 210,352
+                         C 202,338 186,306 172,284
+                         C 158,262 142,238 132,216
+                         C 122,194 108,176 96,154
+                         C 84,132 64,106 58,86
+                         C 54,72 58,68 68,64 Z"
+                      fill="url(#peruGradient)"
+                      stroke="#22d3ee"
+                      strokeWidth="2.5"
+                      strokeLinejoin="round"
+                      filter="url(#glow)"
                     />
 
-                    {/* Líneas divisorias de macro-regiones */}
-                    <path d="M 60,95 Q 120,80 190,115" stroke="#334155" strokeWidth="1" strokeDasharray="3 3" fill="none" />
-                    <path d="M 75,155 Q 130,150 180,185" stroke="#334155" strokeWidth="1" strokeDasharray="3 3" fill="none" />
-                    <path d="M 120,180 Q 150,210 190,270" stroke="#334155" strokeWidth="1" strokeDasharray="3 3" fill="none" />
+                    {/* Costas y Relieve Interior Sutil */}
+                    <path
+                      d="M 68,64 C 62,88 88,136 102,168 C 118,204 146,252 176,288 C 198,314 216,346 220,358"
+                      stroke="#38bdf8"
+                      strokeWidth="1.5"
+                      strokeDasharray="4 4"
+                      fill="none"
+                      opacity="0.4"
+                    />
+
+                    {/* Líneas de delimitación de Macro-Regiones */}
+                    <path d="M 78,136 Q 160,118 256,128" stroke="#334155" strokeWidth="1.2" strokeDasharray="3 3" fill="none" />
+                    <path d="M 106,192 Q 180,180 252,218" stroke="#334155" strokeWidth="1.2" strokeDasharray="3 3" fill="none" />
+                    <path d="M 148,252 Q 200,260 278,298" stroke="#334155" strokeWidth="1.2" strokeDasharray="3 3" fill="none" />
+
+                    {/* Lago Titicaca (Frontera Sur-Oriente) */}
+                    <ellipse cx="270" cy="318" rx="8" ry="12" fill="#0284c7" opacity="0.4" />
 
                     {/* Nodos interactivos de cada región en el mapa */}
                     {regions.map((reg) => {
@@ -268,9 +302,9 @@ export default function RealThreatCasesModal() {
                             <circle
                               cx={reg.svgCoords.cx}
                               cy={reg.svgCoords.cy}
-                              r={reg.svgCoords.r + 8}
+                              r={reg.svgCoords.r + 9}
                               fill="#0071e3"
-                              opacity="0.3"
+                              opacity="0.35"
                               className="animate-ping"
                             />
                           )}
@@ -287,7 +321,7 @@ export default function RealThreatCasesModal() {
                             x={reg.svgCoords.cx}
                             y={reg.svgCoords.cy + 3.5}
                             textAnchor="middle"
-                            fontSize="8.5"
+                            fontSize="8"
                             fontWeight="bold"
                             fill="#ffffff"
                             pointerEvents="none"
