@@ -504,6 +504,13 @@ export default function HomePage() {
               <p className="text-[11px] text-neutral-400">
                 Soluciones Tecnológicas & Auditoría Perimetral Open Source &bull; Creado por Martin Castillo
               </p>
+              <div className="flex flex-wrap items-center justify-center gap-4 text-xs text-neutral-400 pt-1">
+                <Link href="/terminos" className="hover:text-white transition-colors">Términos del Servicio</Link>
+                <span>&bull;</span>
+                <Link href="/privacidad" className="hover:text-white transition-colors">Política de Privacidad</Link>
+                <span>&bull;</span>
+                <Link href="/reclamaciones" className="hover:text-amber-300 transition-colors font-medium">Libro de Reclamaciones</Link>
+              </div>
               <p className="text-[10px] text-neutral-500 leading-relaxed pt-2 border-t border-white/5">
                 <strong>Descargo de Responsabilidad:</strong> DEFENSA TI proporciona diagnósticos no intrusivos basados en directivas públicas OWASP y análisis de cabeceras de transporte. Este servicio se brinda a título exclusivo de asesoría técnica y recomendaciones de buenas prácticas perimetrales. No constituye una certificación de infalibilidad ni auditoría de código interno o credenciales. DEFENSA TI y sus consultores quedan exentos de toda responsabilidad derivada de la implementación o incidentes de seguridad externos.
               </p>

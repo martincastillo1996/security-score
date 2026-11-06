@@ -211,12 +211,13 @@ export default function TerminosPage() {
               <span className="font-bold text-white block">Libro de Reclamaciones Virtual - DEFENSA TI</span>
               <span className="text-neutral-400 text-[11px]">Conforme a la normativa peruana, todo reclamo será atendido en un plazo máximo de quince (15) días hábiles.</span>
             </div>
-            <a
-              href="mailto:castillo.karol96@gmail.com?subject=Reclamo%20-%20Libro%20de%20Reclamaciones%20DEFENSA%20TI&body=Estimado%20Martin%20Castillo,%20deseo%20asentar%20un%20reclamo/queja%20formal%20sobre%20el%20servicio%20recibido:%0A%0A-%20Nombre%20o%20Raz%C3%B3n%20Social:%0A-%20DNI/RUC:%0A-%20Tel%C3%A9fono%20/%20WhatsApp:%0A-%20Dominio%20Web%20Auditado:%0A-%20Detalle%20del%20Reclamo:"
-              className="px-4 py-2 rounded-xl bg-white/10 hover:bg-white/20 border border-white/20 text-white font-bold transition-all shrink-0"
+            <Link
+              href="/reclamaciones"
+              className="px-4 py-2 rounded-xl bg-white/10 hover:bg-white/20 border border-white/20 text-white font-bold transition-all shrink-0 inline-flex items-center gap-1.5"
             >
-              Registrar Reclamo
-            </a>
+              <BookOpen className="w-3.5 h-3.5 text-sky-400" />
+              <span>Registrar Reclamo</span>
+            </Link>
           </div>
         </section>
 
