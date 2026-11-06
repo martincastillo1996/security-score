@@ -3,6 +3,7 @@
 import React, { useState } from 'react';
 import Link from 'next/link';
 import NeuralBackground from '@/components/NeuralBackground';
+import NeuronalGravityBrandLogo from '@/components/NeuronalGravityBrandLogo';
 import { 
   ShieldCheck, 
   ArrowLeft, 
@@ -25,10 +26,7 @@ export default function TerminosYPrivacidadPage() {
 
       <header className="sticky top-0 z-50 backdrop-blur-xl bg-black/70 border-b border-white/10">
         <div className="max-w-5xl mx-auto px-4 sm:px-6 h-16 flex items-center justify-between">
-          <Link href="/" className="flex items-center gap-2.5 text-white font-bold tracking-tight">
-            <ShieldCheck className="w-5 h-5 text-emerald-400" />
-            <span>NEURONAL GRAVITY &bull; DEFENSA TI</span>
-          </Link>
+          <NeuronalGravityBrandLogo />
           <div className="flex items-center gap-3">
             <Link 
               href="/reclamaciones" 

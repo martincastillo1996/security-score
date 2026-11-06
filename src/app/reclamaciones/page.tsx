@@ -2,8 +2,9 @@
 
 import React, { useState } from 'react';
 import Link from 'next/link';
-import { ArrowLeft, BookOpen, Send, CheckCircle2, ShieldCheck, AlertCircle } from 'lucide-react';
+import { BookOpen, Send, CheckCircle2, ShieldCheck, AlertCircle } from 'lucide-react';
 import NeuralBackground from '@/components/NeuralBackground';
+import NeuronalGravityBrandLogo from '@/components/NeuronalGravityBrandLogo';
 
 export default function LibroReclamacionesPage() {
   const [submitted, setSubmitted] = useState(false);
@@ -82,13 +83,7 @@ export default function LibroReclamacionesPage() {
       {/* Cabecera / Barra Superior */}
       <header className="sticky top-0 z-50 backdrop-blur-xl bg-black/60 border-b border-white/10">
         <div className="max-w-4xl mx-auto px-4 h-16 flex items-center justify-between">
-          <Link
-            href="/"
-            className="inline-flex items-center gap-2 text-xs font-semibold text-neutral-400 hover:text-white transition-colors"
-          >
-            <ArrowLeft className="w-4 h-4" />
-            <span>Volver al portal principal</span>
-          </Link>
+          <NeuronalGravityBrandLogo />
           <div className="flex items-center gap-2">
             <span className="w-2 h-2 rounded-full bg-emerald-400 animate-pulse" />
             <span className="text-[11px] text-neutral-400 font-medium">Libro Oficial INDECOPI (D.S. 011-2011-PCM)</span>

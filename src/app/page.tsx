@@ -3,6 +3,7 @@
 import React from 'react';
 import Link from 'next/link';
 import NeuralBackground from '@/components/NeuralBackground';
+import NeuronalGravityBrandLogo from '@/components/NeuronalGravityBrandLogo';
 import AiConsultantWidget from '@/components/AiConsultantWidget';
 import FounderProfileCard from '@/components/FounderProfileCard';
 import { 
@@ -23,21 +24,7 @@ export default function NeuronalGravityHubHome() {
       {/* 1. NAVEGACIÓN SUPERIOR APPLE PRO GLASS */}
       <header className="sticky top-0 z-50 backdrop-blur-xl bg-black/60 border-b border-white/10">
         <div className="max-w-6xl mx-auto px-6 h-16 flex items-center justify-between">
-          <Link href="/" className="flex items-center gap-3 group">
-            <div className="w-9 h-9 rounded-xl bg-linear-to-tr from-[#0071e3] via-[#7928ca] to-[#38bdf8] p-[1px] shadow-[0_0_15px_rgba(0,113,227,0.4)] group-hover:shadow-[0_0_20px_rgba(56,189,248,0.6)] transition-all">
-              <div className="w-full h-full bg-[#0a0d14] rounded-xl flex items-center justify-center">
-                <span className="text-[#38bdf8] font-black text-sm tracking-tighter">NG</span>
-              </div>
-            </div>
-            <div>
-              <span className="font-extrabold text-sm tracking-tight text-white group-hover:text-[#38bdf8] transition-colors">
-                NEURONAL GRAVITY
-              </span>
-              <span className="text-[10px] text-neutral-400 font-mono block">
-                Soluciones Tecnológicas &bull; RUC {siteConfig.business.ruc}
-              </span>
-            </div>
-          </Link>
+          <NeuronalGravityBrandLogo />
 
           <nav className="flex items-center gap-4 text-xs">
             <Link 

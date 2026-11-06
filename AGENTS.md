@@ -22,5 +22,8 @@ This block is written and re-added by `next dev` — verify at `node_modules/nex
      * `security-score-seven.vercel.app` en Vercel (se despliega con push a `main`).
    - El comando para actualizar DigitalOcean en su carpeta activa es:
      `cd /var/www/app && git pull origin main && npm run build && pm2 restart all`
+5. **Regla de Identidad de Marca (Logotipo Neuronal Gravity vs. DEFENSA TI):**
+   - **Páginas de Neuronal Gravity (Portada, Términos, Reclamaciones, Soluciones, etc.):** Deben utilizar de forma estricta y obligatoria el logotipo oficial `NeuronalGravityBrandLogo` con el badge `NG` (fondo oscuro `#0a0d14` con borde y aura gradiente azul/violeta/celeste `from-[#0071e3] via-[#7928ca] to-[#38bdf8]`), el título en negrita `NEURONAL GRAVITY` y el subtítulo `Soluciones Tecnológicas • RUC 10704877850`.
+   - **Página y subpáginas de DEFENSA TI (`/defensati`, escáner, etc.):** Utilizan el icono de **escudo de seguridad** (`ShieldCheck`) correspondiente al producto de ciberseguridad perimetral.
    - Respuestas concisas, en español y directas.
 
