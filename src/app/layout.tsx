@@ -16,21 +16,21 @@ const geistMono = Geist_Mono({
 });
 
 export const metadata: Metadata = {
-  title: "Neuronal Gravity | Soluciones de Negocio con Inteligencia Artificial & Ciberdefensa",
-  description: "Diseñamos e implementamos agentes autónomos en WhatsApp 24/7, automatización operativa inteligente y ciberdefensa perimetral con DEFENSA TI.",
+  title: "DEFENSA TI | Auditoría y Blindaje de Seguridad Web para Negocios",
+  description: "Auditamos la seguridad de tu página web y corregimos cada punto débil para proteger tus ventas y clientes. Diagnóstico independiente, blindaje técnico y garantía por escrito.",
   metadataBase: new URL("https://neuronalgravity.com"),
   openGraph: {
-    title: "Neuronal Gravity | Soluciones de Negocio con Inteligencia Artificial",
-    description: "Multiplica tus ventas y reduce costos operativos con agentes de IA y ciberdefensa perimetral sin tocar tu infraestructura.",
+    title: "DEFENSA TI | Blindaje y Seguridad Web para Negocios",
+    description: "Auditamos la seguridad de tu página web y corregimos cada punto débil. Auditoría desde S/ 65 y Blindaje Total con garantía de mejora por escrito.",
     url: "https://neuronalgravity.com",
-    siteName: "Neuronal Gravity",
+    siteName: "DEFENSA TI • Neuronal Gravity",
     locale: "es_PE",
     type: "website",
   },
   twitter: {
     card: "summary_large_image",
-    title: "Neuronal Gravity | Soluciones de Negocio con IA",
-    description: "Agentes autónomos de ventas en WhatsApp 24/7 y ciberdefensa perimetral para empresas.",
+    title: "DEFENSA TI | Blindaje y Seguridad Web para Negocios",
+    description: "Auditoría de seguridad y blindaje técnico para sitios web comerciales. Garantía de mejora por escrito.",
   },
   icons: {
     icon: "/favicon.ico",
@@ -47,14 +47,14 @@ const jsonLd = {
     {
       "@type": "Organization",
       "@id": "https://neuronalgravity.com/#organization",
-      "name": "Neuronal Gravity",
+      "name": "DEFENSA TI (Neuronal Gravity)",
       "url": "https://neuronalgravity.com",
       "logo": "https://neuronalgravity.com/martin-castillo.png",
-      "description": "Soluciones de Inteligencia Artificial Aplicada a Negocios, Automatización Operativa y Ciberdefensa Perimetral con DEFENSA TI.",
+      "description": "Auditoría técnica independiente y blindaje de seguridad para sitios web de negocios en Perú.",
       "founder": {
         "@type": "Person",
         "name": "Martin Castillo",
-        "jobTitle": "Consultor Principal & Fundador",
+        "jobTitle": "Especialista en Seguridad Web & Fundador",
         "url": "https://www.tiktok.com/@k_martin_castillo96",
       },
       "sameAs": [
@@ -65,19 +65,19 @@ const jsonLd = {
         "@type": "ContactPoint",
         "telephone": "+51-987-010-380",
         "contactType": "customer service",
-        "availableLanguage": ["Spanish", "English"]
+        "availableLanguage": ["Spanish"]
       }
     },
     {
       "@type": "ProfessionalService",
       "@id": "https://neuronalgravity.com/#service",
-      "name": "DEFENSA TI & AI Solutions",
-      "url": "https://neuronalgravity.com/defensati",
+      "name": "DEFENSA TI",
+      "url": "https://neuronalgravity.com",
       "provider": {
         "@id": "https://neuronalgravity.com/#organization"
       },
-      "serviceType": "Cybersecurity and Artificial Intelligence Consulting",
-      "areaServed": ["PE", "Latam", "Worldwide"]
+      "serviceType": "Auditoría de Seguridad Web y Blindaje Técnico",
+      "areaServed": ["PE"]
     }
   ]
 };

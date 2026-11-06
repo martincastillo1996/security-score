@@ -2,6 +2,7 @@
 
 import React, { useState } from 'react';
 import Link from 'next/link';
+import NeuralBackground from '@/components/NeuralBackground';
 import { 
   ShieldCheck, 
   ShieldAlert, 
@@ -12,7 +13,13 @@ import {
   MessageSquare, 
   Check, 
   ExternalLink,
-  ChevronDown
+  ChevronDown,
+  FileText,
+  BadgeCheck,
+  Server,
+  Eye,
+  AlertTriangle,
+  Sparkles
 } from 'lucide-react';
 
 export default function DefensatiSingleProductLanding() {
@@ -30,39 +37,39 @@ export default function DefensatiSingleProductLanding() {
     name: '',
     url: '',
     country: 'Perú',
-    plan: 'Auditoría Independiente — S/ 65 ($19 USD)',
+    plan: 'Auditoría Independiente — S/ 65 (~$19 USD)',
     comments: '',
     authorized: false,
   });
   const [formSubmitted, setFormSubmitted] = useState(false);
   const [faqOpen, setFaqOpen] = useState<number | null>(0);
 
-  // Preguntas de la Autoevaluación
+  // Preguntas de la Autoevaluación (sin cifras inventadas)
   const quizQuestions = [
     {
       id: 1,
       title: '1. ¿Tu web tiene candado seguro (HTTPS) en absolutamente todas las páginas y formularios?',
-      tip: 'Si aparece "No seguro" en alguna sección o al ingresar datos, Google y los navegadores alertan al cliente.',
+      tip: 'Si aparece "No seguro" en alguna sección o al ingresar datos, los navegadores advierten al cliente y dañan la confianza de compra.',
     },
     {
       id: 2,
-      title: '2. ¿Has actualizado WordPress, temas o plugins en los últimos 30 días?',
-      tip: 'Más del 80% de los ataques a webs de pymes ocurren por plugins con vulnerabilidades públicas conocidas.',
+      title: '2. ¿Has actualizado el gestor web, temas y extensiones en los últimos 30 días?',
+      tip: 'Las extensiones o temas desactualizados son una de las vías de acceso más habituales utilizadas en ataques automatizados.',
     },
     {
       id: 3,
       title: '3. ¿Tienes doble factor de autenticación (2FA) o límite de intentos de ingreso para administradores?',
-      tip: 'Sin límite de intentos, robots automatizados pueden probar miles de contraseñas por minuto hasta entrar.',
+      tip: 'Sin protección de accesos, robots automatizados pueden probar miles de combinaciones de contraseñas por minuto hasta ingresar.',
     },
     {
       id: 4,
       title: '4. ¿Cuentas con copias de seguridad automáticas guardadas fuera de tu proveedor de hosting?',
-      tip: 'Si tu servidor sufre un ataque o falla el disco, la copia dentro del mismo hosting también se destruye.',
+      tip: 'Si el servidor sufre un incidente o bloqueo, una copia guardada en el mismo alojamiento también queda inaccesible.',
     },
     {
       id: 5,
-      title: '5. ¿Tienes un firewall de aplicaciones web (WAF) que bloquee ataques antes de que toquen tu servidor?',
-      tip: 'Un firewall activo detiene inyecciones SQL, escaneos maliciosos y bots de scraping en el perímetro.',
+      title: '5. ¿Tienes un firewall de aplicaciones web (WAF) que detenga ataques antes de que toquen tu servidor?',
+      tip: 'Un firewall activo filtra peticiones maliciosas, intentos de inyección y escaneos antes de que consuman recursos de tu web.',
     },
   ];
 
@@ -74,14 +81,14 @@ export default function DefensatiSingleProductLanding() {
     if (answeredCount === 0) return null;
     if (noOrNoseCount === 0) return { grade: 'A', label: 'Riesgo Bajo Estimado', color: 'text-emerald-400', bg: 'border-emerald-500/40 bg-emerald-950/20' };
     if (noOrNoseCount <= 2) return { grade: 'B', label: 'Riesgo Moderado (Requiere Atención)', color: 'text-amber-400', bg: 'border-amber-500/40 bg-amber-950/20' };
-    return { grade: 'D / F', label: 'Riesgo Crítico de Exposición', color: 'text-rose-400', bg: 'border-rose-500/40 bg-rose-950/20' };
+    return { grade: 'D / F', label: 'Riesgo Alto de Exposición', color: 'text-rose-400', bg: 'border-rose-500/40 bg-rose-950/20' };
   };
 
   const quizResult = getQuizGrade();
 
   // Generador de enlace para WhatsApp de la Autoevaluación
   const getQuizWhatsAppUrl = () => {
-    const text = `Hola Martín, realicé la autoevaluación de DEFENSA TI en mi web.\nResultado orientativo: ${quizResult?.grade || 'Evaluación'} (${quizResult?.label || ''}).\nRespondí que no/no sé en ${noOrNoseCount} de 5 puntos. Quiero cotizar la auditoría formal.`;
+    const text = `Hola Martín, realicé la autoevaluación de DEFENSA TI en mi web.\nResultado preliminar: ${quizResult?.grade || 'Evaluación'} (${quizResult?.label || ''}).\nRespondí no/no sé en ${noOrNoseCount} de 5 puntos. Quiero solicitar la auditoría formal.`;
     return `https://wa.me/51987010380?text=${encodeURIComponent(text)}`;
   };
 
@@ -91,7 +98,7 @@ export default function DefensatiSingleProductLanding() {
     if (!formData.authorized) return;
 
     setFormSubmitted(true);
-    const text = `Hola Martín, deseo solicitar la auditoría DEFENSA TI para mi web:\n- Nombre: ${formData.name}\n- Web: ${formData.url}\n- País: ${formData.country}\n- Plan de interés: ${formData.plan}${formData.comments ? `\n- Comentarios: ${formData.comments}` : ''}\n- Declaración: Confirmo ser titular o contar con autorización para la auditoría.`;
+    const text = `Hola Martín, deseo solicitar la auditoría DEFENSA TI para mi web:\n- Nombre: ${formData.name}\n- Web: ${formData.url}\n- Ubicación: Perú\n- Plan de interés: ${formData.plan}${formData.comments ? `\n- Comentarios: ${formData.comments}` : ''}\n- Declaración: Confirmo ser titular o contar con autorización para la auditoría.`;
     const waUrl = `https://wa.me/51987010380?text=${encodeURIComponent(text)}`;
     setTimeout(() => {
       window.open(waUrl, '_blank', 'noopener,noreferrer');
@@ -100,51 +107,66 @@ export default function DefensatiSingleProductLanding() {
 
   const faqs = [
     {
-      q: '¿Qué significa exactamente alcanzar Grado A+?',
-      a: 'Es la máxima calificación técnica en estándares internacionales de transporte seguro (RFC / OWASP). Significa que tu web cuenta con certificado SSL/TLS moderno, cabeceras contra clonación (HSTS, CSP, X-Frame-Options) y ningún puerto administrativo crítico expuesto a internet.',
+      q: '¿Cómo se mide la mejora de seguridad en la auditoría?',
+      a: 'Utilizamos una escala técnica estandarizada (de F a A) basada en las mejores prácticas de seguridad web (OWASP y SSL Labs). Evaluamos objetivamente la presencia de cabeceras de transporte seguro (HSTS), directivas anti-clonación (CSP, X-Frame-Options), cifrado TLS/SSL moderno y mitigación de exposición pública antes y después de nuestra intervención.',
     },
     {
-      q: '¿Cómo funciona la garantía de devolución?',
-      a: 'Si tras contratar el blindaje no logramos mejorar al menos un grado la nota de seguridad de tu sitio en nuestra auditoría independiente, te reembolsamos el 100% de lo pagado. Trabajamos con precio fijo y sin letra chica.',
+      q: '¿Cómo funciona la garantía de devolución en el Blindaje Total?',
+      a: 'Si tras contratar el plan Blindaje Total no logramos mejorar al menos un grado la calificación de seguridad de tu sitio en nuestra auditoría técnica independiente, te reembolsamos el 100% de lo pagado. La garantía queda por escrito en la propuesta formal y no tiene letra chica.',
     },
     {
       q: '¿Qué pasa si mi sitio web no es WordPress?',
-      a: 'Auditamos y blindamos cualquier plataforma web: tiendas en Shopify, sistemas en Laravel, Node.js, Next.js, plataformas en PHP a medida o tiendas con pasarelas de pago como Mercado Pago, Niubiz o Stripe.',
+      a: 'Auditamos y blindamos cualquier plataforma web: tiendas en Shopify, sistemas en Laravel, Node.js, Next.js, plataformas en PHP a medida o sitios con pasarelas de pago peruanas o internacionales.',
     },
     {
       q: '¿Van a necesitar las contraseñas de mi empresa?',
-      a: 'Para la Auditoría (S/ 65) solo necesitamos la dirección de tu web; es una revisión externa que no toca tu servidor. Para corregir (planes de blindaje), te pedimos crear un usuario administrador temporal, hacemos copia de seguridad antes de tocar nada y al terminar te recomendamos eliminar la cuenta y cambiar contraseñas.',
+      a: 'Para la Auditoría Independiente (S/ 65) solo necesitamos la dirección pública de tu web; es una revisión 100% externa que no toca tu servidor. Para corregir (planes de blindaje), te solicitamos crear un usuario administrador temporal, realizamos una copia de seguridad verificada antes de tocar cualquier archivo, y al terminar te recomendamos eliminar la cuenta temporal.',
     },
     {
       q: '¿Cuánto demora la entrega del servicio?',
-      a: 'La Auditoría Independiente se entrega en 48 horas laborables con llamada explicativa. El Blindaje Esencial toma de 3 a 5 días hábiles y el Blindaje Total de 5 a 7 días hábiles.',
+      a: 'La Auditoría Independiente se entrega en 48 horas laborables con llamada o nota explicativa. El Blindaje Esencial toma de 3 a 5 días hábiles y el Blindaje Total de 5 a 7 días hábiles.',
     },
     {
-      q: '¿Atienden negocios fuera de Perú?',
-      a: 'Sí. Atendemos de forma remota a empresas en México, Colombia, Chile, Ecuador, Bolivia, Argentina y toda Latinoamérica con coordinación directa por WhatsApp y entrega de dictámenes ejecutivos.',
+      q: '¿Para qué países está disponible el servicio en esta fase?',
+      a: 'En esta etapa atendemos exclusivamente a negocios y empresas con sitios web en Perú, facilitando la gestión con pagos directos en Soles a través de Yape, Plin o Transferencia Bancaria (BCP / BBVA).',
     },
     {
       q: '¿El blindaje es un pago único o tengo que pagar una mensualidad?',
-      a: 'Es un pago único. No hay mensualidades forzosas. Dejamos tu web corregida, protegida y con copia de seguridad entregada. Si más adelante deseas monitoreo mensual continuo, se cotiza de forma opcional.',
+      a: 'Es un pago único. No hay cobros recurrentes forzosos. Dejamos tu sitio corregido, blindado y con copia de seguridad entregada. Si posteriormente requieres monitoreo periódico, se cotiza de forma opcional.',
     },
   ];
 
   return (
-    <div className="relative min-h-screen bg-black text-[#f5f5f7] font-sans antialiased selection:bg-[#0071e3] selection:text-white">
+    <div className="relative min-h-screen bg-black text-[#f5f5f7] font-sans antialiased selection:bg-[#0071e3] selection:text-white overflow-x-hidden">
       
-      {/* 1. NAVEGACIÓN ESTRICTA DE UN SOLO PRODUCTO */}
-      <header className="sticky top-0 z-50 border-b border-white/10 bg-black/85 backdrop-blur-2xl">
+      {/* FONDO APPLE GLASS CON NODOS NEURONALES INTERACTIVOS Y ORBES DE LUZ */}
+      <div className="fixed inset-0 pointer-events-none z-0">
+        <NeuralBackground showDomains={false} />
+        <div className="absolute inset-0 bg-radial from-transparent via-[#000000]/50 to-[#000000]/90"></div>
+        {/* Orbes de luz ambiental Apple Glass */}
+        <div 
+          className="absolute rounded-full bg-gradient-to-b from-[#0071e3]/20 via-[#7928ca]/15 to-transparent pointer-events-none" 
+          style={{ top: '-180px', left: '50%', transform: 'translateX(-50%)', height: '650px', width: '900px', filter: 'blur(160px)' }}
+        />
+        <div 
+          className="absolute rounded-full bg-[#38bdf8]/10 pointer-events-none" 
+          style={{ top: '350px', left: '10%', height: '450px', width: '450px', filter: 'blur(140px)' }}
+        />
+      </div>
+
+      {/* 1. NAVEGACIÓN APPLE GLASS */}
+      <header className="sticky top-0 z-50 border-b border-white/10 bg-black/75 backdrop-blur-2xl transition-all">
         <div className="max-w-6xl mx-auto px-6 h-18 flex items-center justify-between">
-          <Link href="/" className="flex items-center gap-3">
-            <div className="h-10 w-10 rounded-2xl bg-linear-to-br from-[#0071e3] via-[#7928ca] to-[#38bdf8] p-[1.5px] shadow-[0_0_20px_rgba(0,113,227,0.4)] flex items-center justify-center">
+          <Link href="/" className="flex items-center gap-3 group">
+            <div className="h-10 w-10 rounded-2xl bg-gradient-to-br from-[#0071e3] via-[#7928ca] to-[#38bdf8] p-[1.5px] shadow-[0_0_20px_rgba(0,113,227,0.35)] flex items-center justify-center group-hover:scale-105 transition-transform">
               <div className="h-full w-full rounded-[14px] bg-black flex items-center justify-center">
-                <ShieldCheck className="w-5 h-5 text-emerald-400" />
+                <ShieldCheck className="w-5 h-5 text-[#38bdf8]" />
               </div>
             </div>
             <div>
               <div className="flex items-center gap-2">
                 <span className="font-extrabold text-base tracking-tight text-white leading-none">DEFENSA TI</span>
-                <span className="px-1.5 py-0.5 rounded text-[9px] font-bold tracking-wider uppercase bg-emerald-500/15 border border-emerald-500/30 text-emerald-400">
+                <span className="px-1.5 py-0.5 rounded text-[9px] font-bold tracking-wider uppercase bg-[#0071e3]/15 border border-[#0071e3]/30 text-[#38bdf8]">
                   BLINDAJE WEB
                 </span>
               </div>
@@ -154,6 +176,7 @@ export default function DefensatiSingleProductLanding() {
 
           <nav className="hidden md:flex items-center gap-6 text-xs font-semibold text-neutral-300">
             <a href="#que-blindamos" className="hover:text-white transition-colors">Qué blindamos</a>
+            <a href="#informe-muestra" className="hover:text-white transition-colors">Informe de Muestra</a>
             <a href="#autoevaluacion" className="hover:text-white transition-colors">Autoevaluación</a>
             <a href="#precios" className="hover:text-white transition-colors">Precios</a>
             <a href="#proceso" className="hover:text-white transition-colors">Proceso</a>
@@ -162,52 +185,52 @@ export default function DefensatiSingleProductLanding() {
 
           <a
             href="#formulario"
-            className="px-4 py-2 rounded-xl bg-emerald-500 hover:bg-emerald-400 text-black text-xs font-bold transition-all shadow-[0_0_20px_rgba(16,185,129,0.3)] active:scale-95"
+            className="px-4 py-2 rounded-xl bg-[#0071e3] hover:bg-[#0077ed] text-white text-xs font-bold transition-all shadow-[0_0_20px_rgba(0,113,227,0.35)] active:scale-95"
           >
-            Pedir mi auditoría — S/ 65 ($19)
+            Pedir mi auditoría — S/ 65
           </a>
         </div>
       </header>
 
       {/* CONTENIDO PRINCIPAL */}
-      <main className="max-w-6xl mx-auto px-6 py-12 sm:py-20 space-y-24">
+      <main className="relative z-10 max-w-6xl mx-auto px-6 py-12 sm:py-20 space-y-24">
         
         {/* 1. HERO SECTION */}
         <section className="text-center space-y-8 max-w-4xl mx-auto pt-4 relative">
           
-          <div className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-emerald-500/10 border border-emerald-500/30 text-emerald-400 text-xs font-bold tracking-wide shadow-[0_0_20px_rgba(16,185,129,0.2)]">
-            <ShieldCheck className="w-4 h-4 text-emerald-400" />
-            <span>Blindaje Técnico y Auditoría para Sitios Web de Negocios</span>
+          <div className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-[#0071e3]/10 border border-[#0071e3]/30 text-[#38bdf8] text-xs font-bold tracking-wide shadow-[0_0_20px_rgba(0,113,227,0.2)]">
+            <ShieldCheck className="w-4 h-4 text-[#38bdf8]" />
+            <span>Auditoría Técnica y Blindaje para Sitios Web de Negocios en Perú</span>
           </div>
 
           <h1 className="text-4xl sm:text-6xl md:text-7xl font-black tracking-[-0.03em] text-white leading-[1.08]">
             Tu web vende por ti.{' '}
-            <span className="block text-transparent bg-clip-text bg-linear-to-r from-emerald-400 via-[#38bdf8] to-blue-400">
+            <span className="block text-transparent bg-clip-text bg-gradient-to-r from-[#38bdf8] via-white to-[#0071e3]">
               ¿Está blindada o está abierta?
             </span>
           </h1>
 
           <p className="text-base sm:text-lg text-neutral-200 font-normal leading-relaxed max-w-2xl mx-auto">
             Auditamos la seguridad de tu página web y corregimos cada punto débil hasta dejarla protegida. 
-            Con el plan <strong>Blindaje Total</strong>, si no mejoramos la calificación de seguridad de tu sitio, te devolvemos el 100% de lo pagado.
+            Con el plan <strong>Blindaje Total</strong>, si no mejoramos la calificación de seguridad de tu sitio en al menos un grado, te devolvemos el 100% de tu dinero.
           </p>
 
-          {/* Botones de Acción */}
+          {/* Botones de Acción Apple Pro */}
           <div className="pt-2 flex flex-col sm:flex-row items-center justify-center gap-4 max-w-xl mx-auto">
             <a
               href="#precios"
-              className="w-full sm:w-auto inline-flex items-center justify-center gap-2.5 px-8 py-4 rounded-2xl bg-emerald-500 hover:bg-emerald-400 text-black font-extrabold text-sm shadow-[0_0_35px_rgba(16,185,129,0.4)] active:scale-98 transition-all"
+              className="w-full sm:w-auto inline-flex items-center justify-center gap-2.5 px-8 py-4 rounded-2xl bg-[#0071e3] hover:bg-[#0077ed] text-white font-extrabold text-sm shadow-[0_0_30px_rgba(0,113,227,0.4)] active:scale-98 transition-all"
             >
-              <span>Ver planes — desde S/ 65 ($19 USD)</span>
+              <span>Ver planes — desde S/ 65 (~$19 USD)</span>
               <ArrowRight className="w-4 h-4" />
             </a>
 
             <a
-              href="#autoevaluacion"
-              className="w-full sm:w-auto inline-flex items-center justify-center gap-2 px-6 py-4 rounded-2xl bg-white/5 hover:bg-white/10 border border-white/10 text-white font-semibold text-sm transition-all"
+              href="#informe-muestra"
+              className="w-full sm:w-auto inline-flex items-center justify-center gap-2 px-6 py-4 rounded-2xl bg-white/5 hover:bg-white/10 border border-white/10 text-white font-semibold text-sm backdrop-blur-xl transition-all"
             >
-              <HelpCircle className="w-4 h-4 text-emerald-400" />
-              <span>Evaluar mi web en 1 minuto</span>
+              <Eye className="w-4 h-4 text-[#38bdf8]" />
+              <span>Ver informe de muestra</span>
             </a>
           </div>
 
@@ -215,68 +238,66 @@ export default function DefensatiSingleProductLanding() {
           <div className="pt-6 flex flex-wrap items-center justify-center gap-4 text-xs text-neutral-300">
             <span className="flex items-center gap-1.5 font-medium">
               <CheckCircle2 className="w-4 h-4 text-emerald-400" />
-              Garantía de mejora por escrito
+              Garantía de mejora por escrito (Blindaje Total)
             </span>
             <span className="text-neutral-600 hidden sm:inline">&bull;</span>
             <span className="flex items-center gap-1.5 font-medium">
               <CheckCircle2 className="w-4 h-4 text-emerald-400" />
-              Informe claro sin tecnicismos
+              Informe ejecutivo en lenguaje claro
             </span>
             <span className="text-neutral-600 hidden sm:inline">&bull;</span>
             <span className="flex items-center gap-1.5 font-medium">
               <CheckCircle2 className="w-4 h-4 text-emerald-400" />
-              Respuesta en menos de 24 h laborables
+              Entrega en 48 horas laborables
             </span>
           </div>
 
-          {/* Chips de Países Atendidos */}
-          <div className="pt-2 flex flex-wrap items-center justify-center gap-2 text-[11px] text-neutral-400">
-            <span className="font-semibold text-neutral-300">Atención remota a negocios en:</span>
-            <span className="px-2 py-0.5 rounded bg-white/5 border border-white/10 text-white">🇵🇪 Perú</span>
-            <span className="px-2 py-0.5 rounded bg-white/5 border border-white/10 text-neutral-300">🇲🇽 México</span>
-            <span className="px-2 py-0.5 rounded bg-white/5 border border-white/10 text-neutral-300">🇨🇴 Colombia</span>
-            <span className="px-2 py-0.5 rounded bg-white/5 border border-white/10 text-neutral-300">🇨🇱 Chile</span>
-            <span className="px-2 py-0.5 rounded bg-white/5 border border-white/10 text-neutral-300">LatAm</span>
+          {/* Badge de Enfoque Perú */}
+          <div className="pt-2 flex items-center justify-center">
+            <div className="inline-flex items-center gap-2 px-3.5 py-1 rounded-full bg-white/5 border border-white/10 text-[11px] text-neutral-300">
+              <span className="font-semibold text-white">🇵🇪 Servicio disponible en Perú:</span>
+              <span>Cobros directos en Soles con Yape, Plin y Transferencia BCP / BBVA</span>
+            </div>
           </div>
         </section>
 
-        {/* 2. POR QUÉ BLINDAR (3 TARJETAS DE DOLOR REAL) */}
+        {/* 2. POR QUÉ BLINDAR (3 TARJETAS DE DOLOR REAL - SIN DATOS INFLADOS) */}
         <section className="space-y-8">
           <div className="text-center space-y-2">
             <span className="text-xs font-mono uppercase tracking-wider text-rose-400 font-bold">Riesgos Reales en Negocios</span>
             <h2 className="text-3xl sm:text-4xl font-extrabold text-white tracking-tight">
-              Muchos negocios se enteran de que su web está vulnerable cuando ya es tarde
+              Muchos negocios descubren que su web está vulnerable cuando ya ocurrió el incidente
             </h2>
           </div>
 
           <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
-            <div className="p-7 rounded-3xl bg-[#120d10] border border-rose-500/30 space-y-3">
+            <div className="p-7 rounded-3xl bg-[#141416]/80 backdrop-blur-xl border border-rose-500/30 space-y-3">
               <div className="w-10 h-10 rounded-2xl bg-rose-500/20 text-rose-400 flex items-center justify-center">
                 <ShieldAlert className="w-5 h-5" />
               </div>
-              <h3 className="text-lg font-bold text-white">1. La web reparte virus o spam sin que te des cuenta</h3>
-              <p className="text-xs text-neutral-200 leading-relaxed font-normal">
-                Inyecciones de código silenciosas agregan enlaces ocultos o redirigen a tus clientes a páginas de apuestas. El dueño no lo nota, pero los visitantes y los antivirus sí.
+              <h3 className="text-lg font-bold text-white">1. Inyecciones silenciosas de código y redirecciones</h3>
+              <p className="text-xs text-neutral-300 leading-relaxed font-normal">
+                Modificaciones de código invisibles redirigen a tus prospectos hacia enlaces no deseados o alteran tus formularios. El visitante percibe el sitio como inseguro y abandona la compra.
               </p>
             </div>
 
-            <div className="p-7 rounded-3xl bg-[#12100d] border border-amber-500/30 space-y-3">
+            <div className="p-7 rounded-3xl bg-[#141416]/80 backdrop-blur-xl border border-amber-500/30 space-y-3">
               <div className="w-10 h-10 rounded-2xl bg-amber-500/20 text-amber-400 flex items-center justify-center">
-                <ShieldAlert className="w-5 h-5" />
+                <AlertTriangle className="w-5 h-5" />
               </div>
-              <h3 className="text-lg font-bold text-white">2. Google marca tu página como &quot;Sitio peligroso&quot;</h3>
-              <p className="text-xs text-neutral-200 leading-relaxed font-normal">
-                Una pantalla roja bloquea a cualquier persona que intente entrar. Las ventas caen a cero de inmediato y salir de la lista negra de Google toma semanas si no se corrigen las fallas.
+              <h3 className="text-lg font-bold text-white">2. Bloqueo o advertencias disuasorias en el navegador</h3>
+              <p className="text-xs text-neutral-300 leading-relaxed font-normal">
+                Navegadores y motores de búsqueda despliegan advertencias rojas ante configuraciones defectuosas, dañando de forma inmediata la reputación del negocio y deteniendo las consultas.
               </p>
             </div>
 
-            <div className="p-7 rounded-3xl bg-[#0d1218] border border-[#38bdf8]/30 space-y-3">
-              <div className="w-10 h-10 rounded-2xl bg-blue-500/20 text-[#38bdf8] flex items-center justify-center">
+            <div className="p-7 rounded-3xl bg-[#141416]/80 backdrop-blur-xl border border-[#38bdf8]/30 space-y-3">
+              <div className="w-10 h-10 rounded-2xl bg-[#0071e3]/20 text-[#38bdf8] flex items-center justify-center">
                 <Lock className="w-5 h-5" />
               </div>
-              <h3 className="text-lg font-bold text-white">3. Datos de clientes y pedidos expuestos</h3>
-              <p className="text-xs text-neutral-200 leading-relaxed font-normal">
-                Formularios de contacto, correos o comprobantes interceptados por falta de cabeceras defensivas y cifrado SSL robusto, violando normativas de privacidad como la Ley 29733.
+              <h3 className="text-lg font-bold text-white">3. Exposición de datos y falta de cabeceras de privacidad</h3>
+              <p className="text-xs text-neutral-300 leading-relaxed font-normal">
+                Consultas comerciales, correos y pedidos transmitidos sin cabeceras defensivas ni certificados robustos, exponiendo la privacidad conforme a la normativa peruana (Ley 29733).
               </p>
             </div>
           </div>
@@ -285,102 +306,230 @@ export default function DefensatiSingleProductLanding() {
         {/* 3. QUÉ REVISAMOS Y CORREGIMOS PUNTO POR PUNTO */}
         <section id="que-blindamos" className="space-y-10">
           <div className="text-center space-y-2 max-w-2xl mx-auto">
-            <span className="text-xs font-mono uppercase tracking-wider text-emerald-400 font-bold">Alcance Técnico Transparente</span>
+            <span className="text-xs font-mono uppercase tracking-wider text-[#38bdf8] font-bold">Alcance Técnico Transparente</span>
             <h2 className="text-3xl sm:text-4xl font-extrabold text-white tracking-tight">
               Qué revisamos y corregimos en tu web, punto por punto
             </h2>
           </div>
 
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-            <div className="p-6 rounded-3xl bg-[#0e1118] border border-white/10 space-y-3">
-              <div className="flex items-center gap-2.5 text-emerald-400 font-bold text-sm">
-                <CheckCircle2 className="w-4 h-4 shrink-0" />
+            <div className="p-6 rounded-3xl bg-[#141416]/80 backdrop-blur-xl border border-white/10 space-y-3">
+              <div className="flex items-center gap-2.5 text-[#38bdf8] font-bold text-sm">
+                <CheckCircle2 className="w-4 h-4 text-emerald-400 shrink-0" />
                 <span>Conexión y Certificado (HTTPS / TLS)</span>
               </div>
-              <p className="text-xs text-neutral-200 leading-relaxed font-normal">
+              <p className="text-xs text-neutral-300 leading-relaxed font-normal">
                 Verificamos que todo el tráfico viaje cifrado con protocolos modernos (TLSv1.3), renovaciones automáticas activas y sin contenidos mixtos que rompan el candado seguro.
               </p>
             </div>
 
-            <div className="p-6 rounded-3xl bg-[#0e1118] border border-white/10 space-y-3">
-              <div className="flex items-center gap-2.5 text-emerald-400 font-bold text-sm">
-                <CheckCircle2 className="w-4 h-4 shrink-0" />
+            <div className="p-6 rounded-3xl bg-[#141416]/80 backdrop-blur-xl border border-white/10 space-y-3">
+              <div className="flex items-center gap-2.5 text-[#38bdf8] font-bold text-sm">
+                <CheckCircle2 className="w-4 h-4 text-emerald-400 shrink-0" />
                 <span>Cabeceras Defensivas HTTP (OWASP)</span>
               </div>
-              <p className="text-xs text-neutral-200 leading-relaxed font-normal">
+              <p className="text-xs text-neutral-300 leading-relaxed font-normal">
                 Implementamos HSTS estricto, X-Frame-Options (anti-clonación en iframes), Content-Security-Policy y directivas que impiden que terceros roben la identidad de tu marca.
               </p>
             </div>
 
-            <div className="p-6 rounded-3xl bg-[#0e1118] border border-white/10 space-y-3">
-              <div className="flex items-center gap-2.5 text-emerald-400 font-bold text-sm">
-                <CheckCircle2 className="w-4 h-4 shrink-0" />
+            <div className="p-6 rounded-3xl bg-[#141416]/80 backdrop-blur-xl border border-white/10 space-y-3">
+              <div className="flex items-center gap-2.5 text-[#38bdf8] font-bold text-sm">
+                <CheckCircle2 className="w-4 h-4 text-emerald-400 shrink-0" />
                 <span>Software, Temas y Plugins al Día</span>
               </div>
-              <p className="text-xs text-neutral-200 leading-relaxed font-normal">
+              <p className="text-xs text-neutral-300 leading-relaxed font-normal">
                 Actualización segura de componentes de WordPress y extensiones con respaldo previo, eliminando módulos abandonados o con vulnerabilidades documentadas.
               </p>
             </div>
 
-            <div className="p-6 rounded-3xl bg-[#0e1118] border border-white/10 space-y-3">
-              <div className="flex items-center gap-2.5 text-emerald-400 font-bold text-sm">
-                <CheckCircle2 className="w-4 h-4 shrink-0" />
+            <div className="p-6 rounded-3xl bg-[#141416]/80 backdrop-blur-xl border border-white/10 space-y-3">
+              <div className="flex items-center gap-2.5 text-[#38bdf8] font-bold text-sm">
+                <CheckCircle2 className="w-4 h-4 text-emerald-400 shrink-0" />
                 <span>Accesos y Contraseñas Protegidas</span>
               </div>
-              <p className="text-xs text-neutral-200 leading-relaxed font-normal">
-                Configuración de doble factor (2FA), límite de intentos fallidos contra ataques de fuerza bruta y eliminación de usuarios administradores antiguos o sospechosos.
+              <p className="text-xs text-neutral-300 leading-relaxed font-normal">
+                Configuración de doble factor (2FA), límite de intentos fallidos contra ataques automatizados y eliminación de usuarios administradores antiguos o sospechosos.
               </p>
             </div>
 
-            <div className="p-6 rounded-3xl bg-[#0e1118] border border-white/10 space-y-3">
-              <div className="flex items-center gap-2.5 text-emerald-400 font-bold text-sm">
-                <CheckCircle2 className="w-4 h-4 shrink-0" />
+            <div className="p-6 rounded-3xl bg-[#141416]/80 backdrop-blur-xl border border-white/10 space-y-3">
+              <div className="flex items-center gap-2.5 text-[#38bdf8] font-bold text-sm">
+                <CheckCircle2 className="w-4 h-4 text-emerald-400 shrink-0" />
                 <span>Firewall Web (WAF) Activo</span>
               </div>
-              <p className="text-xs text-neutral-200 leading-relaxed font-normal">
-                Bloqueo de bots maliciosos, escaneos automáticos de hackers y peticiones sospechosas en el perímetro antes de que logren tocar los recursos de tu servidor.
+              <p className="text-xs text-neutral-300 leading-relaxed font-normal">
+                Bloqueo de bots maliciosos, escaneos automáticos de vulnerabilidades y peticiones sospechosas en el perímetro antes de que logren tocar los recursos de tu servidor.
               </p>
             </div>
 
-            <div className="p-6 rounded-3xl bg-[#0e1118] border border-white/10 space-y-3">
-              <div className="flex items-center gap-2.5 text-emerald-400 font-bold text-sm">
-                <CheckCircle2 className="w-4 h-4 shrink-0" />
+            <div className="p-6 rounded-3xl bg-[#141416]/80 backdrop-blur-xl border border-white/10 space-y-3">
+              <div className="flex items-center gap-2.5 text-[#38bdf8] font-bold text-sm">
+                <CheckCircle2 className="w-4 h-4 text-emerald-400 shrink-0" />
                 <span>Copias de Seguridad Verificadas</span>
               </div>
-              <p className="text-xs text-neutral-200 leading-relaxed font-normal">
+              <p className="text-xs text-neutral-300 leading-relaxed font-normal">
                 Automatización de respaldos externos fuera del hosting, comprobando que el archivo realmente pueda restaurar tu web si ocurre cualquier desastre técnico.
               </p>
             </div>
           </div>
         </section>
 
-        {/* TRANSPARENCIA EN ACCESOS (SECCIÓN DESTACADA) */}
-        <section className="p-8 sm:p-10 rounded-3xl bg-[#0f1422] border border-blue-500/30 space-y-4 text-left">
+        {/* 4. SECCIÓN DESTACADA: INFORME DE MUESTRA (ALTA CONVERSIÓN & TRANSPARENCIA) */}
+        <section id="informe-muestra" className="space-y-8">
+          <div className="text-center space-y-2 max-w-2xl mx-auto">
+            <div className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-amber-500/10 border border-amber-500/30 text-amber-400 text-xs font-mono font-bold">
+              <Sparkles className="w-3.5 h-3.5" />
+              <span>DOCUMENTO DE MUESTRA REAL</span>
+            </div>
+            <h2 className="text-3xl sm:text-4xl font-extrabold text-white tracking-tight">
+              Así luce el Informe Ejecutivo que recibes
+            </h2>
+            <p className="text-xs text-neutral-300">
+              Sin tecnicismos incomprensibles. Un dictamen claro con el antes y el después, evidencia de cada prueba y acciones ejecutadas.
+            </p>
+          </div>
+
+          {/* Tarjeta de Informe de Muestra Apple Dark Glass */}
+          <div className="max-w-4xl mx-auto rounded-3xl bg-[#141416]/90 backdrop-blur-2xl border border-white/15 shadow-2xl p-6 sm:p-10 space-y-8 relative overflow-hidden">
+            
+            {/* Marca de Agua "EJEMPLO / MUESTRA" */}
+            <div className="absolute top-4 right-4 sm:top-6 sm:right-6 px-3 py-1 rounded-lg bg-white/10 border border-white/15 text-neutral-400 text-[10px] font-mono tracking-widest uppercase font-bold">
+              EJEMPLO / MUESTRA
+            </div>
+
+            {/* Cabecera del Informe */}
+            <div className="border-b border-white/10 pb-6 space-y-2">
+              <div className="flex items-center gap-3">
+                <div className="w-8 h-8 rounded-xl bg-[#0071e3]/20 flex items-center justify-center text-[#38bdf8]">
+                  <FileText className="w-4 h-4" />
+                </div>
+                <div>
+                  <h3 className="text-lg font-bold text-white leading-tight">
+                    Dictamen Técnico de Seguridad & Blindaje Web
+                  </h3>
+                  <p className="text-xs text-neutral-400 font-mono">
+                    Sitio Evaluado: empresa-ejemplo.pe &bull; Plataforma: WordPress / WooCommerce &bull; Fecha: Noviembre 2026
+                  </p>
+                </div>
+              </div>
+            </div>
+
+            {/* Comparativa Visual Antes vs Después */}
+            <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+              {/* Antes */}
+              <div className="p-5 rounded-2xl bg-rose-950/20 border border-rose-500/30 space-y-2">
+                <span className="text-[10px] font-mono uppercase tracking-wider text-rose-400 font-bold">
+                  Diagnóstico Inicial (Antes de corregir)
+                </span>
+                <div className="flex items-baseline gap-3">
+                  <span className="text-4xl font-black font-mono text-rose-400">Grado F</span>
+                  <span className="text-xs text-neutral-400">(28 / 100)</span>
+                </div>
+                <p className="text-xs text-neutral-300 leading-snug">
+                  5 vulnerabilidades críticas: Sin HSTS, versión de WordPress visible a atacantes, cabeceras anti-clonación ausentes y formulario de pago expuesto.
+                </p>
+              </div>
+
+              {/* Después */}
+              <div className="p-5 rounded-2xl bg-emerald-950/20 border border-emerald-500/30 space-y-2">
+                <span className="text-[10px] font-mono uppercase tracking-wider text-emerald-400 font-bold">
+                  Resultado Tras Blindaje Total
+                </span>
+                <div className="flex items-baseline gap-3">
+                  <span className="text-4xl font-black font-mono text-emerald-400">Grado A</span>
+                  <span className="text-xs text-neutral-400">(94 / 100)</span>
+                </div>
+                <p className="text-xs text-neutral-300 leading-snug">
+                  Blindaje completo aplicado: HSTS precargado, CSP implementada, cabeceras de servidor ocultadas y respaldo exterior verificado.
+                </p>
+              </div>
+            </div>
+
+            {/* Tabla de Puntos Auditados en el Informe */}
+            <div className="space-y-3">
+              <span className="text-xs font-mono uppercase tracking-wider text-neutral-400 font-bold block">
+                Comprobaciones Verificadas en el Dictamen:
+              </span>
+              <div className="grid grid-cols-1 sm:grid-cols-2 gap-3 text-xs">
+                <div className="p-3 rounded-xl bg-white/5 border border-white/5 flex items-start gap-2.5">
+                  <CheckCircle2 className="w-4 h-4 text-emerald-400 shrink-0 mt-0.5" />
+                  <div>
+                    <strong className="text-white block">Strict-Transport-Security (HSTS)</strong>
+                    <span className="text-neutral-400">Cifrado forzado a nivel de navegador (max-age=63072000).</span>
+                  </div>
+                </div>
+
+                <div className="p-3 rounded-xl bg-white/5 border border-white/5 flex items-start gap-2.5">
+                  <CheckCircle2 className="w-4 h-4 text-emerald-400 shrink-0 mt-0.5" />
+                  <div>
+                    <strong className="text-white block">Content-Security-Policy (CSP)</strong>
+                    <span className="text-neutral-400">Protección activa contra robo de credenciales e inyecciones XSS.</span>
+                  </div>
+                </div>
+
+                <div className="p-3 rounded-xl bg-white/5 border border-white/5 flex items-start gap-2.5">
+                  <CheckCircle2 className="w-4 h-4 text-emerald-400 shrink-0 mt-0.5" />
+                  <div>
+                    <strong className="text-white block">Anti-Clonación (X-Frame-Options)</strong>
+                    <span className="text-neutral-400">Bloquea que terceros monten tu tienda en iframes para estafar.</span>
+                  </div>
+                </div>
+
+                <div className="p-3 rounded-xl bg-white/5 border border-white/5 flex items-start gap-2.5">
+                  <CheckCircle2 className="w-4 h-4 text-emerald-400 shrink-0 mt-0.5" />
+                  <div>
+                    <strong className="text-white block">Ocultación de Versiones de Software</strong>
+                    <span className="text-neutral-400">Retira cabeceras X-Powered-By y versiones de plugins visibles.</span>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            {/* Firma y Sello de Auditoría */}
+            <div className="pt-4 border-t border-white/10 flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4 text-xs text-neutral-400">
+              <div className="flex items-center gap-2">
+                <BadgeCheck className="w-4 h-4 text-[#38bdf8]" />
+                <span>Auditado y firmado por: <strong>Martin Castillo</strong> &bull; DEFENSA TI</span>
+              </div>
+              <a
+                href="#formulario"
+                className="inline-flex items-center gap-1.5 text-[#38bdf8] hover:text-white font-semibold transition-colors"
+              >
+                <span>Solicitar la auditoría para mi web</span>
+                <ArrowRight className="w-3.5 h-3.5" />
+              </a>
+            </div>
+          </div>
+        </section>
+
+        {/* TRANSPARENCIA EN ACCESOS */}
+        <section className="p-8 sm:p-10 rounded-3xl bg-[#141416]/80 backdrop-blur-xl border border-[#0071e3]/30 space-y-4 text-left">
           <div className="flex items-center gap-3 text-white font-bold text-lg">
             <Lock className="w-6 h-6 text-[#38bdf8]" />
             <span>¿Van a necesitar las contraseñas de mi empresa?</span>
           </div>
           <div className="text-xs sm:text-sm text-neutral-200 leading-relaxed space-y-2 font-normal">
             <p>
-              <strong>Para la Auditoría Independiente (S/ 65 / $19):</strong> Solo necesitamos la dirección pública de tu web. Es una revisión 100% externa que no toca tu sitio ni pide claves.
+              <strong>Para la Auditoría Independiente (S/ 65 / ~$19 USD):</strong> Solo requerimos la dirección pública de tu web. Es una revisión 100% externa que no toca tu sitio ni solicita credenciales.
             </p>
             <p>
               <strong>Para corregir y blindar tu sitio:</strong> Aplicamos este protocolo transparente:
             </p>
             <ul className="list-disc pl-5 space-y-1 text-neutral-300 text-xs">
-              <li>Te pedimos crear una cuenta temporal con los permisos mínimos necesarios, no tu cuenta personal ni principal.</li>
-              <li>Antes de tocar cualquier archivo, hacemos una copia de seguridad verificada.</li>
-              <li>Cada cambio realizado queda registrado en el informe de entrega.</li>
-              <li>Al finalizar el trabajo, cerramos o eliminamos esa cuenta y te recomendamos cambiar tus claves.</li>
-              <li>No guardamos contraseñas fuera del trabajo ni las compartimos con terceros.</li>
+              <li>Te pedimos crear una cuenta temporal con los permisos estrictamente necesarios, nunca tu cuenta principal.</li>
+              <li>Antes de modificar cualquier archivo, realizamos una copia de seguridad verificada.</li>
+              <li>Cada cambio ejecutado queda documentado en el informe de entrega.</li>
+              <li>Al finalizar el trabajo, te recomendamos eliminar esa cuenta temporal y renovar contraseñas.</li>
+              <li>No almacenamos contraseñas fuera del trabajo ni las compartimos con terceros.</li>
             </ul>
           </div>
         </section>
 
-        {/* 4. AUTOEVALUACIÓN INTERACTIVA DE 1 MINUTO */}
-        <section id="autoevaluacion" className="space-y-8 p-8 sm:p-12 rounded-3xl bg-linear-to-b from-[#101422] via-[#0b0e17] to-black border border-white/15">
+        {/* 5. AUTOEVALUACIÓN INTERACTIVA DE 1 MINUTO */}
+        <section id="autoevaluacion" className="space-y-8 p-8 sm:p-12 rounded-3xl bg-[#141416]/80 backdrop-blur-xl border border-white/15">
           <div className="text-center space-y-2 max-w-2xl mx-auto">
-            <span className="text-xs font-mono uppercase tracking-wider text-emerald-400 font-bold">Diagnóstico Rápido</span>
+            <span className="text-xs font-mono uppercase tracking-wider text-[#38bdf8] font-bold">Diagnóstico Rápido</span>
             <h2 className="text-3xl sm:text-4xl font-extrabold text-white tracking-tight">
               Autoevaluación de seguridad de tu web (1 minuto)
             </h2>
@@ -403,7 +552,7 @@ export default function DefensatiSingleProductLanding() {
                       className={`px-4 py-1.5 rounded-xl text-xs font-semibold transition-all cursor-pointer ${
                         answers[q.id] === opt
                           ? opt === 'si'
-                            ? 'bg-emerald-500 text-black font-bold'
+                            ? 'bg-[#0071e3] text-white font-bold shadow-[0_0_15px_rgba(0,113,227,0.4)]'
                             : 'bg-rose-500 text-white font-bold'
                           : 'bg-white/10 text-neutral-300 hover:bg-white/15 hover:text-white'
                       }`}
@@ -441,22 +590,22 @@ export default function DefensatiSingleProductLanding() {
           )}
         </section>
 
-        {/* 5. PRECIOS Y PLANES (DECISIONES DEL DUEÑO: SOLES PRINCIPAL, USD REFERENCIA) */}
+        {/* 6. PRECIOS Y PLANES (DECISIONES DEL DUEÑO: SOLES PRINCIPAL, USD REFERENCIA) */}
         <section id="precios" className="space-y-10">
           <div className="text-center space-y-2 max-w-2xl mx-auto">
-            <span className="text-xs font-mono uppercase tracking-wider text-emerald-400 font-bold">Tarifas Transparentes & Pago Único</span>
+            <span className="text-xs font-mono uppercase tracking-wider text-[#38bdf8] font-bold">Tarifas Transparentes & Pago Único</span>
             <h2 className="text-3xl sm:text-4xl font-extrabold text-white tracking-tight">
               Planes de Auditoría y Blindaje Web
             </h2>
             <p className="text-xs text-neutral-300">
-              Precios fijos en Soles para Perú (Yape, Plin y transferencia bancaria). Sin mensualidades escondidas.
+              Precios fijos en Soles para Perú (Yape, Plin y transferencia bancaria). Sin mensualidades forzosas.
             </p>
           </div>
 
           <div className="grid grid-cols-1 md:grid-cols-3 gap-6 items-stretch">
             
             {/* PLAN 1 */}
-            <div className="p-7 rounded-3xl bg-[#0e1118] border border-white/15 flex flex-col justify-between space-y-6">
+            <div className="p-7 rounded-3xl bg-[#141416]/80 backdrop-blur-xl border border-white/15 flex flex-col justify-between space-y-6">
               <div className="space-y-4">
                 <span className="text-[11px] font-bold uppercase tracking-wider text-neutral-400">Paso 1: Diagnóstico</span>
                 <h3 className="text-xl font-bold text-white">Auditoría Independiente</h3>
@@ -465,7 +614,7 @@ export default function DefensatiSingleProductLanding() {
                   <div className="text-xs text-neutral-400">Referencia: ~$19 USD &bull; Pago 100% por adelantado</div>
                 </div>
                 <p className="text-xs text-neutral-300 leading-relaxed font-normal">
-                  Escaneo completo de seguridad, nota actual (de F a A+) con evidencia, lista de fallas ordenada por riesgo y plan de corrección paso a paso.
+                  Revisión externa completa de seguridad, dictamen de grado (de F a A) con evidencia, lista de fallas ordenada por riesgo y recomendaciones de corrección.
                 </p>
                 <ul className="space-y-2 text-xs text-neutral-200 border-t border-white/10 pt-4">
                   <li className="flex items-start gap-2">
@@ -485,7 +634,7 @@ export default function DefensatiSingleProductLanding() {
 
               <a
                 href="#formulario"
-                onClick={() => setFormData({ ...formData, plan: 'Auditoría Independiente — S/ 65 ($19 USD)' })}
+                onClick={() => setFormData({ ...formData, plan: 'Auditoría Independiente — S/ 65 (~$19 USD)' })}
                 className="w-full py-3 rounded-xl bg-white/10 hover:bg-white/15 border border-white/10 text-white text-xs font-bold text-center block transition-all"
               >
                 Pedir Auditoría — S/ 65
@@ -493,19 +642,19 @@ export default function DefensatiSingleProductLanding() {
             </div>
 
             {/* PLAN 2 (EL MÁS PEDIDO) */}
-            <div className="p-7 rounded-3xl bg-linear-to-b from-[#101b2a] via-[#0d1420] to-[#080d14] border-2 border-emerald-500 shadow-2xl shadow-emerald-500/20 flex flex-col justify-between space-y-6 relative">
-              <div className="absolute -top-3 left-1/2 -translate-x-1/2 px-3 py-1 rounded-full bg-emerald-500 text-black text-[10px] font-black uppercase tracking-wider">
+            <div className="p-7 rounded-3xl bg-gradient-to-b from-[#101b2a] via-[#141416] to-[#0c0e14] border-2 border-[#0071e3] shadow-2xl shadow-[#0071e3]/20 flex flex-col justify-between space-y-6 relative">
+              <div className="absolute -top-3 left-1/2 -translate-x-1/2 px-3 py-1 rounded-full bg-[#0071e3] text-white text-[10px] font-black uppercase tracking-wider shadow-md">
                 El más pedido
               </div>
               <div className="space-y-4">
-                <span className="text-[11px] font-bold uppercase tracking-wider text-emerald-400">Protección Esencial</span>
+                <span className="text-[11px] font-bold uppercase tracking-wider text-[#38bdf8]">Protección Esencial</span>
                 <h3 className="text-xl font-bold text-white">Blindaje Esencial</h3>
                 <div className="space-y-1">
                   <div className="text-3xl sm:text-4xl font-black text-white font-mono">S/ 165</div>
                   <div className="text-xs text-neutral-400">Referencia: ~$49 USD &bull; Pago 100% por adelantado</div>
                 </div>
                 <p className="text-xs text-neutral-200 leading-relaxed font-normal">
-                  Todo lo de la Auditoría, más la corrección de fallas críticas y altas para dejar tu web blindada contra ataques frecuentes.
+                  Todo lo de la Auditoría, más la corrección de fallas críticas y medias para dejar tu web blindada contra vulnerabilidades frecuentes.
                 </p>
                 <ul className="space-y-2 text-xs text-neutral-200 border-t border-white/10 pt-4">
                   <li className="flex items-start gap-2">
@@ -518,11 +667,11 @@ export default function DefensatiSingleProductLanding() {
                   </li>
                   <li className="flex items-start gap-2">
                     <Check className="w-4 h-4 text-emerald-400 shrink-0" />
-                    <span>Actualización segura de web, tema y plugins</span>
+                    <span>Actualización segura de web, tema y extensiones</span>
                   </li>
                   <li className="flex items-start gap-2">
                     <Check className="w-4 h-4 text-emerald-400 shrink-0" />
-                    <span>Endurecimiento de accesos (2FA y límites)</span>
+                    <span>Endurecimiento de accesos (2FA y límites de ingreso)</span>
                   </li>
                   <li className="flex items-start gap-2">
                     <Check className="w-4 h-4 text-emerald-400 shrink-0" />
@@ -533,24 +682,24 @@ export default function DefensatiSingleProductLanding() {
 
               <a
                 href="#formulario"
-                onClick={() => setFormData({ ...formData, plan: 'Blindaje Esencial — S/ 165 ($49 USD)' })}
-                className="w-full py-3 rounded-xl bg-emerald-500 hover:bg-emerald-400 text-black text-xs font-black text-center block transition-all shadow-lg shadow-emerald-500/30"
+                onClick={() => setFormData({ ...formData, plan: 'Blindaje Esencial — S/ 165 (~$49 USD)' })}
+                className="w-full py-3.5 rounded-xl bg-[#0071e3] hover:bg-[#0077ed] text-white text-xs font-black text-center block transition-all shadow-lg shadow-[#0071e3]/30"
               >
                 Elegir Blindaje Esencial — S/ 165
               </a>
             </div>
 
             {/* PLAN 3 */}
-            <div className="p-7 rounded-3xl bg-[#0e1118] border border-white/15 flex flex-col justify-between space-y-6">
+            <div className="p-7 rounded-3xl bg-[#141416]/80 backdrop-blur-xl border border-white/15 flex flex-col justify-between space-y-6">
               <div className="space-y-4">
-                <span className="text-[11px] font-bold uppercase tracking-wider text-neutral-400">Blindaje Máximo</span>
+                <span className="text-[11px] font-bold uppercase tracking-wider text-neutral-400">Blindaje Integral</span>
                 <h3 className="text-xl font-bold text-white">Blindaje Total</h3>
                 <div className="space-y-1">
                   <div className="text-3xl sm:text-4xl font-black text-white font-mono">S/ 335</div>
                   <div className="text-xs text-neutral-400">Referencia: ~$99 USD &bull; 50% al empezar, 50% al entregar</div>
                 </div>
                 <p className="text-xs text-neutral-300 leading-relaxed font-normal">
-                  Configuración completa de seguridad, firewall de aplicaciones web (WAF), copias de seguridad comprobables y re-medición verificada.
+                  Configuración completa de seguridad, firewall perimetral (WAF), copias de seguridad externas y re-medición con garantía de mejora por escrito.
                 </p>
                 <ul className="space-y-2 text-xs text-neutral-200 border-t border-white/10 pt-4">
                   <li className="flex items-start gap-2">
@@ -567,7 +716,7 @@ export default function DefensatiSingleProductLanding() {
                   </li>
                   <li className="flex items-start gap-2">
                     <Check className="w-4 h-4 text-emerald-400 shrink-0" />
-                    <span>Garantía de mejora de calificación por escrito</span>
+                    <strong className="text-white">Garantía de mejora de al menos 1 grado o devolución 100%</strong>
                   </li>
                   <li className="flex items-start gap-2">
                     <Check className="w-4 h-4 text-emerald-400 shrink-0" />
@@ -578,7 +727,7 @@ export default function DefensatiSingleProductLanding() {
 
               <a
                 href="#formulario"
-                onClick={() => setFormData({ ...formData, plan: 'Blindaje Total — S/ 335 ($99 USD)' })}
+                onClick={() => setFormData({ ...formData, plan: 'Blindaje Total — S/ 335 (~$99 USD)' })}
                 className="w-full py-3 rounded-xl bg-white/10 hover:bg-white/15 border border-white/10 text-white text-xs font-bold text-center block transition-all"
               >
                 Elegir Blindaje Total — S/ 335
@@ -588,67 +737,67 @@ export default function DefensatiSingleProductLanding() {
 
           {/* AVISO IMPORTANTE: SITIOS INFECTADOS */}
           <div className="p-4 rounded-2xl bg-white/[0.03] border border-white/10 text-xs text-neutral-300 max-w-3xl mx-auto text-center leading-relaxed">
-            <strong className="text-white">¿Tu web ya tiene un virus o envía spam en este momento?</strong> La limpieza y desinfección forense de sitios web infectados se cotiza de forma independiente desde $149 USD (o equivalente en soles) tras un diagnóstico previo.
+            <strong className="text-white">¿Tu web ya tiene un virus o envía spam en este momento?</strong> La limpieza y desinfección forense de sitios web previamente infectados se cotiza de forma independiente desde $149 USD (o equivalente en soles) tras un diagnóstico técnico.
           </div>
         </section>
 
-        {/* 6. GARANTÍA POR ESCRITO */}
-        <section className="p-8 sm:p-10 rounded-3xl bg-linear-to-b from-[#121c16] to-[#090f0c] border border-emerald-500/40 text-center max-w-3xl mx-auto space-y-3">
-          <div className="w-12 h-12 rounded-full bg-emerald-500/20 text-emerald-400 flex items-center justify-center mx-auto">
+        {/* 7. GARANTÍA POR ESCRITO (EXCLUSIVA DEL PLAN TOTAL) */}
+        <section className="p-8 sm:p-10 rounded-3xl bg-[#141416]/80 backdrop-blur-xl border border-[#0071e3]/40 text-center max-w-3xl mx-auto space-y-3">
+          <div className="w-12 h-12 rounded-full bg-[#0071e3]/20 text-[#38bdf8] flex items-center justify-center mx-auto">
             <ShieldCheck className="w-6 h-6" />
           </div>
-          <h3 className="text-2xl font-bold text-white">Garantía de Mejora Efectiva por Escrito</h3>
+          <h3 className="text-2xl font-bold text-white">Garantía Exclusiva del Plan Blindaje Total</h3>
           <p className="text-xs sm:text-sm text-neutral-200 leading-relaxed font-normal">
-            En los planes de blindaje de DEFENSA TI trabajamos con un objetivo claro: si tras aplicar las correcciones no logramos subir al menos un grado la calificación de seguridad de tu web en nuestra auditoría independiente, te devolvemos el 100% de tu dinero. Todo queda por escrito en la propuesta formal.
+            En el plan <strong>Blindaje Total</strong> trabajamos con un compromiso medible: si tras aplicar las correcciones técnicas no logramos subir al menos un grado la calificación de seguridad de tu web en nuestra auditoría independiente, te devolvemos el 100% de tu dinero. Todo estipulado con claridad en la propuesta formal.
           </p>
         </section>
 
-        {/* 7. CÓMO TRABAJAMOS EN 5 PASOS */}
+        {/* 8. CÓMO TRABAJAMOS EN 5 PASOS */}
         <section id="proceso" className="space-y-8">
           <div className="text-center space-y-2 max-w-2xl mx-auto">
-            <span className="text-xs font-mono uppercase tracking-wider text-emerald-400 font-bold">Metodología Clara</span>
+            <span className="text-xs font-mono uppercase tracking-wider text-[#38bdf8] font-bold">Metodología Clara</span>
             <h2 className="text-3xl sm:text-4xl font-extrabold text-white tracking-tight">
               Cómo trabajamos en 5 pasos sencillos
             </h2>
           </div>
 
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-5 gap-4">
-            <div className="p-5 rounded-2xl bg-[#0e1118] border border-white/10 space-y-2 text-left">
-              <span className="text-2xl font-black font-mono text-emerald-400">01</span>
+            <div className="p-5 rounded-2xl bg-[#141416]/80 backdrop-blur-xl border border-white/10 space-y-2 text-left">
+              <span className="text-2xl font-black font-mono text-[#38bdf8]">01</span>
               <h4 className="text-sm font-bold text-white">Nos das tu web</h4>
               <p className="text-xs text-neutral-300">Solo la dirección de tu página y tu WhatsApp. No pedimos contraseñas.</p>
             </div>
 
-            <div className="p-5 rounded-2xl bg-[#0e1118] border border-white/10 space-y-2 text-left">
-              <span className="text-2xl font-black font-mono text-emerald-400">02</span>
+            <div className="p-5 rounded-2xl bg-[#141416]/80 backdrop-blur-xl border border-white/10 space-y-2 text-left">
+              <span className="text-2xl font-black font-mono text-[#38bdf8]">02</span>
               <h4 className="text-sm font-bold text-white">Auditoría y Nota</h4>
-              <p className="text-xs text-neutral-300">Escaneamos puertos, SSL y cabeceras OWASP entregando tu grado de F a A+.</p>
+              <p className="text-xs text-neutral-300">Auditoría pasiva de cabeceras HTTP, SSL/TLS y directivas OWASP.</p>
             </div>
 
-            <div className="p-5 rounded-2xl bg-[#0e1118] border border-white/10 space-y-2 text-left">
-              <span className="text-2xl font-black font-mono text-emerald-400">03</span>
+            <div className="p-5 rounded-2xl bg-[#141416]/80 backdrop-blur-xl border border-white/10 space-y-2 text-left">
+              <span className="text-2xl font-black font-mono text-[#38bdf8]">03</span>
               <h4 className="text-sm font-bold text-white">Propuesta cerrada</h4>
-              <p className="text-xs text-neutral-300">Precio fijo sin sorpresas ni mensualidades escondidas.</p>
+              <p className="text-xs text-neutral-300">Precio fijo sin sorpresas ni mensualidades obligatorias.</p>
             </div>
 
-            <div className="p-5 rounded-2xl bg-[#0e1118] border border-white/10 space-y-2 text-left">
-              <span className="text-2xl font-black font-mono text-emerald-400">04</span>
+            <div className="p-5 rounded-2xl bg-[#141416]/80 backdrop-blur-xl border border-white/10 space-y-2 text-left">
+              <span className="text-2xl font-black font-mono text-[#38bdf8]">04</span>
               <h4 className="text-sm font-bold text-white">Blindaje</h4>
               <p className="text-xs text-neutral-300">Copia de seguridad previa y corrección técnica de cada falla detectada.</p>
             </div>
 
-            <div className="p-5 rounded-2xl bg-[#0e1118] border border-white/10 space-y-2 text-left">
-              <span className="text-2xl font-black font-mono text-emerald-400">05</span>
+            <div className="p-5 rounded-2xl bg-[#141416]/80 backdrop-blur-xl border border-white/10 space-y-2 text-left">
+              <span className="text-2xl font-black font-mono text-[#38bdf8]">05</span>
               <h4 className="text-sm font-bold text-white">Verificación final</h4>
               <p className="text-xs text-neutral-300">Re-medición con informe de entrega y cierre de accesos temporales.</p>
             </div>
           </div>
         </section>
 
-        {/* 8. PREGUNTAS FRECUENTES (FAQ) */}
+        {/* 9. PREGUNTAS FRECUENTES (FAQ) */}
         <section id="faq" className="space-y-8 max-w-3xl mx-auto">
           <div className="text-center space-y-2">
-            <span className="text-xs font-mono uppercase tracking-wider text-emerald-400 font-bold">Respuestas Directas</span>
+            <span className="text-xs font-mono uppercase tracking-wider text-[#38bdf8] font-bold">Respuestas Directas</span>
             <h2 className="text-3xl sm:text-4xl font-extrabold text-white tracking-tight">
               Preguntas Frecuentes
             </h2>
@@ -656,14 +805,14 @@ export default function DefensatiSingleProductLanding() {
 
           <div className="space-y-3 text-left">
             {faqs.map((f, i) => (
-              <div key={i} className="rounded-2xl bg-white/5 border border-white/10 overflow-hidden">
+              <div key={i} className="rounded-2xl bg-[#141416]/80 backdrop-blur-xl border border-white/10 overflow-hidden">
                 <button
                   type="button"
                   onClick={() => setFaqOpen(faqOpen === i ? null : i)}
-                  className="w-full p-4 sm:p-5 text-left flex items-center justify-between gap-4 font-bold text-sm text-white hover:text-emerald-400 transition-colors cursor-pointer"
+                  className="w-full p-4 sm:p-5 text-left flex items-center justify-between gap-4 font-bold text-sm text-white hover:text-[#38bdf8] transition-colors cursor-pointer"
                 >
                   <span>{f.q}</span>
-                  <ChevronDown className={`w-4 h-4 shrink-0 transition-transform ${faqOpen === i ? 'rotate-180 text-emerald-400' : 'text-neutral-400'}`} />
+                  <ChevronDown className={`w-4 h-4 shrink-0 transition-transform ${faqOpen === i ? 'rotate-180 text-[#38bdf8]' : 'text-neutral-400'}`} />
                 </button>
                 {faqOpen === i && (
                   <div className="px-5 pb-5 text-xs text-neutral-200 leading-relaxed font-normal border-t border-white/5 pt-3">
@@ -675,10 +824,10 @@ export default function DefensatiSingleProductLanding() {
           </div>
         </section>
 
-        {/* 9. FORMULARIO OFICIAL CON CASILLA DE AUTORIZACIÓN OBLIGATORIA */}
-        <section id="formulario" className="max-w-3xl mx-auto space-y-8 p-8 sm:p-12 rounded-3xl bg-[#0e1118] border border-white/15">
+        {/* 10. FORMULARIO OFICIAL CON CASILLA DE AUTORIZACIÓN OBLIGATORIA */}
+        <section id="formulario" className="max-w-3xl mx-auto space-y-8 p-8 sm:p-12 rounded-3xl bg-[#141416]/90 backdrop-blur-xl border border-white/15">
           <div className="text-center space-y-2">
-            <span className="text-xs font-mono uppercase tracking-wider text-emerald-400 font-bold">Solicitud Formal</span>
+            <span className="text-xs font-mono uppercase tracking-wider text-[#38bdf8] font-bold">Solicitud Formal</span>
             <h2 className="text-3xl sm:text-4xl font-extrabold text-white tracking-tight">
               Pide tu auditoría DEFENSA TI
             </h2>
@@ -715,9 +864,10 @@ export default function DefensatiSingleProductLanding() {
                     placeholder="Ej: Carlos Mendoza"
                     value={formData.name}
                     onChange={(e) => setFormData({ ...formData, name: e.target.value })}
-                    className="w-full bg-white/5 border border-white/10 rounded-xl px-4 py-2.5 text-xs text-white focus:outline-none focus:border-emerald-400"
+                    className="w-full bg-white/5 border border-white/10 rounded-xl px-4 py-2.5 text-xs text-white focus:outline-none focus:border-[#38bdf8]"
                   />
                 </div>
+
                 <div className="space-y-1">
                   <label className="text-xs font-medium text-neutral-300">Dirección Web a Auditar *</label>
                   <input
@@ -726,28 +876,20 @@ export default function DefensatiSingleProductLanding() {
                     placeholder="tutienda.com o www.empresa.pe"
                     value={formData.url}
                     onChange={(e) => setFormData({ ...formData, url: e.target.value })}
-                    className="w-full bg-white/5 border border-white/10 rounded-xl px-4 py-2.5 text-xs text-white focus:outline-none focus:border-emerald-400"
+                    className="w-full bg-white/5 border border-white/10 rounded-xl px-4 py-2.5 text-xs text-white focus:outline-none focus:border-[#38bdf8]"
                   />
                 </div>
               </div>
 
               <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
                 <div className="space-y-1">
-                  <label className="text-xs font-medium text-neutral-300">País de tu Negocio *</label>
-                  <select
-                    value={formData.country}
-                    onChange={(e) => setFormData({ ...formData, country: e.target.value })}
-                    className="w-full bg-[#18181b] border border-white/10 rounded-xl px-4 py-2.5 text-xs text-white focus:outline-none focus:border-emerald-400"
-                  >
-                    <option value="Perú">Perú (Cobro en Soles / Yape / Plin / BCP)</option>
-                    <option value="México">México</option>
-                    <option value="Colombia">Colombia</option>
-                    <option value="Chile">Chile</option>
-                    <option value="Ecuador">Ecuador</option>
-                    <option value="Bolivia">Bolivia</option>
-                    <option value="Argentina">Argentina</option>
-                    <option value="Otro país de LatAm">Otro país de Latinoamérica</option>
-                  </select>
+                  <label className="text-xs font-medium text-neutral-300">Ubicación del Negocio</label>
+                  <input
+                    type="text"
+                    readOnly
+                    value="Perú (Cobro en Soles / Yape / Plin / Transferencia)"
+                    className="w-full bg-white/[0.03] border border-white/10 rounded-xl px-4 py-2.5 text-xs text-neutral-300 cursor-not-allowed"
+                  />
                 </div>
 
                 <div className="space-y-1">
@@ -755,11 +897,11 @@ export default function DefensatiSingleProductLanding() {
                   <select
                     value={formData.plan}
                     onChange={(e) => setFormData({ ...formData, plan: e.target.value })}
-                    className="w-full bg-[#18181b] border border-white/10 rounded-xl px-4 py-2.5 text-xs text-white focus:outline-none focus:border-emerald-400"
+                    className="w-full bg-[#18181b] border border-white/10 rounded-xl px-4 py-2.5 text-xs text-white focus:outline-none focus:border-[#38bdf8]"
                   >
-                    <option value="Auditoría Independiente — S/ 65 ($19 USD)">Auditoría Independiente — S/ 65 ($19 USD)</option>
-                    <option value="Blindaje Esencial — S/ 165 ($49 USD)">Blindaje Esencial — S/ 165 ($49 USD)</option>
-                    <option value="Blindaje Total — S/ 335 ($99 USD)">Blindaje Total — S/ 335 ($99 USD)</option>
+                    <option value="Auditoría Independiente — S/ 65 (~$19 USD)">Auditoría Independiente — S/ 65 (~$19 USD)</option>
+                    <option value="Blindaje Esencial — S/ 165 (~$49 USD)">Blindaje Esencial — S/ 165 (~$49 USD)</option>
+                    <option value="Blindaje Total — S/ 335 (~$99 USD)">Blindaje Total — S/ 335 (~$99 USD)</option>
                     <option value="Desinfección de Malware (Desde $149 USD)">Sitio con Virus / Desinfección (Desde $149 USD)</option>
                   </select>
                 </div>
@@ -769,10 +911,10 @@ export default function DefensatiSingleProductLanding() {
                 <label className="text-xs font-medium text-neutral-300">Comentarios o Síntomas Notados (Opcional)</label>
                 <textarea
                   rows={3}
-                  placeholder="Ej: Google me mostró una advertencia, o mis clientes reportan que la pasarela falla..."
+                  placeholder="Ej: Aparecen advertencias en el navegador, o sospecho que la pasarela no está protegida..."
                   value={formData.comments}
                   onChange={(e) => setFormData({ ...formData, comments: e.target.value })}
-                  className="w-full bg-white/5 border border-white/10 rounded-xl p-3 text-xs text-white focus:outline-none focus:border-emerald-400"
+                  className="w-full bg-white/5 border border-white/10 rounded-xl p-3 text-xs text-white focus:outline-none focus:border-[#38bdf8]"
                 />
               </div>
 
@@ -784,17 +926,17 @@ export default function DefensatiSingleProductLanding() {
                   required
                   checked={formData.authorized}
                   onChange={(e) => setFormData({ ...formData, authorized: e.target.checked })}
-                  className="mt-1 h-4 w-4 rounded border-neutral-600 text-emerald-500 focus:ring-emerald-400 cursor-pointer"
+                  className="mt-1 h-4 w-4 rounded border-neutral-600 text-[#0071e3] focus:ring-[#0071e3] cursor-pointer"
                 />
                 <label htmlFor="auth-check" className="text-xs text-neutral-300 leading-snug cursor-pointer">
-                  <strong className="text-white">Autorización Expresa:</strong> Declaro ser titular de este sitio web o contar con autorización formal para que se audite su seguridad conforme a la <Link href="/privacidad" className="text-emerald-400 underline hover:text-white">Política de Privacidad</Link> y los <Link href="/terminos" className="text-emerald-400 underline hover:text-white">Términos del Servicio</Link>.
+                  <strong className="text-white">Autorización Expresa:</strong> Declaro ser titular de este sitio web o contar con autorización formal para que se audite su seguridad conforme a la <Link href="/privacidad" className="text-[#38bdf8] underline hover:text-white">Política de Privacidad</Link> y los <Link href="/terminos" className="text-[#38bdf8] underline hover:text-white">Términos del Servicio</Link>.
                 </label>
               </div>
 
               <button
                 type="submit"
                 disabled={!formData.authorized}
-                className="w-full py-4 rounded-2xl bg-emerald-500 hover:bg-emerald-400 disabled:opacity-40 disabled:cursor-not-allowed text-black font-extrabold text-sm transition-all shadow-[0_0_25px_rgba(16,185,129,0.3)] active:scale-98 cursor-pointer flex items-center justify-center gap-2"
+                className="w-full py-4 rounded-2xl bg-[#0071e3] hover:bg-[#0077ed] disabled:opacity-40 disabled:cursor-not-allowed text-white font-extrabold text-sm transition-all shadow-[0_0_25px_rgba(0,113,227,0.35)] active:scale-98 cursor-pointer flex items-center justify-center gap-2"
               >
                 <span>Enviar y Continuar por WhatsApp</span>
                 <ArrowRight className="w-4 h-4" />
@@ -807,25 +949,25 @@ export default function DefensatiSingleProductLanding() {
           )}
         </section>
 
-        {/* 10. BLOQUE DEL FUNDADOR */}
-        <section className="p-8 sm:p-12 rounded-3xl bg-[#0c0e14] border border-white/10 text-left max-w-4xl mx-auto space-y-6">
-          <span className="text-xs font-mono uppercase tracking-wider text-emerald-400 font-bold">Atención Directa</span>
+        {/* 11. BLOQUE DEL FUNDADOR */}
+        <section className="p-8 sm:p-12 rounded-3xl bg-[#141416]/80 backdrop-blur-xl border border-white/10 text-left max-w-4xl mx-auto space-y-6">
+          <span className="text-xs font-mono uppercase tracking-wider text-[#38bdf8] font-bold">Atención Directa</span>
           <h3 className="text-2xl sm:text-3xl font-extrabold text-white tracking-tight">
             Detrás de DEFENSA TI hay una persona, no un call center
           </h3>
           <p className="text-sm text-neutral-200 leading-relaxed font-normal">
             Mi nombre es <strong>Martin Castillo</strong>. Lidero la arquitectura de seguridad y auditoría en DEFENSA TI (Neuronal Gravity). 
-            Cada informe y cada corrección técnica se revisa personalmente con rigor de ingeniería, explicándote los resultados en lenguaje claro y asegurando que tu negocio opere protegido sin sorpresas.
+            Cada informe y cada remediación técnica se revisa personalmente con rigor de ingeniería, entregándote dictámenes en lenguaje claro y asegurando que tu negocio opere protegido sin sorpresas.
           </p>
           <div className="flex flex-wrap items-center gap-3 pt-2">
             <a
               href="https://wa.me/51987010380"
               target="_blank"
               rel="noopener noreferrer"
-              className="inline-flex items-center gap-2 px-5 py-2.5 rounded-xl bg-emerald-500/15 hover:bg-emerald-500/25 border border-emerald-500/40 text-emerald-400 text-xs font-bold transition-all"
+              className="inline-flex items-center gap-2 px-5 py-2.5 rounded-xl bg-[#25D366] hover:bg-[#20ba59] text-white text-xs font-bold transition-all shadow-md shadow-emerald-500/20"
             >
               <MessageSquare className="w-4 h-4" />
-              <span>Conversar con Martín por WhatsApp</span>
+              <span>Conversar con Martín por WhatsApp (+51 987 010 380)</span>
             </a>
             <a
               href="https://github.com/martincastillo1996/security-score"
@@ -840,8 +982,8 @@ export default function DefensatiSingleProductLanding() {
         </section>
       </main>
 
-      {/* 11. PIE DE PÁGINA PROFESIONAL CON DATOS FISCALES REALES */}
-      <footer className="border-t border-white/10 bg-black py-12 relative z-10 text-xs text-neutral-400">
+      {/* 12. PIE DE PÁGINA PROFESIONAL CON DATOS FISCALES REALES */}
+      <footer className="border-t border-white/10 bg-black/90 py-12 relative z-10 text-xs text-neutral-400">
         <div className="max-w-6xl mx-auto px-6 space-y-8">
           <div className="flex flex-col md:flex-row items-start md:items-center justify-between gap-6 pb-6 border-b border-white/10">
             <div>
@@ -854,7 +996,7 @@ export default function DefensatiSingleProductLanding() {
             <div className="flex flex-wrap items-center gap-6 text-xs text-neutral-300">
               <Link href="/terminos" className="hover:text-white transition-colors">Términos del Servicio</Link>
               <Link href="/privacidad" className="hover:text-white transition-colors">Política de Privacidad (Ley 29733)</Link>
-              <Link href="/defensati" className="hover:text-white transition-colors text-emerald-400">Escáner Perimetral</Link>
+              <Link href="/defensati" className="hover:text-white transition-colors text-[#38bdf8]">Escáner Perimetral</Link>
               <a href="https://wa.me/51987010380" target="_blank" rel="noopener noreferrer" className="hover:text-white transition-colors">WhatsApp (+51 987 010 380)</a>
             </div>
           </div>
@@ -864,7 +1006,7 @@ export default function DefensatiSingleProductLanding() {
               &copy; {new Date().getFullYear()} DEFENSA TI &bull; Neuronal Gravity. Comprobante de pago disponible (Boleta y Factura Electrónica).
             </p>
             <p className="text-neutral-400">
-              ¿Necesitas otra solución técnica o desarrollo a medida? <a href="https://wa.me/51987010380?text=Hola%20Mart%C3%ADn,%20busco%20desarrollo%20a%20medida" target="_blank" rel="noopener noreferrer" className="text-emerald-400 underline hover:text-white">Escríbenos a WhatsApp</a>
+              ¿Necesitas otra solución técnica o desarrollo a medida? <a href="https://wa.me/51987010380?text=Hola%20Mart%C3%ADn,%20busco%20desarrollo%20a%20medida" target="_blank" rel="noopener noreferrer" className="text-[#38bdf8] underline hover:text-white">Escríbenos a WhatsApp</a>
             </p>
           </div>
         </div>
