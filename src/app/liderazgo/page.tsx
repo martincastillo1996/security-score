@@ -101,7 +101,7 @@ export default function LiderazgoPage() {
                   className="inline-flex items-center gap-2 px-4 py-2.5 rounded-xl bg-emerald-600 hover:bg-emerald-500 text-white text-xs font-semibold shadow-lg shadow-emerald-600/30 transition-all active:scale-95"
                 >
                   <MessageSquare className="w-3.5 h-3.5" />
-                  <span>WhatsApp (+1 785 643-3991)</span>
+                  <span>WhatsApp (+51 987 010 380)</span>
                 </a>
 
                 <a

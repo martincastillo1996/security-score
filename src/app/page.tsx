@@ -2,1196 +2,873 @@
 
 import React, { useState } from 'react';
 import Link from 'next/link';
-import Image from 'next/image';
-import NeuralBackground from '@/components/NeuralBackground';
-import LanguageSelector from '@/components/LanguageSelector';
-import LeadQuoteSection from '@/components/LeadQuoteSection';
-import FaqSection from '@/components/FaqSection';
-import LiveNetworkTrafficGlobe from '@/components/LiveNetworkTrafficGlobe';
-import GlobalCyberThreatsAndSeoScanner from '@/components/GlobalCyberThreatsAndSeoScanner';
-import { useI18n } from '@/lib/i18n/I18nContext';
-import {
-  Brain,
-  TrendingUp,
-  MessageSquare,
-  Bot,
-  Zap,
-  ShieldCheck,
-  CheckCircle2,
-  ArrowRight,
+import { 
+  ShieldCheck, 
+  ShieldAlert, 
+  ArrowRight, 
+  CheckCircle2, 
+  Lock, 
+  HelpCircle, 
+  MessageSquare, 
+  Check, 
   ExternalLink,
-  Code2,
-  PhoneCall,
-  Sparkles,
-  BarChart3,
-  FileCheck,
-  Building2,
-  ShoppingCart,
-  Stethoscope,
-  Truck,
-  Users,
-  Clock,
-  Briefcase
+  ChevronDown
 } from 'lucide-react';
 
-export default function NeuronalGravityHomePage() {
-  const { language } = useI18n();
-  const [selectedIndustry, setSelectedIndustry] = useState<number>(0);
+export default function DefensatiSingleProductLanding() {
+  // Estado para la Autoevaluación interactiva de 1 minuto (5 preguntas)
+  const [answers, setAnswers] = useState<Record<number, 'si' | 'no' | 'nose' | null>>({
+    1: null,
+    2: null,
+    3: null,
+    4: null,
+    5: null,
+  });
 
-  const contentMap = {
-    es: {
-      nav: {
-        solutions: 'Soluciones de Negocio',
-        methodology: 'Cómo Trabajamos',
-        industries: 'Casos por Industria',
-        defensaTi: 'DEFENSA TI',
-        about: 'Liderazgo',
-        contactBtn: 'Cotizar Proyecto de IA',
-      },
-      hero: {
-        badge: 'NEURONALGRAVITY.COM • INTELIGENCIA ARTIFICIAL APLICADA A NEGOCIOS',
-        title1: 'Impulsa tu Empresa con',
-        title2: 'Soluciones de Negocio con Inteligencia Artificial.',
-        desc: 'Diseñamos e implementamos agentes autónomos, automatizaciones operativas inteligentes y ciberdefensa perimetral que multiplican las ventas, eliminan costos manuales y aceleran las decisiones estratégicas de tu negocio.',
-        ctaPrimary: 'Agendar Asesoría de Negocio con IA',
-        ctaSecondary: 'Ver Soluciones de Negocio',
-        scannerCallout: '¿Buscas auditar la seguridad de tu página web?',
-        scannerLinkText: 'Probar gratis DEFENSA TI →',
-        stats: [
-          { 
-            value: '< 3 Segundos', 
-            label: 'Respuesta al Cliente', 
-            desc: 'Tus prospectos reciben atención y precios inmediatos en WhatsApp sin esperar horas.' 
-          },
-          { 
-            value: '24 Horas / 7 Días', 
-            label: 'Cierre de Ventas Activo', 
-            desc: 'Capturas pedidos y clientes incluso de noche y fines de semana sin pagar horas extra.' 
-          },
-          { 
-            value: 'Cero Digitado', 
-            label: 'Facturas & Documentos', 
-            desc: 'La IA extrae datos de contratos y facturas directo a tu Excel o sistema en 1 segundo.' 
-          },
-          { 
-            value: 'Soberanía Total', 
-            label: 'Control de tus Datos', 
-            desc: 'Tu información comercial es privada y jamás se comparte con terceros ni IA pública.' 
-          },
-        ],
-      },
-      solutions: {
-        badge: 'Servicios & Capacidades',
-        title: 'Soluciones de IA Diseñadas para Generar Rentabilidad',
-        desc: 'No hacemos experimentos teóricos. Construimos herramientas prácticas de inteligencia artificial que se integran directamente a tus flujos de trabajo actuales.',
-        items: [
-          {
-            icon: Bot,
-            badge: 'Conversión & Ventas',
-            title: 'Agentes Autónomos de Ventas y Atención 24/7',
-            desc: 'Asistentes de IA integrados a WhatsApp, CRM y tu tienda online. Califican clientes potenciales, responden consultas complejas al instante, envían cotizaciones y cierran ventas a cualquier hora del día sin intervención humana.',
-            bullets: [
-              'Integración nativa con WhatsApp Business API, Instagram y páginas web',
-              'Conexión a tu catálogo de productos, inventario en vivo y políticas de venta',
-              'Derivación inteligente a asesores humanos solo cuando se requiere',
-            ],
-            color: 'from-blue-500/20 to-sky-500/20 border-sky-500/40 text-sky-400',
-          },
-          {
-            icon: FileCheck,
-            badge: 'Eficiencia Operativa',
-            title: 'Procesamiento Inteligente de Documentos & Facturación',
-            desc: 'Elimina el trabajo manual de digitar y conciliar papeles. Agentes de visión e IA leen, extraen y validan facturas, contratos legales, órdenes de compra y documentos de identidad directamente a tus bases de datos o ERP.',
-            bullets: [
-              'Extracción de datos no estructurados en segundos con 99.5% de precisión',
-              'Validación automática contra normativas fiscales y listas de verificación',
-              'Ahorro de cientos de horas de digitadores y personal administrativo',
-            ],
-            color: 'from-purple-500/20 to-indigo-500/20 border-purple-500/40 text-purple-400',
-          },
-          {
-            icon: BarChart3,
-            badge: 'Decisiones Estratégicas',
-            title: 'Analítica Predictiva & Dashboards Ejecutivos con IA',
-            desc: 'Transforma tus datos dispersos en decisiones claras. Modelos de IA analizan tu historial de ventas para anticipar la demanda, predecir fuga de clientes y permitir consultas directas en lenguaje natural a los directores de la empresa.',
-            bullets: [
-              'Pregúntale a tus datos: "¿Cuáles fueron los productos más rentables este mes?"',
-              'Predicción de inventario para evitar quiebres de stock o sobrecostos de almacén',
-              'Detección temprana de clientes insatisfechos antes de que se vayan a la competencia',
-            ],
-            color: 'from-emerald-500/20 to-teal-500/20 border-emerald-500/40 text-emerald-400',
-          },
-          {
-            icon: ShieldCheck,
-            badge: 'Confianza Digital & Transacciones',
-            title: 'DEFENSA TI — Ciberseguridad Perimetral para Empresas',
-            desc: 'Protegemos tu reputación y tus ventas online. Nuestro motor perimetral audita candados SSL, pasarelas de pago (Mercado Pago, Stripe, Niubiz) y previene clonaciones o ataques para que tu negocio opere con Grado A+ de confianza.',
-            bullets: [
-              'Auditoría no invasiva instantánea y sin tocar credenciales ni servidores',
-              'Evita bloqueos de bancos y alertas rojas de "Sitio no seguro"',
-              'Generación automática de órdenes de trabajo para tus programadores',
-            ],
-            action: { text: 'Abrir Escáner DEFENSA TI', href: '/defensati' },
-            color: 'from-cyan-500/20 to-blue-500/20 border-cyan-500/40 text-cyan-400',
-          },
-          {
-            icon: Code2,
-            badge: 'Desarrollo a Medida',
-            title: 'Software e IA Personalizada para tu Industria',
-            desc: 'Si tu empresa tiene procesos específicos o requiere una plataforma propietaria, desarrollamos software a medida integrando los modelos de lenguaje más avanzados (Google Gemini, OpenAI, Claude) bajo infraestructura en la nube escalable.',
-            bullets: [
-              'Arquitectura moderna con Next.js, APIs de alta velocidad y bases de datos seguras',
-              'Modelos ajustados a la terminología y protocolos exclusivos de tu empresa',
-              'Propiedad intelectual 100% de tu negocio, sin ataduras a plataformas de terceros',
-            ],
-            color: 'from-amber-500/20 to-orange-500/20 border-amber-500/40 text-amber-400',
-          },
-          {
-            icon: Users,
-            badge: 'Consultoría & Adopción',
-            title: 'Consultoría de Transformación con IA & Capacitación',
-            desc: 'Acompañamos a tu equipo directivo y operativo para identificar dónde la IA genera el mayor impacto financiero, capacitando a tus líderes para adoptar estas herramientas sin fricción ni curvas prolongadas de aprendizaje.',
-            bullets: [
-              'Auditoría de procesos internos para detectar cuellos de botella automatizables',
-              'Diseño de hoja de ruta tecnológica con priorización por retorno de inversión',
-              'Talleres prácticos para que tu personal use IA como un multiplicador de productividad',
-            ],
-            color: 'from-pink-500/20 to-rose-500/20 border-pink-500/40 text-pink-400',
-          },
-        ],
-      },
-      methodology: {
-        badge: 'Metodología Probada',
-        title: 'Cómo Llevamos la IA a tu Negocio en 4 Pasos',
-        desc: 'Un proceso estructurado, ágil y transparente centrado en maximizar el retorno de inversión desde el primer mes.',
-        steps: [
-          {
-            num: '01',
-            title: 'Diagnóstico de Oportunidad',
-            desc: 'Analizamos tus procesos actuales, sistemas y cuellos de botella para cuantificar horas perdidas y definir el caso de uso con mayor impacto económico.',
-          },
-          {
-            num: '02',
-            title: 'Prototipo Rápido en 7 Días',
-            desc: 'Construimos una prueba de concepto funcional con tus datos para validar la precisión, velocidad y aceptación antes de realizar una inversión mayor.',
-          },
-          {
-            num: '03',
-            title: 'Integración a tus Sistemas',
-            desc: 'Conectamos el agente o modelo a tu WhatsApp, CRM, ERP o pasarela de pago existente de forma segura y sin interrumpir tus operaciones diarias.',
-          },
-          {
-            num: '04',
-            title: 'Despliegue & Monitoreo de ROI',
-            desc: 'Lanzamos a producción con métricas en vivo. Medimos conversión, ahorro de tiempo y optimizamos continuamente el modelo para mantener Grado A+.',
-          },
-        ],
-      },
-      industries: {
-        badge: 'Casos Reales por Sector',
-        title: 'Impacto Comprobado en Diversas Industrias',
-        desc: 'Conoce cómo empresas de diferentes sectores aplican nuestras soluciones de negocio con IA para liderar su mercado.',
-        items: [
-          {
-            icon: ShoppingCart,
-            name: 'Comercio & E-commerce',
-            title: 'Ventas 24/7 y Blindaje Antifraude',
-            desc: 'Asistentes de ventas que recomiendan productos, resuelven dudas sobre envíos y recuperan carritos abandonados por WhatsApp, combinados con la auditoría de DEFENSA TI para proteger transacciones.',
-            result: '+42% en ventas nocturnas y fines de semana',
-          },
-          {
-            icon: Building2,
-            name: 'B2B & Servicios Corporativos',
-            title: 'Calificación de Prospectos & Cotizaciones',
-            desc: 'Agentes que dialogan con leads que llegan por campañas, evalúan el presupuesto y necesidades del cliente, y programan reuniones directamente en la agenda de tu equipo comercial.',
-            result: 'Tiempo de respuesta a leads reducido de 4 horas a 15 segundos',
-          },
-          {
-            icon: Stethoscope,
-            name: 'Salud & Clínicas',
-            title: 'Agendamiento Inteligente & Triaje',
-            desc: 'Sistemas que gestionan citas de pacientes, envían recordatorios interactivos, reprograman turnos automáticamente y responden dudas sobre preparación para exámenes médicos.',
-            result: '-70% en ausentismo a citas médicas programadas',
-          },
-          {
-            icon: Truck,
-            name: 'Logística & Distribución',
-            title: 'Procesamiento de Guías & Soporte',
-            desc: 'Lectura automática de guías de remisión mediante visión artificial y atención instantánea a clientes sobre el estado en vivo de sus despachos.',
-            result: '80% de consultas de seguimiento resueltas sin operador humano',
-          },
-        ],
-      },
-      founder: {
-        badge: 'Fundador & Consultor Principal',
-        title: 'Martin Castillo',
-        role: 'Arquitecto de Soluciones de Negocio con IA & Especialista en Ciberdefensa',
-        desc: 'Fundador de Neuronal Gravity. Ayudo a dueños de negocios, directores y fundadores en Latinoamérica y el mundo a transformar procesos manuales lentos en sistemas inteligentes que operan 24/7 con alta rentabilidad y seguridad blindada.',
-        quote: '"La inteligencia artificial no debe ser un adorno tecnológico ni un gasto inflado: debe ser una palanca directa que multiplique las utilidades de tu empresa y libere a tu equipo de tareas mecánicas."',
-        whatsappCta: 'Consultar mi Caso por WhatsApp (+1 785 643-3991)',
-        linkedinCta: 'Perfil en LinkedIn',
-        githubCta: 'Repositorios Open Source en GitHub',
-      },
-      ctaFinal: {
-        title: '¿Tienes un proceso en tu empresa que te quita tiempo y dinero?',
-        desc: 'Cuéntanos qué desafío enfrenta tu negocio hoy. Te presentamos una propuesta de solución con IA práctica, viable y con retorno de inversión estimado en menos de 48 horas.',
-        btnWhatsApp: 'Hablar con Martin Castillo por WhatsApp',
-        btnDefensa: 'Probar el Escáner DEFENSA TI Gratis',
-      },
-      footer: {
-        tagline: 'Neuronal Gravity • Soluciones de Negocio con Inteligencia Artificial & Ciberdefensa',
-        copy: '© 2026 Neuronal Gravity (neuronalgravity.com). Todos los derechos reservados.',
-        disclaimer: 'Las soluciones de IA se desarrollan a medida bajo acuerdos de confidencialidad y estándares rigurosos de protección de datos.',
-      },
+  // Estado del Formulario Oficial de Auditoría
+  const [formData, setFormData] = useState({
+    name: '',
+    url: '',
+    country: 'Perú',
+    plan: 'Auditoría Independiente — S/ 65 ($19 USD)',
+    comments: '',
+    authorized: false,
+  });
+  const [formSubmitted, setFormSubmitted] = useState(false);
+  const [faqOpen, setFaqOpen] = useState<number | null>(0);
+
+  // Preguntas de la Autoevaluación
+  const quizQuestions = [
+    {
+      id: 1,
+      title: '1. ¿Tu web tiene candado seguro (HTTPS) en absolutamente todas las páginas y formularios?',
+      tip: 'Si aparece "No seguro" en alguna sección o al ingresar datos, Google y los navegadores alertan al cliente.',
     },
-    en: {
-      nav: {
-        solutions: 'AI Business Solutions',
-        methodology: 'Our Process',
-        industries: 'Industry Use Cases',
-        defensaTi: 'DEFENSA TI',
-        about: 'Leadership',
-        contactBtn: 'Request AI Quote',
-      },
-      hero: {
-        badge: 'NEURONALGRAVITY.COM • APPLIED AI FOR ENTERPRISE & BUSINESS',
-        title1: 'Accelerate Your Company with',
-        title2: 'Practical AI Solutions Built for Business Growth.',
-        desc: 'We architect and deploy autonomous agents, intelligent workflow automation, and perimeter cyber defense that multiply sales conversions, slash manual operational overhead, and speed up strategic decisions.',
-        ctaPrimary: 'Book an AI Business Consultation',
-        ctaSecondary: 'Explore Business Solutions',
-        scannerCallout: 'Looking to audit your website security perimeter?',
-        scannerLinkText: 'Test DEFENSA TI for free →',
-        stats: [
-          { value: '+300%', label: 'Support & Sales Bandwidth', desc: '24/7 conversational agents across WhatsApp and web' },
-          { value: '-65%', label: 'Operational Costs', desc: 'Automation of repetitive administrative and data workflows' },
-          { value: '< 30 Days', label: 'Time to Production', desc: 'From initial discovery to a deployed, revenue-generating system' },
-          { value: '100% ROI', label: 'Results-Oriented', desc: 'Engineered with transparent metrics and business payback' },
-        ],
-      },
-      solutions: {
-        badge: 'Services & Capabilities',
-        title: 'AI Solutions Engineered to Drive Real Profitability',
-        desc: 'We build pragmatic, production-grade artificial intelligence systems that plug directly into your current business workflows.',
-        items: [
-          {
-            icon: Bot,
-            badge: 'Conversion & Revenue',
-            title: '24/7 Autonomous Sales & Support Agents',
-            desc: 'AI agents connected to WhatsApp, CRM, and your online catalog. They qualify inbound leads, answer complex buyer queries instantly, send customized quotes, and close deals around the clock.',
-            bullets: [
-              'Native integration with WhatsApp Business API, Instagram, and web apps',
-              'Connected to live product catalogs, pricing rules, and inventory',
-              'Seamless human-in-the-loop handoff whenever specialized handling is required',
-            ],
-            color: 'from-blue-500/20 to-sky-500/20 border-sky-500/40 text-sky-400',
-          },
-          {
-            icon: FileCheck,
-            badge: 'Operational Efficiency',
-            title: 'Intelligent Document & Invoice Processing',
-            desc: 'Eliminate manual data entry. Multimodal vision and LLM agents parse, extract, and reconcile invoices, legal contracts, purchase orders, and ID documents directly into your ERP or database.',
-            bullets: [
-              'Unstructured data extraction in seconds with 99.5% accuracy',
-              'Automated compliance checks against tax regulations and custom checklists',
-              'Save hundreds of monthly administrative hours',
-            ],
-            color: 'from-purple-500/20 to-indigo-500/20 border-purple-500/40 text-purple-400',
-          },
-          {
-            icon: BarChart3,
-            badge: 'Strategic Intelligence',
-            title: 'Predictive Analytics & Executive AI Dashboards',
-            desc: 'Turn fragmented spreadsheets into actionable strategic insights. AI models analyze sales history to anticipate customer churn, forecast demand, and allow natural-language executive queries.',
-            bullets: [
-              'Ask your business data: "Which product category drove the highest net margin this quarter?"',
-              'Demand forecasting to prevent stockouts and inventory holding costs',
-              'Early churn detection before high-value customers migrate to competitors',
-            ],
-            color: 'from-emerald-500/20 to-teal-500/20 border-emerald-500/40 text-emerald-400',
-          },
-          {
-            icon: ShieldCheck,
-            badge: 'Digital Trust & Transactions',
-            title: 'DEFENSA TI — Perimeter Cybersecurity for Digital Brands',
-            desc: 'Shield your customer transactions and business reputation. Our non-intrusive perimeter engine audits SSL certificates, checkout gateways (Stripe, Mercado Pago), and guards against website cloning.',
-            bullets: [
-              'Instant non-invasive audit requiring zero server access or credentials',
-              'Prevent red "Not Secure" browser warnings and checkout rejections',
-              'Downloadable step-by-step engineering work orders for dev teams',
-            ],
-            action: { text: 'Launch DEFENSA TI Scanner', href: '/defensati' },
-            color: 'from-cyan-500/20 to-blue-500/20 border-cyan-500/40 text-cyan-400',
-          },
-          {
-            icon: Code2,
-            badge: 'Custom Engineering',
-            title: 'Bespoke Software & Custom AI Development',
-            desc: 'For proprietary enterprise workflows, we build bespoke platforms powered by frontier LLMs (Google Gemini, OpenAI, Claude) on hardened, scalable cloud infrastructure.',
-            bullets: [
-              'Modern stack with Next.js, high-speed APIs, and compliant relational databases',
-              'Fine-tuned models tailored to your industry terminology and internal guidelines',
-              '100% intellectual property ownership with zero vendor lock-in',
-            ],
-            color: 'from-amber-500/20 to-orange-500/20 border-amber-500/40 text-amber-400',
-          },
-          {
-            icon: Users,
-            badge: 'Adoption & Strategy',
-            title: 'AI Transformation Advisory & Team Enablement',
-            desc: 'We guide leadership and operating teams through practical AI adoption: identifying high-ROI use cases, eliminating friction, and training key personnel to multiply daily output.',
-            bullets: [
-              'Deep-dive process audit to pinpoint high-cost automatable bottlenecks',
-              'Clear technological roadmap prioritized by financial return',
-              'Hands-on workshops empowering staff to leverage AI as a force multiplier',
-            ],
-            color: 'from-pink-500/20 to-rose-500/20 border-pink-500/40 text-pink-400',
-          },
-        ],
-      },
-      methodology: {
-        badge: 'Battle-Tested Framework',
-        title: 'How We Deploy AI Into Your Business in 4 Steps',
-        desc: 'A structured, transparent roadmap focused on proving and delivering measurable ROI from month one.',
-        steps: [
-          {
-            num: '01',
-            title: 'Opportunity Audit',
-            desc: 'We inspect your current workflows and software to quantify lost hours and isolate the single highest-value AI opportunity.',
-          },
-          {
-            num: '02',
-            title: '7-Day Working Prototype',
-            desc: 'We build a functional proof-of-concept using your real workflow data to confirm accuracy, speed, and viability before major capital commitment.',
-          },
-          {
-            num: '03',
-            title: 'Seamless System Integration',
-            desc: 'We safely hook the AI agent into your WhatsApp, CRM, ERP, or payment gateway without disrupting daily commercial operations.',
-          },
-          {
-            num: '04',
-            title: 'Rollout & ROI Tracking',
-            desc: 'Live deployment with continuous performance tracking. We monitor conversion rate, hours saved, and continuously tune the models.',
-          },
-        ],
-      },
-      industries: {
-        badge: 'Industry Verticals',
-        title: 'Proven Business Impact Across Key Sectors',
-        desc: 'Explore how forward-looking companies leverage our applied AI business solutions to pull ahead in their markets.',
-        items: [
-          {
-            icon: ShoppingCart,
-            name: 'Commerce & Retail',
-            title: '24/7 Autonomous Sales & Anti-Fraud Shield',
-            desc: 'AI sales reps that recommend items, answer shipping FAQs, and recover abandoned carts over WhatsApp, paired with DEFENSA TI transaction security.',
-            result: '+42% in after-hours and weekend sales conversions',
-          },
-          {
-            icon: Building2,
-            name: 'B2B & Enterprise Services',
-            title: 'Lead Qualification & Automated Quoting',
-            desc: 'Conversational agents that engage inbound marketing leads, evaluate project budget and timeline, and book meetings directly into your sales team calendars.',
-            result: 'Lead response latency reduced from 4 hours down to 15 seconds',
-          },
-          {
-            icon: Stethoscope,
-            name: 'Healthcare & Clinics',
-            title: 'Smart Appointment Scheduling & Intake',
-            desc: 'Automated booking and patient confirmation systems that reduce no-shows and handle routine pre-exam instructions.',
-            result: '-70% reduction in missed clinical appointments',
-          },
-          {
-            icon: Truck,
-            name: 'Logistics & Supply Chain',
-            title: 'Waybill Extraction & Real-Time Tracking',
-            desc: 'Computer vision OCR for rapid receipt and manifest digitization with automated shipment milestone updates sent directly to customers.',
-            result: '80% of routine shipment tracking inquiries handled autonomously',
-          },
-        ],
-      },
-      founder: {
-        badge: 'Founder & Principal Consultant',
-        title: 'Martin Castillo',
-        role: 'AI Business Solutions Architect & Cybersecurity Specialist',
-        desc: 'Founder of Neuronal Gravity. I partner with business owners, CTOs, and founders across the Americas and globally to transform cumbersome manual operations into intelligent, 24/7 automated engines with hardened security.',
-        quote: '"Artificial intelligence should not be a decorative tech demo: it must be a direct profit driver that expands gross margins and frees talented people from repetitive friction."',
-        whatsappCta: 'Discuss My Business Case on WhatsApp (+1 785 643-3991)',
-        linkedinCta: 'LinkedIn Profile',
-        githubCta: 'Open Source GitHub Projects',
-      },
-      ctaFinal: {
-        title: 'Is there an operational bottleneck draining your team’s time and revenue?',
-        desc: 'Tell us about the challenge your company is facing. We will deliver a pragmatic, high-ROI AI solution architecture in under 48 hours.',
-        btnWhatsApp: 'Chat with Martin Castillo on WhatsApp',
-        btnDefensa: 'Test DEFENSA TI Perimeter Audit for Free',
-      },
-      footer: {
-        tagline: 'Neuronal Gravity • Applied AI Business Solutions & Cyber Defense',
-        copy: '© 2026 Neuronal Gravity (neuronalgravity.com). All rights reserved.',
-        disclaimer: 'Enterprise AI solutions are engineered under strict NDAs and rigorous data privacy standards.',
-      },
+    {
+      id: 2,
+      title: '2. ¿Has actualizado WordPress, temas o plugins en los últimos 30 días?',
+      tip: 'Más del 80% de los ataques a webs de pymes ocurren por plugins con vulnerabilidades públicas conocidas.',
     },
-    pt: {
-      nav: {
-        solutions: 'Soluções de Negócio',
-        methodology: 'Como Trabalhamos',
-        industries: 'Casos por Setor',
-        defensaTi: 'DEFENSA TI',
-        about: 'Liderança',
-        contactBtn: 'Solicitar Orçamento de IA',
-      },
-      hero: {
-        badge: 'NEURONALGRAVITY.COM • INTELIGÊNCIA ARTIFICIAL APLICADA A NEGÓCIOS',
-        title1: 'Impulsione sua Empresa com',
-        title2: 'Soluções de Negócio com Inteligência Artificial.',
-        desc: 'Projetamos e implementamos agentes autônomos, automações de processos e cibersegurança perimetral que multiplicam vendas, reduzem custos operacionais e aceleram decisões estratégicas.',
-        ctaPrimary: 'Agendar Consultoria de IA para Negócios',
-        ctaSecondary: 'Ver Soluções de Negócio',
-        scannerCallout: 'Deseja auditar a segurança perimetral do seu site?',
-        scannerLinkText: 'Testar DEFENSA TI grátis →',
-        stats: [
-          { value: '+300%', label: 'Capacidade de Atendimento', desc: 'Agentes 24/7 no WhatsApp e no site' },
-          { value: '-65%', label: 'Custos Operacionais', desc: 'Automação de tarefas repetitivas e documentos' },
-          { value: '< 30 Dias', label: 'Tempo até Produção', desc: 'Da ideia ao sistema de IA em operação' },
-          { value: '100% ROI', label: 'Focado em Retorno', desc: 'Soluções com métricas de negócio e lucro' },
-        ],
-      },
-      solutions: {
-        badge: 'Serviços & Capacidades',
-        title: 'Soluções de IA Feitas para Gerar Lucro Real',
-        desc: 'Construímos ferramentas práticas de IA que se integram aos fluxos de trabalho da sua empresa.',
-        items: [
-          {
-            icon: Bot,
-            badge: 'Vendas & Conversão',
-            title: 'Agentes Autônomos de Vendas e Atendimento 24/7',
-            desc: 'Assistentes de IA integrados ao WhatsApp e CRM para qualificar leads, enviar propostas e fechar vendas 24 horas por dia.',
-            bullets: [
-              'Integração nativa com WhatsApp Business e Instagram',
-              'Conectado ao catálogo de produtos e estoques em tempo real',
-              'Transição suave para consultores humanos quando necessário',
-            ],
-            color: 'from-blue-500/20 to-sky-500/20 border-sky-500/40 text-sky-400',
-          },
-          {
-            icon: FileCheck,
-            badge: 'Eficiência Operacional',
-            title: 'Processamento Inteligente de Documentos e Faturas',
-            desc: 'Elimine digitação manual. Agentes de visão leem e validam notas fiscais e contratos diretamente no seu ERP.',
-            bullets: [
-              'Extração precisa de dados em segundos com 99.5% de acurácia',
-              'Validação automática de conformidade',
-              'Economia de centenas de horas administrativas',
-            ],
-            color: 'from-purple-500/20 to-indigo-500/20 border-purple-500/40 text-purple-400',
-          },
-          {
-            icon: BarChart3,
-            badge: 'Inteligência Estratégica',
-            title: 'Análise Preditiva e Dashboards Executivos de IA',
-            desc: 'Previsão de demanda, detecção antecipada de churn de clientes e consultas diretas em linguagem natural.',
-            bullets: [
-              'Pergunte aos seus dados sobre margem e produtos mais vendidos',
-              'Previsão de estoque para evitar rupturas',
-              'Retenção inteligente de clientes em risco',
-            ],
-            color: 'from-emerald-500/20 to-teal-500/20 border-emerald-500/40 text-emerald-400',
-          },
-          {
-            icon: ShieldCheck,
-            badge: 'Segurança & Transações',
-            title: 'DEFENSA TI — Cibersegurança Perimetral para Empresas',
-            desc: 'Blindagem de checkout, auditoria de certificados SSL e proteção contra clonagem de páginas e fraudes.',
-            bullets: [
-              'Diagnóstico não intrusivo sem tocar nos servidores',
-              'Evita bloqueios em gateways de pagamento e telas vermelhas de alerta',
-              'Ordens técnicas claras para a equipe de desenvolvimento',
-            ],
-            action: { text: 'Abrir Scanner DEFENSA TI', href: '/defensati' },
-            color: 'from-cyan-500/20 to-blue-500/20 border-cyan-500/40 text-cyan-400',
-          },
-          {
-            icon: Code2,
-            badge: 'Desenvolvimento Sob Medida',
-            title: 'Software e IA Personalizada para sua Empresa',
-            desc: 'Plataformas customizadas integrando modelos de linguagem avançados (Gemini, Claude, OpenAI) na nuvem.',
-            bullets: [
-              'Arquitetura veloz com Next.js e bancos de dados protegidos',
-              'Modelos adaptados à linguagem e regras da sua empresa',
-              'Propriedade intelectual 100% sua',
-            ],
-            color: 'from-amber-500/20 to-orange-500/20 border-amber-500/40 text-amber-400',
-          },
-          {
-            icon: Users,
-            badge: 'Consultoria & Adoção',
-            title: 'Consultoria de Transformação com IA e Treinamento',
-            desc: 'Capacitamos líderes e equipes operacionais para adotar a IA e multiplicar a produtividade diária.',
-            bullets: [
-              'Mapeamento de gargalos manuais caros',
-              'Roteiro tecnológico com foco em retorno sobre o investimento',
-              'Workshops práticos para uso imediato',
-            ],
-            color: 'from-pink-500/20 to-rose-500/20 border-pink-500/40 text-pink-400',
-          },
-        ],
-      },
-      methodology: {
-        badge: 'Metodologia Validada',
-        title: 'Como Implementamos IA no seu Negócio em 4 Etapas',
-        desc: 'Um processo rápido e transparente focado em gerar retorno financeiro desde o primeiro mês.',
-        steps: [
-          {
-            num: '01',
-            title: 'Diagnóstico de Oportunidade',
-            desc: 'Identificamos os gargalos mais custosos e definimos o caso de uso de maior impacto financeiro.',
-          },
-          {
-            num: '02',
-            title: 'Protótipo em 7 Dias',
-            desc: 'Construímos um piloto funcional com seus dados reais para validação rápida.',
-          },
-          {
-            num: '03',
-            title: 'Integração aos seus Sistemas',
-            desc: 'Conectamos ao seu WhatsApp, CRM ou ERP de forma segura e sem parar a operação.',
-          },
-          {
-            num: '04',
-            title: 'Lançamento & Medição de ROI',
-            desc: 'Entramos em produção com métricas claras de economia de tempo e aumento de receita.',
-          },
-        ],
-      },
-      industries: {
-        badge: 'Setores Atendidos',
-        title: 'Impacto Real em Diferentes Mercados',
-        desc: 'Veja como empresas de vários ramos utilizam nossas soluções de IA para acelerar.',
-        items: [
-          {
-            icon: ShoppingCart,
-            name: 'Varejo & E-commerce',
-            title: 'Vendas 24/7 e Blindagem Antifraude',
-            desc: 'Assistentes de vendas pelo WhatsApp e proteção com DEFENSA TI.',
-            result: '+42% em conversões fora do horário comercial',
-          },
-          {
-            icon: Building2,
-            name: 'Serviços B2B',
-            title: 'Qualificação de Leads e Propostas Rápidas',
-            desc: 'Qualificação imediata de leads e agendamento automático de reuniões.',
-            result: 'Tempo de resposta reduzido de 4 horas para 15 segundos',
-          },
-          {
-            icon: Stethoscope,
-            name: 'Saúde & Clínicas',
-            title: 'Agendamento e Confirmação de Consultas',
-            desc: 'Redução drástica de faltas com lembretes interativos e triagem inteligente.',
-            result: '-70% de absenteísmo em consultas médicas',
-          },
-          {
-            icon: Truck,
-            name: 'Logística',
-            title: 'Processamento de Documentos e Rastreio',
-            desc: 'Extração automática de notas e respostas instantâneas de status.',
-            result: '80% de dúvidas resolvidas sem intervenção humana',
-          },
-        ],
-      },
-      founder: {
-        badge: 'Fundador & Consultor',
-        title: 'Martin Castillo',
-        role: 'Arquiteto de Soluções de Negócio com IA & Especialista em Cibersegurança',
-        desc: 'Fundador da Neuronal Gravity. Ajudo empresas a transformar processos lentos em sistemas automatizados inteligentes e seguros.',
-        quote: '"A inteligência artificial deve ser uma alavanca direta para aumentar os lucros e liberar tempo das equipes."',
-        whatsappCta: 'Falar pelo WhatsApp (+1 785 643-3991)',
-        linkedinCta: 'Perfil no LinkedIn',
-        githubCta: 'Projetos no GitHub',
-      },
-      ctaFinal: {
-        title: 'Tem um processo na sua empresa que consome tempo e recursos?',
-        desc: 'Conte-nos o seu desafio. Apresentamos uma proposta de solução com IA em menos de 48 horas.',
-        btnWhatsApp: 'Conversar com Martin Castillo no WhatsApp',
-        btnDefensa: 'Testar Scanner DEFENSA TI Grátis',
-      },
-      footer: {
-        tagline: 'Neuronal Gravity • Soluções de Negócio com Inteligência Artificial & Ciberdefensa',
-        copy: '© 2026 Neuronal Gravity (neuronalgravity.com). Todos os direitos reservados.',
-        disclaimer: 'Soluções desenvolvidas sob estritos acordos de confidencialidade e segurança de dados.',
-      },
+    {
+      id: 3,
+      title: '3. ¿Tienes doble factor de autenticación (2FA) o límite de intentos de ingreso para administradores?',
+      tip: 'Sin límite de intentos, robots automatizados pueden probar miles de contraseñas por minuto hasta entrar.',
     },
+    {
+      id: 4,
+      title: '4. ¿Cuentas con copias de seguridad automáticas guardadas fuera de tu proveedor de hosting?',
+      tip: 'Si tu servidor sufre un ataque o falla el disco, la copia dentro del mismo hosting también se destruye.',
+    },
+    {
+      id: 5,
+      title: '5. ¿Tienes un firewall de aplicaciones web (WAF) que bloquee ataques antes de que toquen tu servidor?',
+      tip: 'Un firewall activo detiene inyecciones SQL, escaneos maliciosos y bots de scraping en el perímetro.',
+    },
+  ];
+
+  // Cálculo del resultado orientativo
+  const answeredCount = Object.values(answers).filter((v) => v !== null).length;
+  const noOrNoseCount = Object.values(answers).filter((v) => v === 'no' || v === 'nose').length;
+
+  const getQuizGrade = () => {
+    if (answeredCount === 0) return null;
+    if (noOrNoseCount === 0) return { grade: 'A', label: 'Riesgo Bajo Estimado', color: 'text-emerald-400', bg: 'border-emerald-500/40 bg-emerald-950/20' };
+    if (noOrNoseCount <= 2) return { grade: 'B', label: 'Riesgo Moderado (Requiere Atención)', color: 'text-amber-400', bg: 'border-amber-500/40 bg-amber-950/20' };
+    return { grade: 'D / F', label: 'Riesgo Crítico de Exposición', color: 'text-rose-400', bg: 'border-rose-500/40 bg-rose-950/20' };
   };
 
-  const content = contentMap[language as keyof typeof contentMap] || contentMap.es;
+  const quizResult = getQuizGrade();
+
+  // Generador de enlace para WhatsApp de la Autoevaluación
+  const getQuizWhatsAppUrl = () => {
+    const text = `Hola Martín, realicé la autoevaluación de DEFENSA TI en mi web.\nResultado orientativo: ${quizResult?.grade || 'Evaluación'} (${quizResult?.label || ''}).\nRespondí que no/no sé en ${noOrNoseCount} de 5 puntos. Quiero cotizar la auditoría formal.`;
+    return `https://wa.me/51987010380?text=${encodeURIComponent(text)}`;
+  };
+
+  // Enviar formulario oficial y abrir WhatsApp
+  const handleFormSubmit = (e: React.FormEvent) => {
+    e.preventDefault();
+    if (!formData.authorized) return;
+
+    setFormSubmitted(true);
+    const text = `Hola Martín, deseo solicitar la auditoría DEFENSA TI para mi web:\n- Nombre: ${formData.name}\n- Web: ${formData.url}\n- País: ${formData.country}\n- Plan de interés: ${formData.plan}${formData.comments ? `\n- Comentarios: ${formData.comments}` : ''}\n- Declaración: Confirmo ser titular o contar con autorización para la auditoría.`;
+    const waUrl = `https://wa.me/51987010380?text=${encodeURIComponent(text)}`;
+    setTimeout(() => {
+      window.open(waUrl, '_blank', 'noopener,noreferrer');
+    }, 1000);
+  };
+
+  const faqs = [
+    {
+      q: '¿Qué significa exactamente alcanzar Grado A+?',
+      a: 'Es la máxima calificación técnica en estándares internacionales de transporte seguro (RFC / OWASP). Significa que tu web cuenta con certificado SSL/TLS moderno, cabeceras contra clonación (HSTS, CSP, X-Frame-Options) y ningún puerto administrativo crítico expuesto a internet.',
+    },
+    {
+      q: '¿Cómo funciona la garantía de devolución?',
+      a: 'Si tras contratar el blindaje no logramos mejorar al menos un grado la nota de seguridad de tu sitio en nuestra auditoría independiente, te reembolsamos el 100% de lo pagado. Trabajamos con precio fijo y sin letra chica.',
+    },
+    {
+      q: '¿Qué pasa si mi sitio web no es WordPress?',
+      a: 'Auditamos y blindamos cualquier plataforma web: tiendas en Shopify, sistemas en Laravel, Node.js, Next.js, plataformas en PHP a medida o tiendas con pasarelas de pago como Mercado Pago, Niubiz o Stripe.',
+    },
+    {
+      q: '¿Van a necesitar las contraseñas de mi empresa?',
+      a: 'Para la Auditoría (S/ 65) solo necesitamos la dirección de tu web; es una revisión externa que no toca tu servidor. Para corregir (planes de blindaje), te pedimos crear un usuario administrador temporal, hacemos copia de seguridad antes de tocar nada y al terminar te recomendamos eliminar la cuenta y cambiar contraseñas.',
+    },
+    {
+      q: '¿Cuánto demora la entrega del servicio?',
+      a: 'La Auditoría Independiente se entrega en 48 horas laborables con llamada explicativa. El Blindaje Esencial toma de 3 a 5 días hábiles y el Blindaje Total de 5 a 7 días hábiles.',
+    },
+    {
+      q: '¿Atienden negocios fuera de Perú?',
+      a: 'Sí. Atendemos de forma remota a empresas en México, Colombia, Chile, Ecuador, Bolivia, Argentina y toda Latinoamérica con coordinación directa por WhatsApp y entrega de dictámenes ejecutivos.',
+    },
+    {
+      q: '¿El blindaje es un pago único o tengo que pagar una mensualidad?',
+      a: 'Es un pago único. No hay mensualidades forzosas. Dejamos tu web corregida, protegida y con copia de seguridad entregada. Si más adelante deseas monitoreo mensual continuo, se cotiza de forma opcional.',
+    },
+  ];
 
   return (
-    <div className="relative min-h-screen bg-[#000000] text-[#f5f5f7] selection:bg-[#0071e3] selection:text-white font-sans antialiased overflow-x-hidden">
+    <div className="relative min-h-screen bg-black text-[#f5f5f7] font-sans antialiased selection:bg-[#0071e3] selection:text-white">
       
-      {/* Fondo Interactivo Estelar (Solo Nodos Iluminados como Estrellas, sin Dominios) */}
-      <div className="fixed inset-0 pointer-events-none z-0 opacity-60">
-        <NeuralBackground showDomains={false} />
-        <div className="absolute inset-0 bg-radial from-transparent via-[#000000]/40 to-[#000000]/85" />
-      </div>
-
-      {/* Iluminación Ambiental */}
-      <div className="pointer-events-none fixed inset-0 z-0 flex justify-center">
-        <div 
-          className="absolute rounded-full bg-linear-to-b from-[#0071e3]/20 via-[#7928ca]/15 to-transparent"
-          style={{ top: '-180px', height: '700px', width: '950px', filter: 'blur(170px)' }} 
-        />
-        <div 
-          className="absolute rounded-full bg-[#38bdf8]/10"
-          style={{ top: '800px', height: '550px', width: '750px', filter: 'blur(190px)' }} 
-        />
-      </div>
-
-      <div className="relative z-10 flex flex-col min-h-screen">
-        
-        {/* Barra Superior con Notificación y Acceso Rápido a DEFENSA TI */}
-        <div className="bg-linear-to-r from-[#0071e3]/20 via-[#38bdf8]/10 to-[#7928ca]/20 border-b border-white/10 py-2 px-4 text-center text-xs text-neutral-300">
-          <div className="max-w-6xl mx-auto flex flex-wrap items-center justify-center gap-2">
-            <span className="inline-flex items-center gap-1.5 font-semibold text-white">
-              <Sparkles className="w-3.5 h-3.5 text-[#38bdf8] animate-pulse" />
-              {content.hero.scannerCallout}
-            </span>
-            <Link
-              href="/defensati"
-              className="font-bold text-[#38bdf8] hover:text-white underline decoration-[#38bdf8]/50 hover:decoration-white transition-colors"
-            >
-              {content.hero.scannerLinkText}
-            </Link>
-          </div>
-        </div>
-
-        {/* Barra de Navegación Glassmorphism */}
-        <header className="sticky top-0 z-50 border-b border-white/10 bg-[#000000]/85 backdrop-blur-2xl transition-all">
-          <div className="max-w-7xl mx-auto px-6 h-18 flex items-center justify-between">
-            
-            {/* Logo Neuronal Gravity */}
-            <Link href="/" className="flex items-center gap-3.5 group">
-              <div className="relative h-10 w-10 rounded-2xl bg-linear-to-br from-[#0071e3] via-[#7928ca] to-[#38bdf8] p-[1.5px] shadow-[0_0_20px_rgba(0,113,227,0.4)] group-hover:shadow-[0_0_30px_rgba(56,189,248,0.6)] transition-all">
-                <div className="h-full w-full rounded-[14px] bg-[#000000] flex items-center justify-center">
-                  <Brain className="w-5 h-5 text-[#38bdf8] group-hover:scale-110 transition-transform duration-300" />
-                </div>
+      {/* 1. NAVEGACIÓN ESTRICTA DE UN SOLO PRODUCTO */}
+      <header className="sticky top-0 z-50 border-b border-white/10 bg-black/85 backdrop-blur-2xl">
+        <div className="max-w-6xl mx-auto px-6 h-18 flex items-center justify-between">
+          <Link href="/" className="flex items-center gap-3">
+            <div className="h-10 w-10 rounded-2xl bg-linear-to-br from-[#0071e3] via-[#7928ca] to-[#38bdf8] p-[1.5px] shadow-[0_0_20px_rgba(0,113,227,0.4)] flex items-center justify-center">
+              <div className="h-full w-full rounded-[14px] bg-black flex items-center justify-center">
+                <ShieldCheck className="w-5 h-5 text-emerald-400" />
               </div>
-              <div className="flex flex-col">
-                <div className="flex items-center gap-2">
-                  <span className="font-bold text-base tracking-tight text-white leading-none">
-                    NEURONAL GRAVITY
-                  </span>
-                  <span className="px-1.5 py-0.5 rounded text-[9px] font-bold tracking-wider uppercase bg-[#38bdf8]/15 border border-[#38bdf8]/40 text-[#38bdf8]">
-                    AI BIZ
-                  </span>
-                </div>
-                <span className="text-[11px] text-neutral-400 font-mono mt-0.5 flex items-center gap-1.5">
-                  <span>neuronalgravity.com</span>
-                  <span className="text-neutral-600">&bull;</span>
-                  <span className="text-[#38bdf8] font-sans font-semibold">by Martin Castillo</span>
+            </div>
+            <div>
+              <div className="flex items-center gap-2">
+                <span className="font-extrabold text-base tracking-tight text-white leading-none">DEFENSA TI</span>
+                <span className="px-1.5 py-0.5 rounded text-[9px] font-bold tracking-wider uppercase bg-emerald-500/15 border border-emerald-500/30 text-emerald-400">
+                  BLINDAJE WEB
                 </span>
               </div>
-            </Link>
+              <span className="text-[10px] text-neutral-400 font-mono mt-0.5 block">by Neuronal Gravity &bull; RUC 10704877850</span>
+            </div>
+          </Link>
 
-            {/* Menú de Navegación de Negocio con Rutas Limpias */}
-            <nav className="hidden lg:flex items-center gap-7 text-[13px] font-medium text-neutral-300">
-              <Link href="/soluciones" className="hover:text-white transition-colors duration-200">
-                {content.nav.solutions}
-              </Link>
-              <Link href="/metodologia" className="hover:text-white transition-colors duration-200">
-                {content.nav.methodology}
-              </Link>
-              <Link href="/casos" className="hover:text-white transition-colors duration-200">
-                {content.nav.industries}
-              </Link>
-              <Link 
-                href="/defensati" 
-                className="flex items-center gap-1.5 text-[#38bdf8] hover:text-white transition-colors duration-200"
-              >
-                <span className="h-1.5 w-1.5 rounded-full bg-[#38bdf8] shadow-[0_0_8px_#38bdf8] animate-pulse" />
-                <span>{content.nav.defensaTi}</span>
-              </Link>
-              <Link href="/liderazgo" className="hover:text-white transition-colors duration-200">
-                {content.nav.about}
-              </Link>
-            </nav>
+          <nav className="hidden md:flex items-center gap-6 text-xs font-semibold text-neutral-300">
+            <a href="#que-blindamos" className="hover:text-white transition-colors">Qué blindamos</a>
+            <a href="#autoevaluacion" className="hover:text-white transition-colors">Autoevaluación</a>
+            <a href="#precios" className="hover:text-white transition-colors">Precios</a>
+            <a href="#proceso" className="hover:text-white transition-colors">Proceso</a>
+            <a href="#faq" className="hover:text-white transition-colors">Preguntas</a>
+          </nav>
 
-            {/* Acciones */}
-            <div className="flex items-center gap-3">
-              <LanguageSelector />
+          <a
+            href="#formulario"
+            className="px-4 py-2 rounded-xl bg-emerald-500 hover:bg-emerald-400 text-black text-xs font-bold transition-all shadow-[0_0_20px_rgba(16,185,129,0.3)] active:scale-95"
+          >
+            Pedir mi auditoría — S/ 65 ($19)
+          </a>
+        </div>
+      </header>
+
+      {/* CONTENIDO PRINCIPAL */}
+      <main className="max-w-6xl mx-auto px-6 py-12 sm:py-20 space-y-24">
+        
+        {/* 1. HERO SECTION */}
+        <section className="text-center space-y-8 max-w-4xl mx-auto pt-4 relative">
+          
+          <div className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-emerald-500/10 border border-emerald-500/30 text-emerald-400 text-xs font-bold tracking-wide shadow-[0_0_20px_rgba(16,185,129,0.2)]">
+            <ShieldCheck className="w-4 h-4 text-emerald-400" />
+            <span>Blindaje Técnico y Auditoría para Sitios Web de Negocios</span>
+          </div>
+
+          <h1 className="text-4xl sm:text-6xl md:text-7xl font-black tracking-[-0.03em] text-white leading-[1.08]">
+            Tu web vende por ti.{' '}
+            <span className="block text-transparent bg-clip-text bg-linear-to-r from-emerald-400 via-[#38bdf8] to-blue-400">
+              ¿Está blindada o está abierta?
+            </span>
+          </h1>
+
+          <p className="text-base sm:text-lg text-neutral-200 font-normal leading-relaxed max-w-2xl mx-auto">
+            Auditamos la seguridad de tu página web y corregimos cada punto débil hasta dejarla protegida. 
+            Con el plan <strong>Blindaje Total</strong>, si no mejoramos la calificación de seguridad de tu sitio, te devolvemos el 100% de lo pagado.
+          </p>
+
+          {/* Botones de Acción */}
+          <div className="pt-2 flex flex-col sm:flex-row items-center justify-center gap-4 max-w-xl mx-auto">
+            <a
+              href="#precios"
+              className="w-full sm:w-auto inline-flex items-center justify-center gap-2.5 px-8 py-4 rounded-2xl bg-emerald-500 hover:bg-emerald-400 text-black font-extrabold text-sm shadow-[0_0_35px_rgba(16,185,129,0.4)] active:scale-98 transition-all"
+            >
+              <span>Ver planes — desde S/ 65 ($19 USD)</span>
+              <ArrowRight className="w-4 h-4" />
+            </a>
+
+            <a
+              href="#autoevaluacion"
+              className="w-full sm:w-auto inline-flex items-center justify-center gap-2 px-6 py-4 rounded-2xl bg-white/5 hover:bg-white/10 border border-white/10 text-white font-semibold text-sm transition-all"
+            >
+              <HelpCircle className="w-4 h-4 text-emerald-400" />
+              <span>Evaluar mi web en 1 minuto</span>
+            </a>
+          </div>
+
+          {/* 3 Checks de Confianza */}
+          <div className="pt-6 flex flex-wrap items-center justify-center gap-4 text-xs text-neutral-300">
+            <span className="flex items-center gap-1.5 font-medium">
+              <CheckCircle2 className="w-4 h-4 text-emerald-400" />
+              Garantía de mejora por escrito
+            </span>
+            <span className="text-neutral-600 hidden sm:inline">&bull;</span>
+            <span className="flex items-center gap-1.5 font-medium">
+              <CheckCircle2 className="w-4 h-4 text-emerald-400" />
+              Informe claro sin tecnicismos
+            </span>
+            <span className="text-neutral-600 hidden sm:inline">&bull;</span>
+            <span className="flex items-center gap-1.5 font-medium">
+              <CheckCircle2 className="w-4 h-4 text-emerald-400" />
+              Respuesta en menos de 24 h laborables
+            </span>
+          </div>
+
+          {/* Chips de Países Atendidos */}
+          <div className="pt-2 flex flex-wrap items-center justify-center gap-2 text-[11px] text-neutral-400">
+            <span className="font-semibold text-neutral-300">Atención remota a negocios en:</span>
+            <span className="px-2 py-0.5 rounded bg-white/5 border border-white/10 text-white">🇵🇪 Perú</span>
+            <span className="px-2 py-0.5 rounded bg-white/5 border border-white/10 text-neutral-300">🇲🇽 México</span>
+            <span className="px-2 py-0.5 rounded bg-white/5 border border-white/10 text-neutral-300">🇨🇴 Colombia</span>
+            <span className="px-2 py-0.5 rounded bg-white/5 border border-white/10 text-neutral-300">🇨🇱 Chile</span>
+            <span className="px-2 py-0.5 rounded bg-white/5 border border-white/10 text-neutral-300">LatAm</span>
+          </div>
+        </section>
+
+        {/* 2. POR QUÉ BLINDAR (3 TARJETAS DE DOLOR REAL) */}
+        <section className="space-y-8">
+          <div className="text-center space-y-2">
+            <span className="text-xs font-mono uppercase tracking-wider text-rose-400 font-bold">Riesgos Reales en Negocios</span>
+            <h2 className="text-3xl sm:text-4xl font-extrabold text-white tracking-tight">
+              Muchos negocios se enteran de que su web está vulnerable cuando ya es tarde
+            </h2>
+          </div>
+
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+            <div className="p-7 rounded-3xl bg-[#120d10] border border-rose-500/30 space-y-3">
+              <div className="w-10 h-10 rounded-2xl bg-rose-500/20 text-rose-400 flex items-center justify-center">
+                <ShieldAlert className="w-5 h-5" />
+              </div>
+              <h3 className="text-lg font-bold text-white">1. La web reparte virus o spam sin que te des cuenta</h3>
+              <p className="text-xs text-neutral-200 leading-relaxed font-normal">
+                Inyecciones de código silenciosas agregan enlaces ocultos o redirigen a tus clientes a páginas de apuestas. El dueño no lo nota, pero los visitantes y los antivirus sí.
+              </p>
+            </div>
+
+            <div className="p-7 rounded-3xl bg-[#12100d] border border-amber-500/30 space-y-3">
+              <div className="w-10 h-10 rounded-2xl bg-amber-500/20 text-amber-400 flex items-center justify-center">
+                <ShieldAlert className="w-5 h-5" />
+              </div>
+              <h3 className="text-lg font-bold text-white">2. Google marca tu página como &quot;Sitio peligroso&quot;</h3>
+              <p className="text-xs text-neutral-200 leading-relaxed font-normal">
+                Una pantalla roja bloquea a cualquier persona que intente entrar. Las ventas caen a cero de inmediato y salir de la lista negra de Google toma semanas si no se corrigen las fallas.
+              </p>
+            </div>
+
+            <div className="p-7 rounded-3xl bg-[#0d1218] border border-[#38bdf8]/30 space-y-3">
+              <div className="w-10 h-10 rounded-2xl bg-blue-500/20 text-[#38bdf8] flex items-center justify-center">
+                <Lock className="w-5 h-5" />
+              </div>
+              <h3 className="text-lg font-bold text-white">3. Datos de clientes y pedidos expuestos</h3>
+              <p className="text-xs text-neutral-200 leading-relaxed font-normal">
+                Formularios de contacto, correos o comprobantes interceptados por falta de cabeceras defensivas y cifrado SSL robusto, violando normativas de privacidad como la Ley 29733.
+              </p>
             </div>
           </div>
-        </header>
+        </section>
 
-        {/* HERO SECTION DE NEGOCIO */}
-        <main className="max-w-6xl mx-auto px-6 py-16 sm:py-24 space-y-32 flex-1 w-full">
-          
-          <section className="text-center space-y-8 max-w-4xl mx-auto pt-4 relative">
-            
-            {/* Pill Badge */}
-            <div className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-linear-to-r from-blue-500/15 via-purple-500/15 to-emerald-500/15 border border-[#38bdf8]/40 text-[#38bdf8] text-xs font-bold tracking-wide shadow-[0_0_25px_rgba(56,189,248,0.25)]">
-              <Sparkles className="w-3.5 h-3.5 text-[#38bdf8] animate-pulse" />
-              <span>{content.hero.badge}</span>
-            </div>
+        {/* 3. QUÉ REVISAMOS Y CORREGIMOS PUNTO POR PUNTO */}
+        <section id="que-blindamos" className="space-y-10">
+          <div className="text-center space-y-2 max-w-2xl mx-auto">
+            <span className="text-xs font-mono uppercase tracking-wider text-emerald-400 font-bold">Alcance Técnico Transparente</span>
+            <h2 className="text-3xl sm:text-4xl font-extrabold text-white tracking-tight">
+              Qué revisamos y corregimos en tu web, punto por punto
+            </h2>
+          </div>
 
-            {/* Titular Principal */}
-            <h1 className="text-4xl sm:text-6xl md:text-7xl font-black tracking-[-0.04em] text-white leading-[1.06]">
-              {content.hero.title1}{' '}
-              <span className="block text-transparent bg-clip-text bg-linear-to-r from-[#38bdf8] via-[#818cf8] to-[#34d399]">
-                {content.hero.title2}
-              </span>
-            </h1>
-
-            {/* Bajada */}
-            <p className="text-base sm:text-xl text-neutral-300 font-normal leading-relaxed max-w-3xl mx-auto">
-              {content.hero.desc}
-            </p>
-
-            {/* Botones de Acción de Negocio: Demo en Vivo por WhatsApp */}
-            <div className="pt-4 flex flex-col sm:flex-row items-center justify-center gap-4 max-w-xl mx-auto">
-              <a
-                href="https://wa.me/51987010380?text=Hola%20Mart%C3%ADn,%20quiero%20probar%20una%20demo%20del%20agente%20de%20WhatsApp%20para%20mi%20negocio."
-                target="_blank"
-                rel="noopener noreferrer"
-                className="w-full sm:w-auto inline-flex items-center justify-center gap-2.5 px-7 py-4 rounded-2xl bg-linear-to-r from-emerald-500 via-[#25D366] to-teal-500 hover:opacity-95 text-white font-bold text-sm shadow-[0_0_35px_rgba(37,211,102,0.45)] active:scale-98 transition-all"
-              >
-                <MessageSquare className="w-5 h-5 fill-white" />
-                <span>Probar Demo en WhatsApp (En 10 Segundos)</span>
-                <ArrowRight className="w-4 h-4" />
-              </a>
-
-              <a
-                href="#cotizar"
-                className="w-full sm:w-auto inline-flex items-center justify-center gap-2 px-6 py-4 rounded-2xl bg-white/5 hover:bg-white/10 border border-white/10 text-white font-semibold text-sm transition-all"
-              >
-                <Briefcase className="w-4 h-4 text-[#38bdf8]" />
-                <span>Cotizar Piloto (Desde S/ 490)</span>
-              </a>
-            </div>
-
-            {/* Badges de Confianza Local Perú */}
-            <div className="pt-4 flex flex-wrap items-center justify-center gap-3 text-xs text-neutral-300">
-              <span className="px-3 py-1 rounded-full bg-white/5 border border-white/10 flex items-center gap-1.5 font-medium">
-                <CheckCircle2 className="w-3.5 h-3.5 text-emerald-400" />
-                Factura / Boleta Electrónica (RUC Perú)
-              </span>
-              <span className="px-3 py-1 rounded-full bg-white/5 border border-white/10 flex items-center gap-1.5 font-medium">
-                <CheckCircle2 className="w-3.5 h-3.5 text-emerald-400" />
-                Yape / Plin / BCP / BBVA
-              </span>
-              <span className="px-3 py-1 rounded-full bg-white/5 border border-white/10 flex items-center gap-1.5 font-medium">
-                <ShieldCheck className="w-3.5 h-3.5 text-[#38bdf8]" />
-                Acuerdo de Confidencialidad (NDA)
-              </span>
-            </div>
-
-            {/* Tarjeta rápida de DEFENSA TI en el Hero */}
-            <div className="pt-6">
-              <div className="inline-flex flex-col sm:flex-row items-center gap-3 p-3.5 px-6 rounded-2xl bg-white/[0.03] border border-white/10 backdrop-blur-xl text-xs text-neutral-300">
-                <div className="flex items-center gap-2 text-white font-medium">
-                  <ShieldCheck className="w-4 h-4 text-[#38bdf8]" />
-                  <span>¿Tienes e-commerce o portal corporativo?</span>
-                </div>
-                <div className="h-4 w-px bg-white/10 hidden sm:block" />
-                <Link
-                  href="/defensati"
-                  className="font-bold text-[#38bdf8] hover:text-white flex items-center gap-1 transition-colors"
-                >
-                  Auditar pasarela de pago y seguridad gratis
-                  <ArrowRight className="w-3.5 h-3.5" />
-                </Link>
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+            <div className="p-6 rounded-3xl bg-[#0e1118] border border-white/10 space-y-3">
+              <div className="flex items-center gap-2.5 text-emerald-400 font-bold text-sm">
+                <CheckCircle2 className="w-4 h-4 shrink-0" />
+                <span>Conexión y Certificado (HTTPS / TLS)</span>
               </div>
+              <p className="text-xs text-neutral-200 leading-relaxed font-normal">
+                Verificamos que todo el tráfico viaje cifrado con protocolos modernos (TLSv1.3), renovaciones automáticas activas y sin contenidos mixtos que rompan el candado seguro.
+              </p>
             </div>
-          </section>
 
-          {/* MÉTRICAS DE IMPACTO Y ROI DE NEGOCIO */}
-          <section className="grid grid-cols-2 md:grid-cols-4 gap-4">
-            {content.hero.stats.map((stat, idx) => (
-              <div
-                key={idx}
-                className="relative rounded-2xl p-6 bg-linear-to-b from-white/[0.05] to-white/[0.01] border border-white/10 backdrop-blur-xl shadow-lg hover:border-[#38bdf8]/40 transition-all text-left group"
-              >
-                <div className="text-3xl sm:text-4xl font-extrabold text-transparent bg-clip-text bg-linear-to-r from-white via-[#38bdf8] to-emerald-400 group-hover:scale-105 transition-transform duration-300">
-                  {stat.value}
-                </div>
-                <div className="font-bold text-sm text-white mt-2">
-                  {stat.label}
-                </div>
-                <div className="text-xs text-neutral-200 mt-1 leading-relaxed font-normal">
-                  {stat.desc}
+            <div className="p-6 rounded-3xl bg-[#0e1118] border border-white/10 space-y-3">
+              <div className="flex items-center gap-2.5 text-emerald-400 font-bold text-sm">
+                <CheckCircle2 className="w-4 h-4 shrink-0" />
+                <span>Cabeceras Defensivas HTTP (OWASP)</span>
+              </div>
+              <p className="text-xs text-neutral-200 leading-relaxed font-normal">
+                Implementamos HSTS estricto, X-Frame-Options (anti-clonación en iframes), Content-Security-Policy y directivas que impiden que terceros roben la identidad de tu marca.
+              </p>
+            </div>
+
+            <div className="p-6 rounded-3xl bg-[#0e1118] border border-white/10 space-y-3">
+              <div className="flex items-center gap-2.5 text-emerald-400 font-bold text-sm">
+                <CheckCircle2 className="w-4 h-4 shrink-0" />
+                <span>Software, Temas y Plugins al Día</span>
+              </div>
+              <p className="text-xs text-neutral-200 leading-relaxed font-normal">
+                Actualización segura de componentes de WordPress y extensiones con respaldo previo, eliminando módulos abandonados o con vulnerabilidades documentadas.
+              </p>
+            </div>
+
+            <div className="p-6 rounded-3xl bg-[#0e1118] border border-white/10 space-y-3">
+              <div className="flex items-center gap-2.5 text-emerald-400 font-bold text-sm">
+                <CheckCircle2 className="w-4 h-4 shrink-0" />
+                <span>Accesos y Contraseñas Protegidas</span>
+              </div>
+              <p className="text-xs text-neutral-200 leading-relaxed font-normal">
+                Configuración de doble factor (2FA), límite de intentos fallidos contra ataques de fuerza bruta y eliminación de usuarios administradores antiguos o sospechosos.
+              </p>
+            </div>
+
+            <div className="p-6 rounded-3xl bg-[#0e1118] border border-white/10 space-y-3">
+              <div className="flex items-center gap-2.5 text-emerald-400 font-bold text-sm">
+                <CheckCircle2 className="w-4 h-4 shrink-0" />
+                <span>Firewall Web (WAF) Activo</span>
+              </div>
+              <p className="text-xs text-neutral-200 leading-relaxed font-normal">
+                Bloqueo de bots maliciosos, escaneos automáticos de hackers y peticiones sospechosas en el perímetro antes de que logren tocar los recursos de tu servidor.
+              </p>
+            </div>
+
+            <div className="p-6 rounded-3xl bg-[#0e1118] border border-white/10 space-y-3">
+              <div className="flex items-center gap-2.5 text-emerald-400 font-bold text-sm">
+                <CheckCircle2 className="w-4 h-4 shrink-0" />
+                <span>Copias de Seguridad Verificadas</span>
+              </div>
+              <p className="text-xs text-neutral-200 leading-relaxed font-normal">
+                Automatización de respaldos externos fuera del hosting, comprobando que el archivo realmente pueda restaurar tu web si ocurre cualquier desastre técnico.
+              </p>
+            </div>
+          </div>
+        </section>
+
+        {/* TRANSPARENCIA EN ACCESOS (SECCIÓN DESTACADA) */}
+        <section className="p-8 sm:p-10 rounded-3xl bg-[#0f1422] border border-blue-500/30 space-y-4 text-left">
+          <div className="flex items-center gap-3 text-white font-bold text-lg">
+            <Lock className="w-6 h-6 text-[#38bdf8]" />
+            <span>¿Van a necesitar las contraseñas de mi empresa?</span>
+          </div>
+          <div className="text-xs sm:text-sm text-neutral-200 leading-relaxed space-y-2 font-normal">
+            <p>
+              <strong>Para la Auditoría Independiente (S/ 65 / $19):</strong> Solo necesitamos la dirección pública de tu web. Es una revisión 100% externa que no toca tu sitio ni pide claves.
+            </p>
+            <p>
+              <strong>Para corregir y blindar tu sitio:</strong> Aplicamos este protocolo transparente:
+            </p>
+            <ul className="list-disc pl-5 space-y-1 text-neutral-300 text-xs">
+              <li>Te pedimos crear una cuenta temporal con los permisos mínimos necesarios, no tu cuenta personal ni principal.</li>
+              <li>Antes de tocar cualquier archivo, hacemos una copia de seguridad verificada.</li>
+              <li>Cada cambio realizado queda registrado en el informe de entrega.</li>
+              <li>Al finalizar el trabajo, cerramos o eliminamos esa cuenta y te recomendamos cambiar tus claves.</li>
+              <li>No guardamos contraseñas fuera del trabajo ni las compartimos con terceros.</li>
+            </ul>
+          </div>
+        </section>
+
+        {/* 4. AUTOEVALUACIÓN INTERACTIVA DE 1 MINUTO */}
+        <section id="autoevaluacion" className="space-y-8 p-8 sm:p-12 rounded-3xl bg-linear-to-b from-[#101422] via-[#0b0e17] to-black border border-white/15">
+          <div className="text-center space-y-2 max-w-2xl mx-auto">
+            <span className="text-xs font-mono uppercase tracking-wider text-emerald-400 font-bold">Diagnóstico Rápido</span>
+            <h2 className="text-3xl sm:text-4xl font-extrabold text-white tracking-tight">
+              Autoevaluación de seguridad de tu web (1 minuto)
+            </h2>
+            <p className="text-xs text-neutral-300">
+              Responde con sinceridad estas 5 preguntas para estimar de forma orientativa qué tan expuesto está tu negocio.
+            </p>
+          </div>
+
+          <div className="space-y-4 max-w-3xl mx-auto">
+            {quizQuestions.map((q) => (
+              <div key={q.id} className="p-5 rounded-2xl bg-white/5 border border-white/10 space-y-2.5 text-left">
+                <p className="text-sm font-bold text-white">{q.title}</p>
+                <p className="text-[11px] text-neutral-400">{q.tip}</p>
+                <div className="flex flex-wrap gap-2 pt-1">
+                  {(['si', 'no', 'nose'] as const).map((opt) => (
+                    <button
+                      key={opt}
+                      type="button"
+                      onClick={() => setAnswers({ ...answers, [q.id]: opt })}
+                      className={`px-4 py-1.5 rounded-xl text-xs font-semibold transition-all cursor-pointer ${
+                        answers[q.id] === opt
+                          ? opt === 'si'
+                            ? 'bg-emerald-500 text-black font-bold'
+                            : 'bg-rose-500 text-white font-bold'
+                          : 'bg-white/10 text-neutral-300 hover:bg-white/15 hover:text-white'
+                      }`}
+                    >
+                      {opt === 'si' ? '✓ Sí' : opt === 'no' ? '✗ No' : '? No sé'}
+                    </button>
+                  ))}
                 </div>
               </div>
             ))}
-          </section>
+          </div>
 
-          {/* RED GLOBAL DE INFRAESTRUCTURA DE IA & TRÁFICO EN VIVO (ARRIBA DE SOLUCIONES) */}
-          <LiveNetworkTrafficGlobe />
-
-          {/* MONITOR GLOBAL DE AMENAZAS Y DIAGNÓSTICO DE SEO / SEGURIDAD WEB */}
-          <GlobalCyberThreatsAndSeoScanner />
-
-          {/* SOLUCIONES DE NEGOCIO CON IA (CORE CATALOG) */}
-          <section id="soluciones" className="space-y-12">
-            <div className="text-center space-y-4 max-w-3xl mx-auto">
-              <div className="inline-flex items-center gap-2 px-3.5 py-1 rounded-full bg-blue-500/10 border border-blue-400/30 text-[#38bdf8] text-xs font-semibold">
-                <Brain className="w-3.5 h-3.5" />
-                <span>{content.solutions.badge}</span>
-              </div>
-              <h2 className="text-3xl sm:text-5xl font-black tracking-tight text-white">
-                {content.solutions.title}
-              </h2>
-              <p className="text-sm sm:text-base text-neutral-200 font-medium">
-                {content.solutions.desc}
-              </p>
-            </div>
-
-            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-              {content.solutions.items.map((sol, index) => {
-                const IconComponent = sol.icon;
-                return (
-                  <div
-                    key={index}
-                    className="relative rounded-3xl p-7 bg-[#0e1118]/90 backdrop-blur-xl border border-white/15 hover:border-white/30 shadow-2xl flex flex-col justify-between space-y-6 transition-all group hover:-translate-y-1"
-                  >
-                    <div className="space-y-4">
-                      <div className="flex items-center justify-between">
-                        <div className={`h-11 w-11 rounded-2xl bg-linear-to-br ${sol.color} border flex items-center justify-center shadow-inner`}>
-                          <IconComponent className="w-5 h-5" />
-                        </div>
-                        <span className="text-[10px] uppercase font-bold tracking-wider px-2.5 py-1 rounded-full bg-white/5 border border-white/10 text-neutral-300">
-                          {sol.badge}
-                        </span>
-                      </div>
-
-                      <h3 className="text-xl font-bold text-white tracking-tight leading-snug">
-                        {sol.title}
-                      </h3>
-
-                      <p className="text-xs sm:text-sm text-neutral-100 font-medium leading-relaxed">
-                        {sol.desc}
-                      </p>
-
-                      <div className="space-y-2 pt-2 border-t border-white/10">
-                        {sol.bullets.map((bullet, bIdx) => (
-                          <div key={bIdx} className="flex items-start gap-2 text-xs sm:text-[13px] text-neutral-200">
-                            <CheckCircle2 className="w-3.5 h-3.5 text-emerald-400 shrink-0 mt-0.5" />
-                            <span>{bullet}</span>
-                          </div>
-                        ))}
-                      </div>
-                    </div>
-
-                    <div className="pt-2">
-                      {sol.action ? (
-                        <Link
-                          href={sol.action.href}
-                          className="w-full inline-flex items-center justify-center gap-2 px-4 py-2.5 rounded-xl bg-[#0071e3]/20 hover:bg-[#0071e3]/30 border border-[#0071e3]/40 text-[#38bdf8] font-semibold text-xs transition-all"
-                        >
-                          <ShieldCheck className="w-4 h-4" />
-                          <span>{sol.action.text}</span>
-                          <ArrowRight className="w-3.5 h-3.5" />
-                        </Link>
-                      ) : (
-                        <a
-                          href={`https://wa.me/17856433991?text=${encodeURIComponent(`Hola Martin, me interesa cotizar para mi empresa: ${sol.title}`)}`}
-                          target="_blank"
-                          rel="noopener noreferrer"
-                          className="w-full inline-flex items-center justify-center gap-2 px-4 py-2.5 rounded-xl bg-white/5 hover:bg-white/10 border border-white/10 text-white font-semibold text-xs transition-all group-hover:border-[#38bdf8]/40"
-                        >
-                          <span>Consultar esta Solución</span>
-                          <ArrowRight className="w-3.5 h-3.5 group-hover:translate-x-1 transition-transform" />
-                        </a>
-                      )}
-                    </div>
-                  </div>
-                );
-              })}
-            </div>
-          </section>
-
-          {/* METODOLOGÍA DE 4 PASOS */}
-          <section id="metodologia" className="space-y-12">
-            <div className="text-center space-y-4 max-w-2xl mx-auto">
-              <div className="inline-flex items-center gap-2 px-3.5 py-1 rounded-full bg-emerald-500/10 border border-emerald-400/30 text-emerald-400 text-xs font-semibold">
-                <Clock className="w-3.5 h-3.5" />
-                <span>{content.methodology.badge}</span>
-              </div>
-              <h2 className="text-3xl sm:text-5xl font-black tracking-tight text-white">
-                {content.methodology.title}
-              </h2>
-              <p className="text-sm sm:text-base text-neutral-200 font-medium">
-                {content.methodology.desc}
-              </p>
-            </div>
-
-            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-5">
-              {content.methodology.steps.map((st, i) => (
-                <div
-                  key={i}
-                  className="relative rounded-3xl p-6 bg-[#0e1118]/90 backdrop-blur-xl border border-white/15 space-y-4 text-left shadow-xl"
-                >
-                  <div className="text-3xl font-black font-mono text-[#38bdf8]">
-                    {st.num}
-                  </div>
-                  <h3 className="text-lg font-bold text-white tracking-tight">
-                    {st.title}
-                  </h3>
-                  <p className="text-xs sm:text-[13px] text-neutral-100 font-medium leading-relaxed">
-                    {st.desc}
-                  </p>
-                </div>
-              ))}
-            </div>
-          </section>
-
-          {/* CASOS DE USO POR INDUSTRIA */}
-          <section id="industrias" className="relative rounded-3xl p-8 sm:p-12 bg-linear-to-b from-[#0c1220] via-[#070b14] to-[#020408] border border-white/10 space-y-10">
-            <div className="text-left space-y-3">
-              <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-sky-500/10 border border-sky-400/20 text-[#38bdf8] text-xs font-semibold">
-                <Zap className="w-3.5 h-3.5" />
-                <span>{content.industries.badge}</span>
-              </div>
-              <h2 className="text-3xl sm:text-4xl font-extrabold text-white tracking-tight">
-                {content.industries.title}
-              </h2>
-              <p className="text-sm text-neutral-300 max-w-2xl">
-                {content.industries.desc}
-              </p>
-            </div>
-
-            {/* Pestañas de Industria */}
-            <div className="flex flex-wrap gap-2.5 border-b border-white/10 pb-4">
-              {content.industries.items.map((ind, idx) => {
-                const IndIcon = ind.icon;
-                const isActive = selectedIndustry === idx;
-                return (
-                  <button
-                    key={idx}
-                    type="button"
-                    onClick={() => setSelectedIndustry(idx)}
-                    className={`inline-flex items-center gap-2 px-4 py-2.5 rounded-xl text-xs font-semibold transition-all cursor-pointer ${
-                      isActive
-                        ? 'bg-[#0071e3] text-white shadow-[0_0_15px_rgba(0,113,227,0.5)]'
-                        : 'bg-white/5 text-neutral-400 hover:text-white hover:bg-white/10'
-                    }`}
-                  >
-                    <IndIcon className="w-4 h-4" />
-                    <span>{ind.name}</span>
-                  </button>
-                );
-              })}
-            </div>
-
-            {/* Contenido de la Industria Seleccionada */}
-            {content.industries.items[selectedIndustry] && (
-              <div className="grid grid-cols-1 md:grid-cols-12 gap-6 items-center pt-2">
-                <div className="md:col-span-8 space-y-4 text-left">
-                  <span className="text-xs font-mono uppercase tracking-wider text-[#38bdf8]">
-                    {content.industries.items[selectedIndustry].name}
-                  </span>
-                  <h3 className="text-2xl sm:text-3xl font-bold text-white tracking-tight">
-                    {content.industries.items[selectedIndustry].title}
-                  </h3>
-                  <p className="text-sm text-neutral-300 leading-relaxed">
-                    {content.industries.items[selectedIndustry].desc}
-                  </p>
-                </div>
-
-                <div className="md:col-span-4 p-5 rounded-2xl bg-emerald-500/10 border border-emerald-500/30 text-left space-y-2">
-                  <div className="text-[11px] uppercase tracking-wider text-emerald-400 font-bold flex items-center gap-1.5">
-                    <TrendingUp className="w-3.5 h-3.5" />
-                    <span>Impacto Estimado</span>
-                  </div>
-                  <div className="text-lg sm:text-xl font-extrabold text-white">
-                    {content.industries.items[selectedIndustry].result}
-                  </div>
-                </div>
-              </div>
-            )}
-          </section>
-
-          {/* LIDERAZGO & CONSULTOR PRINCIPAL */}
-          <section id="liderazgo" className="relative rounded-3xl p-8 sm:p-12 bg-linear-to-b from-[#0a0f1d] via-[#05070f] to-[#000000] border border-white/10 text-left overflow-hidden">
-            {/* Resplandor ambiental de fondo */}
-            <div className="absolute top-0 right-1/4 w-96 h-96 bg-[#0071e3]/15 rounded-full blur-[130px] pointer-events-none" />
-
-            <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 sm:gap-12 items-center relative z-10">
-              
-              {/* Retrato Profesional Integrado */}
-              <div className="lg:col-span-5 flex justify-center lg:justify-start">
-                <div className="relative group w-full max-w-[340px]">
-                  {/* Halo neón perimetral */}
-                  <div className="absolute -inset-1 rounded-[32px] bg-linear-to-b from-[#38bdf8]/40 via-[#0071e3]/30 to-[#7928ca]/40 blur-xl opacity-75 group-hover:opacity-100 transition-opacity duration-500" />
-
-                  {/* Marco Apple Glass */}
-                  <div className="relative rounded-[28px] bg-linear-to-b from-[#141b2d] via-[#0b0f19] to-[#04060c] border border-white/15 p-3 pb-0 overflow-hidden shadow-2xl">
-                    <div className="relative aspect-[4/5] w-full overflow-hidden rounded-[20px] bg-linear-to-b from-transparent via-[#0071e3]/5 to-[#000000]">
-                      <Image
-                        src="/martin-castillo.png"
-                        alt="Martin Castillo - Fundador de Neuronal Gravity"
-                        width={438}
-                        height={569}
-                        className="w-full h-full object-cover object-top filter contrast-[1.04] brightness-[1.02] drop-shadow-[0_15px_30px_rgba(0,113,227,0.3)] transition-transform duration-500 group-hover:scale-[1.02]"
-                        priority
-                      />
-                      {/* Difuminado suave inferior para fundir con el marco oscuro */}
-                      <div className="absolute inset-x-0 bottom-0 h-24 bg-linear-to-t from-[#04060c] via-[#04060c]/60 to-transparent pointer-events-none" />
-                    </div>
-
-                    {/* Insignia de Estado */}
-                    <div className="py-3 px-2 flex items-center justify-between text-xs border-t border-white/10 mt-1">
-                      <div className="flex items-center gap-2">
-                        <span className="w-2 h-2 rounded-full bg-emerald-400 animate-pulse shadow-[0_0_8px_#34d399]" />
-                        <span className="font-semibold text-white text-[11px]">Martin Castillo</span>
-                      </div>
-                      <span className="text-[10px] text-neutral-400 font-mono">Lead Architect</span>
-                    </div>
-                  </div>
-                </div>
+          {/* Resultado de la Autoevaluación */}
+          {quizResult && (
+            <div className={`p-6 rounded-2xl border text-center max-w-2xl mx-auto space-y-4 ${quizResult.bg}`}>
+              <div className="space-y-1">
+                <span className="text-xs font-mono uppercase tracking-wider text-neutral-400">Resultado Orientativo Preliminar:</span>
+                <div className={`text-4xl font-black font-mono ${quizResult.color}`}>{quizResult.grade}</div>
+                <p className="text-sm font-bold text-white">{quizResult.label}</p>
+                <p className="text-xs text-neutral-300">
+                  Respondiste {noOrNoseCount} punto(s) en No o No sé. Esto es una estimación orientativa basada en tus respuestas.
+                </p>
               </div>
 
-              {/* Contenido e Información de Liderazgo */}
-              <div className="lg:col-span-7 space-y-6">
-                <div className="space-y-3">
-                  <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-sky-500/10 border border-sky-400/20 text-[#38bdf8] text-xs font-semibold">
-                    <Sparkles className="w-3.5 h-3.5" />
-                    <span>{content.founder.badge}</span>
-                  </div>
-
-                  <h2 className="text-3xl sm:text-5xl font-extrabold text-white tracking-tight">
-                    {content.founder.title}
-                  </h2>
-                  <div className="text-sm sm:text-base font-semibold text-[#38bdf8]">
-                    {content.founder.role}
-                  </div>
-
-                  <p className="text-sm sm:text-base text-neutral-300 leading-relaxed">
-                    {content.founder.desc}
-                  </p>
-                </div>
-
-                <blockquote className="p-5 sm:p-6 rounded-2xl bg-white/[0.02] border-l-4 border-emerald-400 border-y border-r border-white/5 text-sm sm:text-base italic text-neutral-300">
-                  {content.founder.quote}
-                </blockquote>
-
-                <div className="flex flex-wrap items-center gap-3 pt-2">
-                  <a
-                    href="https://wa.me/17856433991?text=Hola%20Martin,%20deseo%20agendar%20una%20reuni%C3%B3n%20para%20evaluar%20soluciones%20de%20IA%20para%20mi%20empresa"
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    className="inline-flex items-center gap-2 px-5 py-3 rounded-xl bg-emerald-500/15 hover:bg-emerald-500/25 border border-emerald-500/40 text-emerald-400 font-semibold text-xs sm:text-sm transition-all"
-                  >
-                    <PhoneCall className="w-4 h-4" />
-                    <span>{content.founder.whatsappCta}</span>
-                  </a>
-
-                  <a
-                    href="https://www.linkedin.com/in/karol-martin-castillo-rojas-17a496168/"
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    className="inline-flex items-center gap-2 px-5 py-3 rounded-xl bg-[#0077b5]/15 hover:bg-[#0077b5]/25 border border-[#0077b5]/40 text-[#38bdf8] font-semibold text-xs sm:text-sm transition-all"
-                  >
-                    <ExternalLink className="w-4 h-4" />
-                    <span>{content.founder.linkedinCta}</span>
-                  </a>
-
-                  <a
-                    href="https://github.com/martincastillo1996/security-score"
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    className="inline-flex items-center gap-2 px-5 py-3 rounded-xl bg-white/5 hover:bg-white/10 border border-white/15 text-white font-semibold text-xs sm:text-sm transition-all"
-                  >
-                    <Code2 className="w-4 h-4" />
-                    <span>{content.founder.githubCta}</span>
-                  </a>
-                </div>
-              </div>
-
-            </div>
-          </section>
-
-          {/* FORMULARIO DE COTIZACIÓN DE NEGOCIO */}
-          <LeadQuoteSection />
-
-          {/* PREGUNTAS FRECUENTES (FAQ) */}
-          <FaqSection />
-
-          {/* CALL TO ACTION FINAL DE NEGOCIO */}
-          <section className="text-center space-y-6 py-12 rounded-3xl bg-linear-to-b from-[#0071e3]/20 via-[#7928ca]/10 to-transparent border border-white/10 p-8 sm:p-12">
-            <h2 className="text-3xl sm:text-5xl font-black text-white tracking-tight max-w-2xl mx-auto">
-              {content.ctaFinal.title}
-            </h2>
-            <p className="text-sm sm:text-base text-neutral-300 max-w-xl mx-auto leading-relaxed">
-              {content.ctaFinal.desc}
-            </p>
-            <div className="pt-4 flex flex-col sm:flex-row items-center justify-center gap-4">
               <a
-                href="https://wa.me/51987010380?text=Hola%20Mart%C3%ADn,%20quiero%20cotizar%20un%20piloto%20de%20IA%20para%20mi%20empresa."
+                href={getQuizWhatsAppUrl()}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="w-full sm:w-auto inline-flex items-center justify-center gap-2.5 px-8 py-4 rounded-2xl bg-linear-to-r from-emerald-500 to-teal-600 hover:opacity-95 text-white font-bold text-sm sm:text-base shadow-[0_0_40px_rgba(16,185,129,0.45)] transition-all"
+                className="inline-flex items-center gap-2 px-6 py-3 rounded-xl bg-[#25D366] hover:bg-[#20ba59] text-white text-xs font-bold shadow-lg shadow-emerald-500/30 transition-all cursor-pointer"
               >
-                <MessageSquare className="w-5 h-5" />
-                <span>{content.ctaFinal.btnWhatsApp}</span>
-                <ArrowRight className="w-4 h-4" />
+                <MessageSquare className="w-4 h-4" />
+                <span>Consultar por WhatsApp con este resultado</span>
               </a>
-
-              <Link
-                href="/defensati"
-                className="w-full sm:w-auto inline-flex items-center justify-center gap-2 px-6 py-4 rounded-2xl bg-white/5 hover:bg-white/10 border border-white/10 text-white font-semibold text-sm transition-all"
-              >
-                <ShieldCheck className="w-4 h-4 text-[#38bdf8]" />
-                <span>{content.ctaFinal.btnDefensa}</span>
-              </Link>
             </div>
-          </section>
+          )}
+        </section>
 
-        </main>
+        {/* 5. PRECIOS Y PLANES (DECISIONES DEL DUEÑO: SOLES PRINCIPAL, USD REFERENCIA) */}
+        <section id="precios" className="space-y-10">
+          <div className="text-center space-y-2 max-w-2xl mx-auto">
+            <span className="text-xs font-mono uppercase tracking-wider text-emerald-400 font-bold">Tarifas Transparentes & Pago Único</span>
+            <h2 className="text-3xl sm:text-4xl font-extrabold text-white tracking-tight">
+              Planes de Auditoría y Blindaje Web
+            </h2>
+            <p className="text-xs text-neutral-300">
+              Precios fijos en Soles para Perú (Yape, Plin y transferencia bancaria). Sin mensualidades escondidas.
+            </p>
+          </div>
 
-        {/* FOOTER */}
-        <footer className="border-t border-white/10 bg-[#000000] py-12 mt-20 relative z-10 text-neutral-400 text-xs">
-          <div className="max-w-6xl mx-auto px-6 space-y-8">
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-6 items-stretch">
             
-            <div className="flex flex-col md:flex-row items-start md:items-center justify-between gap-6 pb-6 border-b border-white/10">
-              <div className="flex items-center gap-3">
-                <div className="h-8 w-8 rounded-xl bg-linear-to-br from-[#0071e3] to-[#7928ca] p-[1px]">
-                  <div className="h-full w-full rounded-[11px] bg-black flex items-center justify-center">
-                    <Brain className="w-4 h-4 text-[#38bdf8]" />
-                  </div>
+            {/* PLAN 1 */}
+            <div className="p-7 rounded-3xl bg-[#0e1118] border border-white/15 flex flex-col justify-between space-y-6">
+              <div className="space-y-4">
+                <span className="text-[11px] font-bold uppercase tracking-wider text-neutral-400">Paso 1: Diagnóstico</span>
+                <h3 className="text-xl font-bold text-white">Auditoría Independiente</h3>
+                <div className="space-y-1">
+                  <div className="text-3xl sm:text-4xl font-black text-white font-mono">S/ 65</div>
+                  <div className="text-xs text-neutral-400">Referencia: ~$19 USD &bull; Pago 100% por adelantado</div>
                 </div>
-                <div>
-                  <span className="font-bold text-white text-sm">NEURONAL GRAVITY</span>
-                  <p className="text-[11px] text-neutral-400">neuronalgravity.com &bull; <span className="text-[#38bdf8] font-semibold">by Martin Castillo</span></p>
-                </div>
+                <p className="text-xs text-neutral-300 leading-relaxed font-normal">
+                  Escaneo completo de seguridad, nota actual (de F a A+) con evidencia, lista de fallas ordenada por riesgo y plan de corrección paso a paso.
+                </p>
+                <ul className="space-y-2 text-xs text-neutral-200 border-t border-white/10 pt-4">
+                  <li className="flex items-start gap-2">
+                    <Check className="w-4 h-4 text-emerald-400 shrink-0" />
+                    <span>Informe ejecutivo completo en PDF</span>
+                  </li>
+                  <li className="flex items-start gap-2">
+                    <Check className="w-4 h-4 text-emerald-400 shrink-0" />
+                    <span>Llamada breve para explicar los hallazgos</span>
+                  </li>
+                  <li className="flex items-start gap-2">
+                    <Check className="w-4 h-4 text-emerald-400 shrink-0" />
+                    <span>Entrega en 48 horas laborables</span>
+                  </li>
+                </ul>
               </div>
 
-              <div className="flex flex-wrap items-center gap-6 text-xs text-neutral-400">
-                <a href="#soluciones" className="hover:text-white transition-colors">Soluciones de Negocio</a>
-                <a href="#metodologia" className="hover:text-white transition-colors">Metodología</a>
-                <a href="#industrias" className="hover:text-white transition-colors">Casos por Industria</a>
-                <Link href="/liderazgo" className="hover:text-white transition-colors">Liderazgo</Link>
-                <Link href="/defensati" className="hover:text-white transition-colors">DEFENSA TI</Link>
-                <a href="https://wa.me/51987010380" target="_blank" rel="noopener noreferrer" className="hover:text-white transition-colors">WhatsApp (+51 987 010 380)</a>
-                <a href="tel:+51987010380" className="hover:text-white transition-colors">Llamadas (+51 987 010 380)</a>
-                <a href="mailto:castillo.karol96@gmail.com" className="hover:text-white transition-colors text-amber-300/80">castillo.karol96@gmail.com</a>
-              </div>
+              <a
+                href="#formulario"
+                onClick={() => setFormData({ ...formData, plan: 'Auditoría Independiente — S/ 65 ($19 USD)' })}
+                className="w-full py-3 rounded-xl bg-white/10 hover:bg-white/15 border border-white/10 text-white text-xs font-bold text-center block transition-all"
+              >
+                Pedir Auditoría — S/ 65
+              </a>
             </div>
 
-            <div className="space-y-2 text-center max-w-3xl mx-auto">
-              <p className="font-medium text-white">
-                {content.footer.copy}
-              </p>
-              <p className="text-[11px] text-neutral-400">
-                {content.footer.tagline} &bull; Liderado por Martin Castillo
-              </p>
-              <p className="text-[10px] text-neutral-500 leading-relaxed pt-2">
-                {content.footer.disclaimer}
-              </p>
+            {/* PLAN 2 (EL MÁS PEDIDO) */}
+            <div className="p-7 rounded-3xl bg-linear-to-b from-[#101b2a] via-[#0d1420] to-[#080d14] border-2 border-emerald-500 shadow-2xl shadow-emerald-500/20 flex flex-col justify-between space-y-6 relative">
+              <div className="absolute -top-3 left-1/2 -translate-x-1/2 px-3 py-1 rounded-full bg-emerald-500 text-black text-[10px] font-black uppercase tracking-wider">
+                El más pedido
+              </div>
+              <div className="space-y-4">
+                <span className="text-[11px] font-bold uppercase tracking-wider text-emerald-400">Protección Esencial</span>
+                <h3 className="text-xl font-bold text-white">Blindaje Esencial</h3>
+                <div className="space-y-1">
+                  <div className="text-3xl sm:text-4xl font-black text-white font-mono">S/ 165</div>
+                  <div className="text-xs text-neutral-400">Referencia: ~$49 USD &bull; Pago 100% por adelantado</div>
+                </div>
+                <p className="text-xs text-neutral-200 leading-relaxed font-normal">
+                  Todo lo de la Auditoría, más la corrección de fallas críticas y altas para dejar tu web blindada contra ataques frecuentes.
+                </p>
+                <ul className="space-y-2 text-xs text-neutral-200 border-t border-white/10 pt-4">
+                  <li className="flex items-start gap-2">
+                    <Check className="w-4 h-4 text-emerald-400 shrink-0" />
+                    <span>Todo lo incluido en la Auditoría</span>
+                  </li>
+                  <li className="flex items-start gap-2">
+                    <Check className="w-4 h-4 text-emerald-400 shrink-0" />
+                    <span>Cabeceras HTTP de seguridad y HTTPS reforzado</span>
+                  </li>
+                  <li className="flex items-start gap-2">
+                    <Check className="w-4 h-4 text-emerald-400 shrink-0" />
+                    <span>Actualización segura de web, tema y plugins</span>
+                  </li>
+                  <li className="flex items-start gap-2">
+                    <Check className="w-4 h-4 text-emerald-400 shrink-0" />
+                    <span>Endurecimiento de accesos (2FA y límites)</span>
+                  </li>
+                  <li className="flex items-start gap-2">
+                    <Check className="w-4 h-4 text-emerald-400 shrink-0" />
+                    <span>Entrega en 3 a 5 días hábiles</span>
+                  </li>
+                </ul>
+              </div>
+
+              <a
+                href="#formulario"
+                onClick={() => setFormData({ ...formData, plan: 'Blindaje Esencial — S/ 165 ($49 USD)' })}
+                className="w-full py-3 rounded-xl bg-emerald-500 hover:bg-emerald-400 text-black text-xs font-black text-center block transition-all shadow-lg shadow-emerald-500/30"
+              >
+                Elegir Blindaje Esencial — S/ 165
+              </a>
+            </div>
+
+            {/* PLAN 3 */}
+            <div className="p-7 rounded-3xl bg-[#0e1118] border border-white/15 flex flex-col justify-between space-y-6">
+              <div className="space-y-4">
+                <span className="text-[11px] font-bold uppercase tracking-wider text-neutral-400">Blindaje Máximo</span>
+                <h3 className="text-xl font-bold text-white">Blindaje Total</h3>
+                <div className="space-y-1">
+                  <div className="text-3xl sm:text-4xl font-black text-white font-mono">S/ 335</div>
+                  <div className="text-xs text-neutral-400">Referencia: ~$99 USD &bull; 50% al empezar, 50% al entregar</div>
+                </div>
+                <p className="text-xs text-neutral-300 leading-relaxed font-normal">
+                  Configuración completa de seguridad, firewall de aplicaciones web (WAF), copias de seguridad comprobables y re-medición verificada.
+                </p>
+                <ul className="space-y-2 text-xs text-neutral-200 border-t border-white/10 pt-4">
+                  <li className="flex items-start gap-2">
+                    <Check className="w-4 h-4 text-emerald-400 shrink-0" />
+                    <span>Todo lo del Blindaje Esencial</span>
+                  </li>
+                  <li className="flex items-start gap-2">
+                    <Check className="w-4 h-4 text-emerald-400 shrink-0" />
+                    <span>Firewall de aplicaciones web (WAF) configurado</span>
+                  </li>
+                  <li className="flex items-start gap-2">
+                    <Check className="w-4 h-4 text-emerald-400 shrink-0" />
+                    <span>Copias de seguridad externas automáticas</span>
+                  </li>
+                  <li className="flex items-start gap-2">
+                    <Check className="w-4 h-4 text-emerald-400 shrink-0" />
+                    <span>Garantía de mejora de calificación por escrito</span>
+                  </li>
+                  <li className="flex items-start gap-2">
+                    <Check className="w-4 h-4 text-emerald-400 shrink-0" />
+                    <span>Entrega en 5 a 7 días hábiles</span>
+                  </li>
+                </ul>
+              </div>
+
+              <a
+                href="#formulario"
+                onClick={() => setFormData({ ...formData, plan: 'Blindaje Total — S/ 335 ($99 USD)' })}
+                className="w-full py-3 rounded-xl bg-white/10 hover:bg-white/15 border border-white/10 text-white text-xs font-bold text-center block transition-all"
+              >
+                Elegir Blindaje Total — S/ 335
+              </a>
             </div>
           </div>
-        </footer>
 
-      </div>
+          {/* AVISO IMPORTANTE: SITIOS INFECTADOS */}
+          <div className="p-4 rounded-2xl bg-white/[0.03] border border-white/10 text-xs text-neutral-300 max-w-3xl mx-auto text-center leading-relaxed">
+            <strong className="text-white">¿Tu web ya tiene un virus o envía spam en este momento?</strong> La limpieza y desinfección forense de sitios web infectados se cotiza de forma independiente desde $149 USD (o equivalente en soles) tras un diagnóstico previo.
+          </div>
+        </section>
+
+        {/* 6. GARANTÍA POR ESCRITO */}
+        <section className="p-8 sm:p-10 rounded-3xl bg-linear-to-b from-[#121c16] to-[#090f0c] border border-emerald-500/40 text-center max-w-3xl mx-auto space-y-3">
+          <div className="w-12 h-12 rounded-full bg-emerald-500/20 text-emerald-400 flex items-center justify-center mx-auto">
+            <ShieldCheck className="w-6 h-6" />
+          </div>
+          <h3 className="text-2xl font-bold text-white">Garantía de Mejora Efectiva por Escrito</h3>
+          <p className="text-xs sm:text-sm text-neutral-200 leading-relaxed font-normal">
+            En los planes de blindaje de DEFENSA TI trabajamos con un objetivo claro: si tras aplicar las correcciones no logramos subir al menos un grado la calificación de seguridad de tu web en nuestra auditoría independiente, te devolvemos el 100% de tu dinero. Todo queda por escrito en la propuesta formal.
+          </p>
+        </section>
+
+        {/* 7. CÓMO TRABAJAMOS EN 5 PASOS */}
+        <section id="proceso" className="space-y-8">
+          <div className="text-center space-y-2 max-w-2xl mx-auto">
+            <span className="text-xs font-mono uppercase tracking-wider text-emerald-400 font-bold">Metodología Clara</span>
+            <h2 className="text-3xl sm:text-4xl font-extrabold text-white tracking-tight">
+              Cómo trabajamos en 5 pasos sencillos
+            </h2>
+          </div>
+
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-5 gap-4">
+            <div className="p-5 rounded-2xl bg-[#0e1118] border border-white/10 space-y-2 text-left">
+              <span className="text-2xl font-black font-mono text-emerald-400">01</span>
+              <h4 className="text-sm font-bold text-white">Nos das tu web</h4>
+              <p className="text-xs text-neutral-300">Solo la dirección de tu página y tu WhatsApp. No pedimos contraseñas.</p>
+            </div>
+
+            <div className="p-5 rounded-2xl bg-[#0e1118] border border-white/10 space-y-2 text-left">
+              <span className="text-2xl font-black font-mono text-emerald-400">02</span>
+              <h4 className="text-sm font-bold text-white">Auditoría y Nota</h4>
+              <p className="text-xs text-neutral-300">Escaneamos puertos, SSL y cabeceras OWASP entregando tu grado de F a A+.</p>
+            </div>
+
+            <div className="p-5 rounded-2xl bg-[#0e1118] border border-white/10 space-y-2 text-left">
+              <span className="text-2xl font-black font-mono text-emerald-400">03</span>
+              <h4 className="text-sm font-bold text-white">Propuesta cerrada</h4>
+              <p className="text-xs text-neutral-300">Precio fijo sin sorpresas ni mensualidades escondidas.</p>
+            </div>
+
+            <div className="p-5 rounded-2xl bg-[#0e1118] border border-white/10 space-y-2 text-left">
+              <span className="text-2xl font-black font-mono text-emerald-400">04</span>
+              <h4 className="text-sm font-bold text-white">Blindaje</h4>
+              <p className="text-xs text-neutral-300">Copia de seguridad previa y corrección técnica de cada falla detectada.</p>
+            </div>
+
+            <div className="p-5 rounded-2xl bg-[#0e1118] border border-white/10 space-y-2 text-left">
+              <span className="text-2xl font-black font-mono text-emerald-400">05</span>
+              <h4 className="text-sm font-bold text-white">Verificación final</h4>
+              <p className="text-xs text-neutral-300">Re-medición con informe de entrega y cierre de accesos temporales.</p>
+            </div>
+          </div>
+        </section>
+
+        {/* 8. PREGUNTAS FRECUENTES (FAQ) */}
+        <section id="faq" className="space-y-8 max-w-3xl mx-auto">
+          <div className="text-center space-y-2">
+            <span className="text-xs font-mono uppercase tracking-wider text-emerald-400 font-bold">Respuestas Directas</span>
+            <h2 className="text-3xl sm:text-4xl font-extrabold text-white tracking-tight">
+              Preguntas Frecuentes
+            </h2>
+          </div>
+
+          <div className="space-y-3 text-left">
+            {faqs.map((f, i) => (
+              <div key={i} className="rounded-2xl bg-white/5 border border-white/10 overflow-hidden">
+                <button
+                  type="button"
+                  onClick={() => setFaqOpen(faqOpen === i ? null : i)}
+                  className="w-full p-4 sm:p-5 text-left flex items-center justify-between gap-4 font-bold text-sm text-white hover:text-emerald-400 transition-colors cursor-pointer"
+                >
+                  <span>{f.q}</span>
+                  <ChevronDown className={`w-4 h-4 shrink-0 transition-transform ${faqOpen === i ? 'rotate-180 text-emerald-400' : 'text-neutral-400'}`} />
+                </button>
+                {faqOpen === i && (
+                  <div className="px-5 pb-5 text-xs text-neutral-200 leading-relaxed font-normal border-t border-white/5 pt-3">
+                    {f.a}
+                  </div>
+                )}
+              </div>
+            ))}
+          </div>
+        </section>
+
+        {/* 9. FORMULARIO OFICIAL CON CASILLA DE AUTORIZACIÓN OBLIGATORIA */}
+        <section id="formulario" className="max-w-3xl mx-auto space-y-8 p-8 sm:p-12 rounded-3xl bg-[#0e1118] border border-white/15">
+          <div className="text-center space-y-2">
+            <span className="text-xs font-mono uppercase tracking-wider text-emerald-400 font-bold">Solicitud Formal</span>
+            <h2 className="text-3xl sm:text-4xl font-extrabold text-white tracking-tight">
+              Pide tu auditoría DEFENSA TI
+            </h2>
+            <p className="text-xs text-neutral-300">
+              Completa los datos mínimos para coordinar tu informe técnico directamente por WhatsApp.
+            </p>
+          </div>
+
+          {formSubmitted ? (
+            <div className="p-8 rounded-2xl bg-emerald-950/30 border border-emerald-500/40 text-center space-y-3">
+              <CheckCircle2 className="w-10 h-10 text-emerald-400 mx-auto" />
+              <h3 className="text-xl font-bold text-white">¡Solicitud recibida!</h3>
+              <p className="text-xs text-neutral-200">
+                Se está abriendo tu WhatsApp para coordinar directamente con Martín Castillo. Si no abrió, pulsa el botón de abajo:
+              </p>
+              <a
+                href={`https://wa.me/51987010380?text=${encodeURIComponent(`Hola Martín, acabo de enviar el formulario para ${formData.url}`)}`}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="inline-flex items-center gap-2 px-6 py-3 rounded-xl bg-[#25D366] text-white text-xs font-bold shadow-lg"
+              >
+                <MessageSquare className="w-4 h-4" />
+                <span>Abrir WhatsApp (+51 987 010 380)</span>
+              </a>
+            </div>
+          ) : (
+            <form onSubmit={handleFormSubmit} className="space-y-4 text-left">
+              <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                <div className="space-y-1">
+                  <label className="text-xs font-medium text-neutral-300">Tu Nombre o Nombre de Contacto *</label>
+                  <input
+                    type="text"
+                    required
+                    placeholder="Ej: Carlos Mendoza"
+                    value={formData.name}
+                    onChange={(e) => setFormData({ ...formData, name: e.target.value })}
+                    className="w-full bg-white/5 border border-white/10 rounded-xl px-4 py-2.5 text-xs text-white focus:outline-none focus:border-emerald-400"
+                  />
+                </div>
+                <div className="space-y-1">
+                  <label className="text-xs font-medium text-neutral-300">Dirección Web a Auditar *</label>
+                  <input
+                    type="text"
+                    required
+                    placeholder="tutienda.com o www.empresa.pe"
+                    value={formData.url}
+                    onChange={(e) => setFormData({ ...formData, url: e.target.value })}
+                    className="w-full bg-white/5 border border-white/10 rounded-xl px-4 py-2.5 text-xs text-white focus:outline-none focus:border-emerald-400"
+                  />
+                </div>
+              </div>
+
+              <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                <div className="space-y-1">
+                  <label className="text-xs font-medium text-neutral-300">País de tu Negocio *</label>
+                  <select
+                    value={formData.country}
+                    onChange={(e) => setFormData({ ...formData, country: e.target.value })}
+                    className="w-full bg-[#18181b] border border-white/10 rounded-xl px-4 py-2.5 text-xs text-white focus:outline-none focus:border-emerald-400"
+                  >
+                    <option value="Perú">Perú (Cobro en Soles / Yape / Plin / BCP)</option>
+                    <option value="México">México</option>
+                    <option value="Colombia">Colombia</option>
+                    <option value="Chile">Chile</option>
+                    <option value="Ecuador">Ecuador</option>
+                    <option value="Bolivia">Bolivia</option>
+                    <option value="Argentina">Argentina</option>
+                    <option value="Otro país de LatAm">Otro país de Latinoamérica</option>
+                  </select>
+                </div>
+
+                <div className="space-y-1">
+                  <label className="text-xs font-medium text-neutral-300">Plan de Interés Inicial *</label>
+                  <select
+                    value={formData.plan}
+                    onChange={(e) => setFormData({ ...formData, plan: e.target.value })}
+                    className="w-full bg-[#18181b] border border-white/10 rounded-xl px-4 py-2.5 text-xs text-white focus:outline-none focus:border-emerald-400"
+                  >
+                    <option value="Auditoría Independiente — S/ 65 ($19 USD)">Auditoría Independiente — S/ 65 ($19 USD)</option>
+                    <option value="Blindaje Esencial — S/ 165 ($49 USD)">Blindaje Esencial — S/ 165 ($49 USD)</option>
+                    <option value="Blindaje Total — S/ 335 ($99 USD)">Blindaje Total — S/ 335 ($99 USD)</option>
+                    <option value="Desinfección de Malware (Desde $149 USD)">Sitio con Virus / Desinfección (Desde $149 USD)</option>
+                  </select>
+                </div>
+              </div>
+
+              <div className="space-y-1">
+                <label className="text-xs font-medium text-neutral-300">Comentarios o Síntomas Notados (Opcional)</label>
+                <textarea
+                  rows={3}
+                  placeholder="Ej: Google me mostró una advertencia, o mis clientes reportan que la pasarela falla..."
+                  value={formData.comments}
+                  onChange={(e) => setFormData({ ...formData, comments: e.target.value })}
+                  className="w-full bg-white/5 border border-white/10 rounded-xl p-3 text-xs text-white focus:outline-none focus:border-emerald-400"
+                />
+              </div>
+
+              {/* CASILLA OBLIGATORIA DE AUTORIZACIÓN LEGAL */}
+              <div className="p-4 rounded-xl bg-white/5 border border-white/10 flex items-start gap-3">
+                <input
+                  type="checkbox"
+                  id="auth-check"
+                  required
+                  checked={formData.authorized}
+                  onChange={(e) => setFormData({ ...formData, authorized: e.target.checked })}
+                  className="mt-1 h-4 w-4 rounded border-neutral-600 text-emerald-500 focus:ring-emerald-400 cursor-pointer"
+                />
+                <label htmlFor="auth-check" className="text-xs text-neutral-300 leading-snug cursor-pointer">
+                  <strong className="text-white">Autorización Expresa:</strong> Declaro ser titular de este sitio web o contar con autorización formal para que se audite su seguridad conforme a la <Link href="/privacidad" className="text-emerald-400 underline hover:text-white">Política de Privacidad</Link> y los <Link href="/terminos" className="text-emerald-400 underline hover:text-white">Términos del Servicio</Link>.
+                </label>
+              </div>
+
+              <button
+                type="submit"
+                disabled={!formData.authorized}
+                className="w-full py-4 rounded-2xl bg-emerald-500 hover:bg-emerald-400 disabled:opacity-40 disabled:cursor-not-allowed text-black font-extrabold text-sm transition-all shadow-[0_0_25px_rgba(16,185,129,0.3)] active:scale-98 cursor-pointer flex items-center justify-center gap-2"
+              >
+                <span>Enviar y Continuar por WhatsApp</span>
+                <ArrowRight className="w-4 h-4" />
+              </button>
+
+              <div className="text-center text-[11px] text-neutral-400 pt-1">
+                Atención directa por WhatsApp al <strong>+51 987 010 380</strong> &bull; Lunes a Sábado de 9:00 a 20:00 (Hora Perú)
+              </div>
+            </form>
+          )}
+        </section>
+
+        {/* 10. BLOQUE DEL FUNDADOR */}
+        <section className="p-8 sm:p-12 rounded-3xl bg-[#0c0e14] border border-white/10 text-left max-w-4xl mx-auto space-y-6">
+          <span className="text-xs font-mono uppercase tracking-wider text-emerald-400 font-bold">Atención Directa</span>
+          <h3 className="text-2xl sm:text-3xl font-extrabold text-white tracking-tight">
+            Detrás de DEFENSA TI hay una persona, no un call center
+          </h3>
+          <p className="text-sm text-neutral-200 leading-relaxed font-normal">
+            Mi nombre es <strong>Martin Castillo</strong>. Lidero la arquitectura de seguridad y auditoría en DEFENSA TI (Neuronal Gravity). 
+            Cada informe y cada corrección técnica se revisa personalmente con rigor de ingeniería, explicándote los resultados en lenguaje claro y asegurando que tu negocio opere protegido sin sorpresas.
+          </p>
+          <div className="flex flex-wrap items-center gap-3 pt-2">
+            <a
+              href="https://wa.me/51987010380"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="inline-flex items-center gap-2 px-5 py-2.5 rounded-xl bg-emerald-500/15 hover:bg-emerald-500/25 border border-emerald-500/40 text-emerald-400 text-xs font-bold transition-all"
+            >
+              <MessageSquare className="w-4 h-4" />
+              <span>Conversar con Martín por WhatsApp</span>
+            </a>
+            <a
+              href="https://github.com/martincastillo1996/security-score"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="inline-flex items-center gap-2 px-5 py-2.5 rounded-xl bg-white/5 hover:bg-white/10 border border-white/10 text-neutral-300 text-xs font-semibold transition-all"
+            >
+              <ExternalLink className="w-4 h-4" />
+              <span>Código Abierto del Auditor en GitHub</span>
+            </a>
+          </div>
+        </section>
+      </main>
+
+      {/* 11. PIE DE PÁGINA PROFESIONAL CON DATOS FISCALES REALES */}
+      <footer className="border-t border-white/10 bg-black py-12 relative z-10 text-xs text-neutral-400">
+        <div className="max-w-6xl mx-auto px-6 space-y-8">
+          <div className="flex flex-col md:flex-row items-start md:items-center justify-between gap-6 pb-6 border-b border-white/10">
+            <div>
+              <span className="font-extrabold text-white text-sm tracking-tight">DEFENSA TI</span>
+              <p className="text-[11px] text-neutral-400 mt-0.5">
+                Servicio de Auditoría y Blindaje Web &bull; RUC con Negocio: <strong>10704877850</strong> &bull; Lima, Perú
+              </p>
+            </div>
+
+            <div className="flex flex-wrap items-center gap-6 text-xs text-neutral-300">
+              <Link href="/terminos" className="hover:text-white transition-colors">Términos del Servicio</Link>
+              <Link href="/privacidad" className="hover:text-white transition-colors">Política de Privacidad (Ley 29733)</Link>
+              <Link href="/defensati" className="hover:text-white transition-colors text-emerald-400">Escáner Perimetral</Link>
+              <a href="https://wa.me/51987010380" target="_blank" rel="noopener noreferrer" className="hover:text-white transition-colors">WhatsApp (+51 987 010 380)</a>
+            </div>
+          </div>
+
+          <div className="flex flex-col sm:flex-row items-center justify-between gap-4 text-[11px] text-neutral-500">
+            <p>
+              &copy; {new Date().getFullYear()} DEFENSA TI &bull; Neuronal Gravity. Comprobante de pago disponible (Boleta y Factura Electrónica).
+            </p>
+            <p className="text-neutral-400">
+              ¿Necesitas otra solución técnica o desarrollo a medida? <a href="https://wa.me/51987010380?text=Hola%20Mart%C3%ADn,%20busco%20desarrollo%20a%20medida" target="_blank" rel="noopener noreferrer" className="text-emerald-400 underline hover:text-white">Escríbenos a WhatsApp</a>
+            </p>
+          </div>
+        </div>
+      </footer>
     </div>
   );
 }

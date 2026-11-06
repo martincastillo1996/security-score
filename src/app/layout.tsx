@@ -3,7 +3,6 @@ import { Geist, Geist_Mono } from "next/font/google";
 import "./globals.css";
 import { I18nProvider } from "@/lib/i18n/I18nContext";
 import CookieConsentBanner from "@/components/CookieConsentBanner";
-import AiConsultantWidget from "@/components/AiConsultantWidget";
 import FloatingWhatsAppButton from "@/components/FloatingWhatsAppButton";
 
 const geistSans = Geist({
@@ -98,7 +97,6 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
       <body className="min-h-full flex flex-col bg-black text-[#f5f5f7]">
         <I18nProvider>
           {children}
-          <AiConsultantWidget />
           <CookieConsentBanner />
           <FloatingWhatsAppButton />
         </I18nProvider>

@@ -9,7 +9,7 @@ export default function FloatingWhatsAppButton({ url, score }: Props) {
   const phone = '51987010380';
   const message = url
     ? `Hola Martín, estuve revisando mi web ${url} con DEFENSA TI (obtuve ${score ?? '...'}/100) y quiero cotizar la auditoría y blindaje de mi servidor.`
-    : 'Hola Martín, vi tu plataforma Neuronal Gravity y quiero consultar sobre la implementación de un agente de IA en WhatsApp para mi empresa.';
+    : 'Hola Martín, quiero solicitar una auditoría y blindaje de seguridad DEFENSA TI para mi sitio web.';
 
   const href = `https://wa.me/${phone}?text=${encodeURIComponent(message)}`;
 

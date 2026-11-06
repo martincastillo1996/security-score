@@ -5,12 +5,37 @@ const nextConfig: NextConfig = {
   cacheComponents: false,
   partialPrefetching: false,
 
-  /* Rewrites amigables */
+  /* Rewrites y Redirecciones Canónicas */
   async rewrites() {
     return [
       {
         source: '/scanner',
         destination: '/defensati',
+      },
+    ];
+  },
+
+  async redirects() {
+    return [
+      {
+        source: '/soluciones',
+        destination: '/',
+        permanent: true,
+      },
+      {
+        source: '/casos',
+        destination: '/',
+        permanent: true,
+      },
+      {
+        source: '/metodologia',
+        destination: '/',
+        permanent: true,
+      },
+      {
+        source: '/liderazgo',
+        destination: '/',
+        permanent: true,
       },
     ];
   },
