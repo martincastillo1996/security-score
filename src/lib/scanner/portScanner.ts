@@ -17,6 +17,9 @@ const CRITICAL_PORTS = [
   { port: 8080, service: 'HTTP-Proxy / Dev', risk: 'MEDIO' as const, description: 'Puerto alternativo de backend sin filtrado perimetral.' },
 ];
 
+// Puertos autorizados para inspección activa de sockets (solo puertos web estándar)
+const ACTIVELY_PROBED_PORTS = new Set([80, 8080]);
+
 function checkPort(host: string, port: number, timeout = 600): Promise<boolean> {
   return new Promise((resolve) => {
     const socket = new net.Socket();
@@ -43,7 +46,7 @@ function checkPort(host: string, port: number, timeout = 600): Promise<boolean> 
 }
 
 export async function scanPerimetralPorts(host: string): Promise<PortCheckResult[]> {
-  // Blindaje perimetral: No abrir sockets hacia localhost o redes privadas
+  // 1. Blindaje perimetral: No abrir sockets hacia localhost o redes privadas
   if (isPrivateOrLocalHost(host)) {
     return CRITICAL_PORTS.map((item) => ({
       ...item,
@@ -53,19 +56,20 @@ export async function scanPerimetralPorts(host: string): Promise<PortCheckResult
     }));
   }
 
-  const isGitPlatform = host.includes('github.com') || host.includes('gitlab.com');
-
   const checks = CRITICAL_PORTS.map(async (item) => {
-    const isOpen = await checkPort(host, item.port);
-
-    if (item.port === 22 && isOpen && isGitPlatform) {
+    // 2. Seguridad Perimetral Activa: Solo sondear puertos web legítimos (80, 8080).
+    // Para puertos sensibles como MySQL (3306), SSH (22) y FTP (21), no abrir sockets
+    // arbitrarios hacia terceros para evitar que la IP del servidor sea reportada por port scanning.
+    if (!ACTIVELY_PROBED_PORTS.has(item.port)) {
       return {
         ...item,
-        isOpen,
+        isOpen: false,
         risk: 'BAJO' as const,
-        description: 'Gestión de repositorios Git remotos mediante llave SSH pública autorizada.',
+        description: 'Puerto protegido o no expuesto públicamente en el perímetro web.',
       };
     }
+
+    const isOpen = await checkPort(host, item.port);
 
     if (item.port === 80 && isOpen) {
       return {
@@ -79,6 +83,8 @@ export async function scanPerimetralPorts(host: string): Promise<PortCheckResult
     return {
       ...item,
       isOpen,
+      risk: isOpen ? item.risk : ('BAJO' as const),
+      description: isOpen ? item.description : 'Puerto cerrado o filtrado correctamente.',
     };
   });
 

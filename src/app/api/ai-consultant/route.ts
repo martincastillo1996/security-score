@@ -82,6 +82,27 @@ REGLAS DE SEGURIDAD ESTRICTAS:
 - Respuestas breves: máximo 2 párrafos concisos orientados a valor de negocio.
 - Invita cordialmente al contacto directo por WhatsApp con Martín cuando deseen cotizar o coordinar.`;
 
+function isAllowedDomain(urlOrHost: string | null): boolean {
+  if (!urlOrHost) return false;
+  try {
+    let hostname = urlOrHost.trim();
+    if (hostname.includes('://')) {
+      hostname = new URL(hostname).hostname;
+    } else {
+      hostname = hostname.split(':')[0].trim();
+    }
+    hostname = hostname.toLowerCase();
+
+    // Comprobación estricta de nombres de host autorizados y subdominios canónicos
+    if (hostname === 'neuronalgravity.com' || hostname.endsWith('.neuronalgravity.com')) return true;
+    if (hostname === 'security-score-seven.vercel.app' || hostname.endsWith('.vercel.app')) return true;
+    if (hostname === 'localhost' || hostname === '127.0.0.1') return true;
+    return false;
+  } catch {
+    return false;
+  }
+}
+
 export async function POST(req: NextRequest) {
   try {
     const clientIp = getClientIp(req);
@@ -94,43 +115,32 @@ export async function POST(req: NextRequest) {
       );
     }
 
-    // 2. Validación de Origen (Solo llamadas desde la aplicación oficial)
+    // 2. Validación Estricta de Origen y Host (Anti-Bypass de Subcadena)
+    const host = req.headers.get('host');
     const origin = req.headers.get('origin');
     const referer = req.headers.get('referer');
-    const host = req.headers.get('host') || '';
 
-    const isAllowedHost =
-      host.includes('neuronalgravity.com') ||
-      host.includes('vercel.app') ||
-      host.includes('localhost') ||
-      host.includes('127.0.0.1');
+    const hostAllowed = isAllowedDomain(host);
 
     if (origin) {
-      const isAllowedOrigin =
-        origin.includes('neuronalgravity.com') ||
-        origin.includes('vercel.app') ||
-        origin.includes('localhost') ||
-        origin.includes('127.0.0.1');
-
-      if (!isAllowedOrigin && !isAllowedHost) {
+      if (!isAllowedDomain(origin) && !hostAllowed) {
         return NextResponse.json(
           { error: 'Acceso no autorizado desde este origen.' },
           { status: 403 }
         );
       }
     } else if (referer) {
-      const isAllowedReferer =
-        referer.includes('neuronalgravity.com') ||
-        referer.includes('vercel.app') ||
-        referer.includes('localhost') ||
-        referer.includes('127.0.0.1');
-
-      if (!isAllowedReferer && !isAllowedHost) {
+      if (!isAllowedDomain(referer) && !hostAllowed) {
         return NextResponse.json(
           { error: 'Acceso no autorizado desde este referer.' },
           { status: 403 }
         );
       }
+    } else if (!hostAllowed) {
+      return NextResponse.json(
+        { error: 'Acceso no autorizado: Host no reconocido.' },
+        { status: 403 }
+      );
     }
 
     const body: RequestBody = await req.json();

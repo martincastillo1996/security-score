@@ -52,3 +52,8 @@ dist
 .env
 .DS_Store
 *.log
+
+# Datos persistentes locales y almacenamiento de leads
+/data/
+data/
+*.leads.json
