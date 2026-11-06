@@ -90,11 +90,11 @@ export default function AiConsultantWidget({ report }: Props) {
       link: 'https://wa.me/17856433991?text=Hola%20Mart%C3%ADn,%20deseo%20contratar%20el%20plan%20Blindaje%20Llave%20en%20Mano%20(S/%20165)%20para%20mi%20sitio%20web.'
     },
     {
-      name: 'Blindaje Total WAF + Grado A',
+      name: 'Blindaje Total WAF + Meta Grado A',
       price: 'S/ 335',
       original: '',
       time: '5 a 7 días',
-      desc: 'Auditoría integral, WAF perimetral activo (Cloudflare), bloqueo anti-bots y garantía de certificación Grado A.',
+      desc: 'Auditoría integral, WAF perimetral activo (Cloudflare), bloqueo anti-bots y Meta Grado A con re-medición incluida.',
       link: 'https://wa.me/17856433991?text=Hola%20Mart%C3%ADn,%20deseo%20contratar%20el%20plan%20Blindaje%20Total%20WAF%20(S/%20335)%20para%20mi%20sitio%20web.'
     }
   ];

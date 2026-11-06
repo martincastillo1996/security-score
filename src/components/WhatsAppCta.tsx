@@ -70,7 +70,7 @@ Quisiera coordinar contigo una asesoría para poner a punto las directivas perim
             ¿Deseas que dejemos tu sitio en Grado A+ hoy mismo?
           </h3>
           <p className="text-xs sm:text-sm text-neutral-300 leading-relaxed">
-            Aplicamos las mejores prácticas en Cloudflare o tu servidor para evitar rechazos en pasarelas de pago (Mercado Pago, Niubiz, Stripe) y eliminar advertencias de &quot;Sitio no seguro&quot;.
+            Aplicamos las mejores prácticas en Cloudflare o tu servidor para eliminar advertencias de &quot;Sitio no seguro&quot;, evitar bloqueos por contenido mixto en tu pasarela y blindar tus formularios.
           </p>
           <div className="text-[11px] text-neutral-400">
             Aceptamos pagos en Soles para todo el Perú (Yape / Plin / BCP / Transferencia bancaria).

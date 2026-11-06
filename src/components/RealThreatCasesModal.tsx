@@ -53,7 +53,7 @@ export default function RealThreatCasesModal() {
       icon: '🌊', 
       unshieldedRate: '82%', 
       fraudGrowth: '+38%', 
-      topThreat: 'Rechazo de pasarelas por falta de TLS 1.3 y HSTS',
+      topThreat: 'Bloqueo de pasarelas por contenido mixto y certificados obsoletos',
       svgCoords: { cx: 121.7, cy: 356.2, r: 17 },
       departments: 'La Libertad, Piura, Lambayeque, Tumbes, Cajamarca'
     },
@@ -119,8 +119,8 @@ export default function RealThreatCasesModal() {
         badge: 'Retail & Tiendas Locales',
         businessType: 'Fabricantes de Calzado en El Porvenir y Boutiques Comerciales en Trujillo y Chiclayo',
         exactCompanies: 'Empresas productoras de calzado en El Porvenir (Trujillo), tiendas de moda en Mall Plaza Trujillo y boutiques de vestir en el centro de Chiclayo y Piura.',
-        threatType: 'Rechazo de transacciones en pasarelas de cobro',
-        lossMetric: 'Pasarelas de cobro deshabilitadas repentinamente por bancos adquirentes debido a la falta de parámetros de transporte seguro y obsolescencia en protocolos web.',
+        threatType: 'Bloqueo de pasarela por contenido mixto HTTP/HTTPS',
+        lossMetric: 'Navegadores bloquean scripts de pago en checkout al detectar recursos no seguros (Mixed Content) o protocolos TLS obsoletos, frustrando la compra.',
         solution: 'Túnel perimetral TLS 1.3 obligatorio con suite de cifrado de alta compatibilidad en servidores web.',
         pnpReportContext: 'Observación recurrente de pasarelas de pago reguladas en el Perú ante incidentes de ciberdelincuencia.'
       },

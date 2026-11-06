@@ -13,6 +13,7 @@ import BusinessOverview from '@/components/BusinessOverview';
 import ServerLocationCard from '@/components/ServerLocationCard';
 import CookieResults from '@/components/CookieResults';
 import RealThreatCasesModal from '@/components/RealThreatCasesModal';
+import RealCasesSection from '@/components/RealCasesSection';
 import HowItWorksGuide from '@/components/HowItWorksGuide';
 import PricingSection from '@/components/PricingSection';
 import AppleCyberHud from '@/components/AppleCyberHud';
@@ -279,6 +280,16 @@ export default function HomePage() {
               </div>
             </form>
 
+            {/* Aviso Legal y Declaración de Titularidad (Ley N° 30096 - Delitos Informáticos) */}
+            <div className="pt-1 text-center max-w-lg mx-auto">
+              <p className="text-[11px] text-neutral-400 leading-relaxed">
+                <span className="text-emerald-400 font-semibold">🔒 Análisis No Intrusivo:</span> Al auditar, declaras bajo juramento ser titular del dominio o contar con autorización expresa del propietario conforme a la{' '}
+                <Link href="/terminos#delitos-informaticos" className="text-[#38bdf8] hover:underline font-medium">
+                  Ley N° 30096 (Delitos Informáticos del Perú)
+                </Link>.
+              </p>
+            </div>
+
             <div className="flex items-center justify-center gap-2 text-xs text-neutral-500 pt-2">
               <span>{t.hero.samplePrompt}</span>
               <button
@@ -450,12 +461,8 @@ export default function HomePage() {
           {/* EMBUDO DE CONVERSIÓN Y VALOR */}
           <div className="pt-6 space-y-16">
             
-            {/* Paso 1: Casos Reales (Solo abre el panel emergente al hacer clic) */}
-            <section id="casos-reales" className="scroll-mt-20">
-              <div className="flex justify-center">
-                <RealThreatCasesModal />
-              </div>
-            </section>
+            {/* Paso 1: Casos Reales Antes y Después + Muestra del Entregable Tangible */}
+            <RealCasesSection />
 
             {/* Paso 2: Telemetría & Arquitectura Apple Pro (Bento Grid) */}
             <section id="especificaciones" className="scroll-mt-20">

@@ -52,7 +52,7 @@ export default function PricingSection({ targetUrl, score, grade }: Props) {
       features: [
         'Todo lo incluido en el Dictamen Técnico previo',
         'Implementación directa de cabeceras de seguridad (HSTS, CSP, X-Frame)',
-        'Blindaje anti-clonación de formularios y pasarelas (Yape, Niubiz, Culqi)',
+        'Protección anti-clickjacking (X-Frame-Options) en checkout y formularios',
         'Ocultamiento perimetral de versiones para frenar escaneos de robots',
         'Actualización segura de CMS, temas y plugins en plataformas estándar',
         'Endurecimiento de accesos y cierre seguro de entrega',
@@ -62,7 +62,7 @@ export default function PricingSection({ targetUrl, score, grade }: Props) {
       footerNote: 'Coordinación directa por WhatsApp personal',
     },
     {
-      name: 'Blindaje Total WAF + Certificación Grado A',
+      name: 'Blindaje Total WAF + Meta Grado A',
       tag: 'Protección Avanzada & Anti-Ataques',
       originalPrice: '',
       pricePen: 'S/. 335',
@@ -74,7 +74,7 @@ export default function PricingSection({ targetUrl, score, grade }: Props) {
         'Todo lo del plan Blindaje Llave en Mano',
         'Configuración avanzada de WAF (Cloudflare / servidor) contra ataques web',
         'Reglas de Rate Limiting y bloqueo de bots automatizados sospechosos',
-        'Re-escaneo y remediación continua hasta alcanzar meta técnica Grado A (90-100 pts)',
+        'Meta Grado A con re-medición incluida: ajustes sin costo hasta alcanzar la nota',
         'Certificado formal de cumplimiento perimetral y entrega de directivas',
       ],
       ctaAction: 'Pedir Blindaje Total WAF',
@@ -147,7 +147,7 @@ export default function PricingSection({ targetUrl, score, grade }: Props) {
                   </span>
                 </div>
                 <div className="text-[12px] text-emerald-400 font-semibold mt-1 flex items-center gap-1.5">
-                  <span>{p.isFree ? 'Diagnóstico al instante sin costo' : 'Constancia y entrega técnica garantizada'}</span>
+                  <span>{p.isFree ? 'Diagnóstico al instante sin costo' : 'Meta técnica con re-medición incluida'}</span>
                 </div>
                 <div className="mt-2 inline-flex items-center gap-1.5 px-2.5 py-0.5 rounded-full bg-white/5 border border-white/10 text-[10px] text-neutral-300 font-medium">
                   <span className="w-1.5 h-1.5 rounded-full bg-emerald-400 animate-pulse"></span>
@@ -223,11 +223,11 @@ export default function PricingSection({ targetUrl, score, grade }: Props) {
       </div>
 
       {/* Aviso de Garantía y Términos */}
-      <div className="text-center pt-2">
+      <div className="text-center pt-2 max-w-2xl mx-auto space-y-1">
         <p className="text-xs text-neutral-400">
-          * La garantía de servicio y condiciones de soporte se rigen conforme a nuestros{' '}
+          * <strong>Meta Grado A con Re-medición:</strong> Si tu sitio no alcanza Grado A en la primera auditoría tras nuestra intervención, aplicamos correcciones y re-escaneos adicionales sin costo hasta certificar la meta acordada conforme a nuestros{' '}
           <a href="/terminos#garantia" className="text-[#38bdf8] hover:underline font-medium">
-            Términos y Condiciones del Servicio
+            Términos y Condiciones
           </a>.
         </p>
       </div>

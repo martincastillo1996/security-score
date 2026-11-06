@@ -131,7 +131,7 @@ export default function TerminosYPrivacidadPage() {
             </section>
 
             {/* 2. Declaración y Garantía de Autorización (Ley 30096 - Delitos Informáticos) */}
-            <section className="space-y-3 text-sm leading-relaxed">
+            <section id="delitos-informaticos" className="space-y-3 text-sm leading-relaxed scroll-mt-20">
               <h3 className="text-base font-bold text-white flex items-center gap-2">
                 <Lock className="w-4 h-4 text-emerald-400" />
                 <span>2. Declaración y Garantía de Titularidad (Ley N° 30096)</span>
@@ -141,13 +141,13 @@ export default function TerminosYPrivacidadPage() {
               </p>
               <ul className="list-disc pl-5 space-y-2 text-neutral-300">
                 <li>
-                  <strong>Declaración Bajo Juramento:</strong> El cliente declara y garantiza expresamente que es el propietario legítimo del dominio web ingresado, o que ostenta poder formal y por escrito de la empresa para someterlo a diagnóstico y remediación perimetral.
+                  <strong>Declaración Bajo Juramento:</strong> Toda persona natural o jurídica que ingrese un dominio en el escáner declara y garantiza expresamente ser el propietario legítimo del dominio web ingresado, o contar con poder formal y por escrito de la empresa para someterlo a diagnóstico y remediación perimetral.
                 </li>
                 <li>
-                  <strong>Técnica No Intrusiva:</strong> DEFENSA TI realiza análisis perimetrales externos y deterministas (cabeceras HTTP, certificados SSL/TLS, DNS y sondeo pasivo de puertos de red). <strong>Quedan prohibidas y expresamente excluidas cualquier maniobra de inyección destructiva, denegación de servicio (DDoS), interceptación o vulneración no autorizada de bases de datos.</strong>
+                  <strong>Técnica No Intrusiva:</strong> DEFENSA TI realiza análisis perimetrales externos y deterministas no intrusivos (cabeceras HTTP, certificados SSL/TLS, DNS y sondeo de puertos de transporte expuestos). <strong>Quedan prohibidas y expresamente excluidas cualquier maniobra de inyección destructiva, denegación de servicio (DDoS), interceptación o vulneración no autorizada de bases de datos.</strong>
                 </li>
                 <li>
-                  <strong>Cláusula de Indemnidad:</strong> Si la información proporcionada por el usuario fuera fraudulenta o no autorizada, el usuario asumirá toda la responsabilidad penal, civil y administrativa, eximiendo y manteniendo indemne a Karol Martin Castillo Rojas y al equipo de DEFENSA TI.
+                  <strong>Cláusula de Indemnidad:</strong> Si el dominio fuera ingresado por un tercero sin autorización legal, dicho usuario asumirá toda la responsabilidad penal, civil y administrativa conforme al Código Penal y la Ley N° 30096, eximiendo y manteniendo indemne a Karol Martin Castillo Rojas y a la plataforma DEFENSA TI.
                 </li>
               </ul>
             </section>
@@ -174,18 +174,18 @@ export default function TerminosYPrivacidadPage() {
               </div>
             </section>
 
-            {/* 4. Garantía de Servicio Delimitada */}
+            {/* 4. Meta Grado A con Re-medición y Límites Técnicos del Servicio */}
             <section id="garantia" className="space-y-3 text-sm leading-relaxed scroll-mt-20">
               <h3 className="text-base font-bold text-white flex items-center gap-2">
                 <ShieldCheck className="w-4 h-4 text-emerald-400" />
-                <span>4. Garantía de Grado A y Límites Técnicos del Servicio</span>
+                <span>4. Meta Grado A con Re-medición y Límites Técnicos del Servicio</span>
               </h3>
               <div className="p-4 rounded-2xl bg-white/5 border border-white/10 text-xs text-neutral-300 leading-relaxed space-y-2">
                 <p>
-                  <strong>Alcance de la Garantía:</strong> En los planes contratados que incluyan remediación (Blindaje Esencial y Blindaje Total), garantizamos que las configuraciones técnicas implementadas por nosotros alcanzarán la nota acordada (meta Grado A) en la fecha de cierre y entrega formal del informe.
+                  <strong>Compromiso Técnico de Meta Grado A:</strong> En los planes contratados que incluyan remediación técnica (Blindaje Llave en Mano y Blindaje Total WAF), nos comprometemos a llevar la infraestructura perimetral del cliente a la meta acordada (Grado A, 90-100 pts). Si tras la primera remediación no se alcanza dicho Grado en el re-escaneo oficial, aplicaremos las correcciones adicionales necesarias sin costo suplementario hasta certificar la meta acordada.
                 </p>
                 <p>
-                  <strong>Naturaleza Preventiva:</strong> La ciberseguridad es una disciplina de gestión continua y reducción de riesgo, no de inmunidad absoluta. La garantía no cubre ataques de día cero desconocidos por la industria, caídas atribuibles al proveedor de hosting, modificaciones posteriores de código realizadas por el cliente o terceros, ni filtraciones provocadas por contraseñas débiles o negligencia interna del contratante.
+                  <strong>Naturaleza Preventiva:</strong> La ciberseguridad perimetral es una disciplina de reducción objetiva de superficie de ataque, no de inmunidad infalible. Las medidas implementadas no cubren vulnerabilidades de día cero de software de terceros no actualizados por el cliente, caídas de hosting, manipulación no coordinada del código fuente ni descuidos internos en la gestión de contraseñas.
                 </p>
               </div>
             </section>
