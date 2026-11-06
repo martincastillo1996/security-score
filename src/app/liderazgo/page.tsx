@@ -2,6 +2,8 @@ import type { Metadata } from 'next';
 import Link from 'next/link';
 import Image from 'next/image';
 import NeuralBackground from '@/components/NeuralBackground';
+import NeuronalGravityBrandLogo from '@/components/NeuronalGravityBrandLogo';
+import HeaderWhatsAppButton from '@/components/HeaderWhatsAppButton';
 import { 
   ArrowLeft, 
   Sparkles, 
@@ -36,20 +38,20 @@ export default function LiderazgoPage() {
 
       {/* Header */}
       <header className="relative z-10 border-b border-white/10 bg-black/75 backdrop-blur-2xl">
-        <div className="max-w-7xl mx-auto px-6 h-18 flex items-center justify-between">
-          <Link href="/" className="flex items-center gap-3">
-            <span className="font-bold text-base tracking-tight text-white leading-none">
-              NEURONAL GRAVITY
-            </span>
-            <span className="text-xs text-[#38bdf8] font-mono font-semibold">by Martin Castillo</span>
-          </Link>
-          <Link
-            href="/"
-            className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-xl bg-white/5 hover:bg-white/10 border border-white/10 text-xs text-neutral-300 hover:text-white transition-all"
-          >
-            <ArrowLeft className="w-3.5 h-3.5" />
-            <span>Volver al Inicio</span>
-          </Link>
+        <div className="max-w-7xl mx-auto px-6 h-18 flex items-center justify-between gap-4">
+          <NeuronalGravityBrandLogo />
+          <div className="flex items-center gap-3">
+            <HeaderWhatsAppButton
+              message="Hola Martín, estuve revisando tu perfil y liderazgo técnico en Neuronal Gravity y deseo conversar sobre un proyecto."
+            />
+            <Link
+              href="/"
+              className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-xl bg-white/5 hover:bg-white/10 border border-white/10 text-xs text-neutral-300 hover:text-white transition-all"
+            >
+              <ArrowLeft className="w-3.5 h-3.5" />
+              <span>Volver</span>
+            </Link>
+          </div>
         </div>
       </header>
 

@@ -12,6 +12,7 @@ import {
   ArrowRight
 } from 'lucide-react';
 import { siteConfig } from '@/config/site';
+import HeaderWhatsAppButton from '@/components/HeaderWhatsAppButton';
 
 export default function InformeEjemploPage() {
   return (
@@ -27,8 +28,13 @@ export default function InformeEjemploPage() {
             <span>Volver a DEFENSA TI</span>
           </Link>
 
-          <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-amber-500/10 border border-amber-500/30 text-amber-300 text-[11px] font-mono font-bold tracking-wider">
-            <span>MODELO DE MUESTRA PARA GERENCIA</span>
+          <div className="flex items-center gap-3">
+            <div className="hidden sm:inline-flex items-center gap-2 px-3 py-1 rounded-full bg-amber-500/10 border border-amber-500/30 text-amber-300 text-[11px] font-mono font-bold tracking-wider">
+              <span>MODELO DE MUESTRA PARA GERENCIA</span>
+            </div>
+            <HeaderWhatsAppButton
+              message="Hola Martín, vi el informe de muestra para gerencia en DEFENSA TI y deseo solicitar la auditoría para mi web."
+            />
           </div>
         </div>
       </header>

@@ -20,6 +20,7 @@ import SocialViralHub from '@/components/SocialViralHub';
 import NeuronalGravityHub from '@/components/NeuronalGravityHub';
 import LanguageSelector from '@/components/LanguageSelector';
 import AiConsultantWidget from '@/components/AiConsultantWidget';
+import HeaderWhatsAppButton from '@/components/HeaderWhatsAppButton';
 import { useI18n } from '@/lib/i18n/I18nContext';
 import { AuditReportRecord } from '@/lib/storage/reportStore';
 import {
@@ -177,8 +178,12 @@ export default function HomePage() {
               <a href="#casos-reales" className="hover:text-white transition-colors duration-200">{t.nav.realCases}</a>
             </nav>
 
-            <div className="flex items-center gap-3">
-              <div className="hidden sm:inline-flex items-center gap-2 px-3 py-1 rounded-full bg-white/5 border border-white/10 text-[11px] text-neutral-300 backdrop-blur-xl">
+            <div className="flex items-center gap-2.5 sm:gap-3">
+              <HeaderWhatsAppButton 
+                message="Hola Martín, estoy en DEFENSA TI y deseo cotizar la auditoría o blindaje para mi página web."
+              />
+
+              <div className="hidden lg:inline-flex items-center gap-2 px-3 py-1 rounded-full bg-white/5 border border-white/10 text-[11px] text-neutral-300 backdrop-blur-xl">
                 <span className="h-1.5 w-1.5 rounded-full bg-[#30d158] shadow-[0_0_8px_#30d158]" />
                 <span className="text-neutral-400">{t.nav.engine}</span> 1.2.0
               </div>

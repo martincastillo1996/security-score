@@ -23,6 +23,7 @@ import WhatsAppCta from '@/components/WhatsAppCta';
 import BusinessOverview from '@/components/BusinessOverview';
 import ServerLocationCard from '@/components/ServerLocationCard';
 import AiConsultantWidget from '@/components/AiConsultantWidget';
+import HeaderWhatsAppButton from '@/components/HeaderWhatsAppButton';
 import { Briefcase, Terminal } from 'lucide-react';
 import { AuditReportRecord } from '@/lib/storage/reportStore';
 
@@ -167,12 +168,15 @@ export default function ReportPage({ params }: { params: Promise<{ id: string }>
               <ShieldCheck className="w-5 h-5 text-[#2997ff]" />
               <span className="font-semibold text-sm tracking-tight text-white">DEFENSA TI</span>
             </Link>
-            <div className="flex items-center gap-3">
+            <div className="flex items-center gap-2.5 sm:gap-3">
+              <HeaderWhatsAppButton 
+                message={`Hola Martín, estoy revisando el informe de auditoría de mi web ${report?.url || ''} y deseo cotizar el blindaje.`}
+              />
               <Link 
-                href="/" 
+                href="/defensati" 
                 className="px-3 py-1.5 rounded-xl bg-white/5 hover:bg-white/10 border border-white/10 text-xs font-medium flex items-center gap-1.5 text-neutral-300"
               >
-                <ArrowLeft className="w-3.5 h-3.5" /> Nuevo Escaneo
+                <ArrowLeft className="w-3.5 h-3.5" /> <span className="hidden sm:inline">Nuevo Escaneo</span>
               </Link>
             </div>
           </div>

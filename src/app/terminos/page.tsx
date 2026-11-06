@@ -4,6 +4,7 @@ import React, { useState } from 'react';
 import Link from 'next/link';
 import NeuralBackground from '@/components/NeuralBackground';
 import NeuronalGravityBrandLogo from '@/components/NeuronalGravityBrandLogo';
+import HeaderWhatsAppButton from '@/components/HeaderWhatsAppButton';
 import { 
   ShieldCheck, 
   ArrowLeft, 
@@ -27,7 +28,10 @@ export default function TerminosYPrivacidadPage() {
       <header className="sticky top-0 z-50 backdrop-blur-xl bg-black/70 border-b border-white/10">
         <div className="max-w-5xl mx-auto px-4 sm:px-6 h-16 flex items-center justify-between">
           <NeuronalGravityBrandLogo />
-          <div className="flex items-center gap-3">
+          <div className="flex items-center gap-2.5 sm:gap-3">
+            <HeaderWhatsAppButton
+              message="Hola Martín, estoy revisando los Términos y Condiciones de Neuronal Gravity y deseo hacer una consulta."
+            />
             <Link 
               href="/reclamaciones" 
               className="text-xs text-amber-300 hover:text-amber-200 flex items-center gap-1 font-semibold transition-colors border border-amber-400/30 px-3 py-1.5 rounded-xl bg-amber-400/10"

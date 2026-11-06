@@ -3,7 +3,9 @@
 import React from 'react';
 import Link from 'next/link';
 import NeuralBackground from '@/components/NeuralBackground';
-import { Brain, ArrowLeft, Home, ShieldAlert, Sparkles, MessageSquare } from 'lucide-react';
+import HeaderWhatsAppButton from '@/components/HeaderWhatsAppButton';
+import NeuronalGravityBrandLogo from '@/components/NeuronalGravityBrandLogo';
+import { ArrowLeft, Home, ShieldAlert, Sparkles, MessageSquare } from 'lucide-react';
 
 export default function NotFound() {
   return (
@@ -21,30 +23,18 @@ export default function NotFound() {
 
       {/* Barra de Navegación Minimalista */}
       <header className="relative z-10 border-b border-white/10 bg-black/60 backdrop-blur-2xl">
-        <div className="max-w-7xl mx-auto px-6 h-18 flex items-center justify-between">
-          <Link href="/" className="flex items-center gap-3 group">
-            <div className="h-10 w-10 rounded-2xl bg-gradient-to-br from-[#0071e3] via-[#7928ca] to-[#38bdf8] p-[1.5px] shadow-[0_0_20px_rgba(0,113,227,0.4)]">
-              <div className="h-full w-full rounded-[14px] bg-black flex items-center justify-center">
-                <Brain className="w-5 h-5 text-[#38bdf8] group-hover:scale-110 transition-transform duration-300" />
-              </div>
-            </div>
-            <div className="flex flex-col">
-              <span className="font-bold text-base tracking-tight text-white leading-none">
-                NEURONAL GRAVITY
-              </span>
-              <span className="text-[11px] text-neutral-400 font-mono mt-0.5">
-                neuronalgravity.com &bull; <span className="text-[#38bdf8] font-sans font-semibold">by Martin Castillo</span>
-              </span>
-            </div>
-          </Link>
-
-          <Link
-            href="/"
-            className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-xl bg-white/5 hover:bg-white/10 border border-white/10 text-xs text-neutral-300 hover:text-white transition-all"
-          >
-            <ArrowLeft className="w-3.5 h-3.5" />
-            <span>Volver al Inicio</span>
-          </Link>
+        <div className="max-w-7xl mx-auto px-6 h-18 flex items-center justify-between gap-4">
+          <NeuronalGravityBrandLogo />
+          <div className="flex items-center gap-3">
+            <HeaderWhatsAppButton message="Hola Martín, encontré un error 404 en neuronalgravity.com y deseo consultar directamente." />
+            <Link
+              href="/"
+              className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-xl bg-white/5 hover:bg-white/10 border border-white/10 text-xs text-neutral-300 hover:text-white transition-all"
+            >
+              <ArrowLeft className="w-3.5 h-3.5" />
+              <span>Volver</span>
+            </Link>
+          </div>
         </div>
       </header>
 

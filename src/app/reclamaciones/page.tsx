@@ -5,6 +5,7 @@ import Link from 'next/link';
 import { BookOpen, Send, CheckCircle2, ShieldCheck, AlertCircle } from 'lucide-react';
 import NeuralBackground from '@/components/NeuralBackground';
 import NeuronalGravityBrandLogo from '@/components/NeuronalGravityBrandLogo';
+import HeaderWhatsAppButton from '@/components/HeaderWhatsAppButton';
 
 export default function LibroReclamacionesPage() {
   const [submitted, setSubmitted] = useState(false);
@@ -82,11 +83,16 @@ export default function LibroReclamacionesPage() {
 
       {/* Cabecera / Barra Superior */}
       <header className="sticky top-0 z-50 backdrop-blur-xl bg-black/60 border-b border-white/10">
-        <div className="max-w-4xl mx-auto px-4 h-16 flex items-center justify-between">
+        <div className="max-w-4xl mx-auto px-4 h-16 flex items-center justify-between gap-3">
           <NeuronalGravityBrandLogo />
-          <div className="flex items-center gap-2">
-            <span className="w-2 h-2 rounded-full bg-emerald-400 animate-pulse" />
-            <span className="text-[11px] text-neutral-400 font-medium">Libro Oficial INDECOPI (D.S. 011-2011-PCM)</span>
+          <div className="flex items-center gap-3">
+            <div className="hidden sm:flex items-center gap-2">
+              <span className="w-2 h-2 rounded-full bg-emerald-400 animate-pulse" />
+              <span className="text-[11px] text-neutral-400 font-medium">Libro Oficial INDECOPI (D.S. 011-2011-PCM)</span>
+            </div>
+            <HeaderWhatsAppButton
+              message="Hola Martín, estoy revisando el Libro de Reclamaciones de Neuronal Gravity y deseo consultar sobre una atención."
+            />
           </div>
         </div>
       </header>
