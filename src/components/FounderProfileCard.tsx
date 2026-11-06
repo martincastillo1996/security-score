@@ -47,11 +47,11 @@ export default function FounderProfileCard({ className = '' }: Props) {
           </h2>
 
           <p className="text-sm sm:text-base font-semibold text-[#38bdf8] leading-snug">
-            Arquitecto de Soluciones de Negocio con IA &amp; Especialista en Ciberdefensa
+            Arquitecto de Soluciones de Negocio con IA &amp; Consultor Principal
           </p>
 
           <p className="text-xs sm:text-sm text-neutral-300 leading-relaxed font-normal">
-            Fundador de <strong>Neuronal Gravity</strong>. Ayudo a dueños de negocios, directores y fundadores en Latinoamérica y el mundo a transformar procesos manuales lentos en sistemas inteligentes que operan 24/7 con alta rentabilidad y seguridad blindada.
+            Fundador de <strong>Neuronal Gravity</strong>. Ayudo a dueños de negocios, directores y fundadores en Latinoamérica y el mundo a transformar procesos manuales lentos en sistemas inteligentes que operan 24/7 con alta rentabilidad, robustez y eficiencia técnica.
           </p>
 
           {/* Cita en Tarjeta Glass */}
