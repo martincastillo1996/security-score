@@ -22,7 +22,7 @@ export default function NeuronalGravityHubHome() {
 
   return (
     <div className="min-h-screen bg-[#07090e] text-white selection:bg-[#0071e3] selection:text-white font-sans antialiased relative overflow-x-hidden">
-      <NeuralBackground />
+      <NeuralBackground showDomains={false} />
 
       {/* 1. NAVEGACIÓN SUPERIOR APPLE PRO GLASS */}
       <header className="sticky top-0 z-50 backdrop-blur-xl bg-black/60 border-b border-white/10">
