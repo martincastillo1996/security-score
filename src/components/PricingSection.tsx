@@ -23,7 +23,7 @@ export default function PricingSection({ targetUrl, score, grade }: Props) {
     {
       name: 'Dictamen Técnico & Receta de Código',
       tag: 'Para Empresas con Informático Propio',
-      pricePen: 'S/ 65',
+      pricePen: 'S/. 65',
       badge: 'Entrega en 48 horas laborables',
       highlight: false,
       description: 'Revisión exhaustiva externa. Informe formal firmado con membrete institucional y RUC, más el código exacto listo para aplicar.',
@@ -34,13 +34,13 @@ export default function PricingSection({ targetUrl, score, grade }: Props) {
         'Comprobante / constancia de servicio conforme a requerimiento',
         'Checklist prioritario para que tu equipo corrija las fallas en horas',
       ],
-      ctaText: 'Pedir Dictamen Técnico - S/ 65',
+      ctaAction: 'Pedir Dictamen Técnico',
       popular: false,
     },
     {
       name: 'Blindaje Llave en Mano',
       tag: 'Nosotros lo Arreglamos por Ti',
-      pricePen: 'S/ 165',
+      pricePen: 'S/. 165',
       badge: 'Plazo: 3 a 5 días',
       highlight: true,
       description: 'El plan recomendado. Con acceso temporal nos encargamos de todo el trabajo técnico. Tú y tu empresa no mueven un solo dedo.',
@@ -52,13 +52,13 @@ export default function PricingSection({ targetUrl, score, grade }: Props) {
         'Actualización segura de CMS, temas y plugins en plataformas estándar',
         'Endurecimiento de accesos y cierre seguro de entrega',
       ],
-      ctaText: 'Pedir Blindaje Llave en Mano - S/ 165',
+      ctaAction: 'Pedir Blindaje Llave en Mano',
       popular: true,
     },
     {
       name: 'Blindaje Total WAF + Certificación Grado A',
       tag: 'Protección Avanzada & Anti-Ataques',
-      pricePen: 'S/ 335',
+      pricePen: 'S/. 335',
       badge: 'Plazo: 5 a 7 días',
       highlight: false,
       description: 'Para e-commerce y empresas de alto tráfico. Auditoría + remediación + WAF perimetral activo, blindaje anti-bots y meta técnica Grado A.',
@@ -69,7 +69,7 @@ export default function PricingSection({ targetUrl, score, grade }: Props) {
         'Re-escaneo y remediación continua hasta alcanzar meta técnica Grado A (90-100 pts)',
         'Certificado formal de cumplimiento perimetral y entrega de directivas',
       ],
-      ctaText: 'Pedir Blindaje Total WAF - S/ 335',
+      ctaAction: 'Pedir Blindaje Total WAF',
       popular: false,
     },
   ];
@@ -118,9 +118,13 @@ export default function PricingSection({ targetUrl, score, grade }: Props) {
 
               {/* Precios (Exclusivo en Soles para Perú) */}
               <div className="pt-2 border-t border-white/10">
-                <div className="flex items-baseline gap-2">
-                  <span className="text-3xl sm:text-4xl font-black text-white">{p.pricePen}</span>
-                  <span className="text-xs text-neutral-400 font-medium">Soles (PEN) &bull; Pago único</span>
+                <div className="flex items-baseline justify-between gap-3">
+                  <span className="text-3xl sm:text-4xl font-black text-white tracking-tight whitespace-nowrap">
+                    {p.pricePen}
+                  </span>
+                  <span className="text-xs text-neutral-400 font-medium whitespace-nowrap">
+                    Pago único
+                  </span>
                 </div>
                 <div className="text-[12px] text-emerald-400 font-semibold mt-1 flex items-center gap-1.5">
                   <span>Constancia y entrega técnica garantizada</span>
@@ -148,14 +152,21 @@ export default function PricingSection({ targetUrl, score, grade }: Props) {
                 href={getPlanWhatsAppUrl(p.name, p.pricePen)}
                 target="_blank"
                 rel="noopener noreferrer"
-                className={`w-full py-3 px-4 rounded-2xl font-bold text-xs sm:text-sm flex items-center justify-center gap-2 transition-all cursor-pointer active:scale-95 shadow-md ${
+                className={`w-full py-3 px-3.5 rounded-2xl font-bold text-xs sm:text-sm flex items-center justify-between gap-2 transition-all cursor-pointer active:scale-95 shadow-md ${
                   p.highlight
                     ? 'bg-[#0071e3] hover:bg-[#0077ed] text-white shadow-blue-500/30'
                     : 'bg-white/10 hover:bg-white/15 text-white'
                 }`}
               >
-                <span>{p.ctaText}</span>
-                <ArrowRight className="w-4 h-4" />
+                <span className="text-left font-bold">{p.ctaAction}</span>
+                <div className="flex items-center gap-1.5 shrink-0">
+                  <span className={`px-2 py-0.5 rounded-lg text-xs font-black whitespace-nowrap ${
+                    p.highlight ? 'bg-black/25 text-white' : 'bg-white/10 text-white'
+                  }`}>
+                    {p.pricePen}
+                  </span>
+                  <ArrowRight className="w-4 h-4 shrink-0" />
+                </div>
               </a>
               <span className="block text-center text-[10px] text-neutral-400 mt-2">
                 Coordinación directa por WhatsApp personal

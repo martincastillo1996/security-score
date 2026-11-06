@@ -156,15 +156,15 @@ export default function TerminosYPrivacidadPage() {
               </p>
               <div className="grid grid-cols-1 md:grid-cols-3 gap-3 pt-2 text-xs">
                 <div className="p-4 rounded-xl bg-white/5 border border-white/10 space-y-2">
-                  <span className="font-bold text-white block text-sm">Auditoría (S/ 65 PEN / $19 USD)</span>
+                  <span className="font-bold text-white block text-sm">Auditoría (S/. 65 PEN)</span>
                   <p className="text-neutral-300">Diagnóstico externo no intrusivo sin acceso a claves. Entrega de informe técnico con prioridades en <strong>48 horas laborables</strong>.</p>
                 </div>
                 <div className="p-4 rounded-xl bg-white/5 border border-white/10 space-y-2">
-                  <span className="font-bold text-white block text-sm">Blindaje Esencial (S/ 165 PEN / $49 USD)</span>
+                  <span className="font-bold text-white block text-sm">Blindaje Esencial (S/. 165 PEN)</span>
                   <p className="text-neutral-300">Incluye auditoría previa y remediación directa de cabeceras críticas (HSTS, CSP, X-Frame), endurecimiento de accesos y CMS estándar en <strong>3 a 5 días hábiles</strong>.</p>
                 </div>
                 <div className="p-4 rounded-xl bg-white/5 border border-white/10 space-y-2">
-                  <span className="font-bold text-white block text-sm">Blindaje Total (S/ 335 PEN / $99 USD)</span>
+                  <span className="font-bold text-white block text-sm">Blindaje Total (S/. 335 PEN)</span>
                   <p className="text-neutral-300">Auditoría + Blindaje + WAF perimetral y meta técnica de Grado A en la re-evaluación final, ejecutado en <strong>5 a 7 días hábiles</strong>.</p>
                 </div>
               </div>

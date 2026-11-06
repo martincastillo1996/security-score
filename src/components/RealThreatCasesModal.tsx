@@ -148,30 +148,30 @@ export default function RealThreatCasesModal() {
   const officialSources = [
     {
       source: 'Ministerio Público - Fiscalía de la Nación',
-      title: 'Fiscalías Especializadas en Ciberdelincuencia: Balance de denuncias y persecución de fraudes informáticos a nivel nacional',
-      url: 'https://www.gob.pe/institucion/mpfn/noticias',
-      date: 'Plataforma Digital Única del Estado Peruano (gob.pe/mpfn) &bull; 2025/2026',
+      title: 'Más de 29,000 denuncias por delitos informáticos registradas en el Perú (Fraude y suplantación concentran 92%)',
+      url: 'https://andina.pe/agencia/noticia-mas-29-mil-denuncias-delitos-informaticos-se-registraron-el-peru-2024-1007797.aspx',
+      date: 'Publicado por Agencia Andina • Reporte Oficial Fiscalía',
       badge: 'Ministerio Público'
     },
     {
       source: 'Policía Nacional del Perú (DIVINDAT / DIRINCRI)',
-      title: 'Guía oficial para la investigación de Delitos Informáticos y prevención de fraudes perimetrales (RM N.° 0066-2026-IN)',
-      url: 'https://www.gob.pe/institucion/pnp/noticias',
-      date: 'Ministerio del Interior &bull; Diario Oficial El Peruano &bull; 2026',
+      title: 'Policía Nacional alerta sobre nuevas modalidades de fraude informático y clonación web en comercios digitales',
+      url: 'https://elperuano.pe/noticia/226190-policia-nacional-alerta-sobre-nuevas-modalidades-de-fraude-informatico',
+      date: 'Diario Oficial El Peruano • DIVINDAT PNP',
       badge: 'PNP - DIVINDAT'
     },
     {
-      source: 'INDECOPI - Dirección de Protección del Consumidor',
-      title: 'Plataforma oficial "Mira a quién le compras": Reportes y sanciones por vulneraciones y estafas en comercio electrónico',
-      url: 'https://www.gob.pe/institucion/indecopi/informes-publicaciones/1539209-mira-a-quien-le-compras',
-      date: 'Portal Institucional de Alertas de Consumo (gob.pe/indecopi)',
+      source: 'INDECOPI - Alertas al Consumidor',
+      title: 'Guía oficial de advertencias sobre compras seguras y prevención de estafas en tiendas online en el Perú',
+      url: 'https://www.gob.pe/institucion/indecopi/noticias/923985-indecopi-brinda-recomendaciones-para-realizar-compras-seguras-por-internet',
+      date: 'Plataforma Digital Única del Estado Peruano (gob.pe/indecopi)',
       badge: 'INDECOPI'
     },
     {
-      source: 'Diario Oficial El Peruano / Normas Legales',
-      title: 'Ley N° 30096 (Ley de Delitos Informáticos): Modificatorias y sanciones por tráfico ilícito de datos y fraude web',
-      url: 'https://busquedas.elperuano.pe',
-      date: 'Normas Legales Oficiales &bull; República del Perú',
+      source: 'Congreso de la República del Perú',
+      title: 'Ley N° 30096 (Ley de Delitos Informáticos): Sanciones por acceso ilícito, tráfico de datos y fraude web',
+      url: 'https://busquedas.elperuano.pe/normaslegales/ley-de-delitos-informaticos-ley-n-30096-1000627-1/',
+      date: 'Marco Jurídico Vigente • Normas Legales El Peruano',
       badge: 'Ley N° 30096'
     }
   ];
