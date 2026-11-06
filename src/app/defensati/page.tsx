@@ -290,18 +290,15 @@ export default function HomePage() {
               </p>
             </div>
 
-            <div className="flex items-center justify-center gap-2 text-xs text-neutral-500 pt-2">
-              <span>{t.hero.samplePrompt}</span>
-              <button
-                type="button"
-                onClick={() => {
-                  setUrl('https://autonoma.pe');
-                  handleScan('https://autonoma.pe');
-                }}
-                className="text-[#2997ff] hover:underline cursor-pointer"
+            <div className="flex flex-wrap items-center justify-center gap-2 text-xs text-neutral-400 pt-2">
+              <span>O explora una auditoría modelo:</span>
+              <Link
+                href="/defensati/informe-ejemplo"
+                className="text-[#38bdf8] hover:underline font-bold flex items-center gap-1"
               >
-                autonoma.pe
-              </button>
+                <span>ejemplo-empresa-demo.pe</span>
+                <span className="text-[10px] px-1.5 py-0.2 bg-blue-500/20 text-sky-300 rounded font-mono">EJEMPLO</span>
+              </Link>
               <span>&bull;</span>
               <button
                 type="button"

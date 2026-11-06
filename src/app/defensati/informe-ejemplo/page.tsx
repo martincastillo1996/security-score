@@ -27,8 +27,8 @@ import { AuditReportRecord } from '@/lib/storage/reportStore';
 import AuditEngineExplanation from '@/components/AuditEngineExplanation';
 
 const DEMO_REPORT: AuditReportRecord = {
-  id: 'DEMO-2026-TEXTIL',
-  url: 'https://distribuidora-textil-demo.pe',
+  id: 'DEMO-EJEMPLO-2026',
+  url: 'https://ejemplo-empresa-demo.pe',
   score: 68,
   grade: 'C',
   scannedAt: '2026-11-06T15:30:00.000Z',
@@ -49,15 +49,15 @@ const DEMO_REPORT: AuditReportRecord = {
     { name: 'Permissions-Policy', header: 'Permissions-Policy', status: 'fail', present: false, value: null, severity: 'MEDIA', description: 'Desactiva acceso a cámara, micrófono y geolocalización no autorizados.' }
   ],
   ports: [
-    { port: 80, isOpen: true, service: 'HTTP (Redirección obligatoria)', risk: 'BAJO', description: 'Redirección estándar a HTTPS activa.' },
-    { port: 443, isOpen: true, service: 'HTTPS (TLS 1.3)', risk: 'BAJO', description: 'Canal cifrado y seguro para navegación y pagos.' },
-    { port: 8080, isOpen: false, service: 'HTTP-Proxy alternativo', risk: 'BAJO', description: 'Puerto cerrado y protegido.' },
-    { port: 21, isOpen: false, service: 'FTP plano', risk: 'BAJO', description: 'Cerrado para prevenir transferencias sin cifrar.' },
-    { port: 22, isOpen: false, service: 'SSH administración', risk: 'BAJO', description: 'Aislado de internet público.' },
-    { port: 3306, isOpen: false, service: 'MySQL base de datos', risk: 'BAJO', description: 'Base de datos protegida tras firewall perimetral.' }
+    { port: 80, isOpen: true, service: 'HTTP (Redirección obligatoria hacia HTTPS)', risk: 'BAJO', description: 'Redirección estándar hacia puerto 443 activa.' },
+    { port: 443, isOpen: true, service: 'HTTPS (Canal Seguro TLS 1.3 - Óptimo)', risk: 'BAJO', description: 'Canal cifrado obligatorio para transacciones y pagos.' },
+    { port: 8080, isOpen: false, service: 'HTTP-Proxy alternativo (Cerrado)', risk: 'BAJO', description: 'Puerto cerrado y protegido.' },
+    { port: 21, isOpen: false, service: 'FTP plano (Cerrado tras firewall)', risk: 'BAJO', description: 'Cerrado para prevenir transferencias sin cifrar.' },
+    { port: 22, isOpen: false, service: 'SSH administración (Cerrado a internet)', risk: 'BAJO', description: 'Aislado de internet público.' },
+    { port: 3306, isOpen: false, service: 'MySQL base de datos (Protegido)', risk: 'BAJO', description: 'Base de datos protegida tras firewall perimetral.' }
   ],
   telemetry: {
-    targetResolvedIp: '190.235.144.12',
+    targetResolvedIp: '[PROTEGIDA POR SEGURIDAD]',
     engineVersion: '1.2.0-cloud',
     durationMs: 840,
     aiModel: 'Neuronality AI Defense Core'
@@ -207,30 +207,49 @@ Set dynamic: Referrer-Policy = "strict-origin-when-cross-origin"`;
         </div>
 
         {/* CONTENEDOR DEL DOCUMENTO MODELO */}
-        <div className="p-6 sm:p-10 rounded-3xl bg-[#0f1219]/90 border border-white/10 shadow-2xl space-y-8 backdrop-blur-xl">
+        <div className="relative p-6 sm:p-10 rounded-3xl bg-[#0f1219]/90 border border-white/10 shadow-2xl space-y-8 backdrop-blur-xl overflow-hidden">
           
-          {/* Encabezado del dictamen */}
-          <div className="flex flex-col md:flex-row md:items-center justify-between gap-6 pb-6 border-b border-white/10">
-            <div>
-              <div className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-emerald-500/10 border border-emerald-500/30 text-emerald-400 text-xs font-semibold mb-2">
-                <CheckCircle2 className="w-3.5 h-3.5" />
-                <span>DICTAMEN TÉCNICO OFICIAL DEFENSA TI</span>
-              </div>
-              <h2 className="text-xl sm:text-2xl font-extrabold text-white tracking-tight">
-                Auditoría Perimetral y de Riesgo Comercial
-              </h2>
-              <p className="text-xs text-neutral-400 mt-1 font-mono">
-                Empresa analizada: <strong>distribuidora-textil-demo.pe</strong> (Caso Modelo)
-              </p>
-            </div>
-
-            <div className="flex flex-col items-start md:items-end gap-1 text-xs text-neutral-400 font-mono">
-              <span>Entrega: <strong>48 Horas Laborables</strong></span>
-              <span>Auditor: <strong>Martín Castillo</strong></span>
-              <span>RUC: <strong>{siteConfig.business.ruc}</strong> (Lima, Perú)</span>
-              <span className="text-emerald-400 font-semibold mt-0.5">✓ Validez ante SUNAT / Comprobante Electrónico</span>
+          {/* Marca de Agua de Fondo Tenue */}
+          <div className="absolute inset-0 pointer-events-none select-none flex items-center justify-center z-0 opacity-[0.03]">
+            <div className="text-center transform -rotate-30 font-black text-8xl tracking-widest text-white border-8 border-white p-12 rounded-3xl">
+              EJEMPLO<br />NO OFICIAL
             </div>
           </div>
+
+          <div className="relative z-10 space-y-8">
+            {/* Banner de Advertencia Legal: Documento Didáctico de Muestra */}
+            <div className="p-3 rounded-2xl bg-amber-500/10 border border-amber-500/30 text-amber-200 text-xs font-semibold flex flex-col sm:flex-row items-center justify-between gap-2 text-center sm:text-left">
+              <span className="flex items-center gap-2">
+                <AlertTriangle className="w-4 h-4 text-amber-400 shrink-0" />
+                <span>⚠️ DOCUMENTO DE MUESTRA Y CASO MODELO FICTICIO &bull; NO ES UN DICTAMEN OFICIAL NI AFECTA A NINGUNA ENTIDAD REAL</span>
+              </span>
+              <span className="px-2 py-0.5 rounded-full bg-amber-500/20 text-amber-300 font-mono text-[10px] uppercase font-bold shrink-0">
+                EJEMPLO NO OFICIAL
+              </span>
+            </div>
+
+            {/* Encabezado del dictamen */}
+            <div className="flex flex-col md:flex-row md:items-center justify-between gap-6 pb-6 border-b border-white/10">
+              <div>
+                <div className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-blue-500/10 border border-blue-500/30 text-[#38bdf8] text-xs font-semibold mb-2">
+                  <CheckCircle2 className="w-3.5 h-3.5" />
+                  <span>CASO DE AUDITORÍA MODELO (MUESTRA DIDÁCTICA)</span>
+                </div>
+                <h2 className="text-xl sm:text-2xl font-extrabold text-white tracking-tight">
+                  Auditoría Perimetral y de Riesgo Comercial
+                </h2>
+                <p className="text-xs text-neutral-400 mt-1 font-mono">
+                  Portal analizado: <strong className="text-white">ejemplo-empresa-demo.pe</strong> <span className="text-amber-400 font-bold">(Empresa Ficticia de Muestra)</span>
+                </p>
+              </div>
+
+              <div className="flex flex-col items-start md:items-end gap-1 text-xs text-neutral-400 font-mono">
+                <span>Entrega: <strong>24 a 48 Horas Laborables</strong></span>
+                <span>Auditor Responsable: <strong className="text-white">Karol Martín Castillo Rojas</strong></span>
+                <span>RUC: <strong>10704877850</strong> (Neuronal Gravity &bull; Lima, Perú)</span>
+                <span className="text-emerald-400 font-semibold mt-0.5">✓ Comprobante Electrónico SUNAT Disponible</span>
+              </div>
+            </div>
 
           {/* ===================================================================== */}
           {/* PESTAÑA 1: VISIÓN DUEÑO DE NEGOCIO (COMERCIAL & GERENCIAL) */}
@@ -351,16 +370,43 @@ Set dynamic: Referrer-Policy = "strict-origin-when-cross-origin"`;
                 </p>
               </div>
 
-              {/* Cuadro de Retorno de Inversión (ROI) */}
-              <div className="p-5 rounded-2xl bg-emerald-950/20 border border-emerald-500/30 space-y-2">
-                <h4 className="text-xs font-bold text-emerald-400 uppercase tracking-wider flex items-center gap-1.5">
-                  <DollarSign className="w-4 h-4" />
-                  <span>Por qué esta Auditoría te ahorra miles de Soles</span>
-                </h4>
+              {/* Cuadro de Planes Comerciales y Retorno de Inversión (ROI) */}
+              <div className="p-5 sm:p-6 rounded-2xl bg-gradient-to-b from-[#141416] to-[#0c0d10] border border-white/10 space-y-4">
+                <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-2 border-b border-white/5 pb-3">
+                  <h4 className="text-xs sm:text-sm font-bold text-white uppercase tracking-wider flex items-center gap-2">
+                    <DollarSign className="w-4 h-4 text-emerald-400" />
+                    <span>¿Cómo solucionar estos hallazgos y alcanzar Grado A? (Servicios y Precios)</span>
+                  </h4>
+                  <span className="text-[11px] font-mono text-emerald-400 bg-emerald-500/10 px-2 py-0.5 rounded border border-emerald-500/20 font-bold self-start sm:self-center">
+                    Meta de Blindaje: Grado A (90-100 pts)
+                  </span>
+                </div>
+
                 <p className="text-xs text-neutral-300 leading-relaxed">
-                  En el Perú, una sola retención de fondos por riesgo perimetral en pasarelas como Niubiz o Culqi inmoviliza capital de trabajo durante 15 a 30 días, y una queja ante INDECOPI por fuga de datos acarrea sanciones que superan las 5 UIT. 
-                  Por lanzamiento obtienes el <strong>Dictamen Técnico GRATIS (Antes S/ 65 PEN)</strong>, y por <strong>S/ 165 o S/ 335</strong> dejas tu web completamente blindada.
+                  En el Perú, una sola retención de fondos por riesgo perimetral en pasarelas como Niubiz o Culqi inmoviliza capital comercial durante 15 a 30 días, y una queja ante INDECOPI por filtración de datos acarrea sanciones que superan las 5 UIT. Cuentas con dos alternativas directas:
                 </p>
+
+                <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 pt-1">
+                  <div className="p-4 rounded-xl bg-white/[0.03] border border-white/10 space-y-2">
+                    <div className="flex items-center justify-between">
+                      <span className="font-extrabold text-white text-xs">Plan Dictamen Firmado + Receta Dev</span>
+                      <span className="text-xs font-mono font-black text-sky-400">S/ 65 PEN</span>
+                    </div>
+                    <p className="text-[11px] text-neutral-400 leading-relaxed">
+                      Recibes el <strong>dictamen formal en PDF firmado por el auditor</strong> (Karol Martín Castillo Rojas) con membrete oficial y el archivo exacto de configuración para que tu programador lo pegue en 5 minutos.
+                    </p>
+                  </div>
+
+                  <div className="p-4 rounded-xl bg-emerald-500/10 border border-emerald-500/30 space-y-2">
+                    <div className="flex items-center justify-between">
+                      <span className="font-extrabold text-white text-xs">Plan Blindaje Llave en Mano</span>
+                      <span className="text-xs font-mono font-black text-emerald-400">S/ 165 PEN</span>
+                    </div>
+                    <p className="text-[11px] text-neutral-300 leading-relaxed">
+                      Nosotros inyectamos y configuramos las cabeceras perimetrales directamente en tu servidor (Nginx/Apache/Cloudflare) con re-auditoría incluida y <strong>garantía de Grado A</strong>.
+                    </p>
+                  </div>
+                </div>
               </div>
 
             </div>
@@ -383,26 +429,53 @@ Set dynamic: Referrer-Policy = "strict-origin-when-cross-origin"`;
 
               {/* Matriz de Sockets TCP Auditados */}
               <div className="space-y-3">
-                <h3 className="text-sm font-bold text-white flex items-center gap-2">
-                  <Server className="w-4 h-4 text-[#38bdf8]" />
-                  <span>Superficie de Exposición de Red (Zero-Downtime TCP Sockets)</span>
-                </h3>
+                <div className="flex items-center justify-between">
+                  <h3 className="text-sm font-bold text-white flex items-center gap-2">
+                    <Server className="w-4 h-4 text-[#38bdf8]" />
+                    <span>Superficie de Exposición de Red (Zero-Downtime TCP Sockets)</span>
+                  </h3>
+                  <span className="text-[11px] font-mono text-neutral-400">
+                    Puerto 443 = Canal Seguro HTTPS &bull; Puerto 80 = Redirección Obligatoria
+                  </span>
+                </div>
                 <div className="grid grid-cols-2 sm:grid-cols-6 gap-2">
-                  {(DEMO_REPORT.ports || []).map((p) => (
-                    <div 
-                      key={p.port}
-                      className={`p-2.5 rounded-xl border text-center ${
-                        p.isOpen 
-                          ? p.port === 80 
-                            ? 'bg-amber-500/10 border-amber-500/30 text-amber-300' 
-                            : 'bg-emerald-500/10 border-emerald-500/30 text-emerald-300'
-                          : 'bg-white/5 border-white/10 text-neutral-400'
-                      }`}
-                    >
-                      <div className="font-mono font-bold text-xs text-white">Puerto {p.port}</div>
-                      <div className="text-[10px] opacity-80 mt-0.5">{p.isOpen ? 'Abierto' : 'Cerrado'}</div>
-                    </div>
-                  ))}
+                  {(DEMO_REPORT.ports || []).map((p) => {
+                    const isPort443 = p.port === 443;
+                    const isPort80 = p.port === 80;
+
+                    let statusTitle = p.isOpen ? 'Abierto' : 'Cerrado';
+                    let subtitle = 'Sin exposición';
+                    let badgeColor = 'bg-white/5 border-white/10 text-neutral-400';
+
+                    if (p.isOpen) {
+                      if (isPort443) {
+                        statusTitle = 'Abierto (Óptimo)';
+                        subtitle = 'HTTPS Seguro';
+                        badgeColor = 'bg-emerald-500/15 border-emerald-500/40 text-emerald-300';
+                      } else if (isPort80) {
+                        statusTitle = 'Redirección HTTPS';
+                        subtitle = 'Hacia puerto 443';
+                        badgeColor = 'bg-blue-500/15 border-blue-500/40 text-sky-300';
+                      } else {
+                        statusTitle = 'Expuesto';
+                        subtitle = 'Alerta de riesgo';
+                        badgeColor = 'bg-rose-500/15 border-rose-500/40 text-rose-300';
+                      }
+                    } else {
+                      subtitle = 'Protegido';
+                    }
+
+                    return (
+                      <div 
+                        key={p.port}
+                        className={`p-2.5 rounded-xl border text-center ${badgeColor}`}
+                      >
+                        <div className="font-mono font-bold text-xs text-white">Puerto {p.port}</div>
+                        <div className="text-[10px] font-semibold mt-0.5">{statusTitle}</div>
+                        <div className="text-[9px] opacity-70 mt-0.5">{subtitle}</div>
+                      </div>
+                    );
+                  })}
                 </div>
               </div>
 
@@ -521,7 +594,7 @@ Set dynamic: Referrer-Policy = "strict-origin-when-cross-origin"`;
 
                 <div className="p-3 rounded-xl bg-white/5 border border-white/10 text-xs text-neutral-300 font-mono">
                   <span>Comando de verificación posterior: </span>
-                  <code className="text-sky-300">curl -I https://distribuidora-textil-demo.pe</code>
+                  <code className="text-sky-300">curl -I https://ejemplo-empresa-demo.pe</code>
                 </div>
               </div>
 
@@ -532,7 +605,7 @@ Set dynamic: Referrer-Policy = "strict-origin-when-cross-origin"`;
           <AuditEngineExplanation 
             engineVersion="1.2.0-cloud"
             aiModel="Neuronality AI (Google Gemini 1.5 Flash)"
-            targetResolvedIp="190.235.144.12"
+            targetResolvedIp="[PROTEGIDA POR SEGURIDAD]"
             durationMs={840}
           />
 
@@ -559,6 +632,7 @@ Set dynamic: Referrer-Policy = "strict-origin-when-cross-origin"`;
             </a>
           </div>
 
+          </div>
         </div>
       </main>
     </div>
