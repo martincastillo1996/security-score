@@ -186,11 +186,11 @@ export default function TerminosYPrivacidadPage() {
               </div>
             </section>
 
-            {/* 5. Facturación y Pasarelas de Pago */}
+            {/* 5. Pagos y Emisión de Comprobantes */}
             <section className="space-y-3 text-sm leading-relaxed">
-              <h3 className="text-base font-bold text-white">5. Pagos y Emisión de Comprobantes de Pago</h3>
+              <h3 className="text-base font-bold text-white">5. Medios de Pago y Constancias de Servicio</h3>
               <p>
-                Los pagos se realizan mediante transferencias bancarias directas, aplicativos móviles autorizados (Yape / Plin) o pasarelas de pago peruanas certificadas (Culqi / Niez). <strong>DEFENSA TI no almacena ni procesa números de tarjetas bancarias.</strong> Conforme a la normativa tributaria peruana, por cada servicio prestado se emite la correspondiente <strong>Boleta de Venta o Factura Electrónica</strong> informada ante SUNAT.
+                Los pagos se realizan mediante transferencias bancarias directas o aplicativos móviles autorizados (Yape / Plin / transferencias). <strong>DEFENSA TI no almacena ni procesa números de tarjetas bancarias.</strong> Por cada servicio prestado se emite la constancia de entrega técnica y, en caso de ser expresamente requerido por el cliente al contratar, el comprobante legal correspondiente conforme a normativa tributaria.
               </p>
             </section>
 

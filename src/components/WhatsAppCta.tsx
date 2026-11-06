@@ -73,7 +73,7 @@ Quisiera coordinar contigo una asesoría para poner a punto las directivas perim
             Aplicamos las mejores prácticas en Cloudflare o tu servidor para evitar rechazos en pasarelas de pago (Mercado Pago, Niubiz, Stripe) y eliminar advertencias de &quot;Sitio no seguro&quot;.
           </p>
           <div className="text-[11px] text-neutral-400">
-            Aceptamos pagos en Soles para todo el Perú (Yape / Plin / BCP / Transferencia bancaria) con Boleta o Factura.
+            Aceptamos pagos en Soles para todo el Perú (Yape / Plin / BCP / Transferencia bancaria).
           </div>
         </div>
 

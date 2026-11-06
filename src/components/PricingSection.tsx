@@ -26,12 +26,12 @@ export default function PricingSection({ targetUrl, score, grade }: Props) {
       pricePen: 'S/ 65',
       badge: 'Entrega en 48 horas laborables',
       highlight: false,
-      description: 'Revisión exhaustiva externa. Informe formal firmado con membrete, RUC y boleta/factura, más el código exacto listo para aplicar.',
+      description: 'Revisión exhaustiva externa. Informe formal firmado con membrete institucional y RUC, más el código exacto listo para aplicar.',
       features: [
         'Diagnóstico perimetral profundo sin tocar tu servidor (Cero riesgo)',
         'Informe técnico formal firmado con membrete institucional y RUC',
         'Receta de código lista para copiar y pegar (Nginx, Apache o Cloudflare)',
-        'Emisión inmediata de Boleta de Venta o Factura Electrónica',
+        'Comprobante / constancia de servicio conforme a requerimiento',
         'Checklist prioritario para que tu equipo corrija las fallas en horas',
       ],
       ctaText: 'Pedir Dictamen Técnico - S/ 65',
@@ -123,7 +123,7 @@ export default function PricingSection({ targetUrl, score, grade }: Props) {
                   <span className="text-xs text-neutral-400 font-medium">Soles (PEN) &bull; Pago único</span>
                 </div>
                 <div className="text-[12px] text-emerald-400 font-semibold mt-1 flex items-center gap-1.5">
-                  <span>Factura o Boleta electrónica formal</span>
+                  <span>Constancia y entrega técnica garantizada</span>
                 </div>
                 <div className="mt-2 inline-flex items-center gap-1.5 px-2.5 py-0.5 rounded-full bg-white/5 border border-white/10 text-[10px] text-neutral-300 font-medium">
                   <span className="w-1.5 h-1.5 rounded-full bg-emerald-400 animate-pulse"></span>

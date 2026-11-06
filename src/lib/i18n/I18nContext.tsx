@@ -135,7 +135,7 @@ const translations: Record<Language, Translations> = {
     pricing: {
       badge: 'Tarifas en Soles • Puesta a Punto Express',
       title: 'Planes para Blindar tu Web en Grado A',
-      desc: 'Precios fijos en Soles sin sorpresas para empresas en el Perú. Pagos directos vía Yape, Plin, BCP o transferencia interbancaria con Boleta o Factura.',
+      desc: 'Precios fijos en Soles sin sorpresas para empresas en el Perú. Pagos directos vía Yape, Plin o transferencia bancaria.',
       plan1Name: 'Dictamen Técnico',
       plan1Tag: 'Para tu programador',
       plan1Desc: 'Dictamen técnico formal y orden de trabajo para que tu equipo o programador aplique las correcciones.',
