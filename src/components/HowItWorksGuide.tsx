@@ -5,97 +5,153 @@ import {
   ShieldCheck, 
   Search, 
   Zap, 
-  FileCheck2, 
-  Sparkles
+  Lock,
+  Sparkles,
+  CheckCircle2,
+  AlertTriangle,
+  ArrowRight
 } from 'lucide-react';
-import { useI18n } from '@/lib/i18n/I18nContext';
 
 export default function HowItWorksGuide() {
-  const { t } = useI18n();
-
-  const steps = [
-    {
-      step: '01',
-      title: t.howItWorks.step1Title,
-      desc: t.howItWorks.step1Desc,
-      icon: Search,
-      color: 'text-sky-400',
-      bgColor: 'bg-sky-500/10',
-      borderColor: 'border-sky-500/20'
-    },
-    {
-      step: '02',
-      title: t.howItWorks.step2Title,
-      desc: t.howItWorks.step2Desc,
-      icon: Zap,
-      color: 'text-amber-400',
-      bgColor: 'bg-amber-500/10',
-      borderColor: 'border-amber-500/20'
-    },
-    {
-      step: '03',
-      title: t.howItWorks.step3Title,
-      desc: t.howItWorks.step3Desc,
-      icon: ShieldCheck,
-      color: 'text-emerald-400',
-      bgColor: 'bg-emerald-500/10',
-      borderColor: 'border-emerald-500/20'
-    }
-  ];
-
   return (
     <div className="w-full max-w-4xl mx-auto space-y-4 pt-4">
-      {/* Tarjeta Bento Informativa Superior */}
-      <div className="p-6 sm:p-7 rounded-3xl bg-[#0c0d10] border border-white/10 shadow-[0_20px_50px_rgba(0,0,0,0.8)] space-y-6 text-left relative overflow-hidden">
+      {/* Tarjeta Bento Informativa Superior en Estilo Apple Pro Dark Glass */}
+      <div className="p-6 sm:p-8 rounded-3xl bg-[#0c0d10] border border-white/10 shadow-[0_20px_50px_rgba(0,0,0,0.8)] space-y-6 text-left relative overflow-hidden">
         
+        {/* Cabecera ejecutiva */}
         <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3 border-b border-white/10 pb-4">
           <div className="space-y-1">
             <div className="inline-flex items-center gap-1.5 px-3 py-0.5 rounded-full bg-blue-500/15 border border-blue-500/30 text-blue-300 text-[11px] font-bold">
               <Sparkles className="w-3.5 h-3.5 text-blue-400" />
-              <span>{t.howItWorks.badge}</span>
+              <span>¿Cómo funciona en 3 simples pasos?</span>
             </div>
-            <h3 className="text-xl sm:text-2xl font-bold text-white tracking-tight">
-              {t.howItWorks.title}
+            <h3 className="text-xl sm:text-2xl font-black text-white tracking-tight">
+              Protección Perimetral para Páginas Web y Tiendas Online
             </h3>
           </div>
-          <span className="text-xs text-neutral-400 self-start sm:self-center">
-            {t.howItWorks.freeTag}
+          <span className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-emerald-500/10 border border-emerald-500/30 text-emerald-400 text-xs font-bold self-start sm:self-center">
+            <span className="w-2 h-2 rounded-full bg-emerald-400 animate-pulse" />
+            100% Gratuito &bull; Sin Contraseñas
           </span>
         </div>
 
-        {/* 3 Pasos Ultra Visuales */}
+        {/* 3 Pasos Visuales e Ilustrativos */}
         <div className="grid grid-cols-1 sm:grid-cols-3 gap-4">
-          {steps.map((s, idx) => {
-            const Icon = s.icon;
-            return (
-              <div
-                key={idx}
-                className="p-4 rounded-2xl bg-[#141416] border border-white/10 hover:border-white/20 transition-all space-y-3 flex flex-col justify-between"
-              >
-                <div className="space-y-3">
-                  <div className="flex items-center justify-between">
-                    <div className={`w-9 h-9 rounded-xl ${s.bgColor} ${s.borderColor} border flex items-center justify-center ${s.color}`}>
-                      <Icon className="w-5 h-5" />
-                    </div>
-                    <span className="text-xs font-mono font-bold text-neutral-400">{s.step}</span>
-                  </div>
-                  <div>
-                    <h4 className="text-sm font-bold text-white">{s.title}</h4>
-                    <p className="text-xs text-neutral-300 leading-relaxed mt-1">{s.desc}</p>
-                  </div>
+          
+          {/* PASO 1 */}
+          <div className="p-5 rounded-2xl bg-[#141416] border border-white/10 hover:border-sky-500/30 transition-all flex flex-col justify-between space-y-4 group">
+            <div className="space-y-3">
+              <div className="flex items-center justify-between">
+                <div className="w-10 h-10 rounded-2xl bg-sky-500/15 border border-sky-500/30 flex items-center justify-center text-sky-400 shadow-inner">
+                  <Search className="w-5 h-5" />
                 </div>
+                <span className="text-xs font-mono font-black text-sky-400 bg-sky-500/10 px-2 py-0.5 rounded-lg border border-sky-500/20">
+                  PASO 01
+                </span>
               </div>
-            );
-          })}
+
+              {/* Gráfico visual simulado de barra de búsqueda */}
+              <div className="p-2.5 rounded-xl bg-black/50 border border-white/5 flex items-center gap-2">
+                <span className="w-2 h-2 rounded-full bg-sky-400" />
+                <span className="text-[11px] font-mono text-neutral-400 truncate">tutienda.pe</span>
+              </div>
+
+              <div>
+                <h4 className="text-sm font-extrabold text-white">Escribes tu web</h4>
+                <p className="text-xs text-neutral-300 leading-relaxed mt-1">
+                  Solo ingresas el link de tu negocio. <strong>Nunca te pediremos contraseñas</strong> ni accesos a tu hosting.
+                </p>
+              </div>
+            </div>
+
+            <div className="text-[10px] text-neutral-400 flex items-center gap-1 font-medium pt-2 border-t border-white/5">
+              <CheckCircle2 className="w-3.5 h-3.5 text-sky-400 shrink-0" />
+              <span>Cero riesgo para tu servidor</span>
+            </div>
+          </div>
+
+          {/* PASO 2 */}
+          <div className="p-5 rounded-2xl bg-[#141416] border border-white/10 hover:border-amber-500/30 transition-all flex flex-col justify-between space-y-4 group">
+            <div className="space-y-3">
+              <div className="flex items-center justify-between">
+                <div className="w-10 h-10 rounded-2xl bg-amber-500/15 border border-amber-500/30 flex items-center justify-center text-amber-400 shadow-inner">
+                  <Zap className="w-5 h-5" />
+                </div>
+                <span className="text-xs font-mono font-black text-amber-400 bg-amber-500/10 px-2 py-0.5 rounded-lg border border-amber-500/20">
+                  PASO 02
+                </span>
+              </div>
+
+              {/* Gráfico visual simulado de semáforo de nota */}
+              <div className="p-2.5 rounded-xl bg-black/50 border border-white/5 flex items-center justify-between">
+                <div className="flex items-center gap-1.5">
+                  <span className="w-2.5 h-2.5 rounded-full bg-rose-500" />
+                  <span className="w-2.5 h-2.5 rounded-full bg-amber-400" />
+                  <span className="w-2.5 h-2.5 rounded-full bg-emerald-400" />
+                </div>
+                <span className="text-xs font-bold text-amber-300 font-mono">Calificación Grado A a F</span>
+              </div>
+
+              <div>
+                <h4 className="text-sm font-extrabold text-white">Diagnóstico al instante</h4>
+                <p className="text-xs text-neutral-300 leading-relaxed mt-1">
+                  En 1 segundo ves tu nota: si tu web es vulnerable a <strong>clonación de pagos o robo de compras</strong> en Wi-Fi.
+                </p>
+              </div>
+            </div>
+
+            <div className="text-[10px] text-neutral-400 flex items-center gap-1 font-medium pt-2 border-t border-white/5">
+              <AlertTriangle className="w-3.5 h-3.5 text-amber-400 shrink-0" />
+              <span>Detecta fallas antes que los estafadores</span>
+            </div>
+          </div>
+
+          {/* PASO 3 */}
+          <div className="p-5 rounded-2xl bg-[#141416] border border-white/10 hover:border-emerald-500/30 transition-all flex flex-col justify-between space-y-4 group">
+            <div className="space-y-3">
+              <div className="flex items-center justify-between">
+                <div className="w-10 h-10 rounded-2xl bg-emerald-500/15 border border-emerald-500/30 flex items-center justify-center text-emerald-400 shadow-inner">
+                  <ShieldCheck className="w-5 h-5" />
+                </div>
+                <span className="text-xs font-mono font-black text-emerald-400 bg-emerald-500/10 px-2 py-0.5 rounded-lg border border-emerald-500/20">
+                  PASO 03
+                </span>
+              </div>
+
+              {/* Gráfico visual simulado de candado blindado */}
+              <div className="p-2.5 rounded-xl bg-emerald-950/40 border border-emerald-500/20 flex items-center gap-2 text-emerald-300">
+                <Lock className="w-3.5 h-3.5" />
+                <span className="text-[11px] font-bold">Web 100% Protegida (Grado A)</span>
+              </div>
+
+              <div>
+                <h4 className="text-sm font-extrabold text-white">Blindas tu negocio</h4>
+                <p className="text-xs text-neutral-300 leading-relaxed mt-1">
+                  Descargas tu informe para tu técnico o <strong>nosotros lo blindamos por ti</strong> en 3 a 5 días con garantía.
+                </p>
+              </div>
+            </div>
+
+            <div className="text-[10px] text-neutral-400 flex items-center gap-1 font-medium pt-2 border-t border-white/5">
+              <CheckCircle2 className="w-3.5 h-3.5 text-emerald-400 shrink-0" />
+              <span>Cero cobros bloqueados en Yape o Niubiz</span>
+            </div>
+          </div>
+
         </div>
 
-        {/* Franja de Utilidad Inmediata */}
-        <div className="p-3.5 rounded-2xl bg-white/5 border border-white/5 flex flex-col sm:flex-row items-center justify-between gap-3 text-xs text-neutral-300">
-          <span className="flex items-center gap-2">
-            <FileCheck2 className="w-4 h-4 text-emerald-400 shrink-0" />
-            <span>{t.howItWorks.footerAlert}</span>
+        {/* Franja de Utilidad Empresarial Inmediata */}
+        <div className="p-4 rounded-2xl bg-white/5 border border-white/5 flex flex-col sm:flex-row items-center justify-between gap-3 text-xs text-neutral-300">
+          <div className="flex items-center gap-2">
+            <span className="p-1 rounded-lg bg-emerald-500/20 text-emerald-400">
+              <ShieldCheck className="w-4 h-4" />
+            </span>
+            <span>Evita que tus clientes vean alertas de <strong>&ldquo;Sitio No Seguro&rdquo;</strong> o te retengan cobros en pasarelas.</span>
+          </div>
+          <span className="text-[11px] text-[#38bdf8] font-semibold flex items-center gap-1 shrink-0">
+            <span>Resultados en tiempo real</span>
+            <ArrowRight className="w-3 h-3" />
           </span>
-          <span className="text-[11px] text-neutral-400">{t.howItWorks.owaspTag}</span>
         </div>
 
       </div>
