@@ -31,6 +31,70 @@ export default function BusinessOverview({ report }: Props) {
     p => p.isOpen && [21, 22, 3306, 5432].includes(p.port)
   );
 
+  // Semáforo estricto de colores (Verde | Amarillo | Rojo)
+  const sslStatus: 'green' | 'yellow' | 'red' = !report.ssl?.valid
+    ? 'red'
+    : (report.ssl.daysRemaining !== undefined && report.ssl.daysRemaining <= 15)
+    ? 'yellow'
+    : 'green';
+
+  const antiCloningStatus: 'green' | 'yellow' | 'red' = missingHeaders.length >= 3
+    ? 'red'
+    : missingHeaders.length > 0
+    ? 'yellow'
+    : 'green';
+
+  const dbStatus: 'green' | 'yellow' | 'red' = hasOpenAdminPorts
+    ? 'red'
+    : 'green';
+
+  const paymentStatus: 'green' | 'yellow' | 'red' = (report.score ?? 0) < 60
+    ? 'red'
+    : (report.score ?? 0) < 85
+    ? 'yellow'
+    : 'green';
+
+  const privacyLawStatus: 'green' | 'yellow' | 'red' = !report.ssl?.valid
+    ? 'red'
+    : hasDowngradeRisk || missingHeaders.length >= 2
+    ? 'yellow'
+    : 'green';
+
+  const getTrafficLightStyles = (status: 'green' | 'yellow' | 'red') => {
+    switch (status) {
+      case 'green':
+        return {
+          container: 'bg-emerald-500/10 border-emerald-500/30',
+          icon: <CheckCircle2 className="w-5 h-5 text-emerald-400 shrink-0 mt-0.5" />,
+          badge: (
+            <span className="px-2 py-0.5 rounded-full text-[10px] font-bold bg-emerald-500/20 text-emerald-300 border border-emerald-500/40">
+              🟢 Óptimo
+            </span>
+          )
+        };
+      case 'yellow':
+        return {
+          container: 'bg-amber-500/10 border-amber-500/30',
+          icon: <AlertTriangle className="w-5 h-5 text-amber-400 shrink-0 mt-0.5" />,
+          badge: (
+            <span className="px-2 py-0.5 rounded-full text-[10px] font-bold bg-amber-500/20 text-amber-300 border border-amber-500/40">
+              🟡 Advertencia
+            </span>
+          )
+        };
+      case 'red':
+        return {
+          container: 'bg-rose-500/10 border-rose-500/30',
+          icon: <ShieldAlert className="w-5 h-5 text-rose-400 shrink-0 mt-0.5" />,
+          badge: (
+            <span className="px-2 py-0.5 rounded-full text-[10px] font-bold bg-rose-500/20 text-rose-300 border border-rose-500/40">
+              🔴 Crítico
+            </span>
+          )
+        };
+    }
+  };
+
   return (
     <div className="space-y-6 animate-in fade-in-50 duration-300">
       
@@ -140,86 +204,125 @@ export default function BusinessOverview({ report }: Props) {
       <div className="p-6 sm:p-7 rounded-3xl bg-[#141416] border border-white/10 shadow-2xl space-y-5">
         <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-2 border-b border-white/10 pb-4">
           <div className="flex items-center gap-2.5">
-            <Building2 className="w-5 h-5 text-[#2997ff]" />
+            <Building2 className="w-5 h-5 text-white" />
             <h3 className="text-base font-bold text-white tracking-tight">
               Diagnóstico en Términos de Negocio (Para el Dueño o Gerente)
             </h3>
           </div>
-          <span className="text-[11px] px-2.5 py-0.5 rounded-full bg-blue-500/10 text-blue-300 border border-blue-500/20 w-fit">
-            Sin tecnicismos complicados
-          </span>
+          <div className="flex items-center gap-2 text-[11px] font-mono px-3 py-1 rounded-full bg-white/5 border border-white/10 text-neutral-300 w-fit">
+            <span className="text-emerald-400 font-bold">🟢 Óptimo</span>
+            <span>&bull;</span>
+            <span className="text-amber-400 font-bold">🟡 Advertencia</span>
+            <span>&bull;</span>
+            <span className="text-rose-400 font-bold">🔴 Crítico</span>
+          </div>
         </div>
         
         <div className="space-y-3 text-xs sm:text-sm">
           
-          {/* 1. Candado de Seguridad */}
-          <div className="flex items-start gap-3 p-3.5 rounded-2xl bg-black/40 border border-white/5">
-            <CheckCircle2 className="w-5 h-5 text-emerald-400 shrink-0 mt-0.5" />
-            <div className="space-y-0.5">
-              <strong className="text-white block">1. Candado de Seguridad (Certificado SSL):</strong>
-              <span className="text-neutral-300">
-                {report.ssl?.valid 
-                  ? `Está activo por los próximos ${report.ssl.daysRemaining} días. La conexión básica entre tu cliente y tu página viaja cifrada.`
-                  : 'Está vencido o presenta fallas. Los navegadores muestran la pantalla roja de advertencia.'}
-              </span>
-            </div>
-          </div>
+          {/* 1. Candado de Seguridad (SSL) */}
+          {(() => {
+            const styles = getTrafficLightStyles(sslStatus);
+            return (
+              <div className={`flex items-start justify-between gap-3 p-3.5 rounded-2xl border transition-colors ${styles.container}`}>
+                <div className="flex items-start gap-3">
+                  {styles.icon}
+                  <div className="space-y-0.5">
+                    <strong className="text-white block">1. Candado de Seguridad (Certificado SSL):</strong>
+                    <span className="text-neutral-300">
+                      {sslStatus === 'green' && `Activo y vigente por los próximos ${report.ssl?.daysRemaining ?? '...'} días. La conexión básica entre tu cliente y tu página viaja cifrada.`}
+                      {sslStatus === 'yellow' && `Atención: El certificado SSL vence pronto (en ${report.ssl?.daysRemaining ?? 'pocos'} días). Requiere renovación preventiva inmediata.`}
+                      {sslStatus === 'red' && 'Crítico: Certificado SSL vencido o inválido. Los navegadores muestran la pantalla roja de advertencia y bloquean visitas.'}
+                    </span>
+                  </div>
+                </div>
+                <div className="shrink-0">{styles.badge}</div>
+              </div>
+            );
+          })()}
 
-          {/* 2. Escudo contra engaños */}
-          <div className="flex items-start gap-3 p-3.5 rounded-2xl bg-black/40 border border-white/5">
-            {missingHeaders.length > 0 ? (
-              <AlertTriangle className="w-5 h-5 text-amber-400 shrink-0 mt-0.5" />
-            ) : (
-              <CheckCircle2 className="w-5 h-5 text-emerald-400 shrink-0 mt-0.5" />
-            )}
-            <div className="space-y-0.5">
-              <strong className="text-white block">2. Protección Anti-Clonación en Navegadores:</strong>
-              <span className="text-neutral-300">
-                {missingHeaders.length > 0 
-                  ? `Faltan ${missingHeaders.length} reglas de blindaje perimetral. Sin estas reglas, terceros pueden incrustar tu web en otros sitios para suplantar tu identidad.`
-                  : 'Tu portal cuenta con todas las reglas que impiden ser duplicado dentro de otras páginas.'}
-              </span>
-            </div>
-          </div>
+          {/* 2. Protección Anti-Clonación en Navegadores */}
+          {(() => {
+            const styles = getTrafficLightStyles(antiCloningStatus);
+            return (
+              <div className={`flex items-start justify-between gap-3 p-3.5 rounded-2xl border transition-colors ${styles.container}`}>
+                <div className="flex items-start gap-3">
+                  {styles.icon}
+                  <div className="space-y-0.5">
+                    <strong className="text-white block">2. Protección Anti-Clonación en Navegadores:</strong>
+                    <span className="text-neutral-300">
+                      {antiCloningStatus === 'green' && 'Tu portal cuenta con todas las directivas perimetrales (CSP, X-Frame) que impiden ser duplicado dentro de otras páginas.'}
+                      {antiCloningStatus === 'yellow' && `Faltan ${missingHeaders.length} reglas de blindaje perimetral para evitar que tu web sea incrustada en páginas externas.`}
+                      {antiCloningStatus === 'red' && `Faltan ${missingHeaders.length} reglas críticas de blindaje perimetral. Terceros pueden clonar o incrustar tu web en páginas espejo para suplantar tu identidad.`}
+                    </span>
+                  </div>
+                </div>
+                <div className="shrink-0">{styles.badge}</div>
+              </div>
+            );
+          })()}
 
-          {/* 3. Acceso a datos internos */}
-          <div className="flex items-start gap-3 p-3.5 rounded-2xl bg-black/40 border border-white/5">
-            {hasOpenAdminPorts ? (
-              <ShieldAlert className="w-5 h-5 text-rose-400 shrink-0 mt-0.5" />
-            ) : (
-              <CheckCircle2 className="w-5 h-5 text-emerald-400 shrink-0 mt-0.5" />
-            )}
-            <div className="space-y-0.5">
-              <strong className="text-white block">3. Accesos y Bases de Datos:</strong>
-              <span className="text-neutral-300">
-                {hasOpenAdminPorts 
-                  ? 'Hay puertos de gestión abiertos a todo internet. Cualquier atacante puede intentar contraseñas por fuerza bruta.'
-                  : 'Tus bases de datos y accesos privados están debidamente ocultos de miradas públicas.'}
-              </span>
-            </div>
-          </div>
+          {/* 3. Accesos y Bases de Datos */}
+          {(() => {
+            const styles = getTrafficLightStyles(dbStatus);
+            return (
+              <div className={`flex items-start justify-between gap-3 p-3.5 rounded-2xl border transition-colors ${styles.container}`}>
+                <div className="flex items-start gap-3">
+                  {styles.icon}
+                  <div className="space-y-0.5">
+                    <strong className="text-white block">3. Accesos y Bases de Datos:</strong>
+                    <span className="text-neutral-300">
+                      {dbStatus === 'green' && 'Tus bases de datos y accesos privados están debidamente ocultos y protegidos de miradas públicas.'}
+                      {dbStatus === 'red' && 'Hay puertos de gestión o base de datos abiertos a todo internet. Cualquier atacante puede intentar ataques de fuerza bruta.'}
+                    </span>
+                  </div>
+                </div>
+                <div className="shrink-0">{styles.badge}</div>
+              </div>
+            );
+          })()}
 
-          {/* 4. Aceptación de Pagos */}
-          <div className="flex items-start gap-3 p-3.5 rounded-2xl bg-emerald-500/10 border border-emerald-500/25">
-            <CheckCircle2 className="w-5 h-5 text-emerald-400 shrink-0 mt-0.5" />
-            <div className="space-y-0.5">
-              <strong className="text-white block">4. Compatibilidad con Pasarelas de Pago (Yape, Niubiz, Mercado Pago, Stripe):</strong>
-              <span className="text-neutral-300">
-                Las pasarelas rechazan transacciones o retienen fondos cuando el portal auditado tiene calificación D o F por sospecha de riesgo transaccional. Mantener Grado A asegura fluidez en tus cobros.
-              </span>
-            </div>
-          </div>
+          {/* 4. Compatibilidad con Pasarelas de Pago */}
+          {(() => {
+            const styles = getTrafficLightStyles(paymentStatus);
+            return (
+              <div className={`flex items-start justify-between gap-3 p-3.5 rounded-2xl border transition-colors ${styles.container}`}>
+                <div className="flex items-start gap-3">
+                  {styles.icon}
+                  <div className="space-y-0.5">
+                    <strong className="text-white block">4. Compatibilidad con Pasarelas de Pago (Yape, Niubiz, Culqi):</strong>
+                    <span className="text-neutral-300">
+                      {paymentStatus === 'green' && `Óptimo (Calificación ${report.grade || 'A'}): Cumple con los estándares perimetrales exigidos por pasarelas peruanas (Yape, Niubiz, Culqi), asegurando fluidez en tus cobros.`}
+                      {paymentStatus === 'yellow' && `Atención (Calificación ${report.grade || 'B'}): La web es funcional pero carece de directivas perimetrales completas; las pasarelas pueden aplicar revisiones preventivas.`}
+                      {paymentStatus === 'red' && `Crítico (Calificación ${report.grade || 'F'}): Las pasarelas de pago rechazan transacciones o retienen fondos preventivamente ante sospecha de riesgo transaccional o web no blindada.`}
+                    </span>
+                  </div>
+                </div>
+                <div className="shrink-0">{styles.badge}</div>
+              </div>
+            );
+          })()}
 
-          {/* 5. Leyes de Protección de Datos */}
-          <div className="flex items-start gap-3 p-3.5 rounded-2xl bg-[#0071e3]/10 border border-[#0071e3]/25">
-            <CheckCircle2 className="w-5 h-5 text-[#38bdf8] shrink-0 mt-0.5" />
-            <div className="space-y-0.5">
-              <strong className="text-white block">5. Leyes de Protección de Datos (Perú Ley 29733, Colombia Ley 1581, México, Chile):</strong>
-              <span className="text-neutral-300">
-                Exigen que las sesiones de los clientes viajen con cookies seguras (<em>Secure / HttpOnly</em>) para evitar multas de entes reguladores ante filtración de datos de usuarios.
-              </span>
-            </div>
-          </div>
+          {/* 5. Ley de Protección de Datos Personales (Perú Ley N° 29733) */}
+          {(() => {
+            const styles = getTrafficLightStyles(privacyLawStatus);
+            return (
+              <div className={`flex items-start justify-between gap-3 p-3.5 rounded-2xl border transition-colors ${styles.container}`}>
+                <div className="flex items-start gap-3">
+                  {styles.icon}
+                  <div className="space-y-0.5">
+                    <strong className="text-white block">5. Ley de Protección de Datos Personales (Perú Ley N° 29733):</strong>
+                    <span className="text-neutral-300">
+                      {privacyLawStatus === 'green' && 'Protegido: Las sesiones de los clientes viajan con cifrado seguro forzado, protegiendo los datos personales conforme a la Ley N° 29733.'}
+                      {privacyLawStatus === 'yellow' && 'En riesgo: Requiere forzar cifrado estricto y cookies seguras (Secure / HttpOnly) para prevenir filtraciones de sesiones y cumplir la Ley N° 29733.'}
+                      {privacyLawStatus === 'red' && 'Incumplimiento crítico: Al no contar con cifrado seguro activo, los datos de clientes viajan expuestos, generando riesgo de multas bajo la Ley N° 29733.'}
+                    </span>
+                  </div>
+                </div>
+                <div className="shrink-0">{styles.badge}</div>
+              </div>
+            );
+          })()}
         </div>
 
         <div className="pt-2 text-xs text-neutral-400 border-t border-white/5 flex items-center gap-2">
