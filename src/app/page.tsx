@@ -9,7 +9,6 @@ import LeadQuoteSection from '@/components/LeadQuoteSection';
 import FaqSection from '@/components/FaqSection';
 import LiveNetworkTrafficGlobe from '@/components/LiveNetworkTrafficGlobe';
 import GlobalCyberThreatsAndSeoScanner from '@/components/GlobalCyberThreatsAndSeoScanner';
-import FloatingWhatsAppButton from '@/components/FloatingWhatsAppButton';
 import { useI18n } from '@/lib/i18n/I18nContext';
 import {
   Brain,
@@ -1175,9 +1174,6 @@ export default function NeuronalGravityHomePage() {
             </div>
           </div>
         </footer>
-
-        {/* Botón Flotante de WhatsApp para Contacto Directo */}
-        <FloatingWhatsAppButton />
 
       </div>
     </div>

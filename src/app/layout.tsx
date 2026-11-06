@@ -5,6 +5,7 @@ import { I18nProvider } from "@/lib/i18n/I18nContext";
 import CookieConsentBanner from "@/components/CookieConsentBanner";
 import DonationModal from "@/components/DonationModal";
 import AiConsultantWidget from "@/components/AiConsultantWidget";
+import FloatingWhatsAppButton from "@/components/FloatingWhatsAppButton";
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -32,6 +33,10 @@ export const metadata: Metadata = {
     card: "summary_large_image",
     title: "Neuronal Gravity | Soluciones de Negocio con IA",
     description: "Agentes autónomos de ventas en WhatsApp 24/7 y ciberdefensa perimetral para empresas.",
+  },
+  icons: {
+    icon: "/favicon.ico",
+    apple: "/apple-touch-icon.png",
   },
   other: {
     "theme-color": "#000000",
@@ -97,6 +102,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
           <AiConsultantWidget />
           <DonationModal />
           <CookieConsentBanner />
+          <FloatingWhatsAppButton />
         </I18nProvider>
       </body>
     </html>

@@ -29,7 +29,7 @@ export default function LeadQuoteSection() {
     phone: '',
     service: 'Agente de Ventas en WhatsApp 24/7',
     timeline: 'En menos de 2 semanas',
-    budget: '$600 - $1,500 USD',
+    budget: 'A convenir / Abierto a propuestas',
     details: '',
   });
 
@@ -315,10 +315,11 @@ export default function LeadQuoteSection() {
                       onChange={(e) => setFormData({ ...formData, budget: e.target.value })}
                       className="w-full bg-[#18181b] border border-white/10 rounded-xl px-3.5 py-2.5 text-xs text-white focus:outline-none focus:border-[#38bdf8]"
                     >
-                      <option value="$300 - $600 USD">Fase Piloto / Inicial: $300 a $600 USD</option>
-                      <option value="$600 - $1,500 USD">Producción y Escala: $600 a $1,500 USD</option>
-                      <option value="$1,500 - $3,500 USD">Corporativo / Múltiples Flujos: $1,500 a $3,500 USD</option>
-                      <option value="+ $3,500 USD">Enterprise & Modelos Propietarios (+ $3,500 USD)</option>
+                      <option value="A convenir / Abierto a propuestas">A convenir / Conversar según alcance</option>
+                      <option value="Piloto de Entrada: Menos de S/ 500 (~$130 USD)">Piloto de Entrada: Menos de S/ 500 (~$130 USD)</option>
+                      <option value="Implementación Básica: S/ 500 a S/ 1,500 ($130 a $400 USD)">Implementación Básica: S/ 500 a S/ 1,500 ($130 a $400 USD)</option>
+                      <option value="Proyecto a Medida: S/ 1,500 a S/ 3,800 ($400 a $1,000 USD)">Proyecto a Medida: S/ 1,500 a S/ 3,800 ($400 a $1,000 USD)</option>
+                      <option value="Solución Integral / Avanzada: Más de S/ 3,800 (+ $1,000 USD)">Solución Integral / Avanzada: Más de S/ 3,800 (+ $1,000 USD)</option>
                     </select>
                   </div>
 
