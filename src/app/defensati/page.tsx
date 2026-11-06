@@ -73,8 +73,8 @@ export default function HomePage() {
         body: JSON.stringify({ url: finalUrl }),
       });
 
-      // Garantizar al menos 1400ms para que la animación de la red neuronal sea visible sin demorar al usuario
-      const minDelayPromise = new Promise((resolve) => setTimeout(resolve, 1400));
+      // Garantizar tiempo suficiente (~3900ms) para que el usuario aprecie cada fase de la auditoría neuronal
+      const minDelayPromise = new Promise((resolve) => setTimeout(resolve, 3900));
       const [res] = await Promise.all([scanPromise, minDelayPromise]);
 
       const data = await res.json();

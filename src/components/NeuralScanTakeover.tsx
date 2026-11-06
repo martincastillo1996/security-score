@@ -75,7 +75,7 @@ export default function NeuralScanTakeover({ targetUrl }: NeuralScanTakeoverProp
     }
   }, []);
 
-  // Transición rápida entre pasos (~400ms por paso para ser ultra dinámico)
+  // Transición guiada entre fases (~950ms por paso para apreciar la auditoría y telemetría en tiempo real)
   useEffect(() => {
     const stepInterval = setInterval(() => {
       setCurrentStepIdx((prev) => {
@@ -86,7 +86,7 @@ export default function NeuralScanTakeover({ targetUrl }: NeuralScanTakeoverProp
         }
         return prev;
       });
-    }, 420);
+    }, 950);
 
     return () => clearInterval(stepInterval);
   }, []);
@@ -326,7 +326,7 @@ export default function NeuralScanTakeover({ targetUrl }: NeuralScanTakeoverProp
         <div className="w-full max-w-xl space-y-2">
           <div className="w-full h-3 sm:h-3.5 rounded-full bg-white/10 p-0.5 overflow-hidden border border-white/15 shadow-inner">
             <div
-              className="h-full bg-gradient-to-r from-[#0071e3] via-[#7928ca] to-[#38bdf8] rounded-full transition-all duration-300 shadow-[0_0_20px_rgba(56,189,248,0.8)] relative"
+              className="h-full bg-gradient-to-r from-[#0071e3] via-[#7928ca] to-[#38bdf8] rounded-full transition-all duration-700 ease-out shadow-[0_0_20px_rgba(56,189,248,0.8)] relative"
               style={{ width: `${progress}%` }}
             >
               {/* Reflejo de brillo móvil */}
