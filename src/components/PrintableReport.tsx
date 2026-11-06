@@ -203,8 +203,8 @@ export default function PrintableReport({ report, auditId }: Props) {
           <span>Martín Castillo &bull; Soluciones Tecnológicas y Ciberseguridad</span>
         </div>
         <div className="text-right">
-          <span className="block font-bold text-emerald-800">Sello de Certificación Digital Verificado</span>
-          <span>https://neuronalgravity.com &bull; Dictamen Válido</span>
+          <span className="block font-bold text-emerald-800">Dictamen de Calificación Perimetral Verificada</span>
+          <span>https://neuronalgravity.com &bull; Evaluación Técnica</span>
         </div>
       </div>
     </div>

@@ -123,13 +123,13 @@ export default function HowItWorksGuide() {
               {/* Gráfico visual simulado de candado blindado */}
               <div className="h-11 px-3.5 rounded-xl bg-emerald-950/40 border border-emerald-500/20 flex items-center gap-2.5 text-emerald-300">
                 <Lock className="w-3.5 h-3.5 shrink-0 text-emerald-400" />
-                <span className="text-xs font-bold whitespace-nowrap">Web 100% Protegida (Grado A)</span>
+                <span className="text-xs font-bold whitespace-nowrap">Riesgo Perimetral Reducido (Meta Grado A)</span>
               </div>
 
               <div>
                 <h4 className="text-base font-extrabold text-white">Blindas tu negocio</h4>
                 <p className="text-xs sm:text-[13px] text-neutral-300 leading-relaxed mt-1.5">
-                  Descargas tu informe para tu técnico o <strong>nosotros lo blindamos por ti</strong> en 3 a 5 días con garantía.
+                  Descargas tu informe para tu técnico o <strong>nosotros lo blindamos por ti</strong> en 3 a 5 días con re-medición técnica incluida.
                 </p>
               </div>
             </div>

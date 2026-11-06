@@ -32,7 +32,7 @@ export default function RealCasesSection() {
           Empresas en Perú: Antes y Después del Blindaje
         </h2>
         <p className="text-xs sm:text-sm text-neutral-300 leading-relaxed max-w-2xl mx-auto">
-          Resultados medibles con auditoría determinista independiente. Mira cómo sitios vulnerables pasaron de alertas rojas en navegadores a certificación técnica Grado A.
+          Resultados medibles con auditoría determinista independiente. Mira cómo sitios vulnerables pasaron de alertas rojas en navegadores a calificación técnica Grado A.
         </p>
       </div>
 
@@ -127,7 +127,7 @@ export default function RealCasesSection() {
                   </div>
                   <div className="text-right">
                     <span className="text-2xl font-black text-emerald-400 font-mono">94/100</span>
-                    <span className="block text-[10px] text-emerald-300 font-bold uppercase">Grado A Certificado</span>
+                    <span className="block text-[10px] text-emerald-300 font-bold uppercase">Calificación Grado A</span>
                   </div>
                 </div>
 

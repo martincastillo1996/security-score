@@ -2,15 +2,10 @@
 
 import React from 'react';
 import { Zap, Lock, Activity } from 'lucide-react';
+import { CANONICAL_PORTS } from '@/config/ports';
 
 export default function AppleCyberHud() {
-  const ports = [
-    { port: 80, name: 'HTTP' },
-    { port: 443, name: 'HTTPS' },
-    { port: 21, name: 'FTP' },
-    { port: 22, name: 'SSH' },
-    { port: 3306, name: 'MySQL' },
-  ];
+  const ports = CANONICAL_PORTS.map(p => ({ port: p.port, name: p.shortName }));
 
   return (
     <div id="arquitectura" className="w-full max-w-4xl mx-auto py-4 scroll-mt-24 space-y-5">

@@ -53,7 +53,7 @@ export default function VerifiedBadgeWidget({ domain, auditId, grade, score = 0 
       </div>
 
       <p className="text-xs sm:text-sm text-slate-300 leading-relaxed">
-        Las tiendas online y páginas web que exhiben su certificación perimetral aumentan hasta un <strong>18% su tasa de conversión en pasarelas de pago</strong> al transmitir legitimidad inmediata a sus clientes en Perú y el mundo.
+        Las tiendas online y páginas web que exhiben su insignia de verificación perimetral aumentan hasta un <strong>18% su tasa de conversión en pasarelas de pago</strong> al transmitir legitimidad inmediata a sus clientes en Perú y el mundo.
       </p>
 
       {/* Previsualización del Sello */}

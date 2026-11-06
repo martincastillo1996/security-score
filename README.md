@@ -59,13 +59,13 @@ La mayoría de escáneres de seguridad tradicionales (*Qualys*, *Mozilla Observa
 
 ## ✨ Características Principales
 
-* ⚡ **Auditoría Perimetral Ultrarrápida (< 1.2s):** Inspección asíncrona concurrente de transporte TLS, puertos TCP y cabeceras HTTP sin colgar el hilo de ejecución.
+* ⚡ **Auditoría Perimetral Asíncrona Concurrente:** Inspección optimizada de transporte TLS, puertos TCP y cabeceras HTTP sin colgar el hilo de ejecución (tiempos típicos de 1 a 2 segundos en condiciones estándar de red).
 * 🔒 **Inspección de Sockets TLS a Nivel Kernel:** Conexión cruda mediante `node:tls` para verificar algoritmos de cifrado, cadenas de certificación, vigencia y compatibilidad con **TLSv1.3**.
-* 🔌 **Zero-Downtime TCP Sockets:** Sondeo perimetral pasivo en puertos críticos (`80`, `21 FTP`, `22 SSH`, `3306 MySQL`, `8080 Proxy`) con timeouts de `600ms`.
-* 🛡️ **Hardening Anti-SSRF Estricto:** Mitigación en dos capas (DNS pre-resolución e inspección de cabeceras `Location` en saltos 301/302) contra subredes privadas RFC 1918 y metadatos de AWS/Cloud.
+* 🔌 **Matriz Canónica de Sockets TCP:** Inspección en puertos web (`80`, `443`, `8080`) y verificación de exposición de infraestructura (`21 FTP`, `22 SSH`, `3306 MySQL`) con sondeo no intrusivo y timeouts de `600ms`.
+* 🛡️ **Hardening Anti-SSRF Exhaustivo (IPv4 + IPv6 + Redirects):** Mitigación multicapa con pre-resolución DNS dual (A y AAAA), bloqueo de rangos privados (RFC 1918, RFC 3927 Cloud Metadata, RFC 4193 ULA, CGNAT) e inspección estricta de saltos 301/302 para frenar desvíos y DNS Rebinding.
 * 🤖 **Motor de Remediación con Cascada Dual:** Inteligencia artificial vía Google Gemini con fallback inmediato a reglas heurísticas estáticas ($0 costo permanente).
-* 📄 **Dictamen Forense en PDF A4:** Generación instantánea de reportes ejecutivos listos para presentar ante auditorías de cumplimiento (ISO 27001 / PCI-DSS).
-* 💼 **Modo Dual Dueño de Negocio vs. Ingeniero:** Interruptor en vivo que traduce las directivas técnicas a riesgos de clonación de marca, pérdida de ventas o robo de tarjetas.
+* 📄 **Dictamen Perimetral en PDF A4:** Generación instantánea de reportes ejecutivos con membrete formal y receta de código lista para aplicar en Nginx, Apache o Cloudflare.
+* 💼 **Modo Dual Dueño de Negocio vs. Ingeniero:** Interruptor en vivo que traduce las directivas técnicas a riesgos comerciales de clickjacking, pérdida de ventas o robo de sesiones.
 
 ---
 
@@ -73,10 +73,10 @@ La mayoría de escáneres de seguridad tradicionales (*Qualys*, *Mozilla Observa
 
 | Capacidad / Métrica | **DEFENSA TI** | Mozilla Observatory | Qualys SSL Labs |
 | :--- | :---: | :---: | :---: |
-| **Tiempo de Auditoría Promedio** | **⚡ < 1.2 seg** | 🐢 15 - 30 seg | ⏳ 60 - 120 seg |
-| **Inspección de Sockets TCP (21, 22, 3306)** | ✅ **Sí (Nativa)** | ❌ No | ❌ No |
+| **Tiempo de Auditoría Promedio** | **⚡ 1 - 2 seg (Concurrente)** | 🐢 15 - 30 seg | ⏳ 60 - 120 seg |
+| **Inspección de Sockets TCP (80, 443, 8080, 21, 22, 3306)** | ✅ **Sí (Nativa)** | ❌ No | ❌ No |
 | **Generación de Parches Nginx/Apache/Node** | ✅ **Inmediata (IA + Local)** | ❌ Solo enlaces | ❌ No |
-| **Protección Activa Anti-SSRF (RFC 1918)** | ✅ **DNS + Redirects** | ❌ N/A | ❌ N/A |
+| **Protección Activa Anti-SSRF (IPv4 + IPv6 + DNS Rebinding)** | ✅ **DNS Dual + Redirects** | ❌ N/A | ❌ N/A |
 | **Persistencia de Enlaces $0 (Sin Base de Datos)** | ✅ **Payload Autónomo** | ❌ Requiere BD | ❌ Temporal |
 | **Exportación Forense A4 PDF** | ✅ **Nativa en 1-Click** | ❌ No | ❌ Solo Print |
 | **Traducción a Impacto de Negocio** | ✅ **Sí (Modo Dual)** | ❌ Solo técnico | ❌ Solo técnico |
@@ -87,21 +87,21 @@ La mayoría de escáneres de seguridad tradicionales (*Qualys*, *Mozilla Observa
 
 ```mermaid
 flowchart TD
-    A[🌐 Petición de Auditoría: targetUrl] --> B[🛡️ Capa Anti-SSRF: Validación de Entrada]
+    A[🌐 Petición de Auditoría: targetUrl] --> B[🛡️ Capa Anti-SSRF: Validación Dual IPv4/IPv6]
     B -->|Dominio Público Válido| C[⚡ Despachador Concurrente en Paralelo]
-    B -->|Host Privado / Loopback| X[🛑 HTTP 400: Auditoría Denegada]
+    B -->|Host Privado / Metadata / Loopback| X[🛑 HTTP 400: Auditoría Denegada]
 
     subgraph Inspección Perimetral Concurrente
-        C --> D[🔒 Socket TLS 1.3 & Certificado]
+        C --> D[🔒 Socket TLS 1.3 & Certificado X.509]
         C --> E[🌐 Cabeceras Defensivas HTTP & Redirects]
-        C --> F[🔌 Sockets TCP: 80, 21, 22, 3306, 8080]
+        C --> F[🔌 Sockets TCP: 80, 443, 8080, 21, 22, 3306]
     end
 
-    E -->|Detecta 301/302 Location| E1{Validar Destino}
-    E1 -->|Host Privado/Metadata| E2[🛑 Bloquear Salto SSRF]
-    E1 -->|Destino Público| E3[Continuar Salto Seguro]
+    E -->|Detecta 301/302 Location| E1{Validar Salto HTTP}
+    E1 -->|Host Privado / Metadata / Protocolo Extraño| E2[🛑 Bloquear Salto SSRF]
+    E1 -->|Destino Público Seguro| E3[Continuar Salto Re-validado]
 
-    D & E & F --> G[🧮 Motor de Puntuación Algorítmica 0-100]
+    D & E & F --> G[🧮 Motor de Puntuación Algorítmica DEFENSA TI 0-100]
     G --> H[🤖 Pipeline de Remediación]
     H -->|Gemini API Disponible| H1[IA Generativa: Parches Contextuales]
     H -->|Fallo / Sin Conexión| H2[Motor Determinista Local OWASP]
@@ -113,10 +113,18 @@ flowchart TD
 
 ## 🛡️ Blindaje Anti-SSRF y Validación de Redirecciones
 
-Para evitar que el servidor sea utilizado como vector de ataque contra redes internas (*Server-Side Request Forgery*):
+Para garantizar que el motor perimetral no pueda ser utilizado como proxy abierto ni vector de ataque contra redes internas (*Server-Side Request Forgery*):
 
-1. **Resolución DNS Asíncrona:** Se resuelve el hostname con `dns.resolve4` antes de abrir cualquier socket. Si resuelve hacia `127.0.0.0/8`, `10.0.0.0/8`, `172.16.0.0/12`, `192.168.0.0/16` o `169.254.169.254`, la petición se rechaza de inmediato.
-2. **Inspección de Saltos HTTP (`Location`):** Si un dominio público intenta desviar la auditoría hacia una IP interna mediante un código `301`, `302`, `307` o `308`, el validador intercepta la cabecera `Location` y neutraliza el salto antes de realizar la segunda petición.
+1. **Resolución DNS Dual (IPv4 e IPv6):** Se resuelven concurrentemente los registros `A` (`dns.resolve4`) y `AAAA` (`dns.resolve6`) antes de abrir conexiones de red.
+2. **Filtrado Estricto de Direcciones y Rangos Especiales:**
+   * **IPv4:** RFC 1918 (`10.0.0.0/8`, `172.16.0.0/12`, `192.168.0.0/16`), Loopback (`127.0.0.0/8`), Cloud Metadata (`169.254.169.254`), CGNAT (`100.64.0.0/10`), Multicast (`224.0.0.0/4`) y Broadcast (`255.255.255.255/32`).
+   * **IPv6:** Loopback (`::1`), Indefinido (`::`), ULA RFC 4193 (`fc00::/7`), Link-Local (`fe80::/10`), IPv4-mapped IPv6 (`::ffff:0:0/96`) y Translation (`64:ff9b::/96`).
+   * **Parsing Anti-Evasión:** Normalización canónica de notaciones alternativas (octal, hexadecimal, entero dword de 32 bits y notaciones abreviadas).
+3. **Validación Salto a Salto en Redirecciones (`validateRedirectTarget`):** Si un dominio responde con `301`, `302`, `307` o `308`, se captura la cabecera `Location`, se restringe el esquema estrictamente a `http:` o `https:` (bloqueando `file://`, `gopher://`, etc.), se re-resuelve el DNS del nuevo host y se bloquea si apunta a una red interna o a endpoints de metadatos de nube.
+4. **Delimitación de Alcance y Responsabilidad:**
+   * La **Calificación DEFENSA TI (0 a 100, Grado A a F)** evalúa la superficie perimetral externa (cabeceras HTTP OWASP, transporte SSL/TLS y exposición de puertos).
+   * **No constituye una certificación formal ISO 27001 ni PCI-DSS**, ni audita código fuente interno, bases de datos o credenciales de la aplicación.
+   * Conforme a la **Ley N° 30096 (Ley de Delitos Informáticos del Perú)**, el usuario declara bajo juramento contar con la titularidad o autorización expresa del propietario del dominio ingresado.
 
 ---
 

@@ -75,7 +75,7 @@ export default function PricingSection({ targetUrl, score, grade }: Props) {
         'Configuración avanzada de WAF (Cloudflare / servidor) contra ataques web',
         'Reglas de Rate Limiting y bloqueo de bots automatizados sospechosos',
         'Meta Grado A con re-medición incluida: ajustes sin costo hasta alcanzar la nota',
-        'Certificado formal de cumplimiento perimetral y entrega de directivas',
+        'Constancia técnica de evaluación perimetral y entrega de directivas',
       ],
       ctaAction: 'Pedir Blindaje Total WAF',
       popular: false,

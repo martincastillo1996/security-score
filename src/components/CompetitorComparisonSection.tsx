@@ -213,14 +213,14 @@ export default function CompetitorComparisonSection() {
                       ¡Lideras en seguridad técnica frente a tu competidor directo! ({myReport.score}/100 vs {compReport.score}/100).
                     </p>
                     <p className="text-[11px] text-slate-300 leading-normal">
-                      Mantén tu ventaja competitiva y asegura tu certificación perimetral Grado A permanente.
+                      Mantén tu ventaja competitiva y asegura tu calificación perimetral Grado A permanente.
                     </p>
                   </>
                 )}
 
                 <div className="pt-2">
                   <a
-                    href={`https://wa.me/51965682976?text=${encodeURIComponent(`Hola Martín, realicé la comparativa técnica entre mi web ${myReport.url} (${myReport.score} pts) y mi competidor ${compReport.url} (${compReport.score} pts). Deseo blindar mi sitio para superarlo con Grado A.`)}`}
+                    href={`https://wa.me/17856433991?text=${encodeURIComponent(`Hola Martín, realicé la comparativa técnica entre mi web ${myReport.url} (${myReport.score} pts) y mi competidor ${compReport.url} (${compReport.score} pts). Deseo blindar mi sitio para superarlo con Grado A.`)}`}
                     target="_blank"
                     rel="noopener noreferrer"
                     className="inline-flex items-center justify-center gap-2 px-5 py-2.5 rounded-xl bg-[#25D366] hover:bg-[#20ba59] text-white text-xs font-bold transition-all shadow-md active:scale-95 w-full sm:w-auto"
