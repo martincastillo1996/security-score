@@ -101,6 +101,19 @@ body {
 }
 
 /* Órbita de 360 grados continua para el punto verde activo */
+@keyframes greenOrbOrbit {
+  from {
+    transform: rotate(0deg) translateX(30px) rotate(0deg);
+  }
+  to {
+    transform: rotate(360deg) translateX(30px) rotate(-360deg);
+  }
+}
+
+.animate-orbit-dot {
+  animation: greenOrbOrbit 4s linear infinite;
+}
+
 @keyframes spinOrbit {
   from {
     transform: rotate(0deg);

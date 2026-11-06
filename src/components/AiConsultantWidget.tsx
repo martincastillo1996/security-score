@@ -17,15 +17,34 @@ import {
 } from 'lucide-react';
 import { AuditReportRecord } from '@/lib/storage/reportStore';
 
-function NeuronalityAiAvatar({ size = 'w-9 h-9', iconSize = 'w-4 h-4' }: { size?: string; iconSize?: string }) {
+// Orbe Gravitacional Vivo - Estilo Apple Intelligence / Cosmos Neuronal
+function AppleCosmicOrb({ className = 'w-9 h-9' }: { className?: string }) {
   return (
-    <div className={`relative ${size} rounded-full p-[1.5px] bg-gradient-to-tr from-[#0071e3] via-[#7928ca] to-[#38bdf8] shadow-[0_0_15px_rgba(56,189,248,0.5)] shrink-0 flex items-center justify-center`}>
-      <div className="w-full h-full rounded-full bg-[#07090e] flex items-center justify-center text-[#38bdf8] relative overflow-hidden">
-        <div className="absolute inset-0 bg-gradient-to-tr from-[#0071e3]/40 via-[#7928ca]/25 to-transparent pointer-events-none" />
-        <Bot className={`${iconSize} text-[#38bdf8] relative z-10`} />
+    <div className={`relative flex items-center justify-center ${className}`}>
+      {/* Resplandor nebulosa exterior pulsante */}
+      <span className="absolute -inset-2 rounded-full bg-gradient-to-tr from-[#0071e3]/50 via-[#a855f7]/40 to-[#38bdf8]/50 blur-md animate-cosmic-pulse pointer-events-none" />
+      
+      {/* Ondas orbitales gravitacionales */}
+      <div className="absolute inset-0 rounded-full border border-[#38bdf8]/40 animate-cosmic-rotate pointer-events-none" />
+      <div className="absolute -inset-1 rounded-full border border-dashed border-[#c084fc]/30 animate-spin pointer-events-none [animation-duration:15s]" />
+
+      {/* Orbe iridiscente central Apple Intelligence */}
+      <div className="relative w-full h-full rounded-full bg-gradient-to-tr from-[#0071e3] via-[#818cf8] to-[#38bdf8] p-[1.5px] shadow-[0_0_20px_rgba(56,189,248,0.6)]">
+        <div className="w-full h-full rounded-full bg-[#07090e] flex items-center justify-center relative overflow-hidden">
+          {/* Núcleo estelar interno con rotación fluida */}
+          <div className="absolute inset-0 bg-gradient-to-tr from-[#38bdf8]/60 via-[#9333ea]/30 to-transparent animate-cosmic-rotate" />
+          
+          {/* Constelación o punto de singularidad de gravedad */}
+          <span className="relative z-10 w-2 h-2 rounded-full bg-white shadow-[0_0_10px_#ffffff] animate-ping" />
+          <span className="absolute z-10 w-2 h-2 rounded-full bg-white" />
+        </div>
       </div>
     </div>
   );
+}
+
+function NeuronalityAiAvatar({ size = 'w-9 h-9', iconSize }: { size?: string; iconSize?: string }) {
+  return <AppleCosmicOrb className={size} />;
 }
 
 interface Message {
@@ -240,9 +259,9 @@ export default function AiConsultantWidget({ report }: Props) {
             {/* Grupo de Avatares superpuestos + Botón cerrar */}
             <div className="flex items-center gap-1.5 shrink-0">
               <div className="flex -space-x-2.5 overflow-hidden p-0.5">
-                {/* Avatar 1: Neuronality AI */}
-                <div className="relative w-7 h-7 rounded-full ring-2 ring-[#0071e3] bg-gradient-to-tr from-[#0071e3] via-[#7928ca] to-[#38bdf8] flex items-center justify-center text-[#38bdf8] shadow-md">
-                  <Bot className="w-4 h-4 text-white" />
+                {/* Avatar 1: Orbe Cósmico Neuronality AI */}
+                <div className="relative w-7 h-7 rounded-full flex items-center justify-center shrink-0">
+                  <AppleCosmicOrb className="w-7 h-7" />
                 </div>
                 {/* Avatar 2: Ingeniero / Asistente */}
                 <div className="relative w-7 h-7 rounded-full ring-2 ring-[#0071e3] bg-gradient-to-tr from-[#0071e3] to-[#38bdf8] flex items-center justify-center text-white shadow-md">
@@ -295,7 +314,7 @@ export default function AiConsultantWidget({ report }: Props) {
         </div>
       )}
 
-      {/* 2. BOTÓN LAUNCHER FLOTANTE (NEURONALITY AI ORBE + BADGE DE VERIFICACIÓN) */}
+      {/* 2. BOTÓN LAUNCHER FLOTANTE (ORBE CÓSMICO APPLE INTELLIGENCE + PUNTO VERDE EN ÓRBITA 360°) */}
       <div className="flex justify-end">
         <button
           type="button"
@@ -303,26 +322,20 @@ export default function AiConsultantWidget({ report }: Props) {
             setIsOpen(!isOpen);
             if (!isOpen) setView('chat');
           }}
-          className="group relative w-14 h-14 rounded-full p-0.5 bg-gradient-to-tr from-[#0071e3] via-[#7928ca] to-[#38bdf8] shadow-[0_10px_35px_rgba(0,113,227,0.45)] hover:shadow-[0_0_30px_rgba(56,189,248,0.7)] transition-all transform hover:scale-105 active:scale-95 cursor-pointer"
+          className="relative group w-14 h-14 rounded-full p-2 bg-gradient-to-b from-[#141b2d] via-[#0b0f19] to-[#04060c] border border-white/20 hover:border-[#38bdf8] text-white shadow-[0_0_30px_rgba(56,189,248,0.4)] hover:shadow-[0_0_55px_rgba(168,85,247,0.7)] active:scale-95 transition-all cursor-pointer flex items-center justify-center"
           aria-label={isOpen ? "Cerrar asistente" : "Abrir chat con Neuronality AI"}
         >
-          {/* Contenedor del avatar */}
-          <div className="relative w-full h-full rounded-full overflow-hidden bg-[#0a0d14] border border-white/20 flex items-center justify-center">
-            {isOpen ? (
-              <div className="w-full h-full flex items-center justify-center bg-[#0d111a] text-white">
-                <X className="w-6 h-6 text-white" />
-              </div>
-            ) : (
-              <div className="relative w-full h-full flex items-center justify-center bg-gradient-to-tr from-[#0071e3]/30 via-[#0a0d14] to-[#7928ca]/30">
-                <Bot className="w-7 h-7 text-[#38bdf8] drop-shadow-[0_0_10px_rgba(56,189,248,0.8)]" />
-              </div>
-            )}
-          </div>
+          {isOpen ? (
+            <X className="w-6 h-6 text-neutral-300 relative z-10" />
+          ) : (
+            <AppleCosmicOrb className="w-8 h-8" />
+          )}
 
-          {/* Badge azul de verificación en la esquina inferior derecha */}
+          {/* Anillo de trayectoria orbital y punto verde orbitando 360 grados */}
           {!isOpen && (
-            <div className="absolute -bottom-0.5 -right-0.5 w-5 h-5 rounded-full bg-[#0071e3] border-2 border-[#0a0d14] flex items-center justify-center text-white shadow-md">
-              <CheckCheck className="w-3 h-3 text-white stroke-[2.5]" />
+            <div className="absolute inset-0 pointer-events-none flex items-center justify-center">
+              <div className="w-[60px] h-[60px] rounded-full border border-emerald-500/25 pointer-events-none" />
+              <span className="absolute w-2.5 h-2.5 rounded-full bg-emerald-400 border border-black shadow-[0_0_10px_#34d399] z-20 animate-orbit-dot" />
             </div>
           )}
         </button>
