@@ -1,4 +1,5 @@
 import * as net from 'net';
+import { isPrivateOrLocalHost } from '@/lib/security/ssrfValidator';
 
 export interface PortCheckResult {
   port: number;
@@ -42,6 +43,16 @@ function checkPort(host: string, port: number, timeout = 600): Promise<boolean> 
 }
 
 export async function scanPerimetralPorts(host: string): Promise<PortCheckResult[]> {
+  // Blindaje perimetral: No abrir sockets hacia localhost o redes privadas
+  if (isPrivateOrLocalHost(host)) {
+    return CRITICAL_PORTS.map((item) => ({
+      ...item,
+      isOpen: false,
+      risk: 'BAJO' as const,
+      description: 'Host privado o no enrutable bloqueado por política perimetral.',
+    }));
+  }
+
   const isGitPlatform = host.includes('github.com') || host.includes('gitlab.com');
 
   const checks = CRITICAL_PORTS.map(async (item) => {

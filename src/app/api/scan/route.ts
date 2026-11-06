@@ -6,53 +6,8 @@ import { generateRemediation, RemediationItem } from '@/lib/ai/remediation';
 import { saveReport } from '@/lib/storage/reportStore';
 import { scanPerimetralPorts } from '@/lib/scanner/portScanner';
 import { lookupServerLocation } from '@/lib/scanner/geoScanner';
-import dns from 'dns/promises';
 import { v4 as uuidv4 } from 'uuid';
-
-// Función para mitigar vectores de ataque SSRF en redes privadas o loopback
-function isPrivateOrLocalHost(hostname: string, ip?: string): boolean {
-  const host = hostname.toLowerCase();
-
-  // 1. Nombres de dominio reservados y loopback
-  if (
-    host === 'localhost' ||
-    host.endsWith('.local') ||
-    host.endsWith('.internal') ||
-    host.endsWith('.lan')
-  ) {
-    return true;
-  }
-
-  // 2. Comprobar dirección IP
-  const targetIp = ip || host;
-
-  // Loopback (127.0.0.0/8)
-  if (/^127\.\d{1,3}\.\d{1,3}\.\d{1,3}$/.test(targetIp) || targetIp === '::1') {
-    return true;
-  }
-
-  // Metadatos Cloud / Link-Local (169.254.0.0/16)
-  if (/^169\.254\.\d{1,3}\.\d{1,3}$/.test(targetIp)) {
-    return true;
-  }
-
-  // RFC 1918 (10.0.0.0/8)
-  if (/^10\.\d{1,3}\.\d{1,3}\.\d{1,3}$/.test(targetIp)) {
-    return true;
-  }
-
-  // RFC 1918 (172.16.0.0/12)
-  if (/^172\.(1[6-9]|2\d|3[0-1])\.\d{1,3}\.\d{1,3}$/.test(targetIp)) {
-    return true;
-  }
-
-  // RFC 1918 (192.168.0.0/16)
-  if (/^192\.168\.\d{1,3}\.\d{1,3}$/.test(targetIp)) {
-    return true;
-  }
-
-  return false;
-}
+import { isPrivateOrLocalHost, verifyDnsResolution } from '@/lib/security/ssrfValidator';
 
 export async function POST(req: Request) {
   const startTime = Date.now();
@@ -67,8 +22,8 @@ export async function POST(req: Request) {
     }
 
     // 1. Normalizar URL
+    const rawInput = url.trim().toLowerCase();
     let parsedUrl = url.trim();
-    const rawInput = parsedUrl.toLowerCase();
     if (!parsedUrl.startsWith('http://') && !parsedUrl.startsWith('https://')) {
       parsedUrl = 'https://' + parsedUrl;
     }
@@ -83,31 +38,35 @@ export async function POST(req: Request) {
       );
     }
 
-    const hostname = target.hostname;
-
-    // 2. Blindaje Anti-SSRF: Comprobación preliminar de hostnames
-    if (isPrivateOrLocalHost(hostname)) {
+    // 1.1 Restricción de puertos (solo puertos web públicos permitidos)
+    if (target.port && !['80', '443', '8080', '8443'].includes(target.port)) {
       return NextResponse.json(
-        { error: 'Acceso denegado: Auditoría bloqueada hacia host privado o reservado.' },
+        { error: 'Acceso denegado: Solo se permiten puertos web estándar (80, 443, 8080, 8443).' },
         { status: 400 }
       );
     }
 
-    // 2.1. Resolución DNS para comprobar si apunta a una IP privada oculta
+    const hostname = target.hostname;
+
+    // 2. Blindaje Anti-SSRF: Comprobación preliminar de hostnames e IPs
+    if (isPrivateOrLocalHost(hostname)) {
+      return NextResponse.json(
+        { error: 'Acceso denegado: Auditoría bloqueada hacia host privado, loopback o metadatos cloud.' },
+        { status: 400 }
+      );
+    }
+
+    // 2.1. Resolución DNS dual (IPv4 + IPv6) para neutralizar DNS Rebinding
     let targetResolvedIp: string | undefined;
-    try {
-      const addresses = await dns.resolve4(hostname);
-      if (addresses && addresses.length > 0) {
-        targetResolvedIp = addresses[0];
-        if (isPrivateOrLocalHost(hostname, targetResolvedIp)) {
-          return NextResponse.json(
-            { error: 'Acceso denegado: El dominio resuelve a una IP de red interna o privada (RFC 1918).' },
-            { status: 400 }
-          );
-        }
-      }
-    } catch {
-      // Si la resolución directa falla, continuar con TLS y Sockets que manejarán sus propios fallos de red
+    const dnsCheck = await verifyDnsResolution(hostname);
+    if (!dnsCheck.safe) {
+      return NextResponse.json(
+        { error: `Acceso denegado por seguridad perimetral: ${dnsCheck.reason || 'Host no seguro.'}` },
+        { status: 400 }
+      );
+    }
+    if (dnsCheck.resolvedIps.length > 0) {
+      targetResolvedIp = dnsCheck.resolvedIps[0];
     }
 
     // 3. Ejecución concurrente asíncrona de inspección perimetral
