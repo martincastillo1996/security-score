@@ -798,10 +798,10 @@ export default function NeuronalGravityHomePage() {
                 <div className="text-3xl sm:text-4xl font-extrabold text-transparent bg-clip-text bg-linear-to-r from-white via-[#38bdf8] to-emerald-400 group-hover:scale-105 transition-transform duration-300">
                   {stat.value}
                 </div>
-                <div className="font-semibold text-sm text-white mt-2">
+                <div className="font-bold text-sm text-white mt-2">
                   {stat.label}
                 </div>
-                <div className="text-xs text-neutral-400 mt-1 leading-relaxed">
+                <div className="text-xs text-neutral-200 mt-1 leading-relaxed font-normal">
                   {stat.desc}
                 </div>
               </div>
@@ -824,7 +824,7 @@ export default function NeuronalGravityHomePage() {
               <h2 className="text-3xl sm:text-5xl font-black tracking-tight text-white">
                 {content.solutions.title}
               </h2>
-              <p className="text-sm sm:text-base text-neutral-400">
+              <p className="text-sm sm:text-base text-neutral-200 font-medium">
                 {content.solutions.desc}
               </p>
             </div>
@@ -903,7 +903,7 @@ export default function NeuronalGravityHomePage() {
               <h2 className="text-3xl sm:text-5xl font-black tracking-tight text-white">
                 {content.methodology.title}
               </h2>
-              <p className="text-sm sm:text-base text-neutral-400">
+              <p className="text-sm sm:text-base text-neutral-200 font-medium">
                 {content.methodology.desc}
               </p>
             </div>

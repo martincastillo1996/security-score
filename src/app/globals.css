@@ -20,6 +20,13 @@ body {
   overflow-x: hidden;
 }
 
+/* Regla de Alto Contraste y Cero Textos Oscuros Ilegibles */
+.text-neutral-400,
+.text-neutral-500,
+.text-zinc-500 {
+  color: #d1d5db !important; /* Gris claro de alto contraste legible sobre fondo oscuro */
+}
+
 /* Apple Pro Liquid Glass & Glow Effects */
 .apple-glass {
   background: rgba(22, 22, 24, 0.72);
@@ -93,16 +100,17 @@ body {
   animation: gravitationalFloat 5s ease-in-out infinite;
 }
 
-/* Órbita de 360 grados para el punto verde activo */
-@keyframes greenOrbOrbit {
+/* Órbita de 360 grados continua para el punto verde activo */
+@keyframes spinOrbit {
   from {
-    transform: rotate(0deg) translateX(26px) rotate(0deg);
+    transform: rotate(0deg);
   }
   to {
-    transform: rotate(360deg) translateX(26px) rotate(-360deg);
+    transform: rotate(360deg);
   }
 }
 
-.animate-orbit-dot {
-  animation: greenOrbOrbit 4s linear infinite;
+.animate-spin-orbit {
+  animation: spinOrbit 3.5s linear infinite !important;
+  transform-origin: center center;
 }

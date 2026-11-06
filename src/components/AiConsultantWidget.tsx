@@ -339,8 +339,10 @@ Quisiera coordinar contigo una reunión para evaluar cómo implementar solucione
           
           {/* Anillo de trayectoria orbital y punto verde orbitando 360 grados */}
           <div className="absolute inset-0 pointer-events-none flex items-center justify-center">
-            <div className="w-[52px] h-[52px] rounded-full border border-emerald-500/20 pointer-events-none" />
-            <span className="absolute w-3 h-3 rounded-full bg-emerald-400 border border-black shadow-[0_0_10px_#34d399] z-20 animate-orbit-dot" />
+            <div className="w-[54px] h-[54px] rounded-full border border-emerald-500/25 pointer-events-none" />
+            <div className="absolute w-[54px] h-[54px] animate-spin-orbit pointer-events-none flex items-start justify-center">
+              <span className="w-3 h-3 -mt-1.5 rounded-full bg-emerald-400 border border-black shadow-[0_0_12px_#34d399] z-20 block" />
+            </div>
           </div>
         </button>
       </div>
