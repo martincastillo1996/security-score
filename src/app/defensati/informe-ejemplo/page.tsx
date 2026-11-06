@@ -24,6 +24,7 @@ import {
 import { siteConfig } from '@/config/site';
 import HeaderWhatsAppButton from '@/components/HeaderWhatsAppButton';
 import { AuditReportRecord } from '@/lib/storage/reportStore';
+import AuditEngineExplanation from '@/components/AuditEngineExplanation';
 
 const DEMO_REPORT: AuditReportRecord = {
   id: 'DEMO-2026-TEXTIL',
@@ -526,6 +527,14 @@ Set dynamic: Referrer-Policy = "strict-origin-when-cross-origin"`;
 
             </div>
           )}
+
+          {/* Explicación Detallada de los Motores: Red Determinista + IA Consultiva */}
+          <AuditEngineExplanation 
+            engineVersion="1.2.0-cloud"
+            aiModel="Neuronality AI (Google Gemini 1.5 Flash)"
+            targetResolvedIp="190.235.144.12"
+            durationMs={840}
+          />
 
           {/* Botones de Acción: WhatsApp en Verde Oficial */}
           <div className="flex flex-col sm:flex-row items-center justify-between gap-4 pt-6 border-t border-white/10">

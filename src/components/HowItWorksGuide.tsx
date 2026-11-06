@@ -142,6 +142,41 @@ export default function HowItWorksGuide() {
 
         </div>
 
+        {/* Explicación de los Motores: Red Determinista + IA Consultiva */}
+        <div className="p-5 sm:p-6 rounded-2xl bg-[#141416] border border-white/10 space-y-3">
+          <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-2 border-b border-white/5 pb-3">
+            <span className="text-xs font-mono font-bold text-[#38bdf8] uppercase tracking-wider flex items-center gap-1.5">
+              <span className="w-2 h-2 rounded-full bg-[#38bdf8] animate-pulse" />
+              Transparencia Tecnológica: 2 Motores Especializados
+            </span>
+            <span className="text-[11px] font-mono text-neutral-400">
+              Datos 100% Verídicos &bull; Cero Alucinaciones
+            </span>
+          </div>
+
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-4 text-xs text-neutral-300">
+            <div className="p-3.5 rounded-xl bg-black/40 border border-white/5 space-y-1.5">
+              <div className="flex items-center gap-2">
+                <span className="w-1.5 h-1.5 rounded-full bg-sky-400" />
+                <strong className="text-white font-mono text-xs">1. Motor de Red DEFENSA TI v1.2</strong>
+              </div>
+              <p className="text-[11px] sm:text-xs text-neutral-400 leading-relaxed">
+                Ejecuta sondeo real de sockets TCP (puertos 80, 443, 8080, 21, 22, 3306), valida la cadena criptográfica TLS X.509 y mide cabeceras RFC 9110. Es 100% matemático y determinista: no inventa puertos ni falsos positivos.
+              </p>
+            </div>
+
+            <div className="p-3.5 rounded-xl bg-black/40 border border-white/5 space-y-1.5">
+              <div className="flex items-center gap-2">
+                <span className="w-1.5 h-1.5 rounded-full bg-purple-400" />
+                <strong className="text-white font-mono text-xs">2. Módulo IA: Neuronality AI (Gemini 1.5)</strong>
+              </div>
+              <p className="text-[11px] sm:text-xs text-neutral-400 leading-relaxed">
+                <em>La IA no decide tu calificación</em>. Su función es traducir los hallazgos técnicos a impacto comercial en Soles (riesgo en pasarelas como Yape/Niubiz) y generar recetas de código exactas para Nginx/Apache para tu programador.
+              </p>
+            </div>
+          </div>
+        </div>
+
         {/* Franja de Utilidad Empresarial Inmediata */}
         <div className="p-4 sm:p-5 rounded-2xl bg-white/5 border border-white/10 flex flex-col sm:flex-row items-center justify-between gap-4 text-xs sm:text-sm text-neutral-300">
           <div className="flex items-center gap-3">

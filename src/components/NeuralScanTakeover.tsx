@@ -9,30 +9,30 @@ interface NeuralScanTakeoverProps {
 
 const SCAN_STEPS = [
   { 
-    phase: 'Fase 1 / 4',
-    title: 'Mapeando Sinapsis Perimetral',
-    log: '[SINAPSIS] Mapeando topología de red y resolución de DNS...',
+    phase: 'Fase 1 / 4 • Motor de Red DEFENSA TI',
+    title: 'Mapeando Topología de Red y DNS',
+    log: '[MOTOR DE RED v1.2] Mapeando resolución DNS segura y verificando sockets TCP...',
     progress: 25, 
     icon: Cpu 
   },
   { 
-    phase: 'Fase 2 / 4',
+    phase: 'Fase 2 / 4 • Motor Criptográfico',
     title: 'Inspeccionando Cifrado SSL / TLS',
-    log: '[CRIPTO] Verificando cadena X.509, protocolo TLS y vigencia de certificado...',
+    log: '[CRIPTO X.509] Verificando cadena TLS 1.3, vigencia de días y certificados...',
     progress: 55, 
     icon: Lock 
   },
   { 
-    phase: 'Fase 3 / 4',
-    title: 'Auditando Cabeceras OWASP',
-    log: '[OWASP] Evaluando HSTS, CSP, X-Frame y blindaje anti-clonación...',
+    phase: 'Fase 3 / 4 • Auditoría Determinista',
+    title: 'Auditando Cabeceras OWASP & RFC',
+    log: '[RFC 9110] Evaluando HSTS, CSP, X-Frame y blindaje anti-clonación...',
     progress: 82, 
     icon: ShieldCheck 
   },
   { 
-    phase: 'Fase 4 / 4',
-    title: 'Generando Dictamen de Blindaje',
-    log: '[IA NEURONAL] Sintetizando telemetría y consolidando calificación final...',
+    phase: 'Fase 4 / 4 • Módulo Neuronality AI',
+    title: 'Consultoría de Negocio y Recetas Dev',
+    log: '[NEURONALITY AI] Analizando impacto comercial en Soles (PEN) y recetas de código...',
     progress: 98, 
     icon: Activity 
   },
@@ -383,11 +383,16 @@ export default function NeuralScanTakeover({ targetUrl }: NeuralScanTakeoverProp
           })}
         </div>
 
-        {/* Pie de pantalla: Garantía de seguridad */}
-        <p className="text-[11px] text-neutral-400 font-mono flex items-center gap-2 pt-2">
-          <ShieldCheck className="w-4 h-4 text-emerald-400" />
-          <span>Auditoría perimetral sin tocar tu base de datos ni pedir credenciales.</span>
-        </p>
+        {/* Pie de pantalla: Garantía de seguridad y Motores Utilizados */}
+        <div className="flex flex-col sm:flex-row items-center justify-between gap-2 text-[11px] text-neutral-400 font-mono pt-2 border-t border-white/5 w-full">
+          <span className="flex items-center gap-1.5 text-neutral-300">
+            <ShieldCheck className="w-4 h-4 text-emerald-400 shrink-0" />
+            <span>Auditoría perimetral sin tocar tu base de datos ni pedir contraseñas.</span>
+          </span>
+          <span className="text-[#38bdf8] bg-sky-500/10 px-2 py-0.5 rounded border border-sky-500/20 text-[10px]">
+            Motor: DEFENSA TI v1.2 &bull; IA: Neuronality AI
+          </span>
+        </div>
 
       </div>
 

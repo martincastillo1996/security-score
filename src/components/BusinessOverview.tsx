@@ -11,6 +11,7 @@ import {
   TrendingDown
 } from 'lucide-react';
 import { AuditReportRecord } from '@/lib/storage/reportStore';
+import AuditEngineExplanation from '@/components/AuditEngineExplanation';
 
 interface Props {
   report: AuditReportRecord;
@@ -329,6 +330,14 @@ export default function BusinessOverview({ report }: Props) {
           <span>💡 Si tu programador necesita las instrucciones técnicas exactas de código, cambia a la pestaña superior <strong>&ldquo;Vista Técnica (SysAdmin / Dev)&rdquo;</strong>.</span>
         </div>
       </div>
+
+      {/* Explicación de los Motores: Red Determinista + IA Consultiva */}
+      <AuditEngineExplanation 
+        engineVersion={report.telemetry?.engineVersion || '1.2.0-cloud'}
+        aiModel={report.telemetry?.aiModel || 'Neuronality AI (Google Gemini 1.5 Flash)'}
+        targetResolvedIp={report.telemetry?.targetResolvedIp}
+        durationMs={report.telemetry?.durationMs}
+      />
 
     </div>
   );

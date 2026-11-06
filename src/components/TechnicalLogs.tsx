@@ -52,6 +52,19 @@ export default function TechnicalLogs({ id, telemetry, scannedAt }: TelemetryPro
         </div>
       </div>
 
+      <div className="mt-4 pt-3 border-t border-slate-800/80 text-[11px] text-slate-400 space-y-1.5 font-sans">
+        <div className="flex items-center gap-2 text-slate-200 font-semibold font-mono text-xs">
+          <span className="w-2 h-2 rounded-full bg-emerald-400" />
+          <span>Arquitectura Híbrida: Red Determinista + IA Consultiva</span>
+        </div>
+        <p>
+          &bull; <strong>Motor de Red (DEFENSA TI v{telemetry?.engineVersion || '1.2.0'}):</strong> Sondeo activo de sockets TCP, análisis RFC 9110 e inspección X.509. Puntuación calculada por algoritmo determinista (cero alucinaciones).
+        </p>
+        <p>
+          &bull; <strong>Motor IA ({telemetry?.aiModel || 'Neuronality AI - Gemini 1.5 Flash'}):</strong> Módulo consultor de lenguaje que sintetiza hallazgos en impacto comercial y genera recetas de remediación listas para Dev.
+        </p>
+      </div>
+
       <p className="mt-3 text-slate-500 text-[11px]">
         Timestamp: {scannedAt ? new Date(scannedAt).toLocaleString() : new Date().toLocaleString()}
       </p>

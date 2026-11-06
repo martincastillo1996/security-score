@@ -186,9 +186,22 @@ export default function PrintableReport({ report, auditId }: Props) {
           </div>
 
           {/* Cuadro de Retorno de Inversión y Decisión Gerencial */}
-          <div className="p-3 rounded-lg border border-neutral-300 bg-neutral-50 text-[9.5px] leading-relaxed">
+          <div className="p-2.5 rounded-lg border border-neutral-300 bg-neutral-50 text-[9px] leading-relaxed mb-2.5">
             <strong className="text-neutral-900 block font-bold mb-0.5">Impacto Económico y Retorno de Inversión (ROI):</strong>
             Una retención preventiva de fondos en pasarelas como Niubiz o Culqi paraliza el flujo de caja comercial durante 15 a 30 días hábiles. El blindaje perimetral elimina esta fricción y asegura la continuidad de cobros. Entrega la <strong>Página 2 de este informe</strong> a tu equipo de desarrollo o contrata el servicio de Blindaje Llave en Mano para resolverlo sin tocar tu código base.
+          </div>
+
+          {/* Transparencia Tecnológica y Motores Utilizados */}
+          <div className="p-2 rounded-lg border border-neutral-300 bg-neutral-100 text-[8.5px] leading-tight space-y-1">
+            <strong className="text-neutral-900 block font-bold">
+              Transparencia Tecnológica: ¿Cómo se generó este dictamen?
+            </strong>
+            <p className="text-neutral-800">
+              &bull; <strong>Motor de Red (Determinista):</strong> DEFENSA TI Network Probe Engine v{report.telemetry?.engineVersion || '1.2.0'} (Inspección real de sockets TCP, TLS X.509 y RFC 9110). Puntuación matemática objetiva sin alucinaciones.
+            </p>
+            <p className="text-neutral-800">
+              &bull; <strong>Motor de IA (Consultivo):</strong> Neuronality AI Defense Core ({report.telemetry?.aiModel || 'Google Gemini 1.5 Flash'}). <em>La IA no califica la seguridad</em>; traduce la telemetría técnica a impacto comercial en Soles (PEN) y formula la receta de código de la Página 2.
+            </p>
           </div>
         </div>
 
@@ -232,9 +245,11 @@ export default function PrintableReport({ report, auditId }: Props) {
               </div>
             </div>
 
-            <div className="text-right font-mono text-[10px] text-neutral-700">
-              <p className="font-bold text-neutral-900">{report.url}</p>
+            <div className="text-right font-mono text-[9px] text-neutral-700">
+              <p className="font-bold text-neutral-900 text-[10px]">{report.url}</p>
               <p>Meta: Grado A (90-100 pts)</p>
+              <p className="text-neutral-600 mt-0.5">Motor Red: DEFENSA TI v{report.telemetry?.engineVersion || '1.2.0'}</p>
+              <p className="text-neutral-600">Motor IA: {report.telemetry?.aiModel || 'Neuronality AI (Gemini 1.5 Flash)'}</p>
             </div>
           </div>
 
