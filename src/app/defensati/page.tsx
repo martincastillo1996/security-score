@@ -19,6 +19,7 @@ import AppleCyberHud from '@/components/AppleCyberHud';
 import SocialViralHub from '@/components/SocialViralHub';
 import NeuronalGravityHub from '@/components/NeuronalGravityHub';
 import LanguageSelector from '@/components/LanguageSelector';
+import AiConsultantWidget from '@/components/AiConsultantWidget';
 import { useI18n } from '@/lib/i18n/I18nContext';
 import { AuditReportRecord } from '@/lib/storage/reportStore';
 import {
@@ -510,6 +511,9 @@ export default function HomePage() {
           </div>
         </footer>
       </div>
+
+      {/* Widget Asistente IA Flotante */}
+      <AiConsultantWidget report={report || undefined} />
     </div>
   );
 }
