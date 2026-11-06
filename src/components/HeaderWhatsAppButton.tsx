@@ -12,7 +12,7 @@ export default function HeaderWhatsAppButton({
   message = 'Hola Martín, estoy revisando el portal de Neuronal Gravity / DEFENSA TI y deseo hacer una consulta.',
   className = '',
 }: Props) {
-  const phone = siteConfig.contact.phone.replace(/[^0-9]/g, '');
+  const phone = (siteConfig.contact.whatsappNumber || '17856433991').replace(/[^0-9]/g, '');
   const url = `https://wa.me/${phone}?text=${encodeURIComponent(message)}`;
 
   return (
