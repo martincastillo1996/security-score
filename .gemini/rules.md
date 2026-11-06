@@ -35,3 +35,15 @@
 - **Pregunta de Aprobación Explícita:** Siempre se debe consultar directamente a Martín: *"¿Está bien así o qué le cambiamos antes de que salga a producción?"*.
 - **Formato de Aprobación Tipo Pop-up:** La consulta de aprobación final o confirmación de despliegue DEBE emitirse siempre a través de la tarjeta interactiva de selección (herramienta `ask_question`), para que Martín pueda revisar las opciones y dar el **"Go"** con un solo clic como un pop-up.
 - **Cero Modificaciones Visuales Sorpresa:** Ningún cambio visual se consolida ni se prepara para producción sin la confirmación y visto bueno explícito de Martín sobre el resultado visible.
+
+## 8. Infraestructura de Producción Oficial: Servidor DigitalOcean & Vercel Simultáneos (ESTRICTO)
+- **Despliegues Simultáneos Obligatorios:** Los cambios deben verse y mantenerse actualizados al mismo tiempo en ambos entornos:
+  1. **Entorno Principal en DigitalOcean:** `https://neuronalgravity.com` (Droplet `ubuntu-s-1vcpu-1gb-nyc3`, IP `159.203.80.121` con Cloudflare).
+  2. **Entorno Vercel:** `https://security-score-seven.vercel.app` (se actualiza automáticamente vía GitHub push a `main`).
+- **Procedimiento de Despliegue en DigitalOcean:**
+  Para actualizar `neuronalgravity.com` tras cada `git push`, el comando en la Web Console de DigitalOcean se ejecuta en la carpeta activa del proyecto:
+  ```bash
+  cd /var/www/app
+  git pull origin main && npm install && npm run build && pm2 restart all
+  ```
+- **Transparencia y Cero Relleno:** Responder siempre de forma concisa, en español claro, directo al grano y asegurando que ambos sitios reflejen exactamente la misma versión. Cero respuestas para rellenar o inventar cambios de DNS innecesarios.

@@ -3,6 +3,7 @@
 import React, { useState } from 'react';
 import Link from 'next/link';
 import NeuralBackground from '@/components/NeuralBackground';
+import AiConsultantWidget from '@/components/AiConsultantWidget';
 import { 
   ShieldCheck, 
   ShieldAlert, 
@@ -1175,6 +1176,9 @@ export default function DefensatiSingleProductLanding() {
           </div>
         </div>
       </footer>
+
+      {/* Orbe Flotante Interactivo: Consultar con Neuronal Gravity AI */}
+      <AiConsultantWidget />
     </div>
   );
 }
