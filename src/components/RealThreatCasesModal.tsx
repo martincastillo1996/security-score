@@ -7,7 +7,8 @@ import {
   X,
   ExternalLink,
   MapPin,
-  FileText
+  FileText,
+  ArrowRight
 } from 'lucide-react';
 import { PERU_SVG_PATH } from './peruPathData';
 
@@ -181,12 +182,60 @@ export default function RealThreatCasesModal() {
 
   return (
     <>
+      {/* Botón de Llamado a la Acción 3D en Rojo de Alto Impacto */}
       <button
         onClick={() => setIsOpen(true)}
-        className="inline-flex items-center gap-2.5 px-6 py-3 rounded-2xl bg-white/5 hover:bg-white/10 border border-white/10 text-white text-xs font-semibold backdrop-blur-xl transition-all hover:scale-105 active:scale-95 cursor-pointer shadow-lg hover:border-emerald-500/30"
+        className="group relative w-full max-w-4xl mx-auto rounded-3xl p-6 sm:p-7 bg-gradient-to-r from-[#20070a] via-[#140407] to-[#20070a] border-2 border-red-500/60 shadow-[0_15px_40px_rgba(239,68,68,0.25),inset_0_1px_0_rgba(255,255,255,0.15)] hover:border-red-400 hover:shadow-[0_20px_50px_rgba(239,68,68,0.45)] hover:scale-[1.01] active:scale-[0.99] transition-all duration-300 cursor-pointer text-left overflow-hidden"
       >
-        <span className="text-base">🇵🇪</span>
-        <span>Casos típicos en Perú por regiones: Cómo protegen sus webs los negocios</span>
+        {/* Glow de fondo rojo ambiental */}
+        <div className="absolute top-0 right-1/4 w-80 h-32 bg-red-600/15 rounded-full blur-3xl pointer-events-none group-hover:bg-red-600/25 transition-all" />
+        <div className="absolute -bottom-10 -left-10 w-48 h-48 bg-rose-600/10 rounded-full blur-2xl pointer-events-none" />
+
+        <div className="relative z-10 flex flex-col md:flex-row md:items-center justify-between gap-6">
+          
+          {/* Lado izquierdo: Alerta 3D y Contenido de Casos Reales */}
+          <div className="flex items-start sm:items-center gap-4 sm:gap-5">
+            {/* Insignia 3D con Relieve y Pulso de Radar */}
+            <div className="relative shrink-0">
+              <div className="w-14 h-14 sm:w-16 sm:h-16 rounded-2xl bg-gradient-to-b from-red-500 to-red-800 p-[1.5px] shadow-[0_8px_20px_rgba(239,68,68,0.5)]">
+                <div className="w-full h-full rounded-[14px] bg-[#1a0508] flex items-center justify-center relative overflow-hidden">
+                  <span className="absolute inset-0 bg-red-500/20 animate-pulse pointer-events-none" />
+                  <AlertTriangle className="w-7 h-7 sm:w-8 sm:h-8 text-red-400 group-hover:scale-110 group-hover:rotate-6 transition-transform duration-300 drop-shadow-[0_0_10px_rgba(239,68,68,0.8)]" />
+                </div>
+              </div>
+              <span className="absolute -top-1 -right-1 flex h-3.5 w-3.5">
+                <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-red-400 opacity-75" />
+                <span className="relative inline-flex rounded-full h-3.5 w-3.5 bg-red-500 border-2 border-black" />
+              </span>
+            </div>
+
+            {/* Textos descriptivos de gran formato */}
+            <div className="space-y-1.5">
+              <div className="inline-flex items-center gap-2 px-3 py-0.5 rounded-full bg-red-500/15 border border-red-500/30 text-red-400 text-[11px] font-bold uppercase tracking-wider">
+                <span className="w-1.5 h-1.5 rounded-full bg-red-400 animate-ping" />
+                <span>Casos Reales y Denuncias en Perú (2025 - 2026)</span>
+              </div>
+              
+              <h3 className="text-lg sm:text-2xl font-black text-white tracking-tight leading-tight group-hover:text-red-100 transition-colors">
+                ¿Cómo atacan y cómo protegen sus webs los negocios peruanos?
+              </h3>
+              
+              <p className="text-xs sm:text-sm text-neutral-300 leading-relaxed font-normal">
+                Explora el mapa por regiones: <strong>Lima, Norte, Centro y Sur</strong> con casos documentados de clonación web, robo de pasarelas y sanciones.
+              </p>
+            </div>
+          </div>
+
+          {/* Lado derecho: Botón 3D con Sombra de Profundidad Física */}
+          <div className="shrink-0 self-start md:self-center">
+            <div className="inline-flex items-center gap-2 px-6 py-3.5 rounded-2xl bg-gradient-to-b from-red-500 via-red-600 to-red-700 hover:from-red-400 hover:to-red-600 border-t border-rose-300/50 text-white font-extrabold text-xs sm:text-sm shadow-[0_6px_0_#991b1b,0_12px_25px_rgba(239,68,68,0.5)] group-hover:shadow-[0_4px_0_#991b1b,0_15px_30px_rgba(239,68,68,0.65)] group-hover:translate-y-[2px] active:translate-y-[6px] active:shadow-[0_0px_0_#991b1b] transition-all">
+              <span className="text-base">🇵🇪</span>
+              <span className="tracking-wide uppercase">Abrir Casos Reales</span>
+              <ArrowRight className="w-4 h-4 group-hover:translate-x-1 transition-transform" />
+            </div>
+          </div>
+
+        </div>
       </button>
 
       {isOpen && (
