@@ -280,10 +280,10 @@ export default function HomePage() {
                 <span>{error}</span>
               </div>
             )}
-
-            {/* Resumen Inicial: Qué es la app y qué puedes hacer (Super visual y fácil de entender) */}
-            {!report && <HowItWorksGuide />}
           </section>
+
+          {/* Resumen Inicial: Qué es la app y qué puedes hacer (Super visual, espacioso y fácil de entender) */}
+          {!report && <HowItWorksGuide />}
 
           {/* Resultados de Auditoría */}
           {report && (
