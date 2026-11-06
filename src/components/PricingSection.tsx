@@ -14,8 +14,8 @@ export default function PricingSection({ targetUrl, score, grade }: Props) {
   const { t } = useI18n();
   const cleanUrl = targetUrl ? targetUrl.replace(/^https?:\/\//i, '').replace(/\/.*$/, '') : '';
 
-  const getPlanWhatsAppUrl = (planName: string, pricePen: string, priceUsd: string) => {
-    const message = `Hola Martín, estuve revisando mi web ${cleanUrl ? `(${cleanUrl})` : ''} en DEFENSA TI ${score ? `con nota ${score}/100 (Grado ${grade})` : ''} y quiero contratar el plan: *${planName}* (${pricePen} / ${priceUsd}). ¿Cuáles son los pasos para empezar?`;
+  const getPlanWhatsAppUrl = (planName: string, pricePen: string) => {
+    const message = `Hola Martín, estuve revisando mi web ${cleanUrl ? `(${cleanUrl})` : ''} en DEFENSA TI ${score ? `con nota ${score}/100 (Grado ${grade})` : ''} y quiero contratar el plan: *${planName}* (${pricePen}). ¿Cuáles son los pasos para empezar?`;
     return `https://wa.me/17856433991?text=${encodeURIComponent(message)}`;
   };
 
@@ -24,7 +24,6 @@ export default function PricingSection({ targetUrl, score, grade }: Props) {
       name: 'Dictamen Técnico & Receta de Código',
       tag: 'Para Empresas con Informático Propio',
       pricePen: 'S/ 65',
-      priceUsd: '$19',
       badge: 'Entrega en 48 horas laborables',
       highlight: false,
       description: 'Revisión exhaustiva externa. Informe formal firmado con membrete, RUC y boleta/factura, más el código exacto listo para aplicar.',
@@ -42,7 +41,6 @@ export default function PricingSection({ targetUrl, score, grade }: Props) {
       name: 'Blindaje Llave en Mano',
       tag: 'Nosotros lo Arreglamos por Ti',
       pricePen: 'S/ 165',
-      priceUsd: '$49',
       badge: 'Plazo: 3 a 5 días',
       highlight: true,
       description: 'El plan recomendado. Con acceso temporal nos encargamos de todo el trabajo técnico. Tú y tu empresa no mueven un solo dedo.',
@@ -61,7 +59,6 @@ export default function PricingSection({ targetUrl, score, grade }: Props) {
       name: 'Blindaje Total WAF + Certificación Grado A',
       tag: 'Protección Avanzada & Anti-Ataques',
       pricePen: 'S/ 335',
-      priceUsd: '$99',
       badge: 'Plazo: 5 a 7 días',
       highlight: false,
       description: 'Para e-commerce y empresas de alto tráfico. Auditoría + remediación + WAF perimetral activo, blindaje anti-bots y meta técnica Grado A.',
@@ -119,15 +116,14 @@ export default function PricingSection({ targetUrl, score, grade }: Props) {
                 <p className="text-xs text-neutral-300 mt-2 leading-relaxed">{p.description}</p>
               </div>
 
-              {/* Precios (Soles principal, USD secundario) */}
+              {/* Precios (Exclusivo en Soles para Perú) */}
               <div className="pt-2 border-t border-white/10">
                 <div className="flex items-baseline gap-2">
                   <span className="text-3xl sm:text-4xl font-black text-white">{p.pricePen}</span>
-                  <span className="text-xs text-neutral-400 font-medium">PEN pago único</span>
+                  <span className="text-xs text-neutral-400 font-medium">Soles (PEN) &bull; Pago único</span>
                 </div>
-                <div className="text-[12px] text-[#38bdf8] font-semibold mt-0.5 flex items-center gap-1.5">
-                  <span>o aprox. {p.priceUsd} USD</span>
-                  <span className="text-[10px] text-neutral-500 font-normal">| Facturación local / internacional</span>
+                <div className="text-[12px] text-emerald-400 font-semibold mt-1 flex items-center gap-1.5">
+                  <span>Factura o Boleta electrónica formal</span>
                 </div>
                 <div className="mt-2 inline-flex items-center gap-1.5 px-2.5 py-0.5 rounded-full bg-white/5 border border-white/10 text-[10px] text-neutral-300 font-medium">
                   <span className="w-1.5 h-1.5 rounded-full bg-emerald-400 animate-pulse"></span>
@@ -149,7 +145,7 @@ export default function PricingSection({ targetUrl, score, grade }: Props) {
             {/* Botón de acción */}
             <div className="pt-6">
               <a
-                href={getPlanWhatsAppUrl(p.name, p.pricePen, p.priceUsd)}
+                href={getPlanWhatsAppUrl(p.name, p.pricePen)}
                 target="_blank"
                 rel="noopener noreferrer"
                 className={`w-full py-3 px-4 rounded-2xl font-bold text-xs sm:text-sm flex items-center justify-center gap-2 transition-all cursor-pointer active:scale-95 shadow-md ${
