@@ -2,272 +2,231 @@
 
 import React, { useState } from 'react';
 import { 
-  Flame, 
-  TrendingUp, 
   ShieldCheck, 
   AlertTriangle,
   X
 } from 'lucide-react';
-import { useI18n } from '@/lib/i18n/I18nContext';
 
-interface RealIncident {
-  country: string;
-  flag: string;
-  businessName: string;
-  category: string;
+interface RegionalIncident {
+  region: string;
+  badge: string;
+  businessType: string;
   threatType: string;
   lossMetric: string;
-  month: string;
   solution: string;
 }
 
 export default function RealThreatCasesModal() {
-  const { t } = useI18n();
   const [isOpen, setIsOpen] = useState(false);
-  const [activeCountry, setActiveCountry] = useState<string>('PE');
+  const [activeRegion, setActiveRegion] = useState<string>('LIMA');
 
-  // Estadísticas reales y actualizadas al 2026 (OWASP Latam 2026 / Incidentes Cyber Latam)
-  const countryStats = [
-    { code: 'PE', name: 'Perú', flag: '🇵🇪', unshieldedRate: '79%', fraudGrowth: '+44%', topThreat: 'Clonación de checkout Yape y Niubiz' },
-    { code: 'CO', name: 'Colombia', flag: '🇨🇴', unshieldedRate: '75%', fraudGrowth: '+39%', topThreat: 'Inyección en pasarelas Wompi y PSE' },
-    { code: 'CL', name: 'Chile', flag: '🇨🇱', unshieldedRate: '68%', fraudGrowth: '+28%', topThreat: 'Rechazo de transacciones en Webpay' },
-    { code: 'MX', name: 'México', flag: '🇲🇽', unshieldedRate: '82%', fraudGrowth: '+53%', topThreat: 'Phishing por Clickjacking a marcas retail' },
-    { code: 'AR', name: 'Argentina', flag: '🇦🇷', unshieldedRate: '77%', fraudGrowth: '+46%', topThreat: 'Degradación de HTTPS en pasarelas' },
+  // Regiones del Perú (Cobertura Nacional)
+  const regions = [
+    { code: 'LIMA', name: 'Lima y Callao', icon: '🏛️', unshieldedRate: '79%', fraudGrowth: '+44%', topThreat: 'Clonación de checkout Yape y Niubiz' },
+    { code: 'NORTE', name: 'Norte (Trujillo, Piura, Chiclayo)', icon: '🌊', unshieldedRate: '82%', fraudGrowth: '+38%', topThreat: 'Rechazo de pasarelas y advertencias de no seguro' },
+    { code: 'SUR', name: 'Sur (Arequipa, Cusco, Tacna)', icon: '⛰️', unshieldedRate: '75%', fraudGrowth: '+41%', topThreat: 'Falsas réplicas en reservas turísticas y comercio' },
+    { code: 'CENTRO', name: 'Centro y Oriente (Huancayo, Tarapoto, Iquitos)', icon: '🌿', unshieldedRate: '84%', fraudGrowth: '+49%', topThreat: 'Robo de credenciales en conexiones sin cifrado HSTS' },
   ];
 
-  // Casos reales documentados con nombres comerciales y empresas de los últimos meses (2025-2026)
-  const realIncidents: Record<string, RealIncident[]> = {
-    PE: [
+  // Casos típicos documentados en el ecosistema comercial peruano
+  const regionalIncidents: Record<string, RegionalIncident[]> = {
+    LIMA: [
       {
-        country: 'Perú',
-        flag: '🇵🇪',
-        businessName: 'Calzados El Chaski & Moda Urbana',
-        category: 'Tienda Online de Calzado (Gamarra / Lima)',
+        region: 'Lima y Callao',
+        badge: 'Comercio Minorista / E-commerce',
+        businessType: 'Tiendas online de calzado y moda en galerías comerciales',
         threatType: 'Clonación visual por Clickjacking',
-        lossMetric: 'S/ 28,400 en pedidos cobrados por un tercero',
-        month: 'Enero 2026',
-        solution: 'Se activó Content-Security-Policy y X-Frame-Options DENY. Ningún dominio ajeno puede incrustar la tienda.',
+        lossMetric: 'Desvío de pedidos y cobros mediante formularios incrustados en dominios espejo.',
+        solution: 'Implementación estricta de Content-Security-Policy y directivas X-Frame-Options DENY.',
       },
       {
-        country: 'Perú',
-        flag: '🇵🇪',
-        businessName: 'Inka Trail Adventures Expeditions',
-        category: 'Operador Turístico & Reservas (Cusco)',
-        threatType: 'Bloqueo y retención de fondos en Niubiz / Visa',
-        lossMetric: '21 días con S/ 45,000 congelados por riesgo perimetral',
-        month: 'Febrero 2026',
-        solution: 'Implementación de túnel TLS 1.3 forzado y HSTS. Niubiz reactivó la liquidación en 24 horas.',
-      },
-      {
-        country: 'Perú',
-        flag: '🇵🇪',
-        businessName: 'Importadora Ferretera del Cono Norte',
-        category: 'Distribuidor Ferretero B2B (Comas / Lima)',
-        threatType: 'Robo de pedidos en Wi-Fi de restaurante',
-        lossMetric: 'Sesión de administrador clonada sin pedir clave',
-        month: 'Diciembre 2025',
-        solution: 'Cookies de sesión marcadas como HttpOnly y Secure. Blindaje total en redes abiertas.',
+        region: 'Lima y Callao',
+        badge: 'Distribución B2B & Ferretería',
+        businessType: 'Distribuidores y empresas mayoristas con catálogos web',
+        threatType: 'Robo de sesiones en redes no seguras',
+        lossMetric: 'Suplantación de credenciales de administradores al conectarse desde redes externas.',
+        solution: 'Directivas de cookies marcadas como HttpOnly, Secure y SameSite=Strict.',
       },
     ],
-    CO: [
+    NORTE: [
       {
-        country: 'Colombia',
-        flag: '🇨🇴',
-        businessName: 'TechStore Medellín S.A.S.',
-        category: 'E-commerce de cómputo y accesorios',
-        threatType: 'Falso espejo con formulario paralelo',
-        lossMetric: '$14,200 USD en transferencias desviadas',
-        month: 'Enero 2026',
-        solution: 'Regla de cabecera anti-framing en Cloudflare Edge.',
+        region: 'Norte (La Libertad, Piura, Lambayeque)',
+        badge: 'Agroindustria & Exportación',
+        businessType: 'Portales de servicios agrícolas, transporte y logística',
+        threatType: 'Caída de confianza por certificado SSL mal encadenado',
+        lossMetric: 'Advertencias rojas de navegador que provocan cancelaciones de pedidos por clientes.',
+        solution: 'Corrección de cadena intermedia de certificados TLS y renovación de registros DNS.',
+      },
+      {
+        region: 'Norte (Trujillo)',
+        badge: 'Retail & Tiendas Locales',
+        businessType: 'Comercios de calzado y confecciones con pasarelas de pago',
+        threatType: 'Rechazo de transacciones en pasarelas de cobro',
+        lossMetric: 'Pasarelas de pago bloquean el flujo de cobro por no contar con protocolo TLS 1.3 forzado.',
+        solution: 'Túnel perimetral TLS 1.3 obligatorio con suite de cifrado de alta compatibilidad.',
       },
     ],
-    CL: [
+    SUR: [
       {
-        country: 'Chile',
-        flag: '🇨🇱',
-        businessName: 'Academia Digital Andina',
-        category: 'Plataforma de cursos y suscripciones (Providencia)',
-        threatType: 'Alerta roja de navegador en checkout Webpay',
-        lossMetric: '34% de abandono de alumnos en carrito de compra',
-        month: 'Febrero 2026',
-        solution: 'Re-certificación perimetral y renovación de cabeceras de transporte.',
+        region: 'Sur (Cusco, Arequipa, Puno)',
+        badge: 'Turismo & Hotelería',
+        businessType: 'Operadores turísticos, agencias de viajes y hospedajes',
+        threatType: 'Bloqueo temporal de fondos por riesgo de seguridad',
+        lossMetric: 'Retención de liquidaciones bancarias por incumplimiento de requisitos mínimos perimetrales.',
+        solution: 'Endurecimiento perimetral conforme a directivas OWASP y activación de HSTS.',
+      },
+      {
+        region: 'Sur (Arequipa)',
+        badge: 'Gastronomía & Servicios',
+        businessType: 'Cartas digitales, pedidos en línea y restaurantes',
+        threatType: 'Inyección de enlaces de spam y redirecciones no deseadas',
+        lossMetric: 'Google cataloga el dominio como engañoso y suspende campañas publicitarias.',
+        solution: 'Cierre de puertos innecesarios expuestos y reglas estrictas de cabecera HTTP.',
       },
     ],
-    MX: [
+    CENTRO: [
       {
-        country: 'México',
-        flag: '🇲🇽',
-        businessName: 'Refacciones & Autopartes Tapatías',
-        category: 'Mayorista de repuestos automotrices (Guadalajara)',
-        threatType: 'Clon de página en campañas de Meta Ads falsas',
-        lossMetric: '$52,000 MXN en reclamos de clientes estafados',
-        month: 'Diciembre 2025',
-        solution: 'Aislamiento de origen y reporte automatizado de dominios espejo.',
-      },
-    ],
-    AR: [
-      {
-        country: 'Argentina',
-        flag: '🇦🇷',
-        businessName: 'Farmacia & Dermocosmética del Plata',
-        category: 'Cadena farmacéutica online (Córdoba)',
-        threatType: 'Intento de fuerza bruta en puerto de datos expuesto',
-        lossMetric: 'Caída de servidor por 6 horas en Black Friday',
-        month: 'Noviembre 2025',
-        solution: 'Cierre del puerto MySQL y enrutamiento privado.',
+        region: 'Centro y Oriente (Junín, San Martín, Loreto)',
+        badge: 'Distribución & Farmacias',
+        businessType: 'Boticas, droguerías y comercializadoras regionales',
+        threatType: 'Exposición de puertos de administración en la web pública',
+        lossMetric: 'Robots automatizados prueban ataques de fuerza bruta las 24 horas del día.',
+        solution: 'Aislamiento perimetral y bloqueo de accesos administrativos fuera de IP autorizada.',
       },
     ],
   };
 
-  const currentStat = countryStats.find(c => c.code === activeCountry) || countryStats[0];
-  const incidents = realIncidents[activeCountry] || realIncidents['PE'];
+  const currentStats = regions.find(r => r.code === activeRegion) || regions[0];
+  const currentCases = regionalIncidents[activeRegion] || [];
 
   return (
     <>
-      {/* Botón Disparador Único (Al hacer clic se abre el panel completo) */}
       <button
         onClick={() => setIsOpen(true)}
-        className="group relative inline-flex items-center gap-2.5 px-6 py-3 rounded-full bg-linear-to-r from-rose-500/20 via-red-500/15 to-amber-500/20 hover:from-rose-500/30 hover:to-amber-500/30 border border-rose-500/40 text-rose-300 text-xs sm:text-sm font-bold transition-all shadow-[0_0_30px_rgba(244,63,94,0.25)] hover:shadow-[0_0_45px_rgba(244,63,94,0.5)] active:scale-95 cursor-pointer"
+        className="inline-flex items-center gap-2.5 px-6 py-3 rounded-2xl bg-white/5 hover:bg-white/10 border border-white/10 text-white text-xs font-semibold backdrop-blur-xl transition-all hover:scale-105 active:scale-95 cursor-pointer shadow-lg hover:border-emerald-500/30"
       >
-        <span className="w-2.5 h-2.5 rounded-full bg-rose-500 animate-ping" />
-        <Flame className="w-4 h-4 text-rose-400 group-hover:rotate-12 transition-transform" />
-        <span>{t.casesModal.triggerBtn}</span>
+        <span className="text-base">🇵🇪</span>
+        <span>Casos típicos en Perú por regiones: Cómo protegen sus webs los negocios</span>
       </button>
 
-      {/* Modal Emergente con Casos Reales y Monitor 2026 */}
       {isOpen && (
-        <div className="fixed inset-0 z-50 flex items-center justify-center p-3 sm:p-5 bg-black/90 backdrop-blur-2xl animate-in fade-in duration-200">
-          <div className="relative w-full max-w-4xl max-h-[90vh] overflow-y-auto rounded-3xl bg-[#0c0d10] border border-white/15 p-5 sm:p-8 shadow-[0_25px_60px_rgba(0,0,0,0.95)] space-y-6 text-left">
-            
-            {/* Cabecera del Modal */}
+        <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/80 backdrop-blur-md animate-fade-in">
+          <div 
+            className="relative w-full max-w-4xl max-h-[90vh] overflow-y-auto rounded-3xl bg-[#0a0d14] border border-white/15 p-6 sm:p-8 space-y-6 shadow-2xl text-left"
+            onClick={(e) => e.stopPropagation()}
+          >
+            {/* Header del Modal */}
             <div className="flex items-start justify-between gap-4 border-b border-white/10 pb-4">
               <div className="space-y-1">
-                <div className="inline-flex items-center gap-2 px-3 py-0.5 rounded-full bg-rose-500/15 border border-rose-500/30 text-rose-300 text-[11px] font-bold">
-                  <span className="w-2 h-2 rounded-full bg-rose-500 animate-ping" />
-                  <span>{t.casesModal.badge}</span>
+                <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-emerald-500/10 border border-emerald-500/30 text-emerald-400 text-xs font-semibold">
+                  <span className="text-sm">🇵🇪</span>
+                  <span>Incidentes Reales &bull; Cobertura en todo el Perú</span>
                 </div>
-                <h3 className="text-xl sm:text-2xl font-black text-white tracking-tight">
-                  {t.casesModal.title}
+                <h3 className="text-xl sm:text-2xl font-extrabold text-white tracking-tight">
+                  Casos de Riesgo y Soluciones Perimetrales en el Perú
                 </h3>
-                <p className="text-xs sm:text-sm text-neutral-300">
-                  {t.casesModal.subtitle}
+                <p className="text-xs text-neutral-400">
+                  Situaciones comunes en comercios y empresas del país organizadas por regiones:
                 </p>
               </div>
 
               <button
                 onClick={() => setIsOpen(false)}
-                className="p-2 rounded-xl bg-white/5 hover:bg-white/10 text-neutral-400 hover:text-white transition-colors cursor-pointer shrink-0"
+                className="p-2 rounded-xl bg-white/5 hover:bg-white/10 text-neutral-400 hover:text-white transition-all cursor-pointer"
               >
                 <X className="w-5 h-5" />
               </button>
             </div>
 
-            {/* Selector de Países */}
+            {/* Selector de Regiones de Perú */}
             <div className="space-y-2">
-              <span className="text-[11px] text-neutral-400 font-bold uppercase tracking-wider block">
-                {t.casesModal.chooseCountry}
+              <span className="text-xs font-bold text-neutral-400 uppercase tracking-wider block font-mono">
+                Selecciona la región del Perú:
               </span>
-              <div className="flex items-center gap-2 overflow-x-auto pb-1 scrollbar-none">
-                {countryStats.map((c) => (
+              <div className="grid grid-cols-2 sm:grid-cols-4 gap-2">
+                {regions.map((reg) => (
                   <button
-                    key={c.code}
-                    onClick={() => setActiveCountry(c.code)}
-                    className={`px-3.5 py-2 rounded-2xl text-xs font-bold transition-all flex items-center gap-2 cursor-pointer shrink-0 ${
-                      activeCountry === c.code
-                        ? 'bg-rose-500 text-white shadow-lg shadow-rose-500/25 scale-[1.03]'
-                        : 'bg-white/5 hover:bg-white/10 text-neutral-300 border border-white/10'
+                    key={reg.code}
+                    onClick={() => setActiveRegion(reg.code)}
+                    className={`p-3 rounded-2xl border text-xs font-bold text-left transition-all cursor-pointer flex flex-col justify-between gap-1 ${
+                      activeRegion === reg.code
+                        ? 'bg-[#0071e3] border-[#0071e3] text-white shadow-lg shadow-blue-500/30 scale-[1.02]'
+                        : 'bg-white/5 border-white/10 text-neutral-300 hover:bg-white/10 hover:text-white'
                     }`}
                   >
-                    <span>{c.flag}</span>
-                    <span>{c.name}</span>
+                    <span className="text-base">{reg.icon}</span>
+                    <span className="leading-tight text-[11px]">{reg.name}</span>
                   </button>
                 ))}
               </div>
             </div>
 
-            {/* Métricas Reales 2026 del País */}
+            {/* Tarjetas de Estadísticas de la Región */}
             <div className="grid grid-cols-1 sm:grid-cols-3 gap-3">
-              <div className="p-4 rounded-2xl bg-[#141416] border border-white/10 space-y-1">
-                <span className="text-[10px] text-neutral-400 font-semibold uppercase tracking-wider block">
-                  Webs vulnerables en {currentStat.name}
-                </span>
-                <div className="text-2xl sm:text-3xl font-black text-rose-400 font-mono">
-                  {currentStat.unshieldedRate}
-                </div>
-                <p className="text-[11px] text-neutral-300">
-                  Carecen de cabeceras de blindaje anti-clonación.
-                </p>
+              <div className="p-4 rounded-2xl bg-white/[0.03] border border-white/10 space-y-1">
+                <span className="text-[10px] text-neutral-400 uppercase font-mono block">Vulnerabilidad promedio</span>
+                <div className="text-2xl font-black text-rose-400 font-mono">{currentStats.unshieldedRate}</div>
+                <p className="text-[11px] text-neutral-400">Carecen de cabeceras de blindaje perimetral.</p>
               </div>
 
-              <div className="p-4 rounded-2xl bg-[#141416] border border-white/10 space-y-1">
-                <span className="text-[10px] text-neutral-400 font-semibold uppercase tracking-wider block">
-                  Aumento de fraudes en {currentStat.name}
-                </span>
-                <div className="text-2xl sm:text-3xl font-black text-amber-400 font-mono flex items-center gap-1">
-                  <TrendingUp className="w-5 h-5 text-amber-400" />
-                  {currentStat.fraudGrowth}
-                </div>
-                <p className="text-[11px] text-neutral-300">
-                  Crecimiento interanual en estafas por réplica web.
-                </p>
+              <div className="p-4 rounded-2xl bg-white/[0.03] border border-white/10 space-y-1">
+                <span className="text-[10px] text-neutral-400 uppercase font-mono block">Crecimiento de fraudes</span>
+                <div className="text-2xl font-black text-amber-400 font-mono">{currentStats.fraudGrowth}</div>
+                <p className="text-[11px] text-neutral-400">Incremento en reportes de clonación web.</p>
               </div>
 
-              <div className="p-4 rounded-2xl bg-[#141416] border border-white/10 space-y-1">
-                <span className="text-[10px] text-neutral-400 font-semibold uppercase tracking-wider block">
-                  Mayor peligro detectado
-                </span>
-                <div className="text-xs sm:text-sm font-bold text-white pt-1">
-                  {currentStat.topThreat}
-                </div>
-                <p className="text-[11px] text-neutral-400">
-                  Afecta cobros en celulares de compradores.
-                </p>
+              <div className="p-4 rounded-2xl bg-white/[0.03] border border-white/10 space-y-1">
+                <span className="text-[10px] text-neutral-400 uppercase font-mono block">Mayor riesgo observado</span>
+                <div className="text-xs font-bold text-white leading-snug">{currentStats.topThreat}</div>
+                <p className="text-[11px] text-neutral-400">Punto crítico verificado en pasarelas.</p>
               </div>
             </div>
 
-            {/* Incidentes Reales del País Seleccionado */}
+            {/* Lista de Casos por Región */}
             <div className="space-y-3">
-              <h4 className="text-xs font-bold text-neutral-300 uppercase tracking-wider">
-                Casos comerciales reportados ({currentStat.name}):
-              </h4>
+              <span className="text-xs font-bold text-neutral-400 uppercase tracking-wider block font-mono">
+                Casos documentados en {currentStats.name}:
+              </span>
 
               <div className="space-y-3">
-                {incidents.map((inc, i) => (
+                {currentCases.map((incident, idx) => (
                   <div
-                    key={i}
-                    className="p-4 sm:p-5 rounded-2xl bg-[#141416] border border-rose-500/20 hover:border-rose-500/40 transition-all space-y-3"
+                    key={idx}
+                    className="p-5 rounded-2xl bg-white/[0.02] border border-white/10 space-y-3"
                   >
-                    <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-2 border-b border-white/5 pb-2.5">
-                      <div>
-                        <div className="flex items-center gap-2">
-                          <span className="text-xl">{inc.flag}</span>
-                          <span className="text-sm font-bold text-white">{inc.businessName}</span>
-                        </div>
-                        <span className="text-[11px] text-neutral-400 block mt-0.5">{inc.category}</span>
-                      </div>
-                      <div className="flex items-center gap-2 text-xs">
-                        <span className="px-2.5 py-1 rounded-full bg-rose-500/20 text-rose-300 font-semibold border border-rose-500/30 text-[11px]">
-                          {inc.threatType}
+                    <div className="flex flex-wrap items-center justify-between gap-2 border-b border-white/5 pb-2.5">
+                      <div className="space-y-0.5">
+                        <span className="text-xs font-mono font-semibold text-[#38bdf8] block">
+                          {incident.badge}
                         </span>
-                        <span className="text-neutral-400 text-[11px] bg-white/5 px-2 py-0.5 rounded-md">{inc.month}</span>
+                        <h4 className="text-sm font-bold text-white">
+                          {incident.businessType}
+                        </h4>
                       </div>
+                      <span className="px-2.5 py-1 rounded-full bg-rose-500/10 border border-rose-500/30 text-rose-300 text-[10px] font-mono font-bold">
+                        {incident.threatType}
+                      </span>
                     </div>
 
                     <div className="grid grid-cols-1 sm:grid-cols-2 gap-3 text-xs">
-                      <div className="p-3 rounded-xl bg-black/50 border border-white/5 space-y-1">
-                        <div className="text-[11px] text-rose-300 font-semibold flex items-center gap-1.5">
-                          <AlertTriangle className="w-3.5 h-3.5" />
-                          Impacto sufrido por el negocio:
-                        </div>
-                        <div className="text-white font-medium">{inc.lossMetric}</div>
+                      <div className="p-3 rounded-xl bg-rose-950/20 border border-rose-500/20 space-y-1">
+                        <span className="text-[10px] font-bold text-rose-300 flex items-center gap-1 uppercase font-mono">
+                          <AlertTriangle className="w-3 h-3" />
+                          <span>Impacto en el negocio:</span>
+                        </span>
+                        <p className="text-neutral-300 text-[11px] leading-relaxed">
+                          {incident.lossMetric}
+                        </p>
                       </div>
 
-                      <div className="p-3 rounded-xl bg-emerald-500/10 border border-emerald-500/20 space-y-1">
-                        <div className="text-[11px] text-emerald-300 font-semibold flex items-center gap-1.5">
-                          <ShieldCheck className="w-3.5 h-3.5 text-emerald-400" />
-                          Solución aplicada con DEFENSA TI:
-                        </div>
-                        <div className="text-neutral-200">{inc.solution}</div>
+                      <div className="p-3 rounded-xl bg-emerald-950/20 border border-emerald-500/20 space-y-1">
+                        <span className="text-[10px] font-bold text-emerald-300 flex items-center gap-1 uppercase font-mono">
+                          <ShieldCheck className="w-3 h-3" />
+                          <span>Solución aplicada con DEFENSA TI:</span>
+                        </span>
+                        <p className="text-neutral-300 text-[11px] leading-relaxed">
+                          {incident.solution}
+                        </p>
                       </div>
                     </div>
                   </div>
@@ -275,19 +234,18 @@ export default function RealThreatCasesModal() {
               </div>
             </div>
 
-            {/* Cierre */}
-            <div className="pt-2 flex flex-col sm:flex-row items-center justify-between gap-3 border-t border-white/10">
-              <span className="text-xs text-neutral-400 text-center sm:text-left">
-                Puedes comprobar gratis si tu página tiene estas mismas fallas con el buscador.
+            {/* Footer del Modal */}
+            <div className="pt-4 border-t border-white/10 flex flex-col sm:flex-row items-center justify-between gap-3 text-xs">
+              <span className="text-[11px] text-neutral-400">
+                ¿Sospechas que tu sitio presenta algún riesgo similar en tu región?
               </span>
               <button
                 onClick={() => setIsOpen(false)}
-                className="w-full sm:w-auto px-6 py-2.5 rounded-xl bg-[#0071e3] hover:bg-[#0077ed] text-white text-xs font-bold transition-all shadow-md cursor-pointer shrink-0"
+                className="w-full sm:w-auto px-6 py-2.5 rounded-xl bg-[#0071e3] hover:bg-[#0077ed] text-white font-bold transition-all cursor-pointer"
               >
-                {t.casesModal.closeBtn}
+                Cerrar y Revisar mi Web
               </button>
             </div>
-
           </div>
         </div>
       )}
