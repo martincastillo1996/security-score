@@ -47,9 +47,12 @@ export default function PrintableReport({ report, auditId }: Props) {
           </div>
           <div>
             <h1 className="font-extrabold text-lg tracking-tight uppercase text-neutral-900">
-              DEFENSA TI &bull; SECURITY SCORE PRO
+              NEURONAL GRAVITY &bull; DEFENSA TI
             </h1>
-            <p className="text-[10px] text-neutral-600 font-mono">
+            <p className="text-[10px] text-neutral-700 font-bold">
+              Soluciones Tecnológicas &bull; RUC 10704877850
+            </p>
+            <p className="text-[9.5px] text-neutral-600 font-mono">
               Dictamen Forense Perimetral de Transporte y Cabeceras RFC / OWASP
             </p>
           </div>
@@ -193,10 +196,16 @@ export default function PrintableReport({ report, auditId }: Props) {
         <strong>Aviso Legal y Descargo de Responsabilidad:</strong> Este documento contiene un diagnóstico automatizado no intrusivo generado con base en directivas públicas OWASP y análisis de cabeceras de transporte. Este dictamen se expide a título exclusivo de <strong>asesoría técnica y recomendaciones de buenas prácticas perimetrales</strong>. No constituye una certificación de infalibilidad ni auditoría de código interno o credenciales. DEFENSA TI y sus consultores quedan exentos de toda responsabilidad derivada de la implementación o incidentes de seguridad externos.
       </div>
 
-      {/* Pie de Página */}
-      <div className="mt-3 border-t border-neutral-300 pt-2 flex justify-between items-center text-[9px] font-mono text-neutral-500">
-        <span>DEFENSA TI &bull; Reporte emitido automáticamente</span>
-        <span>Asesoría de Buenas Prácticas Latam &bull; Página 1 de 1</span>
+      {/* Pie de Página con Membrete Oficial */}
+      <div className="mt-4 border-t-2 border-neutral-900 pt-3 flex justify-between items-center text-[9px] font-mono text-neutral-700">
+        <div>
+          <span className="font-bold text-neutral-900 block">NEURONAL GRAVITY &bull; RUC 10704877850</span>
+          <span>Martín Castillo &bull; Soluciones Tecnológicas y Ciberseguridad</span>
+        </div>
+        <div className="text-right">
+          <span className="block font-bold text-emerald-800">Sello de Certificación Digital Verificado</span>
+          <span>https://neuronalgravity.com &bull; Dictamen Válido</span>
+        </div>
       </div>
     </div>
   );

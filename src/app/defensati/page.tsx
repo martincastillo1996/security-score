@@ -21,6 +21,9 @@ import NeuronalGravityHub from '@/components/NeuronalGravityHub';
 import LanguageSelector from '@/components/LanguageSelector';
 import AiConsultantWidget from '@/components/AiConsultantWidget';
 import HeaderWhatsAppButton from '@/components/HeaderWhatsAppButton';
+import CompetitorComparisonSection from '@/components/CompetitorComparisonSection';
+import VerifiedBadgeWidget from '@/components/VerifiedBadgeWidget';
+import SslAlertWidget from '@/components/SslAlertWidget';
 import { useI18n } from '@/lib/i18n/I18nContext';
 import { AuditReportRecord } from '@/lib/storage/reportStore';
 import {
@@ -280,6 +283,9 @@ export default function HomePage() {
               </button>
             </div>
 
+            {/* Comparador Cara a Cara contra tu Competidor */}
+            <CompetitorComparisonSection />
+
             {error && (
               <div className="p-4 rounded-2xl bg-rose-500/10 border border-rose-500/20 text-rose-400 text-xs flex items-center justify-center gap-2">
                 <AlertTriangle className="w-4 h-4 shrink-0" />
@@ -362,6 +368,20 @@ export default function HomePage() {
                 location={report.location} 
                 resolvedIp={report.telemetry?.targetResolvedIp} 
                 targetDomain={report.url}
+              />
+
+              {/* Sello Oficial de Seguridad Verificada (Visible solo en Grado A) */}
+              <VerifiedBadgeWidget 
+                domain={report.url} 
+                auditId={auditId || undefined} 
+                grade={report.grade} 
+                score={report.score} 
+              />
+
+              {/* Alerta Preventiva de Vencimiento SSL en WhatsApp */}
+              <SslAlertWidget 
+                domain={report.url} 
+                daysRemaining={report.ssl?.daysRemaining} 
               />
 
               {/* Contenido Condicional según Perspectiva */}
