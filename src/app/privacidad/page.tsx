@@ -39,7 +39,7 @@ export default function PrivacidadPage() {
         <section className="space-y-3 text-sm leading-relaxed">
           <h2 className="text-lg font-bold text-white">1. Titular del Banco de Datos</h2>
           <p>
-            El responsable del tratamiento de los datos personales recopilados a través de este sitio web es Martin Castillo, con RUC con Negocio <strong>10704877850</strong>, con domicilio en Lima, Perú, y canal de contacto directo en <strong>castillo.karol96@gmail.com</strong> y WhatsApp <strong>+51 987 010 380</strong>.
+            El responsable del tratamiento de los datos personales recopilados a través de este sitio web es Martin Castillo, con RUC con Negocio <strong>10704877850</strong>, con domicilio en Lima, Perú, y canal de contacto directo en <strong>castillo.karol96@gmail.com</strong> y WhatsApp <strong>+1 (785) 643-3991</strong>.
           </p>
         </section>
 
@@ -65,7 +65,7 @@ export default function PrivacidadPage() {
         <section className="space-y-3 text-sm leading-relaxed">
           <h2 className="text-lg font-bold text-white">4. Ejercicio de Derechos ARCO</h2>
           <p>
-            El titular de los datos puede ejercer en cualquier momento sus derechos de Acceso, Rectificación, Cancelación y Oposición (ARCO) enviando un mensaje a castillo.karol96@gmail.com o directamente por WhatsApp al +51 987 010 380.
+            El titular de los datos puede ejercer en cualquier momento sus derechos de Acceso, Rectificación, Cancelación y Oposición (ARCO) enviando un mensaje a castillo.karol96@gmail.com o directamente por WhatsApp al +1 (785) 643-3991.
           </p>
         </section>
       </main>

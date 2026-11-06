@@ -6,7 +6,7 @@ interface Props {
 }
 
 export default function FloatingWhatsAppButton({ url, score }: Props) {
-  const phone = '51987010380';
+  const phone = '17856433991';
   const message = url
     ? `Hola Martín, estuve revisando mi web ${url} con DEFENSA TI (obtuve ${score ?? '...'}/100) y quiero cotizar la auditoría y blindaje de mi servidor.`
     : 'Hola Martín, quiero solicitar una auditoría y blindaje de seguridad DEFENSA TI para mi sitio web.';

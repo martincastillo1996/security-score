@@ -101,15 +101,15 @@ export default function LiderazgoPage() {
                   className="inline-flex items-center gap-2 px-4 py-2.5 rounded-xl bg-emerald-600 hover:bg-emerald-500 text-white text-xs font-semibold shadow-lg shadow-emerald-600/30 transition-all active:scale-95"
                 >
                   <MessageSquare className="w-3.5 h-3.5" />
-                  <span>WhatsApp (+51 987 010 380)</span>
+                  <span>WhatsApp (+1 (785) 643-3991)</span>
                 </a>
 
                 <a
-                  href="tel:+51987010380"
+                  href="tel:+17856433991"
                   className="inline-flex items-center gap-2 px-4 py-2.5 rounded-xl bg-white/5 hover:bg-white/10 border border-white/10 text-white text-xs font-semibold transition-all active:scale-95"
                 >
                   <Phone className="w-3.5 h-3.5 text-[#38bdf8]" />
-                  <span>Llamadas (+51 987 010 380)</span>
+                  <span>Llamadas (+1 (785) 643-3991)</span>
                 </a>
 
                 <a

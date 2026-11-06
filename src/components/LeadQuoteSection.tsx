@@ -100,7 +100,7 @@ export default function LeadQuoteSection() {
 
   const getWhatsAppAlternativeUrl = () => {
     const text = `Hola Martín, estuve revisando Neuronal Gravity y deseo cotizar una propuesta formal:\n- *Nombre:* ${formData.name || 'Cliente'}${formData.company ? `\n- *Empresa:* ${formData.company}` : ''}\n- *Servicio:* ${formData.service}\n- *Plazo:* ${formData.timeline}${formData.budget ? `\n- *Presupuesto:* ${formData.budget}` : ''}${formData.details ? `\n- *Detalles:* ${formData.details}` : ''}`;
-    return `https://wa.me/51987010380?text=${encodeURIComponent(text)}`;
+    return `https://wa.me/17856433991?text=${encodeURIComponent(text)}`;
   };
 
   return (

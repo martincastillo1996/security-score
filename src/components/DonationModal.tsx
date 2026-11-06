@@ -44,7 +44,8 @@ declare global {
   }
 }
 
-const CULQI_PUBLIC_KEY = 'pk_test_4X14aLJdiXe9CfYC';
+// Llave pública de Culqi protegida mediante variables de entorno (cero llaves quemadas)
+const CULQI_PUBLIC_KEY = process.env.NEXT_PUBLIC_CULQI_PUBLIC_KEY || '';
 
 export default function DonationModal() {
   useI18n();
