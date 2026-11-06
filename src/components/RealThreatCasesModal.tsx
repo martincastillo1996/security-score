@@ -26,55 +26,55 @@ export default function RealThreatCasesModal() {
   const [isOpen, setIsOpen] = useState(false);
   const [activeCountry, setActiveCountry] = useState<string>('PE');
 
-  // Estadísticas reales y actualizadas al 2026 (OWASP Per� 2026 / Incidentes Cyber Per�)
+  // EstadÃ­sticas reales y actualizadas al 2026 (OWASP Perú 2026 / Incidentes Cyber Perú)
   const countryStats = [
-    { code: 'PE', name: 'Perú', flag: '🇵🇪', unshieldedRate: '79%', fraudGrowth: '+44%', topThreat: 'Clonación de checkout Yape y Niubiz' },
-    { code: 'CO', name: 'Colombia', flag: '🇨🇴', unshieldedRate: '75%', fraudGrowth: '+39%', topThreat: 'Inyección en pasarelas Wompi y PSE' },
-    { code: 'CL', name: 'Chile', flag: '🇨🇱', unshieldedRate: '68%', fraudGrowth: '+28%', topThreat: 'Rechazo de transacciones en Webpay' },
-    { code: 'MX', name: 'México', flag: '🇲🇽', unshieldedRate: '82%', fraudGrowth: '+53%', topThreat: 'Phishing por Clickjacking a marcas retail' },
-    { code: 'AR', name: 'Argentina', flag: '🇦🇷', unshieldedRate: '77%', fraudGrowth: '+46%', topThreat: 'Degradación de HTTPS en pasarelas' },
+    { code: 'PE', name: 'PerÃº', flag: 'ðµðª', unshieldedRate: '79%', fraudGrowth: '+44%', topThreat: 'ClonaciÃ³n de checkout Yape y Niubiz' },
+    { code: 'CO', name: 'Colombia', flag: 'ð¨ð´', unshieldedRate: '75%', fraudGrowth: '+39%', topThreat: 'InyecciÃ³n en pasarelas Wompi y PSE' },
+    { code: 'CL', name: 'Chile', flag: 'ð¨ð±', unshieldedRate: '68%', fraudGrowth: '+28%', topThreat: 'Rechazo de transacciones en Webpay' },
+    { code: 'MX', name: 'MÃ©xico', flag: 'ð²ð½', unshieldedRate: '82%', fraudGrowth: '+53%', topThreat: 'Phishing por Clickjacking a marcas retail' },
+    { code: 'AR', name: 'Argentina', flag: 'ð¦ð·', unshieldedRate: '77%', fraudGrowth: '+46%', topThreat: 'DegradaciÃ³n de HTTPS en pasarelas' },
   ];
 
-  // Casos reales documentados con nombres comerciales y empresas de los últimos meses (2025-2026)
+  // Casos reales documentados con nombres comerciales y empresas de los Ãºltimos meses (2025-2026)
   const realIncidents: Record<string, RealIncident[]> = {
     PE: [
       {
-        country: 'Perú',
-        flag: '🇵🇪',
+        country: 'PerÃº',
+        flag: 'ðµðª',
         businessName: 'Calzados El Chaski & Moda Urbana',
         category: 'Tienda Online de Calzado (Gamarra / Lima)',
-        threatType: 'Clonación visual por Clickjacking',
+        threatType: 'ClonaciÃ³n visual por Clickjacking',
         lossMetric: 'S/ 28,400 en pedidos cobrados por un tercero',
         month: 'Enero 2026',
-        solution: 'Se activó Content-Security-Policy y X-Frame-Options DENY. Ningún dominio ajeno puede incrustar la tienda.',
+        solution: 'Se activÃ³ Content-Security-Policy y X-Frame-Options DENY. NingÃºn dominio ajeno puede incrustar la tienda.',
       },
       {
-        country: 'Perú',
-        flag: '🇵🇪',
+        country: 'PerÃº',
+        flag: 'ðµðª',
         businessName: 'Inka Trail Adventures Expeditions',
-        category: 'Operador Turístico & Reservas (Cusco)',
-        threatType: 'Bloqueo y retención de fondos en Niubiz / Visa',
-        lossMetric: '21 días con S/ 45,000 congelados por riesgo perimetral',
+        category: 'Operador TurÃ­stico & Reservas (Cusco)',
+        threatType: 'Bloqueo y retenciÃ³n de fondos en Niubiz / Visa',
+        lossMetric: '21 dÃ­as con S/ 45,000 congelados por riesgo perimetral',
         month: 'Febrero 2026',
-        solution: 'Implementación de túnel TLS 1.3 forzado y HSTS. Niubiz reactivó la liquidación en 24 horas.',
+        solution: 'ImplementaciÃ³n de tÃºnel TLS 1.3 forzado y HSTS. Niubiz reactivÃ³ la liquidaciÃ³n en 24 horas.',
       },
       {
-        country: 'Perú',
-        flag: '🇵🇪',
+        country: 'PerÃº',
+        flag: 'ðµðª',
         businessName: 'Importadora Ferretera del Cono Norte',
         category: 'Distribuidor Ferretero B2B (Comas / Lima)',
         threatType: 'Robo de pedidos en Wi-Fi de restaurante',
-        lossMetric: 'Sesión de administrador clonada sin pedir clave',
+        lossMetric: 'SesiÃ³n de administrador clonada sin pedir clave',
         month: 'Diciembre 2025',
-        solution: 'Cookies de sesión marcadas como HttpOnly y Secure. Blindaje total en redes abiertas.',
+        solution: 'Cookies de sesiÃ³n marcadas como HttpOnly y Secure. Blindaje total en redes abiertas.',
       },
     ],
     CO: [
       {
         country: 'Colombia',
-        flag: '🇨🇴',
-        businessName: 'TechStore Medellín S.A.S.',
-        category: 'E-commerce de cómputo y accesorios',
+        flag: 'ð¨ð´',
+        businessName: 'TechStore MedellÃ­n S.A.S.',
+        category: 'E-commerce de cÃ³mputo y accesorios',
         threatType: 'Falso espejo con formulario paralelo',
         lossMetric: '$14,200 USD en transferencias desviadas',
         month: 'Enero 2026',
@@ -84,22 +84,22 @@ export default function RealThreatCasesModal() {
     CL: [
       {
         country: 'Chile',
-        flag: '🇨🇱',
+        flag: 'ð¨ð±',
         businessName: 'Academia Digital Andina',
         category: 'Plataforma de cursos y suscripciones (Providencia)',
         threatType: 'Alerta roja de navegador en checkout Webpay',
         lossMetric: '34% de abandono de alumnos en carrito de compra',
         month: 'Febrero 2026',
-        solution: 'Re-certificación perimetral y renovación de cabeceras de transporte.',
+        solution: 'Re-certificaciÃ³n perimetral y renovaciÃ³n de cabeceras de transporte.',
       },
     ],
     MX: [
       {
-        country: 'México',
-        flag: '🇲🇽',
-        businessName: 'Refacciones & Autopartes Tapatías',
+        country: 'MÃ©xico',
+        flag: 'ð²ð½',
+        businessName: 'Refacciones & Autopartes TapatÃ­as',
         category: 'Mayorista de repuestos automotrices (Guadalajara)',
-        threatType: 'Clon de página en campañas de Meta Ads falsas',
+        threatType: 'Clon de pÃ¡gina en campaÃ±as de Meta Ads falsas',
         lossMetric: '$52,000 MXN en reclamos de clientes estafados',
         month: 'Diciembre 2025',
         solution: 'Aislamiento de origen y reporte automatizado de dominios espejo.',
@@ -108,11 +108,11 @@ export default function RealThreatCasesModal() {
     AR: [
       {
         country: 'Argentina',
-        flag: '🇦🇷',
-        businessName: 'Farmacia & Dermocosmética del Plata',
-        category: 'Cadena farmacéutica online (Córdoba)',
+        flag: 'ð¦ð·',
+        businessName: 'Farmacia & DermocosmÃ©tica del Plata',
+        category: 'Cadena farmacÃ©utica online (CÃ³rdoba)',
         threatType: 'Intento de fuerza bruta en puerto de datos expuesto',
-        lossMetric: 'Caída de servidor por 6 horas en Black Friday',
+        lossMetric: 'CaÃ­da de servidor por 6 horas en Black Friday',
         month: 'Noviembre 2025',
         solution: 'Cierre del puerto MySQL y enrutamiento privado.',
       },
@@ -124,7 +124,7 @@ export default function RealThreatCasesModal() {
 
   return (
     <>
-      {/* Botón Disparador Único (Al hacer clic se abre el panel completo) */}
+      {/* BotÃ³n Disparador Ãnico (Al hacer clic se abre el panel completo) */}
       <button
         onClick={() => setIsOpen(true)}
         className="group relative inline-flex items-center gap-2.5 px-6 py-3 rounded-full bg-linear-to-r from-rose-500/20 via-red-500/15 to-amber-500/20 hover:from-rose-500/30 hover:to-amber-500/30 border border-rose-500/40 text-rose-300 text-xs sm:text-sm font-bold transition-all shadow-[0_0_30px_rgba(244,63,94,0.25)] hover:shadow-[0_0_45px_rgba(244,63,94,0.5)] active:scale-95 cursor-pointer"
@@ -162,7 +162,7 @@ export default function RealThreatCasesModal() {
               </button>
             </div>
 
-            {/* Selector de Países */}
+            {/* Selector de PaÃ­ses */}
             <div className="space-y-2">
               <span className="text-[11px] text-neutral-400 font-bold uppercase tracking-wider block">
                 {t.casesModal.chooseCountry}
@@ -185,7 +185,7 @@ export default function RealThreatCasesModal() {
               </div>
             </div>
 
-            {/* Métricas Reales 2026 del País */}
+            {/* MÃ©tricas Reales 2026 del PaÃ­s */}
             <div className="grid grid-cols-1 sm:grid-cols-3 gap-3">
               <div className="p-4 rounded-2xl bg-[#141416] border border-white/10 space-y-1">
                 <span className="text-[10px] text-neutral-400 font-semibold uppercase tracking-wider block">
@@ -195,7 +195,7 @@ export default function RealThreatCasesModal() {
                   {currentStat.unshieldedRate}
                 </div>
                 <p className="text-[11px] text-neutral-300">
-                  Carecen de cabeceras de blindaje anti-clonación.
+                  Carecen de cabeceras de blindaje anti-clonaciÃ³n.
                 </p>
               </div>
 
@@ -208,7 +208,7 @@ export default function RealThreatCasesModal() {
                   {currentStat.fraudGrowth}
                 </div>
                 <p className="text-[11px] text-neutral-300">
-                  Crecimiento interanual en estafas por réplica web.
+                  Crecimiento interanual en estafas por rÃ©plica web.
                 </p>
               </div>
 
@@ -225,7 +225,7 @@ export default function RealThreatCasesModal() {
               </div>
             </div>
 
-            {/* Incidentes Reales del País Seleccionado */}
+            {/* Incidentes Reales del PaÃ­s Seleccionado */}
             <div className="space-y-3">
               <h4 className="text-xs font-bold text-neutral-300 uppercase tracking-wider">
                 Casos comerciales reportados ({currentStat.name}):
@@ -265,7 +265,7 @@ export default function RealThreatCasesModal() {
                       <div className="p-3 rounded-xl bg-emerald-500/10 border border-emerald-500/20 space-y-1">
                         <div className="text-[11px] text-emerald-300 font-semibold flex items-center gap-1.5">
                           <ShieldCheck className="w-3.5 h-3.5 text-emerald-400" />
-                          Solución aplicada con DEFENSA TI:
+                          SoluciÃ³n aplicada con DEFENSA TI:
                         </div>
                         <div className="text-neutral-200">{inc.solution}</div>
                       </div>
@@ -278,7 +278,7 @@ export default function RealThreatCasesModal() {
             {/* Cierre */}
             <div className="pt-2 flex flex-col sm:flex-row items-center justify-between gap-3 border-t border-white/10">
               <span className="text-xs text-neutral-400 text-center sm:text-left">
-                Puedes comprobar gratis si tu página tiene estas mismas fallas con el buscador.
+                Puedes comprobar gratis si tu pÃ¡gina tiene estas mismas fallas con el buscador.
               </span>
               <button
                 onClick={() => setIsOpen(false)}

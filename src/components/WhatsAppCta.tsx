@@ -24,7 +24,7 @@ export default function WhatsAppCta({ url, score, grade }: WhatsAppCtaProps) {
           }
         }
         if (isMounted) {
-          const tz = Intl.DateTimeFormat().resolvedOptions().timeZone || 'América';
+          const tz = Intl.DateTimeFormat().resolvedOptions().timeZone || 'AmÃ©rica';
           setLocationStr(tz.replace(/_/g, ' '));
         }
       } catch {
@@ -38,20 +38,20 @@ export default function WhatsAppCta({ url, score, grade }: WhatsAppCtaProps) {
   }, []);
 
   const cleanUrl = url.replace(/^https?:\/\//i, '').replace(/\/.*$/, '');
-  const deviceType = typeof window !== 'undefined' && window.innerWidth < 768 ? '📱 Celular' : '💻 Computadora';
+  const deviceType = typeof window !== 'undefined' && window.innerWidth < 768 ? 'ð± Celular' : 'ð» Computadora';
 
-  const message = `Hola Martín, estuve revisando mi web (${cleanUrl}) en DEFENSA TI.
+  const message = `Hola MartÃ­n, estuve revisando mi web (${cleanUrl}) en DEFENSA TI.
 
-━━━━━━━━━━━━━━━━━━━━━
-📊 FICHA DEL PROSPECTO
-• Dominio: ${cleanUrl}
-• Calificación: ${score}/100 (Grado ${grade})
-• Ubicación: 📍 ${locationStr || 'Detectada en la app'}
-• Dispositivo: ${deviceType}
-• Interés: Puesta a punto perimetral y blindaje Grado A
-━━━━━━━━━━━━━━━━━━━━━
+âââââââââââââââââââââ
+ð FICHA DEL PROSPECTO
+â¢ Dominio: ${cleanUrl}
+â¢ CalificaciÃ³n: ${score}/100 (Grado ${grade})
+â¢ UbicaciÃ³n: ð ${locationStr || 'Detectada en la app'}
+â¢ Dispositivo: ${deviceType}
+â¢ InterÃ©s: Puesta a punto perimetral y blindaje Grado A
+âââââââââââââââââââââ
 
-Quisiera coordinar contigo una asesoría para poner a punto las directivas perimetrales y dejar mi sitio protegido.`;
+Quisiera coordinar contigo una asesorÃ­a para poner a punto las directivas perimetrales y dejar mi sitio protegido.`;
 
   const whatsappUrl = `https://wa.me/17856433991?text=${encodeURIComponent(message)}`;
 
@@ -64,16 +64,16 @@ Quisiera coordinar contigo una asesoría para poner a punto las directivas perim
         <div className="space-y-2.5 text-center md:text-left max-w-xl">
           <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-[#25D366]/15 border border-[#25D366]/30 text-[#25D366] text-xs font-semibold tracking-wide">
             <span className="w-2 h-2 rounded-full bg-[#25D366] animate-pulse" />
-            Asesoría y Puesta a Punto Perimetral &bull; Per�
+            AsesorÃ­a y Puesta a Punto Perimetral &bull; Perú
           </div>
           <h3 className="text-xl sm:text-2xl font-bold text-white tracking-tight">
-            ¿Deseas que dejemos tu sitio en Grado A hoy mismo?
+            Â¿Deseas que dejemos tu sitio en Grado A hoy mismo?
           </h3>
           <p className="text-xs sm:text-sm text-neutral-300 leading-relaxed">
-            Aplicamos las mejores prácticas en Cloudflare o tu servidor para evitar rechazos en pasarelas de pago (Mercado Pago, Niubiz, Stripe) y eliminar advertencias de &quot;Sitio no seguro&quot;.
+            Aplicamos las mejores prÃ¡cticas en Cloudflare o tu servidor para evitar rechazos en pasarelas de pago (Mercado Pago, Niubiz, Stripe) y eliminar advertencias de &quot;Sitio no seguro&quot;.
           </p>
           <div className="text-[11px] text-neutral-400">
-            Aceptamos pagos en Soles (Yape / Plin / BCP) y en USD para Sudamérica (Tarjeta / PayPal / Transferencia bancaria local).
+            Aceptamos pagos en Soles (Yape / Plin / BCP) y en USD para SudamÃ©rica (Tarjeta / PayPal / Transferencia bancaria local).
           </div>
         </div>
 
