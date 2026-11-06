@@ -77,16 +77,16 @@ export default function NeuralBackground({ onSelectDomain, showDomains = true }:
     resize();
     window.addEventListener('resize', resize);
 
-    // Aumento orgánico de densidad de nodos y constelaciones para mayor riqueza visual
-    const count = isMobile ? (showDomains ? 40 : 55) : (showDomains ? 85 : 110);
+    // Nodos sutiles, elegantes y no invasivos para máxima legibilidad de lectura
+    const count = isMobile ? (showDomains ? 18 : 25) : (showDomains ? 35 : 45);
     const nodes: DomainNode[] = [];
-    const maxLinkDist = isMobile ? 110 : 165;
+    const maxLinkDist = isMobile ? 85 : 125;
 
     for (let i = 0; i < count; i++) {
       const domain = TOP_DOMAINS[i % TOP_DOMAINS.length];
-      const isImportant = i % 3 === 0;
-      const vx = (Math.random() - 0.5) * (isMobile ? 0.35 : 0.5);
-      const vy = (Math.random() - 0.5) * (isMobile ? 0.35 : 0.5);
+      const isImportant = i % 4 === 0;
+      const vx = (Math.random() - 0.5) * (isMobile ? 0.15 : 0.22);
+      const vy = (Math.random() - 0.5) * (isMobile ? 0.15 : 0.22);
 
       nodes.push({
         domain,
@@ -96,15 +96,15 @@ export default function NeuralBackground({ onSelectDomain, showDomains = true }:
         vy,
         baseVx: vx,
         baseVy: vy,
-        radius: isImportant ? 3.5 : 2.2,
-        fontSize: isImportant ? (isMobile ? 11 : 13) : (isMobile ? 9 : 11),
+        radius: isImportant ? 2.0 : 1.4,
+        fontSize: isImportant ? (isMobile ? 9 : 10) : (isMobile ? 8 : 9),
         isImportant,
         twinklePhase: Math.random() * Math.PI * 2,
-        twinkleSpeed: 0.015 + Math.random() * 0.025,
+        twinkleSpeed: 0.01 + Math.random() * 0.015,
       });
     }
 
-    const mouse = { x: -2000, y: -2000, radius: isMobile ? 150 : 240 };
+    const mouse = { x: -2000, y: -2000, radius: isMobile ? 120 : 180 };
     const blasts: BlastWave[] = [];
 
     // Control para diferenciar clic limpio de un arrastre involuntario
@@ -263,30 +263,30 @@ export default function NeuralBackground({ onSelectDomain, showDomains = true }:
         const renderY = Math.round(n1.y);
 
         if (showDomains) {
-          // Puntos y nombres de dominios flotantes (Para DEFENSA TI)
+          // Puntos y nombres de dominios flotantes muy sutiles y transparentes
           ctx.beginPath();
           ctx.arc(renderX, renderY, n1.radius, 0, Math.PI * 2);
-          ctx.fillStyle = n1.isImportant ? '#38bdf8' : '#ffffff';
+          ctx.fillStyle = n1.isImportant ? 'rgba(56, 189, 248, 0.35)' : 'rgba(255, 255, 255, 0.2)';
           ctx.fill();
 
-          ctx.font = `600 ${n1.fontSize}px ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace`;
-          ctx.fillStyle = n1.isImportant ? '#bae6fd' : '#cbd5e1';
-          ctx.fillText(n1.domain, renderX + 9, renderY + 4);
+          ctx.font = `500 ${n1.fontSize}px ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace`;
+          ctx.fillStyle = n1.isImportant ? 'rgba(186, 230, 253, 0.28)' : 'rgba(203, 213, 225, 0.18)';
+          ctx.fillText(n1.domain, renderX + 7, renderY + 3);
         } else {
-          // Modo Estelar Neuronal (Para la Página Principal - solo nodos iluminados como estrellas)
+          // Modo Estelar Neuronal Sutil y Suave
           n1.twinklePhase += n1.twinkleSpeed;
-          const starIntensity = 0.55 + 0.45 * Math.sin(n1.twinklePhase);
-          const glowRadius = n1.radius * (2.2 + 1.2 * starIntensity);
+          const starIntensity = 0.35 + 0.35 * Math.sin(n1.twinklePhase);
+          const glowRadius = n1.radius * (1.6 + 0.8 * starIntensity);
 
-          // Halo difuso de luz estelar
+          // Halo difuso de luz estelar tenue
           const halo = ctx.createRadialGradient(renderX, renderY, 0, renderX, renderY, glowRadius);
           if (n1.isImportant) {
-            halo.addColorStop(0, `rgba(255, 255, 255, ${0.95 * starIntensity})`);
-            halo.addColorStop(0.35, `rgba(56, 189, 248, ${0.75 * starIntensity})`);
+            halo.addColorStop(0, `rgba(255, 255, 255, ${0.4 * starIntensity})`);
+            halo.addColorStop(0.35, `rgba(56, 189, 248, ${0.25 * starIntensity})`);
             halo.addColorStop(1, 'rgba(56, 189, 248, 0)');
           } else {
-            halo.addColorStop(0, `rgba(255, 255, 255, ${0.9 * starIntensity})`);
-            halo.addColorStop(0.35, `rgba(186, 230, 253, ${0.5 * starIntensity})`);
+            halo.addColorStop(0, `rgba(255, 255, 255, ${0.35 * starIntensity})`);
+            halo.addColorStop(0.35, `rgba(186, 230, 253, ${0.18 * starIntensity})`);
             halo.addColorStop(1, 'rgba(186, 230, 253, 0)');
           }
 
@@ -295,10 +295,10 @@ export default function NeuralBackground({ onSelectDomain, showDomains = true }:
           ctx.fillStyle = halo;
           ctx.fill();
 
-          // Núcleo brillante de la estrella
+          // Núcleo sutil de la estrella
           ctx.beginPath();
-          ctx.arc(renderX, renderY, n1.radius * (0.8 + 0.2 * starIntensity), 0, Math.PI * 2);
-          ctx.fillStyle = '#ffffff';
+          ctx.arc(renderX, renderY, n1.radius * 0.75, 0, Math.PI * 2);
+          ctx.fillStyle = 'rgba(255, 255, 255, 0.4)';
           ctx.fill();
         }
 
@@ -309,23 +309,23 @@ export default function NeuralBackground({ onSelectDomain, showDomains = true }:
           const dist = Math.sqrt(dx * dx + dy * dy);
 
           if (dist < maxLinkDist) {
-            const alpha = (1 - dist / maxLinkDist) * 0.4;
+            const alpha = (1 - dist / maxLinkDist) * 0.12;
             ctx.beginPath();
             ctx.moveTo(renderX, renderY);
             ctx.lineTo(Math.round(n2.x), Math.round(n2.y));
             ctx.strokeStyle = `rgba(99, 102, 241, ${alpha})`;
-            ctx.lineWidth = 1;
+            ctx.lineWidth = 0.8;
             ctx.stroke();
           }
         }
 
         if (distM < mouse.radius) {
-          const rayAlpha = (1 - distM / mouse.radius) * 0.8;
+          const rayAlpha = (1 - distM / mouse.radius) * 0.35;
           ctx.beginPath();
           ctx.moveTo(renderX, renderY);
           ctx.lineTo(Math.round(mouse.x), Math.round(mouse.y));
           ctx.strokeStyle = `rgba(56, 189, 248, ${rayAlpha})`;
-          ctx.lineWidth = 1.1;
+          ctx.lineWidth = 0.9;
           ctx.stroke();
         }
       }
@@ -353,7 +353,7 @@ export default function NeuralBackground({ onSelectDomain, showDomains = true }:
   return (
     <canvas
       ref={canvasRef}
-      className="fixed inset-0 pointer-events-none z-0"
+      className="fixed inset-0 pointer-events-none z-0 opacity-40 transition-opacity duration-1000"
     />
   );
 }
