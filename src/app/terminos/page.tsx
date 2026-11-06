@@ -160,8 +160,8 @@ export default function TerminosYPrivacidadPage() {
               </p>
               <div className="grid grid-cols-1 md:grid-cols-3 gap-3 pt-2 text-xs">
                 <div className="p-4 rounded-xl bg-white/5 border border-white/10 space-y-2">
-                  <span className="font-bold text-white block text-sm">Auditoría (S/. 65 PEN)</span>
-                  <p className="text-neutral-300">Diagnóstico externo no intrusivo sin acceso a claves. Entrega de informe técnico con prioridades en <strong>48 horas laborables</strong>.</p>
+                  <span className="font-bold text-white block text-sm">Dictamen Técnico (Gratis por Lanzamiento • Antes S/. 65)</span>
+                  <p className="text-neutral-300">Diagnóstico externo no intrusivo sin acceso a claves. Entrega de informe técnico con prioridades al instante.</p>
                 </div>
                 <div className="p-4 rounded-xl bg-white/5 border border-white/10 space-y-2">
                   <span className="font-bold text-white block text-sm">Blindaje Esencial (S/. 165 PEN)</span>

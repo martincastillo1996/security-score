@@ -177,7 +177,7 @@ export default function InformeEjemploPage() {
             </h4>
             <p className="text-xs text-neutral-300 leading-relaxed">
               En el Perú, una sola retención de fondos por riesgo perimetral en pasarelas como Niubiz o Culqi inmoviliza capital de trabajo durante 15 a 30 días, y una queja ante INDECOPI por fuga de datos acarrea sanciones que superan las 5 UIT. 
-              Por solo <strong>S/ 65 PEN</strong> obtienes la radiografía completa, y por <strong>S/ 165 o S/ 335</strong> dejas tu web completamente blindada.
+              Por lanzamiento obtienes el <strong>Dictamen Técnico GRATIS (Antes S/ 65 PEN)</strong>, y por <strong>S/ 165 o S/ 335</strong> dejas tu web completamente blindada.
             </p>
           </div>
 
@@ -187,7 +187,7 @@ export default function InformeEjemploPage() {
               href="/defensati"
               className="w-full sm:w-auto px-6 py-3.5 rounded-2xl bg-[#0071e3] hover:bg-[#0077ed] text-white text-xs sm:text-sm font-bold transition-all shadow-lg shadow-blue-500/25 text-center flex items-center justify-center gap-2"
             >
-              <span>Pedir Auditoría para mi Web (S/ 65)</span>
+              <span>Escanear y Obtener Dictamen Gratis</span>
               <ArrowRight className="w-4 h-4" />
             </Link>
 

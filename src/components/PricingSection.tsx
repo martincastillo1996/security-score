@@ -22,27 +22,32 @@ export default function PricingSection({ targetUrl, score, grade }: Props) {
   const plans = [
     {
       name: 'Dictamen Técnico & Receta de Código',
-      tag: 'Para Empresas con Informático Propio',
-      pricePen: 'S/. 65',
-      badge: 'Entrega en 48 horas laborables',
+      tag: 'Promoción de Lanzamiento',
+      originalPrice: 'S/. 65',
+      pricePen: 'GRATIS',
+      badge: 'Disponible gratis por lanzamiento',
       highlight: false,
-      description: 'Revisión exhaustiva externa. Informe formal firmado con membrete institucional y RUC, más el código exacto listo para aplicar.',
+      isFree: true,
+      description: 'Revisión perimetral profunda al instante. Informe formal con membrete institucional, estado de cabeceras y código listo para aplicar.',
       features: [
         'Diagnóstico perimetral profundo sin tocar tu servidor (Cero riesgo)',
-        'Informe técnico formal firmado con membrete institucional y RUC',
+        'Informe técnico formal descargable con membrete institucional y RUC',
         'Receta de código lista para copiar y pegar (Nginx, Apache o Cloudflare)',
-        'Comprobante / constancia de servicio conforme a requerimiento',
-        'Checklist prioritario para que tu equipo corrija las fallas en horas',
+        'Checklist prioritario para que tu equipo corrija las fallas en minutos',
+        'Acceso 100% libre sin registro de tarjetas ni contraseñas',
       ],
-      ctaAction: 'Pedir Dictamen Técnico',
+      ctaAction: 'Escanear Web Gratis',
       popular: false,
+      footerNote: 'Disponible gratis por lanzamiento',
     },
     {
       name: 'Blindaje Llave en Mano',
       tag: 'Nosotros lo Arreglamos por Ti',
+      originalPrice: '',
       pricePen: 'S/. 165',
       badge: 'Plazo: 3 a 5 días',
       highlight: true,
+      isFree: false,
       description: 'El plan recomendado. Con acceso temporal nos encargamos de todo el trabajo técnico. Tú y tu empresa no mueven un solo dedo.',
       features: [
         'Todo lo incluido en el Dictamen Técnico previo',
@@ -54,13 +59,16 @@ export default function PricingSection({ targetUrl, score, grade }: Props) {
       ],
       ctaAction: 'Pedir Blindaje Llave en Mano',
       popular: true,
+      footerNote: 'Coordinación directa por WhatsApp personal',
     },
     {
       name: 'Blindaje Total WAF + Certificación Grado A',
       tag: 'Protección Avanzada & Anti-Ataques',
+      originalPrice: '',
       pricePen: 'S/. 335',
       badge: 'Plazo: 5 a 7 días',
       highlight: false,
+      isFree: false,
       description: 'Para e-commerce y empresas de alto tráfico. Auditoría + remediación + WAF perimetral activo, blindaje anti-bots y meta técnica Grado A.',
       features: [
         'Todo lo del plan Blindaje Llave en Mano',
@@ -71,6 +79,7 @@ export default function PricingSection({ targetUrl, score, grade }: Props) {
       ],
       ctaAction: 'Pedir Blindaje Total WAF',
       popular: false,
+      footerNote: 'Coordinación directa por WhatsApp personal',
     },
   ];
 
@@ -119,15 +128,26 @@ export default function PricingSection({ targetUrl, score, grade }: Props) {
               {/* Precios (Exclusivo en Soles para Perú) */}
               <div className="pt-2 border-t border-white/10">
                 <div className="flex items-baseline justify-between gap-3">
-                  <span className="text-3xl sm:text-4xl font-black text-white tracking-tight whitespace-nowrap">
-                    {p.pricePen}
-                  </span>
+                  {p.isFree ? (
+                    <div className="flex items-baseline gap-2.5">
+                      <span className="text-xl sm:text-2xl font-bold text-neutral-400 line-through decoration-rose-500 decoration-2 whitespace-nowrap">
+                        {p.originalPrice}
+                      </span>
+                      <span className="text-3xl sm:text-4xl font-black text-emerald-400 tracking-tight whitespace-nowrap">
+                        GRATIS
+                      </span>
+                    </div>
+                  ) : (
+                    <span className="text-3xl sm:text-4xl font-black text-white tracking-tight whitespace-nowrap">
+                      {p.pricePen}
+                    </span>
+                  )}
                   <span className="text-xs text-neutral-400 font-medium whitespace-nowrap">
-                    Pago único
+                    {p.isFree ? 'Por lanzamiento' : 'Pago único'}
                   </span>
                 </div>
                 <div className="text-[12px] text-emerald-400 font-semibold mt-1 flex items-center gap-1.5">
-                  <span>Constancia y entrega técnica garantizada</span>
+                  <span>{p.isFree ? 'Diagnóstico al instante sin costo' : 'Constancia y entrega técnica garantizada'}</span>
                 </div>
                 <div className="mt-2 inline-flex items-center gap-1.5 px-2.5 py-0.5 rounded-full bg-white/5 border border-white/10 text-[10px] text-neutral-300 font-medium">
                   <span className="w-1.5 h-1.5 rounded-full bg-emerald-400 animate-pulse"></span>
@@ -148,28 +168,54 @@ export default function PricingSection({ targetUrl, score, grade }: Props) {
 
             {/* Botón de acción */}
             <div className="pt-6">
-              <a
-                href={getPlanWhatsAppUrl(p.name, p.pricePen)}
-                target="_blank"
-                rel="noopener noreferrer"
-                className={`w-full py-3 px-3.5 rounded-2xl font-bold text-xs sm:text-sm flex items-center justify-between gap-2 transition-all cursor-pointer active:scale-95 shadow-md ${
-                  p.highlight
-                    ? 'bg-[#0071e3] hover:bg-[#0077ed] text-white shadow-blue-500/30'
-                    : 'bg-white/10 hover:bg-white/15 text-white'
-                }`}
-              >
-                <span className="text-left font-bold">{p.ctaAction}</span>
-                <div className="flex items-center gap-1.5 shrink-0">
-                  <span className={`px-2 py-0.5 rounded-lg text-xs font-black whitespace-nowrap ${
-                    p.highlight ? 'bg-black/25 text-white' : 'bg-white/10 text-white'
-                  }`}>
-                    {p.pricePen}
-                  </span>
-                  <ArrowRight className="w-4 h-4 shrink-0" />
-                </div>
-              </a>
-              <span className="block text-center text-[10px] text-neutral-400 mt-2">
-                Coordinación directa por WhatsApp personal
+              {p.isFree ? (
+                <button
+                  type="button"
+                  onClick={() => {
+                    const input = document.getElementById('url-scan-input') || document.querySelector('input[type="text"]');
+                    if (input) {
+                      input.scrollIntoView({ behavior: 'smooth', block: 'center' });
+                      (input as HTMLInputElement).focus();
+                    } else {
+                      window.scrollTo({ top: 0, behavior: 'smooth' });
+                    }
+                  }}
+                  className="w-full py-3.5 px-3.5 rounded-2xl font-bold text-xs sm:text-sm flex items-center justify-between gap-2 transition-all cursor-pointer active:scale-95 shadow-md bg-gradient-to-r from-emerald-600 to-teal-500 hover:from-emerald-500 hover:to-teal-400 text-white shadow-emerald-500/25"
+                >
+                  <span className="text-left font-bold">{p.ctaAction}</span>
+                  <div className="flex items-center gap-1.5 shrink-0">
+                    <span className="px-2 py-0.5 rounded-lg text-xs font-black bg-black/25 text-white">
+                      GRATIS
+                    </span>
+                    <ArrowRight className="w-4 h-4 shrink-0" />
+                  </div>
+                </button>
+              ) : (
+                <a
+                  href={getPlanWhatsAppUrl(p.name, p.pricePen)}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className={`w-full py-3 px-3.5 rounded-2xl font-bold text-xs sm:text-sm flex items-center justify-between gap-2 transition-all cursor-pointer active:scale-95 shadow-md ${
+                    p.highlight
+                      ? 'bg-[#0071e3] hover:bg-[#0077ed] text-white shadow-blue-500/30'
+                      : 'bg-white/10 hover:bg-white/15 text-white'
+                  }`}
+                >
+                  <span className="text-left font-bold">{p.ctaAction}</span>
+                  <div className="flex items-center gap-1.5 shrink-0">
+                    <span className={`px-2 py-0.5 rounded-lg text-xs font-black whitespace-nowrap ${
+                      p.highlight ? 'bg-black/25 text-white' : 'bg-white/10 text-white'
+                    }`}>
+                      {p.pricePen}
+                    </span>
+                    <ArrowRight className="w-4 h-4 shrink-0" />
+                  </div>
+                </a>
+              )}
+              <span className={`block text-center text-[10px] mt-2 font-medium ${
+                p.isFree ? 'text-emerald-400 font-semibold' : 'text-neutral-400'
+              }`}>
+                {p.footerNote}
               </span>
             </div>
           </div>
