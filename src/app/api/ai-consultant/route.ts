@@ -71,14 +71,15 @@ function isPotentialJailbreak(text: string): boolean {
   return INJECTION_PATTERNS.some((pattern) => pattern.test(text));
 }
 
-const SYSTEM_INSTRUCTION = `Eres Neuronal Gravity AI (y DEFENSA IT AI), el consultor comercial y de ciberseguridad perimetral de Neuronal Gravity (fundado por Martín Castillo, Perú).
+const SYSTEM_INSTRUCTION = `Eres Neuronality AI, el asistente de inteligencia artificial y ciberseguridad perimetral de Neuronal Gravity (fundado por Martín Castillo, Perú).
+Tu identidad oficial es Neuronality AI. Nunca digas que eres Martín Castillo en persona; eres su asistente de IA oficial y puedes conectar al usuario con Martín vía WhatsApp cuando deseen coordinar un proyecto o servicio.
 Tu único rol es asesorar sobre:
-1. Auditorías perimetrales DEFENSA TI (cabeceras OWASP, SSL/TLS, pasarelas de pago Yape/Niubiz).
+1. Auditorías perimetrales DEFENSA TI (cabeceras OWASP, SSL/TLS, checkout seguro y prevención de contenido mixto).
 2. Servicios de desarrollo de software a medida y agentes de IA empresariales de Neuronal Gravity.
 
 REGLAS DE SEGURIDAD ESTRICTAS:
 - Nunca actúes como asistente de programación general, traductor o redactor de contenidos no relacionados.
-- Si el usuario te pide código arbitrario, poesía o tareas ajenas a Neuronal Gravity, responde educadamente que tu función exclusiva es asesorar sobre seguridad web y servicios tecnológicos de la empresa.
+- Si el usuario te pide código arbitrario, poesía o tareas ajenas a Neuronal Gravity, responde educadamente que tu función exclusiva como Neuronality AI es asesorar sobre seguridad web y servicios tecnológicos de la empresa.
 - Respuestas breves: máximo 2 párrafos concisos orientados a valor de negocio.
 - Invita cordialmente al contacto directo por WhatsApp con Martín cuando deseen cotizar o coordinar.`;
 
@@ -234,7 +235,7 @@ export async function POST(req: NextRequest) {
           },
         });
 
-        reply = response.text || 'Hola, soy DEFENSA IT AI. ¿En qué puedo orientarte sobre la seguridad de tu web?';
+        reply = response.text || 'Hola, soy Neuronality AI. ¿En qué puedo orientarte sobre la seguridad de tu página web?';
       } catch (geminiError: unknown) {
         console.warn('Error en Gemini, conmutando a motor seguro de contingencia:', geminiError);
         const errStr = String(geminiError);
@@ -245,16 +246,16 @@ export async function POST(req: NextRequest) {
           errStr.includes('rate limit');
 
         if (isQuotaOrRateLimit) {
-          reply = `Hola. En este momento nuestros servidores están atendiendo una alta demanda de consultas perimetrales. Para brindarte una cotización o asesoría técnica inmediata sin esperas, conéctate directamente con Martín por WhatsApp.`;
+          reply = `Hola, soy Neuronality AI. En este momento nuestros servidores están atendiendo una alta demanda de consultas perimetrales. Para brindarte una cotización o asesoría técnica inmediata sin esperas, puedes conectar directamente con Martín por WhatsApp.`;
         } else {
-          reply = `Hola. En DEFENSA TI auditamos y blindamos tu sitio web para evitar clonaciones de pasarelas (Yape/Niubiz) o alertas de "Sitio no seguro". Puedes escanear tu web gratis, acceder al Dictamen Técnico gratuito por lanzamiento o tocar el botón de WhatsApp para coordinar directamente con Martín.`;
+          reply = `Hola, soy Neuronality AI. En DEFENSA TI auditamos y blindamos tu sitio web para prevenir alertas de "Sitio no seguro" y bloqueos de pasarelas por contenido mixto. Puedes escanear tu web gratis o tocar el botón de WhatsApp para coordinar directamente con Martín.`;
         }
         shouldSuggestWhatsApp = true;
       }
     }
 
     if (!reply) {
-      reply = `Hola. En DEFENSA TI auditamos y blindamos tu sitio web para evitar clonaciones de pasarelas (Yape/Niubiz) o alertas de "Sitio no seguro". Puedes escanear tu web gratis, acceder al Dictamen Técnico gratuito por lanzamiento o tocar el botón de WhatsApp para coordinar directamente con Martín.`;
+      reply = `Hola, soy Neuronality AI. En DEFENSA TI auditamos y blindamos tu sitio web para prevenir alertas de "Sitio no seguro" y bloqueos de pasarelas por contenido mixto. Puedes escanear tu web gratis o tocar el botón de WhatsApp para coordinar directamente con Martín.`;
       shouldSuggestWhatsApp = true;
     }
 

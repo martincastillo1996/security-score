@@ -13,9 +13,21 @@ import {
   MessageSquare,
   Send,
   Coffee,
-  CheckCheck
+  CheckCheck,
+  Bot
 } from 'lucide-react';
 import { AuditReportRecord } from '@/lib/storage/reportStore';
+
+function NeuronalityAiAvatar({ size = 'w-9 h-9', iconSize = 'w-4 h-4' }: { size?: string; iconSize?: string }) {
+  return (
+    <div className={`relative ${size} rounded-full p-[1.5px] bg-gradient-to-tr from-[#0071e3] via-[#7928ca] to-[#38bdf8] shadow-[0_0_15px_rgba(56,189,248,0.5)] shrink-0 flex items-center justify-center`}>
+      <div className="w-full h-full rounded-full bg-[#07090e] flex items-center justify-center text-[#38bdf8] relative overflow-hidden">
+        <div className="absolute inset-0 bg-gradient-to-tr from-[#0071e3]/40 via-[#7928ca]/25 to-transparent pointer-events-none" />
+        <Bot className={`${iconSize} text-[#38bdf8] relative z-10`} />
+      </div>
+    </div>
+  );
+}
 
 interface Message {
   role: 'user' | 'assistant';
@@ -37,10 +49,10 @@ export default function AiConsultantWidget({ report }: Props) {
   const [isTyping, setIsTyping] = useState(false);
   const messagesEndRef = useRef<HTMLDivElement>(null);
 
-  // Mensaje inicial contextual
+  // Mensaje inicial contextual identificado claramente como Neuronality AI
   const initialGreeting = report?.url 
-    ? `¡Hola! 👋 Soy Martín Castillo, creador de DEFENSA TI. He detectado que estás revisando la web ${report.url} con puntaje ${report.score ?? 0}/100 (Grado ${report.grade || 'F'}). ¿Tienes alguna pregunta sobre cómo blindarla o corregir las cabeceras? ¡Hablemos!`
-    : `¿Tienes alguna pregunta sobre la seguridad de tu página web, clonación de pagos o cómo blindar tu plataforma? ¡Hablemos!`;
+    ? `¡Hola! 👋 Soy Neuronality AI, el asistente oficial de DEFENSA TI y Neuronal Gravity. Veo que estás analizando ${report.url} con puntaje ${report.score ?? 0}/100 (Grado ${report.grade || 'F'}). ¿Tienes alguna duda sobre cómo blindarla o corregir las cabeceras? ¡Hablemos!`
+    : `¡Hola! 👋 Soy Neuronality AI, el asistente inteligente de DEFENSA TI y Neuronal Gravity. ¿Tienes alguna pregunta sobre la seguridad de tu página web, pasarelas de pago o cómo blindar tu plataforma? ¡Hablemos!`;
 
   const [messages, setMessages] = useState<Message[]>([
     {
@@ -114,14 +126,14 @@ export default function AiConsultantWidget({ report }: Props) {
     setMessages(newMessages);
     setIsTyping(true);
 
-    // Detección de intención rápida de WhatsApp
+    // Detección de intención rápida de WhatsApp (Derivación con Martín)
     if (/whatsapp|hablar directo|martin/i.test(text)) {
       setTimeout(() => {
         setMessages((prev) => [
           ...prev,
           {
             role: 'assistant',
-            content: '¡Con gusto! Puedes escribirme directamente a mi WhatsApp personal al **+1 (785) 643-3991** para coordinar tu requerimiento técnico o blindaje perimetral de inmediato.',
+            content: '¡Con gusto! Te conecto directamente con Martín por WhatsApp al **+1 (785) 643-3991** para coordinar tu requerimiento técnico o blindaje perimetral de inmediato.',
             ctaType: 'whatsapp'
           }
         ]);
@@ -179,7 +191,7 @@ export default function AiConsultantWidget({ report }: Props) {
         ...prev,
         {
           role: 'assistant',
-          content: 'En DEFENSA TI auditamos y blindamos tu web contra ataques y clonaciones. Puedes tocar el botón para coordinar directamente conmigo por WhatsApp al +1 (785) 643-3991.',
+          content: 'Soy Neuronality AI. En DEFENSA TI auditamos y blindamos tu web contra ataques y bloqueos de pasarela. Puedes tocar el botón para coordinar directamente con Martín por WhatsApp al +1 (785) 643-3991.',
           ctaType: 'whatsapp'
         }
       ]);
@@ -271,7 +283,7 @@ export default function AiConsultantWidget({ report }: Props) {
               className="px-3 py-2 rounded-xl bg-white/10 hover:bg-white/15 border border-white/10 text-white text-xs font-bold transition-all flex items-center justify-center gap-1.5 active:scale-95 cursor-pointer shadow-sm"
             >
               <MessageSquare className="w-3.5 h-3.5 text-[#38bdf8]" />
-              <span className="truncate">Chatea con Martín</span>
+              <span className="truncate">Chatea con Neuronality AI</span>
             </button>
 
             <button
@@ -289,7 +301,7 @@ export default function AiConsultantWidget({ report }: Props) {
         </div>
       )}
 
-      {/* 2. BOTÓN LAUNCHER FLOTANTE (FOTO DE MARTÍN + BADGE DE VERIFICACIÓN) */}
+      {/* 2. BOTÓN LAUNCHER FLOTANTE (NEURONALITY AI ORBE + BADGE DE VERIFICACIÓN) */}
       <div className="flex justify-end">
         <button
           type="button"
@@ -298,26 +310,22 @@ export default function AiConsultantWidget({ report }: Props) {
             if (!isOpen) setView('chat');
           }}
           className="group relative w-14 h-14 rounded-full p-0.5 bg-gradient-to-tr from-[#0071e3] via-[#7928ca] to-[#38bdf8] shadow-[0_10px_35px_rgba(0,113,227,0.45)] hover:shadow-[0_0_30px_rgba(56,189,248,0.7)] transition-all transform hover:scale-105 active:scale-95 cursor-pointer"
-          aria-label={isOpen ? "Cerrar asistente" : "Abrir chat con Martín"}
+          aria-label={isOpen ? "Cerrar asistente" : "Abrir chat con Neuronality AI"}
         >
-          {/* Contenedor de la foto */}
-          <div className="relative w-full h-full rounded-full overflow-hidden bg-[#0a0d14] border border-white/20">
+          {/* Contenedor del avatar */}
+          <div className="relative w-full h-full rounded-full overflow-hidden bg-[#0a0d14] border border-white/20 flex items-center justify-center">
             {isOpen ? (
               <div className="w-full h-full flex items-center justify-center bg-[#0d111a] text-white">
                 <X className="w-6 h-6 text-white" />
               </div>
             ) : (
-              <Image
-                src="/martin-castillo-preview.jpg"
-                alt="Martín Castillo"
-                fill
-                className="object-cover object-top"
-                priority
-              />
+              <div className="relative w-full h-full flex items-center justify-center bg-gradient-to-tr from-[#0071e3]/30 via-[#0a0d14] to-[#7928ca]/30">
+                <Bot className="w-7 h-7 text-[#38bdf8] drop-shadow-[0_0_10px_rgba(56,189,248,0.8)]" />
+              </div>
             )}
           </div>
 
-          {/* Badge azul de verificación en la esquina inferior derecha (Idéntico a la imagen) */}
+          {/* Badge azul de verificación en la esquina inferior derecha */}
           {!isOpen && (
             <div className="absolute -bottom-0.5 -right-0.5 w-5 h-5 rounded-full bg-[#0071e3] border-2 border-[#0a0d14] flex items-center justify-center text-white shadow-md">
               <CheckCheck className="w-3 h-3 text-white stroke-[2.5]" />
@@ -333,24 +341,17 @@ export default function AiConsultantWidget({ report }: Props) {
           {/* Cabecera del Chat */}
           <div className="px-5 py-4 border-b border-white/10 flex items-center justify-between bg-white/[0.02]">
             <div className="flex items-center gap-3">
-              <div className="relative w-10 h-10 rounded-full ring-2 ring-[#0071e3] overflow-hidden bg-neutral-900 shrink-0">
-                <Image
-                  src="/martin-castillo-preview.jpg"
-                  alt="Martin Castillo"
-                  fill
-                  className="object-cover object-top"
-                />
-              </div>
+              <NeuronalityAiAvatar size="w-10 h-10" iconSize="w-5 h-5" />
               <div className="min-w-0">
                 <h3 className="text-xs font-bold text-white tracking-tight flex items-center gap-1.5 truncate">
-                  <span>Martín Castillo</span>
+                  <span>Neuronality AI</span>
                   <span className="px-1.5 py-0.2 rounded-full bg-blue-500/20 text-[#38bdf8] text-[9px] font-mono font-bold">
-                    Fundador
+                    IA Oficial
                   </span>
                 </h3>
                 <p className="text-[10px] text-emerald-400 font-mono flex items-center gap-1 mt-0.5">
                   <span className="w-1.5 h-1.5 rounded-full bg-emerald-400 animate-pulse" />
-                  <span>En línea • DEFENSA TI</span>
+                  <span>En línea • Asistente DEFENSA TI</span>
                 </p>
               </div>
             </div>
@@ -361,7 +362,7 @@ export default function AiConsultantWidget({ report }: Props) {
                 target="_blank"
                 rel="noopener noreferrer"
                 className="p-1.5 rounded-xl bg-[#25D366]/20 hover:bg-[#25D366]/30 text-[#25D366] transition-colors"
-                title="WhatsApp Directo"
+                title="Coordinar con Martín por WhatsApp"
               >
                 <svg className="w-4 h-4 fill-current" viewBox="0 0 24 24">
                   <path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z" />
@@ -436,14 +437,7 @@ export default function AiConsultantWidget({ report }: Props) {
                     }`}
                   >
                     {msg.role === 'assistant' && (
-                      <div className="relative w-7 h-7 rounded-full overflow-hidden bg-neutral-900 border border-white/20 shrink-0 mt-0.5">
-                        <Image
-                          src="/martin-castillo-preview.jpg"
-                          alt="Martin Castillo"
-                          fill
-                          className="object-cover object-top"
-                        />
-                      </div>
+                      <NeuronalityAiAvatar size="w-7 h-7" iconSize="w-3.5 h-3.5" />
                     )}
 
                     <div
@@ -490,14 +484,7 @@ export default function AiConsultantWidget({ report }: Props) {
 
                 {isTyping && (
                   <div className="flex gap-2.5 items-center">
-                    <div className="relative w-7 h-7 rounded-full overflow-hidden bg-neutral-900 border border-white/20 shrink-0">
-                      <Image
-                        src="/martin-castillo-preview.jpg"
-                        alt="Martin Castillo"
-                        fill
-                        className="object-cover object-top"
-                      />
-                    </div>
+                    <NeuronalityAiAvatar size="w-7 h-7" iconSize="w-3.5 h-3.5" />
                     <div className="rounded-2xl px-3.5 py-2.5 bg-white/5 border border-white/10 text-xs text-neutral-400 flex items-center gap-1.5">
                       <span className="w-1.5 h-1.5 rounded-full bg-[#38bdf8] animate-bounce" />
                       <span className="w-1.5 h-1.5 rounded-full bg-[#38bdf8] animate-bounce [animation-delay:0.2s]" />
@@ -621,7 +608,7 @@ export default function AiConsultantWidget({ report }: Props) {
               >
                 <input
                   type="text"
-                  placeholder="Escribe tu consulta o duda..."
+                  placeholder="Pregúntale a Neuronality AI..."
                   value={inputMessage}
                   onChange={(e) => setInputMessage(e.target.value)}
                   className="flex-1 bg-white/5 border border-white/10 rounded-xl px-3.5 py-2.5 text-xs text-white placeholder-neutral-500 focus:outline-none focus:border-[#0071e3]"
