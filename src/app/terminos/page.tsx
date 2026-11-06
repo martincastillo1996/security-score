@@ -124,22 +124,25 @@ export default function TerminosPage() {
         </section>
 
         {/* 6. Garantía de Calificación y Procedimiento de Incumplimiento */}
-        <section className="space-y-3 text-sm leading-relaxed">
+        <section id="garantia" className="space-y-3 text-sm leading-relaxed scroll-mt-20">
           <h2 className="text-lg font-bold text-white flex items-center gap-2">
-            <span>6. Garantía del Servicio y Procedimiento de Incumplimiento</span>
+            <span>6. Garantía del Servicio Activada tras la Contratación y Pago</span>
           </h2>
           <p>
-            En virtud del principio de buena fe contractual (Art. 1401 y concordantes del Código Civil peruano):
+            En virtud del principio de buena fe contractual (Art. 1401 y concordantes del Código Civil peruano), las siguientes condiciones y cláusulas de garantía técnica entran en pleno vigor a favor del cliente a partir de la confirmación formal del pago:
           </p>
-          <div className="p-4 rounded-xl bg-white/5 border border-white/10 text-xs text-neutral-300 leading-relaxed space-y-2">
+          <div className="p-4 rounded-xl bg-white/5 border border-white/10 text-xs text-neutral-300 leading-relaxed space-y-3">
             <p>
-              <strong>Alcance de la Garantía:</strong> En los planes de blindaje correctivo, DEFENSA TI se compromete a mejorar la calificación perimetral de seguridad del sitio web auditado en <strong>al menos un grado</strong> respecto al diagnóstico inicial (o meta Grado A según el plan convenido).
+              <strong>Alcance y Meta de la Garantía:</strong> En los planes de blindaje contratados, DEFENSA TI se compromete a mejorar la calificación perimetral del sitio web auditado en <strong>al menos un grado</strong> respecto al estado inicial (o meta Grado A en el plan Total).
+            </p>
+            <div className="p-3.5 rounded-lg bg-black/40 border border-emerald-500/30 text-emerald-300 font-mono text-[11px] leading-relaxed">
+              &ldquo;Trabajamos para llevar tu web a Grado A en la evaluación final del blindaje contratado. Este es un servicio informativo y preventivo: la auditoría y el blindaje informan y previenen, no garantizan seguridad absoluta ni que no habrá ataques futuros. La garantía cubre solo el trabajo de blindaje realizado y entregado, dentro de su alcance. Martín / DEFENSA TI no se hace responsable por ataques futuros, vulnerabilidades nuevas, fallas del hosting o de proveedores, ni por lo que el cliente haga o deje de hacer después del blindaje. Desde la entrega, el cliente es responsable de mantener sus actualizaciones al día, proteger y no compartir sus accesos, cambiar las contraseñas entregadas y conservar copias de seguridad vigentes. Modificar el sitio, instalar código, plugins o temas sin revisión, o no mantenerlo, deja la garantía sin efecto sobre lo modificado.&rdquo;
+            </div>
+            <p>
+              <strong>Criterio de Incumplimiento:</strong> Se considerará incumplimiento únicamente si, habiendo el cliente facilitado los accesos temporales necesarios y dentro del alcance técnico pactado, la re-medición técnica final no refleja la mejora comprometida.
             </p>
             <p>
-              <strong>Criterio de Incumplimiento:</strong> Se considerará incumplimiento únicamente si, habiendo el cliente facilitado los accesos necesarios y dentro del alcance técnico acordado, la re-medición técnica final no refleja la mejora de al menos un grado comprometida.
-            </p>
-            <p>
-              <strong>Plazo y Remedio Comercial:</strong> El cliente dispone de un plazo de <strong>15 días calendario</strong> contados desde la entrega formal del informe final para comunicar cualquier disconformidad con la calificación obtenida. Ante un reclamo fundado, DEFENSA TI repetirá los ajustes sin costo adicional; de persistir la imposibilidad técnica, se procederá con la <strong>devolución del 100% del pago realizado</strong> por dicho concepto.
+              <strong>Plazo de Reclamo y Devolución:</strong> El cliente dispone de un plazo de <strong>15 días calendario</strong> contados desde la entrega formal del informe final para comunicar cualquier disconformidad con la calificación obtenida. Ante un reclamo fundado, DEFENSA TI repetirá los ajustes sin costo adicional; de persistir la imposibilidad técnica, se procederá con la <strong>devolución del 100% del pago realizado</strong>.
             </p>
           </div>
         </section>
