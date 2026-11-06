@@ -125,7 +125,7 @@ const translations: Record<Language, Translations> = {
       techTab: 'Vista Técnica (SysAdmin / Dev)',
     },
     casesModal: {
-      triggerBtn: 'Casos reales: Cómo clonan páginas y estafan a negocios en Latam',
+      triggerBtn: 'Casos reales: Cómo clonan páginas y estafan a negocios en Per�',
       badge: 'Reportes Reales Documentados • Actualizado 2026',
       title: 'Casos de verdad en negocios de la región (Últimos meses)',
       subtitle: 'Mira cómo operan los atacantes y cómo las empresas resolvieron el problema de inmediato.',
@@ -141,7 +141,7 @@ const translations: Record<Language, Translations> = {
       plan1Desc: 'Dictamen técnico formal y orden de trabajo para que tu equipo o programador aplique las correcciones.',
       plan1Cta: 'Solicitar Reporte',
       plan2Name: 'Blindaje Express A+',
-      plan2Tag: 'El más solicitado en Latam',
+      plan2Tag: 'El más solicitado en Per�',
       plan2Desc: 'Hacemos todo por ti. Dejamos tu sitio en Grado A+ sin tocar el código interno de tu página.',
       plan2Cta: 'Quiero Blindar mi Web',
       plan3Name: 'Blindaje & Pasarelas',
@@ -154,7 +154,7 @@ const translations: Record<Language, Translations> = {
     donation: {
       button: 'Apoyar (Donar)',
       title: 'Invítale un café a Martín ☕',
-      desc: 'DEFENSA TI es una herramienta gratuita para proteger negocios en Latam. Tu apoyo ayuda a mantener los servidores y motores de IA activos.',
+      desc: 'DEFENSA TI es una herramienta gratuita para proteger negocios en Per�. Tu apoyo ayuda a mantener los servidores y motores de IA activos.',
     },
     aiBot: {
       title: 'Neuronal Gravity AI',

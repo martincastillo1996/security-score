@@ -64,7 +64,7 @@ Quisiera coordinar contigo una asesoría para poner a punto las directivas perim
         <div className="space-y-2.5 text-center md:text-left max-w-xl">
           <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-[#25D366]/15 border border-[#25D366]/30 text-[#25D366] text-xs font-semibold tracking-wide">
             <span className="w-2 h-2 rounded-full bg-[#25D366] animate-pulse" />
-            Asesoría y Puesta a Punto Perimetral &bull; Latam
+            Asesoría y Puesta a Punto Perimetral &bull; Per�
           </div>
           <h3 className="text-xl sm:text-2xl font-bold text-white tracking-tight">
             ¿Deseas que dejemos tu sitio en Grado A+ hoy mismo?

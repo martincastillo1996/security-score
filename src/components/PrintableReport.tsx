@@ -196,7 +196,7 @@ export default function PrintableReport({ report, auditId }: Props) {
       {/* Pie de Página */}
       <div className="mt-3 border-t border-neutral-300 pt-2 flex justify-between items-center text-[9px] font-mono text-neutral-500">
         <span>DEFENSA TI &bull; Reporte emitido automáticamente</span>
-        <span>Asesoría de Buenas Prácticas Latam &bull; Página 1 de 1</span>
+        <span>Asesoría de Buenas Prácticas Per� &bull; Página 1 de 1</span>
       </div>
     </div>
   );

@@ -26,7 +26,7 @@ export default function RealThreatCasesModal() {
   const [isOpen, setIsOpen] = useState(false);
   const [activeCountry, setActiveCountry] = useState<string>('PE');
 
-  // Estadísticas reales y actualizadas al 2026 (OWASP Latam 2026 / Incidentes Cyber Latam)
+  // Estadísticas reales y actualizadas al 2026 (OWASP Per� 2026 / Incidentes Cyber Per�)
   const countryStats = [
     { code: 'PE', name: 'Perú', flag: '🇵🇪', unshieldedRate: '79%', fraudGrowth: '+44%', topThreat: 'Clonación de checkout Yape y Niubiz' },
     { code: 'CO', name: 'Colombia', flag: '🇨🇴', unshieldedRate: '75%', fraudGrowth: '+39%', topThreat: 'Inyección en pasarelas Wompi y PSE' },

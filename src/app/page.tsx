@@ -12,7 +12,6 @@ import {
   Sparkles, 
   FileCode,
   Layers,
-  Check,
   Cpu,
   Globe,
   Mail,
@@ -73,11 +72,11 @@ export default function NeuronalGravityHubHome() {
 
       <main className="max-w-5xl mx-auto px-6 py-16 space-y-24 relative z-10">
         
-        {/* 2. ENCABEZADO PUNTUAL DEL HUB */}
+        {/* BLOQUE 1: PRESENTACIÓN CORTA DE NEURONAL GRAVITY */}
         <section className="text-center max-w-3xl mx-auto space-y-6 pt-4">
           <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-linear-to-r from-[#0071e3]/20 via-[#7928ca]/20 to-[#38bdf8]/20 border border-[#38bdf8]/30 text-[#38bdf8] text-xs font-semibold backdrop-blur-md">
             <Sparkles className="w-3.5 h-3.5 text-[#38bdf8]" />
-            <span>Desarrollo de Software & Ciberseguridad</span>
+            <span>Desarrollo de Software & Ciberdefensa</span>
           </div>
 
           <h1 className="text-3xl sm:text-5xl font-extrabold text-white tracking-tight leading-tight">
@@ -88,25 +87,26 @@ export default function NeuronalGravityHubHome() {
             En <strong>Neuronal Gravity</strong> desarrollamos herramientas de software e ingeniería aplicada para empresas. Presentamos nuestro primer proyecto activo y desplegado para producción: <strong className="text-white">DEFENSA TI</strong>.
           </p>
 
+          {/* Único botón principal de la página principal */}
           <div className="pt-2">
             <Link
               href="/defensati"
-              className="inline-flex items-center gap-2 px-7 py-3.5 rounded-2xl bg-[#0071e3] hover:bg-[#0077ed] text-white font-bold text-sm transition-all shadow-[0_0_25px_rgba(0,113,227,0.4)] hover:shadow-[0_0_35px_rgba(0,113,227,0.6)]"
+              className="inline-flex items-center gap-2 px-8 py-4 rounded-2xl bg-[#0071e3] hover:bg-[#0077ed] text-white font-bold text-sm transition-all shadow-[0_0_25px_rgba(0,113,227,0.4)] hover:shadow-[0_0_35px_rgba(0,113,227,0.6)]"
             >
-              <span>Ir a DEFENSA TI</span>
+              <span>Conoce DEFENSA TI</span>
               <ArrowRight className="w-4 h-4" />
             </Link>
           </div>
         </section>
 
-        {/* 3. PRESENTACIÓN DEL PRIMER PROYECTO: DEFENSA TI (CON PRECIOS EN SOLES Y DÓLARES) */}
+        {/* BLOQUE 2: PRESENTACIÓN DEL PRIMER PROYECTO (DEFENSA TI) */}
         <section className="space-y-6">
           <div className="flex items-center justify-between">
             <h2 className="text-xl font-bold text-white flex items-center gap-2">
               <Layers className="w-5 h-5 text-[#38bdf8]" />
               <span>Primer Proyecto Activo</span>
             </h2>
-            <span className="text-xs text-neutral-400 font-mono">Disponible hoy</span>
+            <span className="text-xs text-neutral-400 font-mono">1 de 1 disponible hoy</span>
           </div>
 
           <div className="relative rounded-3xl bg-[#0f1219]/90 border border-[#38bdf8]/30 p-8 sm:p-10 backdrop-blur-xl shadow-2xl overflow-hidden hover:border-[#38bdf8]/60 transition-all">
@@ -116,51 +116,20 @@ export default function NeuronalGravityHubHome() {
               <div className="space-y-4 max-w-2xl">
                 <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-[#0071e3]/20 border border-[#0071e3]/40 text-[#38bdf8] text-xs font-semibold">
                   <ShieldCheck className="w-3.5 h-3.5" />
-                  <span>Auditoría & Blindaje Perimetral</span>
+                  <span>DEFENSA TI es el servicio de seguridad web de Neuronal Gravity</span>
                 </div>
 
                 <h3 className="text-2xl sm:text-3xl font-extrabold text-white tracking-tight">
-                  DEFENSA TI
+                  DEFENSA TI &bull; Auditoría y Blindaje Web
                 </h3>
 
                 <p className="text-sm text-neutral-300 leading-relaxed font-normal">
-                  Diagnóstico técnico determinista y mitigación perimetral para sitios web corporativos y comercio electrónico. Identificamos brechas en cabeceras de seguridad, certificados SSL y exposición de versiones visibles antes de que sean explotadas.
+                  Servicio especializado de auditoría externa determinista y blindaje preventivo para sitios web en todas las plataformas (WordPress, Wix, Shopify, sistemas a medida y comercio electrónico). Protegemos la reputación de tu empresa corrigiendo vulnerabilidades visibles antes de que sean explotadas.
                 </p>
 
-                {/* Niveles de Servicio y Precios Directos */}
-                <div className="grid grid-cols-1 sm:grid-cols-3 gap-3 pt-2">
-                  <div className="p-3.5 rounded-xl bg-black/40 border border-white/10 space-y-1">
-                    <span className="text-[10px] uppercase font-mono text-neutral-400 block">Plan Base</span>
-                    <span className="text-sm font-bold text-white block">Auditoría</span>
-                    <span className="text-xs font-semibold text-[#38bdf8] block">Desde S/ 65 <span className="text-neutral-400 font-normal">/ $19</span></span>
-                    <p className="text-[11px] text-neutral-400">Diagnóstico técnico completo e informe en 48 horas.</p>
-                  </div>
-
-                  <div className="p-3.5 rounded-xl bg-black/40 border border-white/10 space-y-1">
-                    <span className="text-[10px] uppercase font-mono text-neutral-400 block">Plan Medio</span>
-                    <span className="text-sm font-bold text-white block">Blindaje Esencial</span>
-                    <span className="text-xs font-semibold text-[#38bdf8] block">S/ 165 <span className="text-neutral-400 font-normal">/ $49</span></span>
-                    <p className="text-[11px] text-neutral-400">Precio total. Ya incluye la Auditoría previa.</p>
-                  </div>
-
-                  <div className="p-3.5 rounded-xl bg-black/40 border border-white/10 space-y-1">
-                    <span className="text-[10px] uppercase font-mono text-neutral-400 block">Blindaje Completo</span>
-                    <span className="text-sm font-bold text-white block">Blindaje Total</span>
-                    <span className="text-xs font-semibold text-[#38bdf8] block">S/ 335 <span className="text-neutral-400 font-normal">/ $99</span></span>
-                    <p className="text-[11px] text-neutral-400">Precio total. Incluye Auditoría, Esencial y re-medición.</p>
-                  </div>
-                </div>
-
-                <div className="grid grid-cols-1 sm:grid-cols-2 gap-2 pt-2 text-xs text-neutral-300">
-                  <div className="flex items-center gap-2">
-                    <Check className="w-4 h-4 text-emerald-400 shrink-0" />
-                    <span>Sin invasión ni escaneo de puertos</span>
-                  </div>
-                  <div className="flex items-center gap-2">
-                    <Check className="w-4 h-4 text-emerald-400 shrink-0" />
-                    <span>Informe técnico con código de remediación</span>
-                  </div>
-                </div>
+                <p className="text-xs text-neutral-400 font-mono">
+                  Cobertura para empresas en todo el Perú &bull; Diagnóstico técnico objetivo en 48 horas laborables.
+                </p>
               </div>
 
               <div className="lg:w-64 shrink-0 flex flex-col justify-center space-y-4 text-center">
@@ -168,58 +137,15 @@ export default function NeuronalGravityHubHome() {
                   href="/defensati"
                   className="w-full inline-flex items-center justify-center gap-2 px-6 py-3.5 rounded-xl bg-[#0071e3] hover:bg-[#0077ed] text-white text-xs font-bold transition-all shadow-lg"
                 >
-                  <span>Ver Proyecto Completo</span>
+                  <span>Ver Planes y Autoevaluación</span>
                   <ArrowRight className="w-4 h-4" />
-                </Link>
-
-                <Link
-                  href="/defensati/escaner"
-                  className="w-full inline-flex items-center justify-center gap-2 px-5 py-2.5 rounded-xl bg-white/5 hover:bg-white/10 border border-white/10 text-neutral-300 text-xs font-semibold transition-all hover:text-white"
-                >
-                  <span>Probar Escáner Gratis</span>
                 </Link>
               </div>
             </div>
           </div>
         </section>
 
-        {/* 4. VISIÓN A FUTURO: TECNOLOGÍA CON IA Y LLMs AVANZADOS (HONESTO, SIN NADA FICTICIO) */}
-        <section className="p-8 sm:p-10 rounded-3xl bg-[#0f1219]/90 border border-white/10 backdrop-blur-xl space-y-6">
-          <div className="space-y-3 max-w-2xl">
-            <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-purple-500/15 border border-purple-500/30 text-purple-300 text-xs font-semibold">
-              <Cpu className="w-3.5 h-3.5" />
-              <span>I+D en Desarrollo</span>
-            </div>
-            <h2 className="text-2xl font-extrabold text-white tracking-tight">
-              Visión a Futuro: Soluciones Tecnológicas con IA y LLMs Avanzados
-            </h2>
-            <p className="text-sm text-neutral-300 leading-relaxed font-normal">
-              Más allá de la seguridad perimetral, en <strong>Neuronal Gravity</strong> investigamos y diseñamos arquitecturas de software basadas en Modelos de Lenguaje (LLMs) y agentes autónomos orientados a empresas.
-            </p>
-          </div>
-
-          <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 pt-2">
-            <div className="p-5 rounded-2xl bg-black/40 border border-white/10 space-y-2">
-              <span className="text-xs font-bold text-white block">Integración de LLMs en Flujos de Negocio</span>
-              <p className="text-xs text-neutral-400 leading-relaxed">
-                Asistencia conversacional contextual conectada a bases de conocimiento propietarias y flujos de consulta técnica directa sin exponer datos a modelos públicos.
-              </p>
-            </div>
-
-            <div className="p-5 rounded-2xl bg-black/40 border border-white/10 space-y-2">
-              <span className="text-xs font-bold text-white block">Automatización Determinista de Operaciones</span>
-              <p className="text-xs text-neutral-400 leading-relaxed">
-                Sistemas autónomos que ejecutan tareas repetitivas de forma confiable, con trazabilidad de ingeniería y validaciones antes de impactar sistemas productivos.
-              </p>
-            </div>
-          </div>
-
-          <div className="text-xs text-neutral-400 pt-1 font-mono">
-            &bull; Proyectos en fase de experimentación técnica y validación controlada.
-          </div>
-        </section>
-
-        {/* 5. SOBRE MARTÍN CASTILLO (CON FOTO PROFESIONAL Y ENLACES VERIFICADOS) */}
+        {/* BLOQUE 3: SOBRE MARTÍN CASTILLO, FUNDADOR */}
         <section className="p-8 sm:p-10 rounded-3xl bg-[#0f1219]/90 border border-white/10 backdrop-blur-xl space-y-8">
           <div className="flex flex-col sm:flex-row items-center sm:items-start gap-8">
             
@@ -251,10 +177,10 @@ export default function NeuronalGravityHubHome() {
               </p>
 
               <p className="text-xs sm:text-sm text-neutral-400 leading-relaxed font-normal">
-                Diseño y construyo herramientas tecnológicas desde cero. He desarrollado el motor de auditoría perimetral de DEFENSA TI con inspección no invasiva de cabeceras, SSL y defensas SSRF, manteniendo el código del analizador disponible en GitHub.
+                Diseño y construyo herramientas tecnológicas desde cero. He desarrollado el motor de auditoría perimetral de DEFENSA TI con inspección no invasiva de cabeceras, SSL y defensas SSRF, manteniendo el código del analizador disponible de manera abierta en GitHub.
               </p>
 
-              {/* Enlaces Reales de Contacto y Redes */}
+              {/* Enlaces Reales de Contacto */}
               <div className="flex flex-wrap items-center justify-center sm:justify-start gap-3 pt-2">
                 <a
                   href={`${siteConfig.contact.whatsappLink}?text=${encodeURIComponent('Hola Martín, vi tu perfil en Neuronal Gravity y deseo conversar.')}`}
@@ -289,7 +215,7 @@ export default function NeuronalGravityHubHome() {
                 </a>
 
                 <a
-                  href="mailto:castillo.karol96@gmail.com"
+                  href="mailto:martincastillorojas@gmail.com"
                   className="inline-flex items-center gap-2 px-4 py-2 rounded-xl bg-white/5 hover:bg-white/10 border border-white/10 text-neutral-200 text-xs font-semibold transition-all hover:text-white"
                 >
                   <Mail className="w-3.5 h-3.5 text-amber-400" />
@@ -301,9 +227,25 @@ export default function NeuronalGravityHubHome() {
           </div>
         </section>
 
+        {/* BLOQUE 4: FUTURO (TEXTO EXACTO AUTORIZADO) */}
+        <section className="p-8 sm:p-10 rounded-3xl bg-[#0f1219]/90 border border-white/10 backdrop-blur-xl space-y-6">
+          <div className="space-y-3 max-w-2xl">
+            <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-purple-500/15 border border-purple-500/30 text-purple-300 text-xs font-semibold">
+              <Cpu className="w-3.5 h-3.5" />
+              <span>Próximamente &bull; En desarrollo</span>
+            </div>
+            <h2 className="text-2xl font-extrabold text-white tracking-tight">
+              Próximas Soluciones: Integración de LLMs avanzados para automatización de consultas y operaciones de negocio (en fase de laboratorio)
+            </h2>
+            <p className="text-sm text-neutral-300 leading-relaxed font-normal">
+              Diseñamos arquitecturas avanzadas para conectar Modelos de Lenguaje a flujos de trabajo empresariales, optimizando consultas operativas con trazabilidad de ingeniería y privacidad estricta. Actualmente en fase experimental y laboratorio técnico.
+            </p>
+          </div>
+        </section>
+
       </main>
 
-      {/* 6. PIE DE PÁGINA PROFESIONAL Y LEGAL */}
+      {/* PIE DE PÁGINA PROFESIONAL Y LEGAL */}
       <footer className="border-t border-white/10 bg-black/90 py-12 relative z-10 text-xs text-neutral-400">
         <div className="max-w-6xl mx-auto px-6 space-y-8">
           <div className="flex flex-col md:flex-row items-start md:items-center justify-between gap-6 pb-6 border-b border-white/10">
@@ -325,12 +267,9 @@ export default function NeuronalGravityHubHome() {
             </div>
           </div>
 
-          <div className="flex flex-col sm:flex-row items-center justify-between gap-4 text-[11px] text-neutral-500">
+          <div className="text-[11px] text-neutral-500">
             <p>
               &copy; {new Date().getFullYear()} {siteConfig.name} &bull; Primer proyecto: DEFENSA TI. {siteConfig.business.receiptNotice}.
-            </p>
-            <p className="text-neutral-400">
-              Libro de Reclamaciones: <span className="text-neutral-500">[PENDIENTE: Confirmar si aplica enlace virtual]</span>
             </p>
           </div>
         </div>

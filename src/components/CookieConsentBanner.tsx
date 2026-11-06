@@ -31,7 +31,7 @@ export default function CookieConsentBanner() {
   return (
     <aside 
       aria-label="Consentimiento de Cookies y Privacidad"
-      className="fixed bottom-6 left-6 right-6 sm:right-auto sm:max-w-md z-50 animate-in fade-in-50 slide-in-from-bottom-5 duration-500"
+      className="fixed bottom-6 right-6 left-6 sm:left-auto sm:max-w-md z-50 animate-in fade-in-50 slide-in-from-bottom-5 duration-500"
     >
       <div className="p-5 rounded-3xl bg-[#161618]/95 border border-white/15 shadow-2xl backdrop-blur-2xl text-[#f5f5f7] space-y-4">
         

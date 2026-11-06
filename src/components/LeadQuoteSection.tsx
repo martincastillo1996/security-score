@@ -171,7 +171,7 @@ export default function LeadQuoteSection() {
                 className="inline-flex items-center gap-2 px-4 py-2.5 rounded-xl bg-[#25D366]/15 hover:bg-[#25D366]/25 border border-[#25D366]/40 text-[#25D366] text-xs font-semibold transition-all shadow-[0_0_15px_rgba(37,211,102,0.15)]"
               >
                 <MessageSquare className="w-3.5 h-3.5" />
-                <span>Escribir por WhatsApp a Martín (+51 987 010 380)</span>
+                <span>Escribir por WhatsApp a Martín (+1 (785) 643-3991)</span>
               </a>
             </div>
           </div>

@@ -1,22 +1,18 @@
-import type { Metadata } from 'next';
+'use client';
+
+import React from 'react';
 import Link from 'next/link';
 import NeuralBackground from '@/components/NeuralBackground';
 import { ShieldCheck, ArrowLeft } from 'lucide-react';
 
-export const metadata: Metadata = {
-  title: 'Términos del Servicio | DEFENSA TI',
-  description: 'Términos y condiciones del servicio de auditoría y blindaje web DEFENSA TI. RUC 10704877850.',
-};
-
 export default function TerminosPage() {
   return (
-    <div className="relative min-h-screen bg-black text-[#f5f5f7] font-sans antialiased selection:bg-[#0071e3] selection:text-white">
-      <div className="fixed inset-0 pointer-events-none z-0 opacity-40">
-        <NeuralBackground />
-        <div className="absolute inset-0 bg-radial from-transparent via-black/50 to-black" />
+    <div className="min-h-screen bg-[#07090e] text-white selection:bg-[#0071e3] selection:text-white font-sans antialiased relative overflow-x-hidden">
+      <div className="fixed inset-0 z-0 pointer-events-none">
+        <NeuralBackground showDomains={false} />
       </div>
 
-      <header className="sticky top-0 z-50 border-b border-white/10 bg-black/80 backdrop-blur-2xl">
+      <header className="sticky top-0 z-50 backdrop-blur-xl bg-black/60 border-b border-white/10">
         <div className="max-w-4xl mx-auto px-6 h-16 flex items-center justify-between">
           <Link href="/" className="flex items-center gap-2.5 text-white font-bold tracking-tight">
             <ShieldCheck className="w-5 h-5 text-emerald-400" />
@@ -31,39 +27,28 @@ export default function TerminosPage() {
 
       <main className="relative z-10 max-w-4xl mx-auto px-6 py-12 sm:py-16 space-y-8 text-neutral-200">
         <div className="space-y-2 border-b border-white/10 pb-6">
-          <span className="text-xs font-mono uppercase tracking-wider text-emerald-400 font-bold">[BORRADOR VIGENTE 2026]</span>
           <h1 className="text-3xl sm:text-4xl font-extrabold text-white tracking-tight">Términos y Condiciones del Servicio</h1>
           <p className="text-xs text-neutral-400">Prestador: Martin Castillo &bull; RUC con Negocio: 10704877850 &bull; Lima, Perú</p>
         </div>
 
         <section className="space-y-3 text-sm leading-relaxed">
-          <h2 className="text-lg font-bold text-white">1. Alcance del Servicio</h2>
+          <h2 className="text-lg font-bold text-white">1. Naturaleza del Servicio</h2>
           <p>
-            DEFENSA TI es un servicio profesional de auditoría técnica perimetral y endurecimiento de seguridad (hardening) para sitios web corporativos y de comercio electrónico.
-          </p>
-          <ul className="list-disc pl-5 space-y-1 text-neutral-300">
-            <li><strong>Plan Auditoría (S/ 65 / ~$19 USD):</strong> Evaluación no intrusiva externa de cabeceras, SSL/TLS, exposición de puertos y entrega de reporte con nota de F a A+ en 48 horas laborables. No requiere acceso a servidores ni contraseñas.</li>
-            <li><strong>Plan Blindaje Esencial (S/ 165 / ~$49 USD):</strong> Auditoría más corrección de fallas críticas, cabeceras HTTP defensivas, actualización segura y endurecimiento de accesos. Entrega en 3 a 5 días hábiles.</li>
-            <li><strong>Plan Blindaje Total (S/ 335 / ~$99 USD):</strong> Hardening integral, firewall de aplicaciones web (WAF), copias de seguridad comprobables y verificación con re-medición. Entrega en 5 a 7 días hábiles.</li>
-          </ul>
-        </section>
-
-        <section className="space-y-3 text-sm leading-relaxed">
-          <h2 className="text-lg font-bold text-white">2. Exclusiones Importantes: Sitios Infectados con Malware</h2>
-          <p>
-            Los planes estándar de blindaje aplican exclusivamente a sitios web operativos que requieren protección preventiva. 
-            <strong> La limpieza, desinfección forense o rescate de sitios web ya infectados con malware o spam activo NO está incluida en el plan de S/ 335 ($99)</strong> y se cotiza como servicio independiente desde $149 USD tras diagnóstico previo.
+            DEFENSA TI es un servicio de auditoría técnica externa, evaluación de seguridad web y remediación perimetral preventiva para sitios web, tiendas de comercio electrónico y aplicaciones web operadas por empresas y profesionales en el Perú y a nivel internacional.
           </p>
         </section>
 
         <section className="space-y-3 text-sm leading-relaxed">
-          <h2 className="text-lg font-bold text-white">3. Garantía Comercial por Escrito</h2>
+          <h2 className="text-lg font-bold text-white">2. Consentimiento y Autorización del Titular</h2>
           <p>
-            Para los planes de blindaje implementados por DEFENSA TI, aplica la garantía de mejora efectiva:
-            &ldquo;Si tras aplicar las correcciones técnicas no logramos subir al menos un grado la calificación de seguridad de tu web en nuestra auditoría independiente, te devolvemos el 100% de lo pagado.&rdquo;
+            Al solicitar una auditoría preventiva o contratar un plan de blindaje, el cliente declara bajo juramento ser el propietario legítimo del dominio web proporcionado o contar con la delegación y autorización expresa de la organización titular para realizar la evaluación de seguridad.
           </p>
-          <p className="text-xs text-neutral-400">
-            Nota: La obtención de Grado A+ absoluto depende de las restricciones técnicas del proveedor de hosting del cliente. Si el hosting impide configuraciones avanzadas, se notificará al cliente antes de intervenir.
+        </section>
+
+        <section className="space-y-3 text-sm leading-relaxed">
+          <h2 className="text-lg font-bold text-white">3. Garantía a Grado A y Límite Legal de Responsabilidad</h2>
+          <p className="p-4 rounded-xl bg-white/5 border border-white/10 text-xs text-neutral-300 leading-relaxed font-mono">
+            &ldquo;Trabajamos para llevar tu web a Grado A en la evaluación final del blindaje contratado. Este es un servicio informativo y preventivo: la auditoría y el blindaje informan y previenen, no garantizan seguridad absoluta ni que no habrá ataques futuros. La garantía cubre solo el trabajo de blindaje realizado y entregado, dentro de su alcance. Martín / DEFENSA TI no se hace responsable por ataques futuros, vulnerabilidades nuevas, fallas del hosting o de proveedores, ni por lo que el cliente haga o deje de hacer después del blindaje. Desde la entrega, el cliente es responsable de mantener sus actualizaciones al día, proteger y no compartir sus accesos, cambiar las contraseñas entregadas y conservar copias de seguridad vigentes. Modificar el sitio, instalar código, plugins o temas sin revisión, o no mantenerlo, deja la garantía sin efecto sobre lo modificado.&rdquo;
           </p>
         </section>
 
@@ -73,7 +58,7 @@ export default function TerminosPage() {
             Para tareas de blindaje que requieran ingreso al sitio:
           </p>
           <ul className="list-disc pl-5 space-y-1 text-neutral-300">
-            <li>El cliente creará un usuario administrador temporal exclusivo para DEFENSA TI.</li>
+            <li>Para la auditoría no pedimos contraseñas. Para el blindaje, solo una cuenta temporal con permisos mínimos, nunca tu contraseña principal, y se cierra al terminar.</li>
             <li>Se realizará una copia de seguridad verificada previa a cualquier cambio técnico.</li>
             <li>Cada ajuste se documenta en el informe de entrega.</li>
             <li>Finalizado el servicio, el cliente debe eliminar o deshabilitar dicho usuario temporal.</li>
