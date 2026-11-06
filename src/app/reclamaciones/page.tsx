@@ -75,11 +75,12 @@ export default function LibroReclamacionesPage() {
   };
 
   return (
-    <div className="min-h-screen bg-[#07080a] text-neutral-200 relative selection:bg-sky-500/30 selection:text-sky-200">
-      <NeuralBackground />
+    <div className="min-h-screen bg-[#07090e] text-white selection:bg-[#0071e3] selection:text-white font-sans antialiased relative overflow-x-hidden">
+      {/* Fondo estelar cósmico limpio sin texto atravesado */}
+      <NeuralBackground showDomains={false} />
 
       {/* Cabecera / Barra Superior */}
-      <header className="border-b border-white/10 bg-[#07080a]/80 backdrop-blur-md sticky top-0 z-40">
+      <header className="sticky top-0 z-50 backdrop-blur-xl bg-black/60 border-b border-white/10">
         <div className="max-w-4xl mx-auto px-4 h-16 flex items-center justify-between">
           <Link
             href="/"
