@@ -14,8 +14,8 @@ export default function PricingSection({ targetUrl, score, grade }: Props) {
   const { t } = useI18n();
   const cleanUrl = targetUrl ? targetUrl.replace(/^https?:\/\//i, '').replace(/\/.*$/, '') : '';
 
-  const getPlanWhatsAppUrl = (planName: string, price: string) => {
-    const message = `Hola Martín, estuve revisando mi web ${cleanUrl ? `(${cleanUrl})` : ''} en DEFENSA TI ${score ? `con nota ${score}/100 (Grado ${grade})` : ''} y quiero contratar el plan: *${planName}* (${price}). ¿Cuáles son los pasos para empezar?`;
+  const getPlanWhatsAppUrl = (planName: string, pricePen: string, priceUsd: string) => {
+    const message = `Hola Martín, estuve revisando mi web ${cleanUrl ? `(${cleanUrl})` : ''} en DEFENSA TI ${score ? `con nota ${score}/100 (Grado ${grade})` : ''} y quiero contratar el plan: *${planName}* (${pricePen} / ${priceUsd}). ¿Cuáles son los pasos para empezar?`;
     return `https://wa.me/17856433991?text=${encodeURIComponent(message)}`;
   };
 
@@ -23,34 +23,34 @@ export default function PricingSection({ targetUrl, score, grade }: Props) {
     {
       name: 'Auditoría',
       tag: 'Diagnóstico Externo',
-      priceUsd: '$19',
       pricePen: 'S/ 65',
+      priceUsd: '$19',
       badge: 'Entrega en 48 horas',
       highlight: false,
-      description: 'Auditoría desde S/ 65 / $19, es el plan básico.',
+      description: 'Auditoría perimetral completa. Ideal como diagnóstico inicial.',
       features: [
         'Diagnóstico externo no intrusivo (SSL, cabeceras, exposición pública)',
         'Informe técnico con prioridades de negocio en 48 horas laborables',
         'Checklist de cabeceras pendientes (OWASP)',
         'Sin acceso a tus servidores ni contraseñas (Cero riesgo)',
       ],
-      ctaText: 'Pedir mi auditoría por WhatsApp - S/ 65',
+      ctaText: 'Pedir Auditoría - S/ 65',
       popular: false,
     },
     {
       name: 'Blindaje Esencial',
       tag: 'Corrección de Configuración',
-      priceUsd: '$49',
       pricePen: 'S/ 165',
+      priceUsd: '$49',
       badge: 'Plazo: 3 a 5 días',
       highlight: true,
-      description: 'Blindaje Esencial S/ 165 / $49, precio total, ya incluye la Auditoría.',
+      description: 'Precio total cerrado. Ya incluye la Auditoría previa y remediación directa.',
       features: [
         'Todo lo incluido en la Auditoría previa',
-        'Corrección de fallas críticas y medias de configuración',
-        'Implementación estricta de cabeceras HSTS y SSL',
-        'Actualización segura de CMS, temas y plugins en todas las plataformas',
-        'Endurecimiento de accesos y políticas de credenciales',
+        'Corrección de fallas críticas y medias de configuración web',
+        'Implementación estricta de cabeceras de seguridad (HSTS, CSP, X-Frame)',
+        'Actualización segura de CMS, temas y plugins (WordPress, Shopify, etc.)',
+        'Endurecimiento de accesos y políticas de credenciales administrativas',
       ],
       ctaText: 'Pedir Blindaje Esencial - S/ 165',
       popular: true,
@@ -58,17 +58,17 @@ export default function PricingSection({ targetUrl, score, grade }: Props) {
     {
       name: 'Blindaje Total',
       tag: 'Protección y Re-medición',
-      priceUsd: '$99',
       pricePen: 'S/ 335',
+      priceUsd: '$99',
       badge: 'Plazo: 5 a 7 días',
       highlight: false,
-      description: 'Blindaje Total S/ 335 / $99, precio total, ya incluye la Auditoría y el Blindaje Esencial.',
+      description: 'Precio total cerrado. Auditoría + Blindaje Esencial + WAF y meta Grado A.',
       features: [
         'Todo lo del plan Blindaje Esencial',
-        'Corrección completa y configuración avanzada de WAF perimetral',
-        'Re-medición técnica independiente tras la entrega',
-        'Meta: llevar tu web a Grado A en la evaluación final del blindaje',
-        'Garantía a Grado A sujeta al texto legal informativo y preventivo',
+        'Configuración perimetral de WAF (Cloudflare / servidor) contra bots y ataques',
+        'Re-medición técnica independiente post-implementación con reporte final',
+        'Meta: llevar tu web a Grado A en la evaluación técnica acordada',
+        'Garantía de servicio técnico delimitada conforme a términos legales',
       ],
       ctaText: 'Pedir Blindaje Total - S/ 335',
       popular: false,
@@ -117,14 +117,19 @@ export default function PricingSection({ targetUrl, score, grade }: Props) {
                 <p className="text-xs text-neutral-300 mt-2 leading-relaxed">{p.description}</p>
               </div>
 
-              {/* Precios */}
+              {/* Precios (Soles principal, USD secundario) */}
               <div className="pt-2 border-t border-white/10">
                 <div className="flex items-baseline gap-2">
-                  <span className="text-3xl sm:text-4xl font-black text-white">{p.priceUsd}</span>
-                  <span className="text-xs text-neutral-400 font-medium">USD pago único</span>
+                  <span className="text-3xl sm:text-4xl font-black text-white">{p.pricePen}</span>
+                  <span className="text-xs text-neutral-400 font-medium">PEN pago único</span>
                 </div>
-                <div className="text-[11px] text-emerald-400 font-semibold mt-0.5">
-                  o {p.pricePen} PEN para clientes en Perú
+                <div className="text-[12px] text-[#38bdf8] font-semibold mt-0.5 flex items-center gap-1.5">
+                  <span>o aprox. {p.priceUsd} USD</span>
+                  <span className="text-[10px] text-neutral-500 font-normal">| Facturación local / internacional</span>
+                </div>
+                <div className="mt-2 inline-flex items-center gap-1.5 px-2.5 py-0.5 rounded-full bg-white/5 border border-white/10 text-[10px] text-neutral-300 font-medium">
+                  <span className="w-1.5 h-1.5 rounded-full bg-emerald-400 animate-pulse"></span>
+                  {p.badge}
                 </div>
               </div>
 
@@ -142,7 +147,7 @@ export default function PricingSection({ targetUrl, score, grade }: Props) {
             {/* Botón de acción */}
             <div className="pt-6">
               <a
-                href={getPlanWhatsAppUrl(p.name, p.priceUsd)}
+                href={getPlanWhatsAppUrl(p.name, p.pricePen, p.priceUsd)}
                 target="_blank"
                 rel="noopener noreferrer"
                 className={`w-full py-3 px-4 rounded-2xl font-bold text-xs sm:text-sm flex items-center justify-center gap-2 transition-all cursor-pointer active:scale-95 shadow-md ${
