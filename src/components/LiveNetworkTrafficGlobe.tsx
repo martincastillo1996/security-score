@@ -217,7 +217,7 @@ export default function LiveNetworkTrafficGlobe() {
             {/* Pill flotante indicando el nodo matriz con contraste total */}
             <div className="absolute bottom-4 sm:bottom-8 px-5 py-2.5 rounded-2xl bg-[#0e1118] border border-white/20 shadow-2xl flex items-center gap-2.5 text-xs text-white font-medium">
               <span className="w-2.5 h-2.5 rounded-full bg-emerald-400 animate-ping" />
-              <span>Infraestructura optimizada para operaciones en <strong className="text-[#38bdf8]">Latinoamérica y EE.UU.</strong></span>
+              <span>Infraestructura optimizada para operaciones en el <strong className="text-[#38bdf8]">Perú</strong></span>
             </div>
 
           </div>

@@ -69,7 +69,7 @@ export default function GlobalCyberThreatsAndSeoScanner() {
         </h2>
 
         <p className="text-sm text-neutral-300 leading-relaxed">
-          Más del 73% de portales y comercios electrónicos en Latinoamérica operan con vulnerabilidades de seguridad y errores graves de SEO técnico que espantan a Google y hacen que los clientes compren a la competencia.
+          Más del 73% de portales y comercios electrónicos en el Perú operan con vulnerabilidades de seguridad y errores graves de SEO técnico que espantan a Google y hacen que los clientes compren a la competencia.
         </p>
       </div>
 

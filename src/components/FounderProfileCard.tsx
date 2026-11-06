@@ -51,7 +51,7 @@ export default function FounderProfileCard({ className = '' }: Props) {
           </p>
 
           <p className="text-xs sm:text-sm text-neutral-300 leading-relaxed font-normal">
-            Fundador de <strong>Neuronal Gravity</strong>. Ayudo a dueños de negocios, directores y fundadores en Latinoamérica y el mundo a transformar procesos manuales lentos en sistemas inteligentes que operan 24/7 con alta rentabilidad, robustez y eficiencia técnica.
+            Fundador de <strong>Neuronal Gravity</strong>. Ayudo a dueños de negocios, directores y fundadores en el Perú a transformar procesos manuales lentos en sistemas inteligentes que operan 24/7 con alta rentabilidad, robustez y eficiencia técnica.
           </p>
 
           {/* Cita en Tarjeta Glass */}

@@ -45,7 +45,7 @@ export default function SocialViralHub({ targetUrl, score }: Props) {
             <span>Comunidad &bull; Comparte el Proyecto</span>
           </div>
           <h3 className="text-xl sm:text-2xl font-bold text-white tracking-tight">
-            Ayuda a que más empresas protejan su web en Latinoamérica
+            Ayuda a que más empresas protejan su web en el Perú
           </h3>
           <p className="text-xs text-neutral-300">
             Comparte esta herramienta con otros emprendedores o síguenos en redes para ver auditorías en vivo.

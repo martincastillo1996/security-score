@@ -24,7 +24,7 @@ export default function LiderazgoPage() {
   const credentials = [
     'Especialista en integración de modelos de lenguaje avanzados aplicados a flujos comerciales',
     'Creador y arquitecto del motor determinista de auditoría perimetral DEFENSA TI',
-    'Consultor estratégico para directivos y fundadores de empresas en Latinoamérica y EE.UU.',
+    'Consultor estratégico para directivos y fundadores de empresas en el Perú',
     'Defensor de infraestructura propietaria, datos blindados y cero ataduras a terceros'
   ];
 
