@@ -228,11 +228,6 @@ export default function HomePage() {
           
           {/* Hero */}
           <section className="text-center space-y-6 max-w-2xl mx-auto pt-2">
-            <div className="inline-flex items-center gap-2 px-3.5 py-1 rounded-full bg-white/5 border border-white/10 text-[#2997ff] text-xs font-medium tracking-tight">
-              <Sparkles className="w-3.5 h-3.5" />
-              {t.hero.badge}
-            </div>
-            
             <h1 className="text-3xl sm:text-6xl font-semibold tracking-[-0.03em] text-white leading-[1.12] sm:leading-[1.08]">
               {t.hero.title1}
               <span className="block text-transparent bg-clip-text bg-linear-to-b from-[#ffffff] via-[#d1d5db] to-[#6b7280]">
