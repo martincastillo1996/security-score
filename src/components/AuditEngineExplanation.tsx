@@ -124,23 +124,41 @@ export default function AuditEngineExplanation({
                 </span>
               </div>
 
-              <div className="space-y-2 text-xs text-neutral-300 leading-relaxed">
+              <div className="space-y-2.5 text-xs text-neutral-300 leading-relaxed">
                 <div className="flex items-start gap-2">
                   <CheckCircle2 className="w-4 h-4 text-sky-400 shrink-0 mt-0.5" />
                   <span>
-                    <strong>Sondeo TCP de Sockets:</strong> Conexión no invasiva a puertos canónicos (80, 443, 8080, 21, 22, 3306) sin tocar tu base de datos ni pedir contraseñas.
+                    <strong>Sondeo TCP de Sockets Canónicos:</strong> Conexión activa no invasiva a puertos clave (80, 443, 8080, 21, 22, 3306) para verificar exposición perimetral sin tocar tu base de datos ni pedir contraseñas.
                   </span>
                 </div>
                 <div className="flex items-start gap-2">
                   <CheckCircle2 className="w-4 h-4 text-sky-400 shrink-0 mt-0.5" />
                   <span>
-                    <strong>Validación Criptográfica X.509:</strong> Inspección directa del túnel TLS/SSL, vigencia de días y algoritmo de cifrado.
+                    <strong>Validación Criptográfica X.509:</strong> Inspección directa del túnel TLS/SSL, vigencia de días restantes, algoritmo de cifrado y verificación de cadena de certificación oficial.
                   </span>
                 </div>
                 <div className="flex items-start gap-2">
                   <CheckCircle2 className="w-4 h-4 text-sky-400 shrink-0 mt-0.5" />
                   <span>
-                    <strong>Auditoría HTTP RFC 9110:</strong> Comprobación de cabeceras defensivas (HSTS, CSP, X-Frame-Options) para evitar clonación de pasarelas.
+                    <strong>Auditoría HTTP RFC 9110 & OWASP:</strong> Comprobación estricta de cabeceras defensivas (HSTS, CSP, X-Frame-Options) y cookies seguras para prevenir clonación de pasarelas.
+                  </span>
+                </div>
+                <div className="flex items-start gap-2">
+                  <CheckCircle2 className="w-4 h-4 text-sky-400 shrink-0 mt-0.5" />
+                  <span>
+                    <strong>Protección Anti-SSRF y Validación DNS:</strong> Valida todas las IPs de resolución descartando saltos hacia redes internas y protegiendo contra ataques de rebinding.
+                  </span>
+                </div>
+                <div className="flex items-start gap-2">
+                  <CheckCircle2 className="w-4 h-4 text-sky-400 shrink-0 mt-0.5" />
+                  <span>
+                    <strong>Cero Caídas (Zero-Downtime Guarantee):</strong> Sondeo asíncrono ultraligero que no satura el ancho de banda ni interrumpe la navegación de tus compradores.
+                  </span>
+                </div>
+                <div className="flex items-start gap-2">
+                  <CheckCircle2 className="w-4 h-4 text-sky-400 shrink-0 mt-0.5" />
+                  <span>
+                    <strong>Dictamen Técnico Inmutable:</strong> Cada auditoría genera un identificador único fechado, válido como evidencia técnica ante pasarelas y auditorías.
                   </span>
                 </div>
               </div>
@@ -172,7 +190,7 @@ export default function AuditEngineExplanation({
                 </span>
               </div>
 
-              <div className="space-y-2 text-xs text-neutral-300 leading-relaxed">
+              <div className="space-y-2.5 text-xs text-neutral-300 leading-relaxed">
                 <div className="flex items-start gap-2">
                   <CheckCircle2 className="w-4 h-4 text-purple-400 shrink-0 mt-0.5" />
                   <span>
@@ -188,7 +206,25 @@ export default function AuditEngineExplanation({
                 <div className="flex items-start gap-2">
                   <CheckCircle2 className="w-4 h-4 text-purple-400 shrink-0 mt-0.5" />
                   <span>
-                    <strong>Recetas de Código Listas para Dev:</strong> Redacta los bloques de código exactos para Nginx y Apache para que tu técnico solo copie y pegue.
+                    <strong>Recetas de Código Listas para Dev:</strong> Redacta los bloques de código exactos para Nginx, Apache y Cloudflare para que tu técnico solo copie y pegue en 5 minutos.
+                  </span>
+                </div>
+                <div className="flex items-start gap-2">
+                  <CheckCircle2 className="w-4 h-4 text-purple-400 shrink-0 mt-0.5" />
+                  <span>
+                    <strong>Asistencia y Soporte en Línea 24/7:</strong> Neuronality AI responde dudas en tiempo real sobre cómo aplicar cada directiva según el hosting que utilices.
+                  </span>
+                </div>
+                <div className="flex items-start gap-2">
+                  <CheckCircle2 className="w-4 h-4 text-purple-400 shrink-0 mt-0.5" />
+                  <span>
+                    <strong>Alineación con Requisitos de Pasarelas:</strong> Adapta las recomendaciones a los criterios de cumplimiento que exigen adquirentes peruanos antes de habilitar pasarelas.
+                  </span>
+                </div>
+                <div className="flex items-start gap-2">
+                  <CheckCircle2 className="w-4 h-4 text-purple-400 shrink-0 mt-0.5" />
+                  <span>
+                    <strong>Ahorro frente a Agencias Tradicionales:</strong> Auditorías que agencias cobran de S/ 1,500 a S/ 3,000, resueltas al instante y a una fracción del costo.
                   </span>
                 </div>
               </div>
@@ -199,6 +235,39 @@ export default function AuditEngineExplanation({
               </div>
             </div>
 
+          </div>
+
+          {/* Bento Inferior de Ventajas Competitivas para la Empresa */}
+          <div className="p-4 rounded-2xl bg-gradient-to-r from-blue-950/20 via-purple-950/20 to-emerald-950/20 border border-white/10 grid grid-cols-1 sm:grid-cols-3 gap-3 text-xs">
+            <div className="space-y-1">
+              <span className="font-bold text-white flex items-center gap-1.5">
+                <span className="w-2 h-2 rounded-full bg-sky-400" />
+                <span>Velocidad Extrema (1.2s)</span>
+              </span>
+              <p className="text-[11px] text-neutral-400 leading-snug">
+                Diagnóstico perimetral completo al instante, sin esperas de semanas ni reuniones burocráticas.
+              </p>
+            </div>
+
+            <div className="space-y-1">
+              <span className="font-bold text-white flex items-center gap-1.5">
+                <span className="w-2 h-2 rounded-full bg-emerald-400" />
+                <span>100% Sin Contraseñas</span>
+              </span>
+              <p className="text-[11px] text-neutral-400 leading-snug">
+                Cero accesos a tu base de datos ni contraseñas de hosting. Tu infraestructura privada permanece intacta.
+              </p>
+            </div>
+
+            <div className="space-y-1">
+              <span className="font-bold text-white flex items-center gap-1.5">
+                <span className="w-2 h-2 rounded-full bg-purple-400" />
+                <span>Garantía de Blindaje Grado A</span>
+              </span>
+              <p className="text-[11px] text-neutral-400 leading-snug">
+                Si no tienes equipo técnico, el equipo de Martín Castillo lo aplica directamente con soporte directo.
+              </p>
+            </div>
           </div>
         </div>
       )}
