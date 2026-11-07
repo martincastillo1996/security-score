@@ -12,7 +12,6 @@ import WhatsAppCta from '@/components/WhatsAppCta';
 import BusinessOverview from '@/components/BusinessOverview';
 import ServerLocationCard from '@/components/ServerLocationCard';
 import CookieResults from '@/components/CookieResults';
-import RealThreatCasesModal from '@/components/RealThreatCasesModal';
 import RealCasesSection from '@/components/RealCasesSection';
 import HowItWorksGuide from '@/components/HowItWorksGuide';
 import PricingSection from '@/components/PricingSection';
@@ -110,8 +109,10 @@ export default function HomePage() {
       const params = new URLSearchParams(window.location.search);
       const target = params.get('target') || params.get('url');
       if (target) {
-        setUrl(target);
-        // Cargar el dominio en el input sin auditar automáticamente para que el usuario marque la declaración jurada
+        const timer = setTimeout(() => {
+          setUrl(target);
+        }, 50);
+        return () => clearTimeout(timer);
       }
     }
   }, []);

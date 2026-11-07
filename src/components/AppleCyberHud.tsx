@@ -1,7 +1,7 @@
 'use client';
 
 import React from 'react';
-import { Zap, Lock, Activity, ShieldCheck, CheckCircle2, ShieldAlert, Cpu } from 'lucide-react';
+import { Zap, Lock, Activity, ShieldCheck, CheckCircle2, Cpu } from 'lucide-react';
 import { CANONICAL_PORTS } from '@/config/ports';
 
 export default function AppleCyberHud() {
