@@ -248,7 +248,7 @@ Set dynamic: Referrer-Policy = "strict-origin-when-cross-origin"`;
                 <span>Entrega: <strong>24 a 48 Horas Laborables</strong></span>
                 <span>Auditor Responsable: <strong className="text-white">Karol Martín Castillo Rojas</strong></span>
                 <span>RUC: <strong>10704877850</strong> (Neuronal Gravity &bull; Lima, Perú)</span>
-                <span className="text-emerald-400 font-semibold mt-0.5">✓ Comprobante Electrónico SUNAT Disponible</span>
+                <span className="text-emerald-400 font-semibold mt-0.5">✓ Soporte Directo y Garantía de Grado A</span>
               </div>
             </div>
 

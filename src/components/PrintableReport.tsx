@@ -217,7 +217,7 @@ export default function PrintableReport({ report, auditId }: Props) {
                   ¿Cómo solucionar estos riesgos y alcanzar Grado A? (Servicios Disponibles)
                 </strong>
                 <span className="text-[8.5px] text-neutral-600">
-                  Entrega en 24h &bull; Sin tocar contraseñas ni base de datos &bull; Facturación formal con RUC 10704877850
+                  Entrega en 24h &bull; Sin tocar contraseñas ni base de datos &bull; Soporte directo garantizado
                 </span>
               </div>
               <div className="text-right">
