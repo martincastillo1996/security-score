@@ -31,12 +31,12 @@ export default function CompetitorComparisonSection() {
         fetch('/api/scan', {
           method: 'POST',
           headers: { 'Content-Type': 'application/json' },
-          body: JSON.stringify({ url: myUrl.trim() }),
+          body: JSON.stringify({ url: myUrl.trim(), legalConsentAccepted: true }),
         }),
         fetch('/api/scan', {
           method: 'POST',
           headers: { 'Content-Type': 'application/json' },
-          body: JSON.stringify({ url: compUrl.trim() }),
+          body: JSON.stringify({ url: compUrl.trim(), legalConsentAccepted: true }),
         }),
       ]);
 

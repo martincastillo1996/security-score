@@ -55,11 +55,18 @@ export default function HomePage() {
   const [error, setError] = useState<string | null>(null);
   const [copied, setCopied] = useState(false);
   const [viewMode, setViewMode] = useState<'business' | 'tech'>('business');
+  const [legalConsent, setLegalConsent] = useState(false);
   const resultsRef = useRef<HTMLDivElement>(null);
 
-  const handleScan = useCallback(async (targetUrl?: string) => {
+  const handleScan = useCallback(async (targetUrl?: string, overrideConsent?: boolean) => {
     const finalUrl = targetUrl || url;
     if (!finalUrl) return;
+
+    const hasConsent = overrideConsent ?? legalConsent;
+    if (!hasConsent) {
+      setError('Debes marcar la casilla obligatoria de declaración jurada bajo la Ley N° 30096 para poder auditar el dominio.');
+      return;
+    }
 
     setLoading(true);
     setError(null);
@@ -70,7 +77,7 @@ export default function HomePage() {
       const scanPromise = fetch('/api/scan', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ url: finalUrl }),
+        body: JSON.stringify({ url: finalUrl, legalConsentAccepted: true }),
       });
 
       // Garantizar tiempo suficiente (~3900ms) para que el usuario aprecie cada fase de la auditoría neuronal
@@ -96,21 +103,18 @@ export default function HomePage() {
     } finally {
       setLoading(false);
     }
-  }, [url]);
+  }, [url, legalConsent]);
 
   useEffect(() => {
     if (typeof window !== 'undefined') {
       const params = new URLSearchParams(window.location.search);
       const target = params.get('target') || params.get('url');
       if (target) {
-        const timer = setTimeout(() => {
-          setUrl(target);
-          handleScan(target);
-        }, 100);
-        return () => clearTimeout(timer);
+        setUrl(target);
+        // Cargar el dominio en el input sin auditar automáticamente para que el usuario marque la declaración jurada
       }
     }
-  }, [handleScan]);
+  }, []);
 
   const copyShareLink = () => {
     if (!auditId) return;
@@ -245,7 +249,7 @@ export default function HomePage() {
                 e.preventDefault();
                 handleScan();
               }}
-              className="pt-4 max-w-xl mx-auto"
+              className="pt-4 max-w-xl mx-auto space-y-3"
             >
               <div className="relative p-1.5 rounded-2xl bg-white/[0.04] border border-white/10 backdrop-blur-2xl shadow-[0_0_30px_rgba(0,113,227,0.15)] flex items-center gap-2 ring-1 ring-white/10 focus-within:ring-[#0071e3]/80 focus-within:border-[#0071e3]/80 focus-within:shadow-[0_0_45px_rgba(0,113,227,0.35)] transition-all">
                 <div className="pl-3.5 text-neutral-500">
@@ -261,8 +265,13 @@ export default function HomePage() {
                 />
                 <button
                   type="submit"
-                  disabled={loading}
-                  className="px-4 sm:px-5 py-2.5 bg-[#0071e3] hover:bg-[#0077ed] active:scale-[0.98] disabled:bg-neutral-800 disabled:text-neutral-500 font-medium text-xs rounded-xl transition-all flex items-center justify-center gap-1.5 text-white shadow-sm shrink-0 cursor-pointer"
+                  disabled={loading || !legalConsent || !url.trim()}
+                  title={!legalConsent ? 'Marca la casilla obligatoria para activar el botón' : 'Iniciar auditoría'}
+                  className={`px-4 sm:px-5 py-2.5 font-medium text-xs rounded-xl transition-all flex items-center justify-center gap-1.5 shrink-0 ${
+                    loading || !legalConsent || !url.trim()
+                      ? 'bg-neutral-800 text-neutral-500 border border-white/5 cursor-not-allowed opacity-60'
+                      : 'bg-[#0071e3] hover:bg-[#0077ed] text-white shadow-lg shadow-[#0071e3]/30 cursor-pointer active:scale-[0.98]'
+                  }`}
                 >
                   {loading ? (
                     <>
@@ -278,17 +287,57 @@ export default function HomePage() {
                   )}
                 </button>
               </div>
-            </form>
 
-            {/* Aviso Legal y Declaración de Titularidad (Ley N° 30096 - Delitos Informáticos) */}
-            <div className="pt-1 text-center max-w-lg mx-auto">
-              <p className="text-[11px] text-neutral-400 leading-relaxed">
-                <span className="text-emerald-400 font-semibold">🔒 Análisis No Intrusivo:</span> Al auditar, declaras bajo juramento ser titular del dominio o contar con autorización expresa del propietario conforme a la{' '}
-                <Link href="/terminos#delitos-informaticos" className="text-[#38bdf8] hover:underline font-medium">
-                  Ley N° 30096 (Delitos Informáticos del Perú)
-                </Link>.
-              </p>
-            </div>
+              {/* Casilla Obligatoria de Declaración Jurada (Ley N° 30096 - Delitos Informáticos) */}
+              <div
+                className={`p-3.5 sm:p-4 rounded-2xl border text-left transition-all duration-300 ${
+                  legalConsent
+                    ? 'bg-emerald-950/20 border-emerald-500/40 shadow-[0_0_25px_rgba(16,185,129,0.12)]'
+                    : 'bg-[#141416]/90 border-white/10 hover:border-amber-500/40 shadow-lg'
+                }`}
+              >
+                <label htmlFor="sworn-declaration-checkbox" className="flex items-start gap-3.5 cursor-pointer select-none">
+                  <input
+                    id="sworn-declaration-checkbox"
+                    type="checkbox"
+                    checked={legalConsent}
+                    onChange={(e) => {
+                      setLegalConsent(e.target.checked);
+                      if (error) setError(null);
+                    }}
+                    className="mt-1 w-4 h-4 rounded border-white/30 bg-black text-[#0071e3] focus:ring-[#0071e3] focus:ring-offset-0 cursor-pointer accent-[#0071e3] shrink-0"
+                  />
+                  <div className="space-y-1.5 flex-1">
+                    <p className="text-xs sm:text-[12.5px] text-neutral-200 leading-snug font-medium whitespace-normal">
+                      “Declaro bajo juramento que soy el titular del dominio que voy a auditar, o que cuento con autorización expresa y por escrito de su propietario, conforme a la{' '}
+                      <Link
+                        href="/terminos#delitos-informaticos"
+                        className="text-[#38bdf8] underline hover:text-white font-semibold"
+                        onClick={(e) => e.stopPropagation()}
+                      >
+                        Ley N° 30096, Delitos Informáticos del Perú
+                      </Link>
+                      . Entiendo que auditar una web ajena sin permiso puede ser delito.”
+                    </p>
+                    
+                    <div className="flex flex-wrap items-center justify-between gap-2 pt-0.5">
+                      <span
+                        className={`text-[9.5px] font-mono px-2 py-0.5 rounded-full font-bold uppercase tracking-wider inline-flex items-center gap-1 ${
+                          legalConsent
+                            ? 'bg-emerald-500/20 text-emerald-300 border border-emerald-500/30'
+                            : 'bg-amber-500/15 text-amber-300 border border-amber-500/25'
+                        }`}
+                      >
+                        {legalConsent ? '✓ Casilla Marcada • Botón Habilitado' : '⚠️ Casilla Requerida para Activar el Botón'}
+                      </span>
+                      <span className="text-[10px] text-neutral-400 font-mono">
+                        (Guardamos dominio, fecha, hora e IP como prueba legal de autorización)
+                      </span>
+                    </div>
+                  </div>
+                </label>
+              </div>
+            </form>
 
             <div className="flex flex-wrap items-center justify-center gap-2 text-xs text-neutral-400 pt-2">
               <span>O explora una auditoría modelo:</span>
@@ -304,7 +353,8 @@ export default function HomePage() {
                 type="button"
                 onClick={() => {
                   setUrl('https://github.com');
-                  handleScan('https://github.com');
+                  setLegalConsent(true);
+                  handleScan('https://github.com', true);
                 }}
                 className="text-[#2997ff] hover:underline cursor-pointer"
               >

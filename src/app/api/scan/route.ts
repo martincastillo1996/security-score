@@ -8,6 +8,7 @@ import { scanPerimetralPorts } from '@/lib/scanner/portScanner';
 import { lookupServerLocation } from '@/lib/scanner/geoScanner';
 import { v4 as uuidv4 } from 'uuid';
 import { isPrivateOrLocalHost, verifyDnsResolution } from '@/lib/security/ssrfValidator';
+import { saveAuditConsent, AuditConsentRecord } from '@/lib/storage/auditConsentStore';
 
 // Caché en Memoria de Escaneos por Dominio (TTL de 2 horas para soportar picos masivos)
 const DOMAIN_SCAN_CACHE_TTL_MS = 2 * 60 * 60 * 1000; // 2 horas
@@ -35,6 +36,8 @@ const SCAN_WINDOW_MS = 15 * 60 * 1000; // 15 minutos
 const SCAN_MAX_REQUESTS = 10;
 
 function getClientIp(req: Request): string {
+  const cfIp = req.headers.get('cf-connecting-ip');
+  if (cfIp) return cfIp.trim();
   const forwarded = req.headers.get('x-forwarded-for');
   if (forwarded) return forwarded.split(',')[0].trim();
   const realIp = req.headers.get('x-real-ip');
@@ -132,12 +135,22 @@ export async function POST(req: Request) {
       );
     }
 
-    const { url, force } = await req.json();
+    const { url, force, legalConsentAccepted } = await req.json();
 
     if (!url) {
       return NextResponse.json(
         { error: 'Parámetro de URL requerido para auditoría perimetral.' },
         { status: 400 }
+      );
+    }
+
+    // 0.2 Declaración Jurada Obligatoria (Ley N° 30096 - Delitos Informáticos)
+    if (!legalConsentAccepted) {
+      return NextResponse.json(
+        {
+          error: 'Declaración jurada obligatoria: Para auditar debes confirmar ser titular del dominio o contar con autorización por escrito conforme a la Ley N° 30096 (Delitos Informáticos del Perú).',
+        },
+        { status: 403 }
       );
     }
 
@@ -175,6 +188,23 @@ export async function POST(req: Request) {
         { status: 400 }
       );
     }
+
+    // 2.A Registro Inmutable de Consentimiento y Declaración Jurada (Prueba Legal de Autorización)
+    const scanDate = new Date();
+    const consentRecord: AuditConsentRecord = {
+      id: uuidv4(),
+      domain: hostname,
+      normalizedUrl: parsedUrl,
+      timestamp: scanDate.toISOString(),
+      date: scanDate.toLocaleDateString('es-PE', { day: '2-digit', month: 'long', year: 'numeric' }),
+      time: scanDate.toLocaleTimeString('es-PE', { hour: '2-digit', minute: '2-digit', second: '2-digit' }),
+      ip: clientIp,
+      userAgent: req.headers.get('user-agent') || 'Desconocido',
+      hasSwornDeclaration: true,
+      declarationText:
+        'Declaro bajo juramento que soy el titular del dominio que voy a auditar, o que cuento con autorización expresa y por escrito de su propietario, conforme a la Ley N° 30096, Delitos Informáticos del Perú. Entiendo que auditar una web ajena sin permiso puede ser delito.',
+    };
+    saveAuditConsent(consentRecord);
 
     // 2.0 Caché Inteligente por Dominio (Zero-Downtime y $0 Costo en Picos de Tráfico)
     const cacheKey = target.origin.toLowerCase();
