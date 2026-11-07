@@ -1,7 +1,7 @@
 'use client';
 
 import React, { useState } from 'react';
-import { ArrowRight, Swords, ShieldCheck, ShieldAlert, Sparkles, Check, AlertTriangle, Loader2 } from 'lucide-react';
+import { Swords, AlertTriangle, Loader2, Check, ArrowRight } from 'lucide-react';
 import { AuditReportRecord } from '@/lib/storage/reportStore';
 
 export default function CompetitorComparisonSection() {
@@ -9,6 +9,7 @@ export default function CompetitorComparisonSection() {
   const [myUrl, setMyUrl] = useState('');
   const [compUrl, setCompUrl] = useState('');
   const [loading, setLoading] = useState(false);
+  const [legalConsent, setLegalConsent] = useState(false);
   const [error, setError] = useState<string | null>(null);
 
   const [myReport, setMyReport] = useState<AuditReportRecord | null>(null);
@@ -18,6 +19,11 @@ export default function CompetitorComparisonSection() {
     e.preventDefault();
     if (!myUrl || !compUrl) {
       setError('Por favor ingresa tanto tu página web como la de tu competidor.');
+      return;
+    }
+
+    if (!legalConsent) {
+      setError('Debes marcar la casilla obligatoria de declaración jurada bajo la Ley N° 30096 para habilitar la auditoría comparativa.');
       return;
     }
 
@@ -118,10 +124,65 @@ export default function CompetitorComparisonSection() {
               </div>
             </div>
 
+            {/* Casilla Obligatoria de Declaración Jurada (Ley N° 30096) */}
+            <div
+              className={`p-3.5 rounded-2xl border text-left transition-all duration-300 ${
+                legalConsent
+                  ? 'bg-emerald-950/20 border-emerald-500/40 shadow-[0_0_20px_rgba(16,185,129,0.12)]'
+                  : 'bg-black/60 border-white/10 hover:border-amber-500/40'
+              }`}
+            >
+              <label htmlFor="comp-legal-consent-checkbox" className="flex items-start gap-3 cursor-pointer select-none">
+                <input
+                  id="comp-legal-consent-checkbox"
+                  type="checkbox"
+                  checked={legalConsent}
+                  onChange={(e) => {
+                    setLegalConsent(e.target.checked);
+                    if (error) setError(null);
+                  }}
+                  className="mt-1 w-4 h-4 rounded border-white/30 bg-black text-[#0071e3] focus:ring-[#0071e3] focus:ring-offset-0 cursor-pointer accent-[#0071e3] shrink-0"
+                />
+                <div className="space-y-1.5 flex-1">
+                  <p className="text-xs text-neutral-200 leading-snug font-medium whitespace-normal">
+                    “Declaro bajo juramento que soy el titular del dominio que voy a auditar, o que cuento con autorización expresa y por escrito de su propietario, conforme a la{' '}
+                    <a
+                      href="/terminos#delitos-informaticos"
+                      className="text-[#38bdf8] underline hover:text-white font-semibold"
+                      onClick={(e) => e.stopPropagation()}
+                    >
+                      Ley N° 30096, Delitos Informáticos del Perú
+                    </a>
+                    . Entiendo que auditar una web ajena sin permiso puede ser delito.”
+                  </p>
+                  
+                  <div className="flex flex-wrap items-center justify-between gap-2 pt-0.5">
+                    <span
+                      className={`text-[9.5px] font-mono px-2 py-0.5 rounded-full font-bold uppercase tracking-wider inline-flex items-center gap-1 ${
+                        legalConsent
+                          ? 'bg-emerald-500/20 text-emerald-300 border border-emerald-500/30'
+                          : 'bg-amber-500/15 text-amber-300 border border-amber-500/25'
+                      }`}
+                    >
+                      {legalConsent ? '✓ Casilla Marcada • Botón Habilitado' : '⚠️ Casilla Requerida para Activar'}
+                    </span>
+                    <span className="text-[10px] text-neutral-400 font-mono">
+                      (Guardamos dominio, fecha, hora e IP como prueba de autorización)
+                    </span>
+                  </div>
+                </div>
+              </label>
+            </div>
+
             <button
               type="submit"
-              disabled={loading}
-              className="w-full py-3 bg-linear-to-r from-[#0071e3] to-[#7928ca] hover:opacity-95 text-white font-bold text-xs sm:text-sm rounded-xl transition-all flex items-center justify-center gap-2 cursor-pointer shadow-lg shadow-[#0071e3]/20 active:scale-[0.99] disabled:opacity-50"
+              disabled={loading || !legalConsent || !myUrl.trim() || !compUrl.trim()}
+              title={!legalConsent ? 'Marca la casilla obligatoria para activar la comparativa' : 'Comparar seguridad'}
+              className={`w-full py-3 font-bold text-xs sm:text-sm rounded-xl transition-all flex items-center justify-center gap-2 active:scale-[0.99] ${
+                loading || !legalConsent || !myUrl.trim() || !compUrl.trim()
+                  ? 'bg-neutral-800 text-neutral-500 border border-white/5 cursor-not-allowed opacity-60 shadow-none'
+                  : 'bg-linear-to-r from-[#0071e3] to-[#7928ca] hover:opacity-95 text-white shadow-lg shadow-[#0071e3]/20 cursor-pointer'
+              }`}
             >
               {loading ? (
                 <>
