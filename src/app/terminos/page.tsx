@@ -178,24 +178,56 @@ export default function TerminosYPrivacidadPage() {
             <section id="garantia" className="space-y-3 text-sm leading-relaxed scroll-mt-20">
               <h3 className="text-base font-bold text-white flex items-center gap-2">
                 <ShieldCheck className="w-4 h-4 text-emerald-400" />
-                <span>4. Meta Grado A con Re-medición y Límites Técnicos del Servicio</span>
+                <span>4. Alcance de la Garantía Grado A, Re-medición y Exclusión de Responsabilidad por Ataques Futuros</span>
               </h3>
-              <div className="p-4 rounded-2xl bg-white/5 border border-white/10 text-xs text-neutral-300 leading-relaxed space-y-2">
+              <div className="p-4 rounded-2xl bg-white/5 border border-white/10 text-xs text-neutral-300 leading-relaxed space-y-3">
                 <p>
-                  <strong>Compromiso Técnico de Meta Grado A:</strong> En los planes contratados que incluyan remediación técnica (Blindaje Llave en Mano y Blindaje Total WAF), nos comprometemos a llevar la infraestructura perimetral del cliente a la meta acordada (Grado A, 90-100 pts). Si tras la primera remediación no se alcanza dicho Grado en el re-escaneo oficial, aplicaremos las correcciones adicionales necesarias sin costo suplementario hasta certificar la meta acordada.
+                  <strong>Compromiso Técnico de Meta Grado A:</strong> En los planes contratados que incluyan remediación técnica (Blindaje Llave en Mano y Blindaje Total WAF), nos comprometemos a llevar la infraestructura perimetral del cliente a la meta acordada (Grado A, 90-100 pts) al momento de la entrega. Si tras la primera remediación no se alcanza dicho Grado en el re-escaneo oficial de validación, aplicaremos las correcciones adicionales necesarias sin costo suplementario hasta certificar la meta acordada en el informe de entrega.
                 </p>
                 <p>
-                  <strong>Naturaleza Preventiva:</strong> La ciberseguridad perimetral es una disciplina de reducción objetiva de superficie de ataque, no de inmunidad infalible. Las medidas implementadas no cubren vulnerabilidades de día cero de software de terceros no actualizados por el cliente, caídas de hosting, manipulación no coordinada del código fuente ni descuidos internos en la gestión de contraseñas.
+                  <strong>Naturaleza Preventiva y No Inmunidad:</strong> La ciberseguridad perimetral es una disciplina técnica de reducción objetiva de superficie de exposición y endurecimiento de cabeceras, no un escudo de inmunidad absoluta o infalible.
                 </p>
+                <div className="p-3.5 rounded-xl bg-amber-500/10 border border-amber-500/20 text-amber-200 space-y-1.5">
+                  <strong className="text-white block font-semibold">Exclusión Expresa de Responsabilidad por Ataques Futuros:</strong>
+                  <p>
+                    DEFENSA TI y Neuronal Gravity <strong>no asumen responsabilidad civil, comercial, penal ni indemnizatoria alguna por ataques cibernéticos futuros, intrusiones, suplantaciones, brechas de datos o incidentes que ocurran en el futuro</strong> tras la entrega formal del servicio o la emisión del dictamen.
+                  </p>
+                  <p>
+                    La seguridad informática depende de una gestión continua y activa que escapa al control de DEFENSA TI una vez finalizada la remediación perimetral.
+                  </p>
+                </div>
+                <div className="space-y-1.5 text-neutral-300">
+                  <strong className="text-white block">Responsabilidades Exclusivas del Cliente a Futuro:</strong>
+                  <p>
+                    Es deber y responsabilidad única del cliente en todo momento futuro:
+                  </p>
+                  <ul className="list-disc pl-5 space-y-1 text-neutral-400">
+                    <li>Mantener intactas y no remover las cabeceras defensivas inyectadas durante actualizaciones o nuevos despliegues futuros de su web.</li>
+                    <li>Actualizar permanentemente su CMS (WordPress, Shopify, Magento, etc.), plugins, temas y librerías frente a vulnerabilidades de día cero (zero-day).</li>
+                    <li>Renovar oportunamente sus certificados SSL/TLS y gestionar contraseñas seguras y doble factor de autenticación (2FA) para sus administradores.</li>
+                    <li>Monitorear caídas o fallas de configuración de su proveedor de hosting o servidor privado.</li>
+                  </ul>
+                </div>
               </div>
             </section>
 
-            {/* 5. Pagos y Emisión de Comprobantes */}
+            {/* 5. Medios de Pago y Aclaración sobre Tarjetas (Culqi) */}
             <section className="space-y-3 text-sm leading-relaxed">
-              <h3 className="text-base font-bold text-white">5. Medios de Pago y Constancias de Servicio</h3>
+              <h3 className="text-base font-bold text-white">5. Medios de Pago y Aclaración sobre Procesamiento de Tarjetas (Culqi)</h3>
               <p>
-                Los pagos se realizan mediante transferencias bancarias directas o aplicativos móviles autorizados (Yape / Plin / transferencias). <strong>DEFENSA TI no almacena ni procesa números de tarjetas bancarias.</strong> Por cada servicio prestado se emite la constancia de entrega técnica y, en caso de ser expresamente requerido por el cliente al contratar, el comprobante legal correspondiente conforme a normativa tributaria.
+                Los pagos por servicios de auditoría, blindaje o donaciones pueden realizarse mediante transferencias bancarias directas, billeteras digitales (Yape / Plin) o tarjetas de crédito y débito.
               </p>
+              <div className="p-4 rounded-2xl bg-white/5 border border-white/10 space-y-2.5 text-xs text-neutral-300">
+                <p>
+                  <strong>Aclaración Estricta sobre Tarjetas Bancarias:</strong> <strong>DEFENSA TI / Neuronal Gravity nunca captura, almacena, procesa ni tiene acceso directamente en sus servidores a números de tarjetas de crédito o débito, fechas de vencimiento, códigos CVV ni claves bancarias de los usuarios.</strong> Toda nuestra arquitectura opera bajo el principio de cero conocimiento respecto a instrumentos financieros.
+                </p>
+                <p>
+                  <strong>Procesamiento Externo y Delegado vía Culqi (Grupo Credicorp):</strong> Para los pagos o aportes con tarjeta de crédito o débito, la transacción es gestionada de manera <strong>100% externa y delegada</strong> por la pasarela de pagos regulada <strong>Culqi (Compañía Incubadora de Soluciones Móviles S.A.C., empresa del Grupo Credicorp en el Perú)</strong>. Culqi cuenta con la certificación internacional de seguridad <strong>PCI-DSS Nivel 1</strong>. La captura y validación de los datos de la tarjeta ocurre de forma cifrada exclusivamente en los servidores certificados de Culqi, sin que DEFENSA TI reciba ni almacene jamás dicha información confidencial.
+                </p>
+                <p>
+                  Por cada servicio contratado se emite la constancia técnica de entrega del blindaje perimetral.
+                </p>
+              </div>
             </section>
 
             {/* 6. Libro de Reclamaciones */}

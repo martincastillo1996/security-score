@@ -1,7 +1,7 @@
 'use client';
 
 import React from 'react';
-import { Zap, Lock, Activity } from 'lucide-react';
+import { Zap, Lock, Activity, ShieldCheck, CheckCircle2, ShieldAlert, Cpu } from 'lucide-react';
 import { CANONICAL_PORTS } from '@/config/ports';
 
 export default function AppleCyberHud() {
@@ -121,6 +121,57 @@ export default function AppleCyberHud() {
           </div>
         </div>
 
+      </div>
+
+      {/* Ventajas Estratégicas y de Negocio del Motor Perimetral */}
+      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-3 pt-2">
+        <div className="p-3.5 rounded-2xl bg-white/[0.03] border border-white/10 flex items-start gap-3 hover:border-emerald-500/30 transition-all">
+          <div className="p-2 rounded-xl bg-emerald-500/10 text-emerald-400 shrink-0">
+            <ShieldCheck className="w-4 h-4" />
+          </div>
+          <div className="space-y-0.5">
+            <span className="text-xs font-bold text-white block">Cero Caídas (Zero-Downtime)</span>
+            <p className="text-[11px] text-neutral-400 leading-snug">
+              Sondeo asíncrono pasivo que no satura servidores ni altera bases de datos.
+            </p>
+          </div>
+        </div>
+
+        <div className="p-3.5 rounded-2xl bg-white/[0.03] border border-white/10 flex items-start gap-3 hover:border-[#38bdf8]/30 transition-all">
+          <div className="p-2 rounded-xl bg-blue-500/10 text-[#38bdf8] shrink-0">
+            <CheckCircle2 className="w-4 h-4" />
+          </div>
+          <div className="space-y-0.5">
+            <span className="text-xs font-bold text-white block">Aprobación Pasarelas</span>
+            <p className="text-[11px] text-neutral-400 leading-snug">
+              Verifica los estándares perimetrales que evitan retenciones en Yape, Niubiz y Culqi.
+            </p>
+          </div>
+        </div>
+
+        <div className="p-3.5 rounded-2xl bg-white/[0.03] border border-white/10 flex items-start gap-3 hover:border-indigo-500/30 transition-all">
+          <div className="p-2 rounded-xl bg-indigo-500/10 text-indigo-400 shrink-0">
+            <Lock className="w-4 h-4" />
+          </div>
+          <div className="space-y-0.5">
+            <span className="text-xs font-bold text-white block">Privacidad Cero-Conocimiento</span>
+            <p className="text-[11px] text-neutral-400 leading-snug">
+              No requiere contraseñas, tokens ni credenciales. Solo evalúa la armadura exterior.
+            </p>
+          </div>
+        </div>
+
+        <div className="p-3.5 rounded-2xl bg-white/[0.03] border border-white/10 flex items-start gap-3 hover:border-violet-500/30 transition-all">
+          <div className="p-2 rounded-xl bg-violet-500/10 text-violet-400 shrink-0">
+            <Cpu className="w-4 h-4" />
+          </div>
+          <div className="space-y-0.5">
+            <span className="text-xs font-bold text-white block">Recetas Listas para Dev</span>
+            <p className="text-[11px] text-neutral-400 leading-snug">
+              Código directo en Nginx, Apache y Cloudflare para corregir cualquier brecha en 5 minutos.
+            </p>
+          </div>
+        </div>
       </div>
     </div>
   );

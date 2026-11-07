@@ -211,7 +211,7 @@ Set dynamic: Referrer-Policy = "strict-origin-when-cross-origin"`;
         <div className="relative p-6 sm:p-10 rounded-3xl bg-[#0f1219]/90 border border-white/10 shadow-2xl space-y-8 backdrop-blur-xl overflow-hidden">
           
           {/* Marca de Agua ENCIMA EN TODOS LADOS (Web Overlay: z-40 flotante visible) */}
-          <div className="absolute inset-0 pointer-events-none select-none z-40 overflow-hidden flex flex-col justify-around py-12 opacity-[0.09]">
+          <div className="absolute inset-0 pointer-events-none select-none z-40 overflow-hidden flex flex-col justify-around py-8 opacity-[0.20]">
             <div className="flex justify-around transform -rotate-25 whitespace-nowrap">
               <span className="font-black text-5xl tracking-widest text-white border-4 border-white/80 px-6 py-2 rounded-2xl">
                 EJEMPLO &bull; NO OFICIAL
@@ -231,6 +231,11 @@ Set dynamic: Referrer-Policy = "strict-origin-when-cross-origin"`;
               </span>
               <span className="font-black text-5xl tracking-widest text-white border-4 border-white/80 px-6 py-2 rounded-2xl">
                 EJEMPLO &bull; NO OFICIAL
+              </span>
+            </div>
+            <div className="flex justify-around transform -rotate-25 whitespace-nowrap">
+              <span className="font-black text-5xl tracking-widest text-white border-4 border-white/80 px-6 py-2 rounded-2xl">
+                MUESTRA DIDÁCTICA &bull; NO VINCULANTE
               </span>
             </div>
           </div>

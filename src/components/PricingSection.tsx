@@ -225,7 +225,7 @@ export default function PricingSection({ targetUrl, score, grade }: Props) {
       {/* Aviso de Garantía y Términos */}
       <div className="text-center pt-2 max-w-2xl mx-auto space-y-1">
         <p className="text-xs text-neutral-400">
-          * <strong>Meta Grado A con Re-medición:</strong> Si tu sitio no alcanza Grado A en la primera auditoría tras nuestra intervención, aplicamos correcciones y re-escaneos adicionales sin costo hasta certificar la meta acordada conforme a nuestros{' '}
+          * <strong>Meta Grado A con Re-medición:</strong> Si tu sitio no alcanza Grado A en la primera auditoría tras nuestra intervención, aplicamos correcciones y re-escaneos adicionales sin costo hasta certificar la meta acordada. Servicio preventivo de reducción perimetral; no cubre ataques futuros ni negligencia en accesos conforme a nuestros{' '}
           <a href="/terminos#garantia" className="text-[#38bdf8] hover:underline font-medium">
             Términos y Condiciones
           </a>.

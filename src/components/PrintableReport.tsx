@@ -51,7 +51,7 @@ export default function PrintableReport({ report, auditId }: Props) {
       <div className="relative p-7 min-h-screen flex flex-col justify-between overflow-hidden">
         
         {/* Marca de Agua ENCIMA EN TODOS LADOS (Página 1: z-50 overlay superior visible) */}
-        <div className="absolute inset-0 pointer-events-none select-none z-50 overflow-hidden flex flex-col justify-around py-8 opacity-[0.14]">
+        <div className="absolute inset-0 pointer-events-none select-none z-50 overflow-hidden flex flex-col justify-around py-4 opacity-[0.22] print:opacity-[0.25]">
           <div className="flex justify-around transform -rotate-25 whitespace-nowrap">
             <span className="font-black text-4xl tracking-widest text-neutral-900 border-4 border-neutral-900 px-5 py-1.5 rounded-2xl">
               EJEMPLO &bull; NO OFICIAL
@@ -76,6 +76,14 @@ export default function PrintableReport({ report, auditId }: Props) {
           <div className="flex justify-around transform -rotate-25 whitespace-nowrap">
             <span className="font-black text-5xl tracking-widest text-neutral-900 border-4 border-neutral-900 px-6 py-2 rounded-2xl">
               MUESTRA DIDÁCTICA &bull; NO VINCULANTE
+            </span>
+          </div>
+          <div className="flex justify-around transform -rotate-25 whitespace-nowrap">
+            <span className="font-black text-4xl tracking-widest text-neutral-900 border-4 border-neutral-900 px-5 py-1.5 rounded-2xl">
+              EJEMPLO DIDÁCTICO &bull; NO OFICIAL
+            </span>
+            <span className="font-black text-4xl tracking-widest text-neutral-900 border-4 border-neutral-900 px-5 py-1.5 rounded-2xl">
+              MUESTRA DE REPORTE
             </span>
           </div>
         </div>
@@ -305,7 +313,7 @@ export default function PrintableReport({ report, auditId }: Props) {
         style={{ pageBreakBefore: 'always', breakBefore: 'page' }}
       >
         {/* Marca de Agua ENCIMA EN TODOS LADOS (Página 2: z-50 overlay superior visible) */}
-        <div className="absolute inset-0 pointer-events-none select-none z-50 overflow-hidden flex flex-col justify-around py-8 opacity-[0.14]">
+        <div className="absolute inset-0 pointer-events-none select-none z-50 overflow-hidden flex flex-col justify-around py-4 opacity-[0.22] print:opacity-[0.25]">
           <div className="flex justify-around transform -rotate-25 whitespace-nowrap">
             <span className="font-black text-4xl tracking-widest text-neutral-900 border-4 border-neutral-900 px-5 py-1.5 rounded-2xl">
               EJEMPLO &bull; NO OFICIAL
@@ -330,6 +338,14 @@ export default function PrintableReport({ report, auditId }: Props) {
           <div className="flex justify-around transform -rotate-25 whitespace-nowrap">
             <span className="font-black text-5xl tracking-widest text-neutral-900 border-4 border-neutral-900 px-6 py-2 rounded-2xl">
               RECETAS DE MUESTRA &bull; NO VINCULANTE
+            </span>
+          </div>
+          <div className="flex justify-around transform -rotate-25 whitespace-nowrap">
+            <span className="font-black text-4xl tracking-widest text-neutral-900 border-4 border-neutral-900 px-5 py-1.5 rounded-2xl">
+              EJEMPLO DIDÁCTICO &bull; NO OFICIAL
+            </span>
+            <span className="font-black text-4xl tracking-widest text-neutral-900 border-4 border-neutral-900 px-5 py-1.5 rounded-2xl">
+              GUÍA DE CÓDIGO
             </span>
           </div>
         </div>
