@@ -50,10 +50,33 @@ export default function PrintableReport({ report, auditId }: Props) {
       {/* ========================================================================= */}
       <div className="relative p-7 min-h-screen flex flex-col justify-between overflow-hidden">
         
-        {/* Marca de Agua de Fondo Página 1 */}
-        <div className="absolute inset-0 pointer-events-none select-none flex items-center justify-center z-0 opacity-[0.065]">
-          <div className="text-center transform -rotate-30 font-black text-7xl tracking-widest text-neutral-900 border-8 border-neutral-900 p-8 rounded-3xl">
-            EJEMPLO<br />NO OFICIAL
+        {/* Marca de Agua ENCIMA EN TODOS LADOS (Página 1: z-50 overlay superior visible) */}
+        <div className="absolute inset-0 pointer-events-none select-none z-50 overflow-hidden flex flex-col justify-around py-8 opacity-[0.14]">
+          <div className="flex justify-around transform -rotate-25 whitespace-nowrap">
+            <span className="font-black text-4xl tracking-widest text-neutral-900 border-4 border-neutral-900 px-5 py-1.5 rounded-2xl">
+              EJEMPLO &bull; NO OFICIAL
+            </span>
+            <span className="font-black text-4xl tracking-widest text-neutral-900 border-4 border-neutral-900 px-5 py-1.5 rounded-2xl">
+              MUESTRA DIDÁCTICA
+            </span>
+          </div>
+          <div className="flex justify-around transform -rotate-25 whitespace-nowrap">
+            <span className="font-black text-5xl tracking-widest text-neutral-900 border-4 border-neutral-900 px-6 py-2 rounded-2xl">
+              DOCUMENTO DE EJEMPLO &bull; NO OFICIAL
+            </span>
+          </div>
+          <div className="flex justify-around transform -rotate-25 whitespace-nowrap">
+            <span className="font-black text-4xl tracking-widest text-neutral-900 border-4 border-neutral-900 px-5 py-1.5 rounded-2xl">
+              CASO FICTICIO &bull; DEFENSA TI
+            </span>
+            <span className="font-black text-4xl tracking-widest text-neutral-900 border-4 border-neutral-900 px-5 py-1.5 rounded-2xl">
+              EJEMPLO &bull; NO OFICIAL
+            </span>
+          </div>
+          <div className="flex justify-around transform -rotate-25 whitespace-nowrap">
+            <span className="font-black text-5xl tracking-widest text-neutral-900 border-4 border-neutral-900 px-6 py-2 rounded-2xl">
+              MUESTRA DIDÁCTICA &bull; NO VINCULANTE
+            </span>
           </div>
         </div>
 
@@ -281,10 +304,33 @@ export default function PrintableReport({ report, auditId }: Props) {
         className="relative p-7 min-h-screen flex flex-col justify-between overflow-hidden"
         style={{ pageBreakBefore: 'always', breakBefore: 'page' }}
       >
-        {/* Marca de Agua de Fondo Página 2 */}
-        <div className="absolute inset-0 pointer-events-none select-none flex items-center justify-center z-0 opacity-[0.065]">
-          <div className="text-center transform -rotate-30 font-black text-7xl tracking-widest text-neutral-900 border-8 border-neutral-900 p-8 rounded-3xl">
-            EJEMPLO<br />NO OFICIAL
+        {/* Marca de Agua ENCIMA EN TODOS LADOS (Página 2: z-50 overlay superior visible) */}
+        <div className="absolute inset-0 pointer-events-none select-none z-50 overflow-hidden flex flex-col justify-around py-8 opacity-[0.14]">
+          <div className="flex justify-around transform -rotate-25 whitespace-nowrap">
+            <span className="font-black text-4xl tracking-widest text-neutral-900 border-4 border-neutral-900 px-5 py-1.5 rounded-2xl">
+              EJEMPLO &bull; NO OFICIAL
+            </span>
+            <span className="font-black text-4xl tracking-widest text-neutral-900 border-4 border-neutral-900 px-5 py-1.5 rounded-2xl">
+              GUÍA TÉCNICA DEV
+            </span>
+          </div>
+          <div className="flex justify-around transform -rotate-25 whitespace-nowrap">
+            <span className="font-black text-5xl tracking-widest text-neutral-900 border-4 border-neutral-900 px-6 py-2 rounded-2xl">
+              DOCUMENTO DE EJEMPLO &bull; NO OFICIAL
+            </span>
+          </div>
+          <div className="flex justify-around transform -rotate-25 whitespace-nowrap">
+            <span className="font-black text-4xl tracking-widest text-neutral-900 border-4 border-neutral-900 px-5 py-1.5 rounded-2xl">
+              CASO MODELO &bull; DEFENSA TI
+            </span>
+            <span className="font-black text-4xl tracking-widest text-neutral-900 border-4 border-neutral-900 px-5 py-1.5 rounded-2xl">
+              EJEMPLO &bull; NO OFICIAL
+            </span>
+          </div>
+          <div className="flex justify-around transform -rotate-25 whitespace-nowrap">
+            <span className="font-black text-5xl tracking-widest text-neutral-900 border-4 border-neutral-900 px-6 py-2 rounded-2xl">
+              RECETAS DE MUESTRA &bull; NO VINCULANTE
+            </span>
           </div>
         </div>
 

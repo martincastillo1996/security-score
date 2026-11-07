@@ -210,10 +210,28 @@ Set dynamic: Referrer-Policy = "strict-origin-when-cross-origin"`;
         {/* CONTENEDOR DEL DOCUMENTO MODELO */}
         <div className="relative p-6 sm:p-10 rounded-3xl bg-[#0f1219]/90 border border-white/10 shadow-2xl space-y-8 backdrop-blur-xl overflow-hidden">
           
-          {/* Marca de Agua de Fondo Tenue */}
-          <div className="absolute inset-0 pointer-events-none select-none flex items-center justify-center z-0 opacity-[0.03]">
-            <div className="text-center transform -rotate-30 font-black text-8xl tracking-widest text-white border-8 border-white p-12 rounded-3xl">
-              EJEMPLO<br />NO OFICIAL
+          {/* Marca de Agua ENCIMA EN TODOS LADOS (Web Overlay: z-40 flotante visible) */}
+          <div className="absolute inset-0 pointer-events-none select-none z-40 overflow-hidden flex flex-col justify-around py-12 opacity-[0.09]">
+            <div className="flex justify-around transform -rotate-25 whitespace-nowrap">
+              <span className="font-black text-5xl tracking-widest text-white border-4 border-white/80 px-6 py-2 rounded-2xl">
+                EJEMPLO &bull; NO OFICIAL
+              </span>
+              <span className="font-black text-5xl tracking-widest text-white border-4 border-white/80 px-6 py-2 rounded-2xl">
+                MUESTRA DIDÁCTICA
+              </span>
+            </div>
+            <div className="flex justify-around transform -rotate-25 whitespace-nowrap">
+              <span className="font-black text-6xl tracking-widest text-white border-4 border-white/80 px-8 py-3 rounded-2xl">
+                CASO FICTICIO &bull; DEFENSA TI
+              </span>
+            </div>
+            <div className="flex justify-around transform -rotate-25 whitespace-nowrap">
+              <span className="font-black text-5xl tracking-widest text-white border-4 border-white/80 px-6 py-2 rounded-2xl">
+                DOCUMENTO DE MUESTRA
+              </span>
+              <span className="font-black text-5xl tracking-widest text-white border-4 border-white/80 px-6 py-2 rounded-2xl">
+                EJEMPLO &bull; NO OFICIAL
+              </span>
             </div>
           </div>
 
